@@ -6,8 +6,7 @@
     android:background="@color/white"
     android:fitsSystemWindows="true"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    tools:context=".page.member.LoginActivity">
+    android:focusableInTouchMode="true">
 
     <ScrollView
         android:id="@+id/scroll_view"

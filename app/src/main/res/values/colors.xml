@@ -8,8 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+
+    <color name="colorPrimary">#FFFFFFFF</color>
+
     <!--custom color -->
     <color name="black_button">#212121</color>
     <color name="gray_text">#AAAAAA</color>
+    <color name="grayFont">#707070</color>
+    <color name="grayBackground">#E5E5E5</color>
     <color name="red_text">#ED1C24</color>
 </resources>

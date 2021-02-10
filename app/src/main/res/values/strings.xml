@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">dokter-mobil-customer</string>
+    <string name="please_wait">Please Wait …</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="walkthrough_title">Lorem Ipsum is Simple Dummy Text</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
 
 
     <!--login-->
@@ -19,7 +24,7 @@
     <string name="register">Register</string>
     <string name="register_account">Register Account</string>
     <string name="fill_your_detail">Fill your detail or continue with social media</string>
-    <string name="fullname">Fullname</string>
+    <string name="fullname">Full name</string>
     <string name="type_your_name">Type your name</string>
     <string name="have_an_account">Have an account?</string>
 

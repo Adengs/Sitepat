@@ -67,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:textColor="@color/gray_text"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/fullname"/>
 
@@ -111,7 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:textColor="@color/gray_text"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/email"/>
 
@@ -155,7 +155,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:textColor="@color/gray_text"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/password"/>
 
@@ -251,7 +251,7 @@
                         android:text="@string/have_an_account"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_register"
+                        android:id="@+id/tv_login"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/login"

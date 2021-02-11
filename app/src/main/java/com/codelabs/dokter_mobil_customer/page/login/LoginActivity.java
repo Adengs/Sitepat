@@ -8,6 +8,7 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -85,12 +86,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private boolean valid() {
         if (!RecentUtils.isEmailValid(edtEmail.getText().toString().trim())) {
-            showToast("please enter your valid email");
+            Toast.makeText(this,"please enter your valid email", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         if (TextUtils.isEmpty(edtPassword.getText().toString().trim())) {
-            showToast("please enter your password");
+            Toast.makeText(this,"please enter your password", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -104,16 +105,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
            startActivity(intent);
+
        }
 
        if (tvForgotPassword == view) {
            Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
            startActivity(intent);
+
        }
 
        if (tvRegister == view) {
            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
            startActivity(intent);
+
        }
 
        if (imgEyePassword == view) {

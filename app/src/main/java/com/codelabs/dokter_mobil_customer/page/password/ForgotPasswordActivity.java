@@ -6,12 +6,15 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.codelabs.dokter_mobil_customer.R;
+import com.codelabs.dokter_mobil_customer.page.login.LoginActivity;
 import com.codelabs.dokter_mobil_customer.utils.BaseActivity;
 
 import butterknife.BindView;
@@ -56,7 +59,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
 
     private boolean valid() {
         if (TextUtils.isEmpty(edtEmailPhone.getText().toString().trim())) {
-            showToast("please enter your data");
+            Toast.makeText(this,"please enter your data", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -67,10 +70,12 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
     public void onClick(View view) {
         if (ivBack == view) {
             onBackPressed();
-            view.setOnClickListener(null);
+
         }
 
         if (btnContinue == view) {
+            Intent intent = new Intent(ForgotPasswordActivity.this, ForgotPasswordVerificationActivity.class);
+            startActivity(intent);
 
         }
 

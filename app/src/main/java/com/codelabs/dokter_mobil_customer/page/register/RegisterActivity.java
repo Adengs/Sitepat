@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.widget.Toast;
 
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.utils.BaseActivity;
@@ -79,17 +80,17 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     private boolean valid() {
         if (TextUtils.isEmpty(edtFullname.getText().toString().trim())) {
-            showToast("please enter your full name");
+            Toast.makeText(this,"please enter your full name",Toast.LENGTH_SHORT).show();
             return false;
         }
 
         if (!RecentUtils.isEmailValid(edtEmail.getText().toString().trim())) {
-            showToast("please enter your valid email");
+            Toast.makeText(this,"please enter your valid email", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         if (TextUtils.isEmpty(edtPassword.getText().toString().trim())) {
-            showToast("please enter your password");
+            Toast.makeText(this,"please enter your password", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -104,12 +105,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
         if (tvLogin == view) {
             finish();
-            view.setOnClickListener(null);
         }
 
         if (ivBack == view) {
             finish();
-            view.setOnClickListener(null);
         }
 
         if (imgEyePassword == view) {

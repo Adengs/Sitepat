@@ -9,7 +9,9 @@
 
     <!--login-->
     <string name="email">E-mail</string>
+    <string name="phone">Phone</string>
     <string name="type_email_add">Type e-mail address</string>
+    <string name="type_phone_number">Type phone number</string>
     <string name="password">Password</string>
     <string name="type_password">Type password</string>
     <string name="forgot_password">Forgot password</string>

@@ -81,6 +81,22 @@ public class DataManager {
         setTempJson("LOGOUT_DURATION", logoutDuration);
     }
 
+    public String getTokenAccess() {
+        return getTempJSON("accessToken");
+    }
+
+    public void setTokenAccess(String val) {
+        setTempJson("accessToken", val);
+    }
+
+    public String getToken() {
+        return getTempJSON("token");
+    }
+
+    public void setToken(String val) {
+        setTempJson("token", val);
+    }
+
 
 
 

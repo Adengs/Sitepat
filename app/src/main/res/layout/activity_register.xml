@@ -144,12 +144,56 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/container_password"
+                android:id="@+id/container_phone"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_below="@+id/container_edt_email">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/phone"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/container_edt_phone"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_edittext_grey"
+                android:layout_marginHorizontal="20dp"
+                android:layout_below="@+id/container_phone">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edt_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:hint="@string/type_phone_number"
+                    android:inputType="number"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:fontFamily="@font/poppins_regular"
+                    android:adjustViewBounds="true"
+                    android:minHeight="52dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/container_password"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_below="@+id/container_edt_phone">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"

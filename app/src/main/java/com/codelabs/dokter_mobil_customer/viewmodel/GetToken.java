@@ -7,6 +7,8 @@ public class GetToken {
     private dataToken data;
     @SerializedName("message")
     private String message;
+    @SerializedName("status_code")
+    private int status_code;
 
     public dataToken getData() {
         return data;
@@ -14,6 +16,10 @@ public class GetToken {
 
     public String getMessage() {
         return message;
+    }
+
+    public int getStatus_code() {
+        return status_code;
     }
 
     public static class dataToken {

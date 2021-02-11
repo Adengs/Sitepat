@@ -94,6 +94,10 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
             finish();
         }
 
+        if (btnSubmit == view) {
+            Toast.makeText(ChangePasswordActivity.this, "On Develop",Toast.LENGTH_SHORT).show();
+        }
+
         if (!showPassword) {
             imgEyePassword.setImageResource(R.drawable.ic_eye_gone);
             edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());

@@ -11,7 +11,7 @@ public class AppConstant {
     public static final String AcceptValue = "application/json";
     public static final long TIMER_AUTO_LOGOUT = 900000;
 
-    public static final String HostAPI = "http://178.128.62.50/bengkelmobil/api/public";
+    public static final String HostAPI = "http://178.128.62.50/bengkelmobil/gateway/";
 
     public static final String Walkthrough = "general/api/v1/walkthrough";
     public static final String Login = "api/v1/authenticate";

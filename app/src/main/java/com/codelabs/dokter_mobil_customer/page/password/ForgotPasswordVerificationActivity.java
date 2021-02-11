@@ -114,7 +114,7 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
         }
 
         if (tvResendCode == view) {
-            Toast.makeText(this,"On develop", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"On Develop", Toast.LENGTH_SHORT).show();
         }
 
     }

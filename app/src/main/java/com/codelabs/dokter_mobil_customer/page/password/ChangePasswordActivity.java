@@ -2,6 +2,7 @@ package com.codelabs.dokter_mobil_customer.page.password;
 
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -14,7 +15,9 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.codelabs.dokter_mobil_customer.R;
-import com.codelabs.dokter_mobil_customer.utils.BaseActivity;
+import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,7 +58,9 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
     }
 
     private void initView() {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
     }
 
     private void initSetup() {
@@ -70,12 +75,12 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
     }
 
     private boolean valid() {
-        if (TextUtils.isEmpty(edtPassword.getText().toString().trim())){
+        if (TextUtils.isEmpty(Objects.requireNonNull(edtPassword.getText()).toString().trim())){
             Toast.makeText(this,"please enter your password", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if (TextUtils.isEmpty(edtConfPassword.getText().toString().trim())) {
+        if (TextUtils.isEmpty(Objects.requireNonNull(edtConfPassword.getText()).toString().trim())) {
             Toast.makeText(this,"please confirm your password", Toast.LENGTH_SHORT).show();
             return false;
         }

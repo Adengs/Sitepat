@@ -26,8 +26,16 @@ public class DataLogin {
             return dataCustomer;
         }
 
+        public void setDataCustomer(DataCustomer dataCustomer) {
+            this.dataCustomer = dataCustomer;
+        }
+
         public String getToken() {
             return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
         }
     }
 

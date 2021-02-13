@@ -1,16 +1,14 @@
 package com.codelabs.dokter_mobil_customer.page.register;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -19,19 +17,20 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.codelabs.dokter_mobil_customer.R;
+import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
 import com.codelabs.dokter_mobil_customer.connection.AppConstant;
 import com.codelabs.dokter_mobil_customer.connection.DataManager;
+import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
+import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.page.login.LoginActivity;
-import com.codelabs.dokter_mobil_customer.page.main.MainActivity;
-import com.codelabs.dokter_mobil_customer.utils.BaseActivity;
 import com.codelabs.dokter_mobil_customer.utils.RecentUtils;
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,7 +65,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @BindView(R.id.edt_phone)
     AppCompatEditText edtPhone;
 
-
     private Boolean showPassword = false;
 
     @Override
@@ -76,12 +74,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         ButterKnife.bind(this);
         initView();
         initSetup();
-        fetchData();
-
     }
 
     private void initView() {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
     }
 
     private void initSetup() {
@@ -92,45 +90,44 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-    private void fetchData() {
-
-    }
 
     public void doRegister() {
         if (!valid())
             return;
 
         Map<String, String> params = new HashMap<>();
-        params.put("fullname", edtFullname.getText().toString().trim());
-        params.put("email", edtEmail.getText().toString().trim());
-        params.put("phoneNo", edtPhone.getText().toString().trim());
-        params.put("password", edtPassword.getText().toString().trim());
+        params.put("fullname", Objects.requireNonNull(edtFullname.getText()).toString().trim());
+        params.put("email", Objects.requireNonNull(edtEmail.getText()).toString().trim());
+        params.put("phoneNo", Objects.requireNonNull(edtPhone.getText()).toString().trim());
+        params.put("password", Objects.requireNonNull(edtPassword.getText()).toString().trim());
+        showDialogProgress("Send data register");
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getTokenAccess();
         Call<DoPost> call = apiService.doRegister(auth,params);
         call.enqueue(new Callback<DoPost>() {
             @Override
             public void onResponse(@NonNull Call<DoPost> call, @NonNull Response<DoPost> data) {
-
+                hideDialogProgress();
                 if (data.isSuccessful()) {
-                    if (data!= null) {
-                        if (data.code() == 200) {
-                            Toast.makeText(RegisterActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        }
+                    if (data.code() == 200) {
+                        Toast.makeText(RegisterActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     }
                 } else {
-                    Toast.makeText(RegisterActivity.this, String.valueOf(data.code()),Toast.LENGTH_SHORT).show();
+                    ApiError error = ErrorUtils.parseError(data);
+                    showToast(error.message());
+//                    Toast.makeText(RegisterActivity.this, String.valueOf(data.code()),Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<DoPost> call, @NonNull Throwable t) {
-                if (call.isCanceled()){
+                if (!call.isCanceled()){
+                    hideDialogProgress();
                     Toast.makeText(RegisterActivity.this,"Network Failure :( please try again later", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -138,22 +135,22 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private boolean valid() {
-        if (TextUtils.isEmpty(edtFullname.getText().toString().trim())) {
+        if (TextUtils.isEmpty(Objects.requireNonNull(edtFullname.getText()).toString().trim())) {
             Toast.makeText(this,"please enter your full name",Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if (!RecentUtils.isEmailValid(edtEmail.getText().toString().trim())) {
+        if (!RecentUtils.isEmailValid(Objects.requireNonNull(edtEmail.getText()).toString().trim())) {
             Toast.makeText(this,"please enter your valid email", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if (TextUtils.isEmpty(edtPhone.getText().toString().trim())) {
+        if (TextUtils.isEmpty(Objects.requireNonNull(edtPhone.getText()).toString().trim())) {
             Toast.makeText(this,"please enter your phone number", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if (TextUtils.isEmpty(edtPassword.getText().toString().trim())) {
+        if (TextUtils.isEmpty(Objects.requireNonNull(edtPassword.getText()).toString().trim())) {
             Toast.makeText(this,"please enter your password", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -176,6 +173,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         }
 
         if (imgEyePassword == view) {
+            assert imgEyePassword != null;
             if (!showPassword) {
                 imgEyePassword.setImageResource(R.drawable.ic_eye_gone);
                 edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());

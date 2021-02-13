@@ -8,14 +8,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.codelabs.dokter_mobil_customer.R;
+import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
 import com.codelabs.dokter_mobil_customer.connection.AppConstant;
 import com.codelabs.dokter_mobil_customer.connection.DataManager;
+import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
+import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.page.login.LoginActivity;
 import com.codelabs.dokter_mobil_customer.page.main.MainActivity;
 import com.codelabs.dokter_mobil_customer.page.walkthrough.WalkthroughActivity;
-import com.codelabs.dokter_mobil_customer.utils.BaseActivity;
 import com.codelabs.dokter_mobil_customer.utils.RecentUtils;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetToken;
 
@@ -32,6 +34,11 @@ public class SplashScreenActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        fetchData();
+    }
+
+
+    private void fetchData() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -47,23 +54,13 @@ public class SplashScreenActivity extends BaseActivity {
                 }
             }
         }, 1200);
-
-        fetchData();
     }
 
-    private void fetchData() {
-//        loadAppToken();
-    }
-
-    /**
-     *
-     *function load data
-     */
 
     public void loadAppToken() {
         Map<String, String> params = new HashMap<>();
-        params.put("client", "app-android");
-        params.put("secret", "SRi9VPFNxXZ0pfvFNGPdA2gJ7mN23mCk");
+        params.put("client", AppConstant.client);
+        params.put("secret", AppConstant.secret);
 
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AppToken;
@@ -71,25 +68,25 @@ public class SplashScreenActivity extends BaseActivity {
         call.enqueue(new Callback<GetToken>() {
             @Override
             public void onResponse(@NonNull Call<GetToken> call, @NonNull Response<GetToken> data) {
-
                 if (data.isSuccessful()) {
-                    if (data!= null) {
-                        if (data.code() == 200) {
-                            GetToken response = data.body();
-                            Toast.makeText(SplashScreenActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
-                            DataManager.getInstance().setTokenAccess(response.getData().getAccessToken());
-                            goToLogin();
-                        }
+                    if (data.code() == 200) {
+                        GetToken response = data.body();
+                        assert response != null;
+                        Toast.makeText(SplashScreenActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                        DataManager.getInstance().setTokenAccess(response.getData().getAccessToken());
+                        goToLogin();
                     }
                 } else {
-                    Toast.makeText(SplashScreenActivity.this, String.valueOf(data.code()),Toast.LENGTH_SHORT).show();
+                    ApiError error = ErrorUtils.parseError(data);
+                    showToast(error.message());
                     goToLogin();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<GetToken> call, @NonNull Throwable t) {
-                if (call.isCanceled()){
+                if (!call.isCanceled()){
+                    goToLogin();
                     Toast.makeText(SplashScreenActivity.this,"Network Failure :( please try again later", Toast.LENGTH_SHORT).show();
                 }
             }

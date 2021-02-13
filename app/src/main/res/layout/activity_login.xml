@@ -12,7 +12,6 @@
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
         tools:ignore="UselessParent">
 
         <RelativeLayout
@@ -24,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="25dp">
+                android:layout_marginTop="70dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_logo"
@@ -121,8 +120,7 @@
                     android:layout_toStartOf="@+id/img_eye_password"
                     android:minHeight="52dp"
                     android:background="@android:color/transparent"
-                    android:scaleType="centerInside"
-                    android:layout_toLeftOf="@+id/img_eye_password" />
+                    android:scaleType="centerInside" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_eye_password"
@@ -133,8 +131,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_eye_gone"
-                    android:layout_alignParentRight="true" />
+                    android:src="@drawable/ic_eye_gone" />
 
             </RelativeLayout>
 
@@ -155,8 +152,7 @@
                     android:padding="10dp"
                     android:textColor="@color/red_text"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@string/forgot_password_ques"
-                    android:layout_alignParentRight="true" />
+                    android:text="@string/forgot_password_ques" />
 
             </RelativeLayout>
 
@@ -179,8 +175,7 @@
                     android:textColor="@color/white"
                     android:textAllCaps="false"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="@string/login"
-                    android:layout_alignParentRight="true" />
+                    android:text="@string/login" />
 
             </RelativeLayout>
 
@@ -232,12 +227,10 @@
                         android:layout_marginEnd="10dp"
                         android:padding="10dp"
                         android:background="@drawable/background_btn_white"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp">
+                        android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_centerInParent="true"
-                            android:drawableLeft="@drawable/ic_google"
                             android:drawablePadding="10dp"
                             android:paddingBottom="10dp"
                             android:text="@string/google"
@@ -258,8 +251,7 @@
                         android:layout_width="0dp"
                         android:padding="10dp"
                         android:background="@drawable/background_btn_white"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp">
+                        android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:textColor="@android:color/tertiary_text_dark"

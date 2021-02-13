@@ -1,6 +1,5 @@
 package com.codelabs.dokter_mobil_customer.page.password;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -8,16 +7,15 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.codelabs.dokter_mobil_customer.R;
+import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.helper.EditTextUtils;
-import com.codelabs.dokter_mobil_customer.page.login.LoginActivity;
-import com.codelabs.dokter_mobil_customer.utils.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +58,11 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
     }
 
     private void initView() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+
         edtCode1.addTextChangedListener(EditTextUtils.getTextWatcher(edtCode1, edtCode2,false));
         edtCode2.addTextChangedListener(EditTextUtils.getTextWatcher(edtCode2, edtCode3, false));
         edtCode3.addTextChangedListener(EditTextUtils.getTextWatcher(edtCode3, edtCode4, false));

@@ -4,6 +4,9 @@ public class AppConstant {
     public static final String AuthToken = "X-APP-TOKEN";
     public static final String AppToken = "PeTShOpQue";
 
+    public static final String client = "app-android";
+    public static final String secret = "SRi9VPFNxXZ0pfvFNGPdA2gJ7mN23mCk";
+
     public static final String AuthTitle = "Authorization";
     public static final String AuthValue = "Bearer";
 

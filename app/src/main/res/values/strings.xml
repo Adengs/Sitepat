@@ -43,5 +43,11 @@
     <string name="desc_forgot">Enter the registered email/phone number. We will send you a verification code to reset your password.</string>
     <string name="desc_send_6_digit">We have sent a 6 digit code to number **** **** **86. Please input code here!.</string>
 
+<!--    Setting-->
+    <string name="setting">Setting</string>
+    <string name="getting_started">Getting Started</string>
+    <string name="term_condition">Term &amp; Conditions</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="logout">Logout</string>
 
 </resources>

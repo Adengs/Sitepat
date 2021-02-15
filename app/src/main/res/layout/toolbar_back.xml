@@ -12,15 +12,15 @@
         android:layout_width="56dp"
         android:layout_height="56dp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         tools:text="{title}"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="@font/rajdhani_regular"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
         android:maxWidth="260dp" />
 </RelativeLayout>

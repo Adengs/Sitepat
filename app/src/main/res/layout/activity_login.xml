@@ -46,9 +46,9 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_14ssp"
                     android:textColor="@color/gray_text"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:text="@string/email"/>
 
             </RelativeLayout>
@@ -70,9 +70,9 @@
                     android:textColorHint="@color/gray_text"
                     android:hint="@string/type_email_add"
                     android:inputType="textEmailAddress"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_14ssp"
                     android:textColor="@android:color/black"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:adjustViewBounds="true"
                     android:minHeight="52dp"
                     android:background="@android:color/transparent"
@@ -91,9 +91,9 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_14ssp"
                     android:textColor="@color/gray_text"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:text="@string/password"/>
 
             </RelativeLayout>
@@ -115,9 +115,9 @@
                     android:hint="@string/type_password"
                     android:textColorHint="@color/gray_text"
                     android:inputType="textPassword"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_14ssp"
                     android:textColor="@android:color/black"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:adjustViewBounds="true"
                     android:layout_toStartOf="@+id/img_eye_password"
                     android:minHeight="52dp"
@@ -150,10 +150,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_14ssp"
                     android:padding="10dp"
                     android:textColor="@color/red_text"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:text="@string/forgot_password_ques" />
 
             </RelativeLayout>
@@ -172,11 +172,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_14ssp"
                     android:padding="10dp"
                     android:textColor="@color/white"
                     android:textAllCaps="false"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/rajdhani_medium"
                     android:text="@string/login" />
 
             </RelativeLayout>
@@ -194,10 +194,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_14ssp"
                     android:padding="10dp"
                     android:textColor="@color/gray_text"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:text="@string/or_continue_with" />
 
             </RelativeLayout>
@@ -237,8 +237,8 @@
                             android:paddingBottom="10dp"
                             android:text="@string/google"
                             android:paddingTop="10dp"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/poppins_regular"
+                            android:textSize="@dimen/_14ssp"
+                            android:fontFamily="@font/rajdhani_regular"
                             android:textColor="@android:color/tertiary_text_dark"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -261,9 +261,9 @@
                             android:text="@string/facebook"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"
-                            android:textSize="14sp"
+                            android:textSize="@dimen/_14ssp"
                             android:drawablePadding="10dp"
-                            android:fontFamily="@font/poppins_regular"
+                            android:fontFamily="@font/rajdhani_regular"
                             android:drawableLeft="@drawable/ic_facebook"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -297,8 +297,8 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/_14ssp"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:textColor="@color/gray_text"
                     android:text="@string/dont_have_account"/>
 
@@ -308,8 +308,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/register"
                     android:padding="10dp"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/_14ssp"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:textColor="@color/red_text"/>
             </LinearLayout>
 

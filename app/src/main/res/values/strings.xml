@@ -4,6 +4,7 @@
     <string name="skip">Skip</string>
     <string name="next">Next</string>
     <string name="walkthrough_title">Lorem Ipsum is Simple Dummy Text</string>
+    <string name="toast_onfailure">"Network Failure :( please try again later"</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
 
 
@@ -40,8 +41,8 @@
     <string name="resend_code">Resend Code</string>
     <string name="did_not_receive">Did not receive the code?</string>
     <string name="please_create_password">Please Create new Password</string>
-    <string name="desc_forgot">Enter the registered email/phone number. We will send you a verification code to reset your password.</string>
-    <string name="desc_send_6_digit">We have sent a 6 digit code to number **** **** **86. Please input code here!.</string>
+    <string name="desc_forgot">Enter the registered email/ phone number. We will send you a verification code to reset your password.</string>
+    <string name="desc_send_6_digit">We have sent a 6 digit code to  **** **** **86. Please input code here!.</string>
 
 
 </resources>

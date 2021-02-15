@@ -196,8 +196,6 @@ public class BaseActivity extends AppCompatActivity implements LogOutTimerUtil.L
 //        });
     }
 
-
-
     public void showDialogProgress(String message) {
         if (message != null) {
             dialogProgress = new DialogProgress(context, message, true);

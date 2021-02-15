@@ -10,15 +10,12 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-
 import com.codelabs.dokter_mobil_customer.R;
-import com.codelabs.dokter_mobil_customer.api.ApiResult;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
 import com.codelabs.dokter_mobil_customer.connection.AppConstant;
@@ -31,18 +28,19 @@ import com.codelabs.dokter_mobil_customer.page.password.ForgotPasswordActivity;
 import com.codelabs.dokter_mobil_customer.page.register.RegisterActivity;
 import com.codelabs.dokter_mobil_customer.utils.RecentUtils;
 import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
+
+    /*declare layout component in here*/
 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.edt_email)
@@ -69,6 +67,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @BindView(R.id.img_eye_password)
     AppCompatImageView imgEyePassword;
 
+    /* declare global variable in here */
 
     private Boolean showPassword = false;
 
@@ -79,7 +78,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         ButterKnife.bind(this);
         initView();
         initSetup();
-        fetchData();
+
     }
 
     private void initView() {
@@ -97,9 +96,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         imgEyePassword.setOnClickListener(this);
     }
 
-    private void fetchData() {
+    /*validation field in here */
 
+    private boolean valid() {
+        if (!RecentUtils.isEmailValid(Objects.requireNonNull(edtEmail.getText()).toString().trim())) {
+            showToast("please enter your valid email");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(Objects.requireNonNull(edtPassword.getText()).toString().trim())) {
+            showToast("please enter your password");
+            return false;
+        }
+        return true;
     }
+
+    /*function response data from API in here */
 
     public void doLogin() {
         if (!valid())
@@ -120,7 +132,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     DataLogin response = data.body();
                     if (data.code() == 200) {
                         assert response != null;
-                        Toast.makeText(LoginActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                        showToast(response.getMessage());
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -137,25 +149,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             public void onFailure(@NonNull Call<DataLogin> call, @NonNull Throwable t) {
                 if (!call.isCanceled()){
                     hideDialogProgress();
-                    Toast.makeText(LoginActivity.this,"Network Failure :( please try again later", Toast.LENGTH_SHORT).show();
+                    showToast(getString(R.string.toast_onfailure));
                 }
             }
         });
     }
 
-    private boolean valid() {
-        if (!RecentUtils.isEmailValid(Objects.requireNonNull(edtEmail.getText()).toString().trim())) {
-            Toast.makeText(this,"please enter your valid email", Toast.LENGTH_SHORT).show();
-            return false;
-        }
 
-        if (TextUtils.isEmpty(Objects.requireNonNull(edtPassword.getText()).toString().trim())) {
-            Toast.makeText(this,"please enter your password", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
-
+    /*declare function click in here */
 
     @Override
     public void onClick(View view) {
@@ -193,6 +194,5 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 showPassword = false;
             }
        }
-
     }
 }

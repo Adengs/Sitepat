@@ -1,5 +1,6 @@
 package com.codelabs.dokter_mobil_customer.page.password;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -13,12 +14,24 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.codelabs.dokter_mobil_customer.R;
+import com.codelabs.dokter_mobil_customer.connection.ApiError;
+import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
+import com.codelabs.dokter_mobil_customer.connection.AppConstant;
+import com.codelabs.dokter_mobil_customer.connection.DataManager;
+import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
+import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
+import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ForgotPasswordActivity extends BaseActivity implements View.OnClickListener {
+
+    /*declare layout component in here*/
 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.edt_email_phone)
@@ -37,8 +50,6 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
         ButterKnife.bind(this);
         initView();
         initSetup();
-        fetchData();
-
     }
 
     private void initView() {
@@ -50,34 +61,67 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
     private void initSetup() {
         btnContinue.setOnClickListener(this);
         ivBack.setOnClickListener(this);
-
     }
 
-    private void fetchData(){
-
-    }
+    /*validation field in here*/
 
     private boolean valid() {
         if (TextUtils.isEmpty(edtEmailPhone.getText().toString().trim())) {
-            Toast.makeText(this,"please enter your data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"please enter your email/ phone", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
+    /*function response data from api in here*/
+
+    public void doForgotPassword() {
+        if (!valid())
+            return;
+
+        showDialogProgress("Send your data");
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getTokenAccess();
+        Call<DoPost> call = apiService.doForgotPassword(auth, edtEmailPhone.getText().toString().trim());
+        call.enqueue(new Callback<DoPost>() {
+            @Override
+            public void onResponse(@NonNull Call<DoPost> call, @NonNull Response<DoPost> data) {
+                hideDialogProgress();
+                if (data.isSuccessful()) {
+                    if (data.code() == 200) {
+                        showToast("SUCCESS");
+                        Intent intent = new Intent(ForgotPasswordActivity.this, ForgotPasswordVerificationActivity.class);
+                        intent.putExtra("identity", edtEmailPhone.getText().toString().trim());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(data);
+                    showToast(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<DoPost> call, @NonNull Throwable t) {
+                if (!call.isCanceled()) {
+                    hideDialogProgress();
+                    showToast(getString(R.string.toast_onfailure));
+                }
+            }
+        });
+    }
+
+    /*declare function click in here*/
 
     @Override
     public void onClick(View view) {
         if (ivBack == view) {
             onBackPressed();
-
         }
 
         if (btnContinue == view) {
-            Intent intent = new Intent(ForgotPasswordActivity.this, ForgotPasswordVerificationActivity.class);
-            startActivity(intent);
-
+            doForgotPassword();
         }
-
     }
 }

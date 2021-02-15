@@ -1,5 +1,6 @@
 package com.codelabs.dokter_mobil_customer.dialog;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import androidx.appcompat.app.AppCompatDialog;
@@ -12,8 +13,10 @@ import butterknife.ButterKnife;
 
 public class DialogProgress extends AppCompatDialog {
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.tv_loading)
     AppCompatTextView tvLoading;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.tv_loading_desc)
     AppCompatTextView tvLoadingDesc;
 

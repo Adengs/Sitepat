@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.Toast;
 
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
@@ -39,6 +38,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
+
+    /* declare layout component in here*/
 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.edt_fullname)
@@ -65,6 +66,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @BindView(R.id.edt_phone)
     AppCompatEditText edtPhone;
 
+    /*declare global variable in here*/
+
     private Boolean showPassword = false;
 
     @Override
@@ -90,6 +93,32 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     }
 
+    /* validation field in here*/
+
+    private boolean valid() {
+        if (TextUtils.isEmpty(Objects.requireNonNull(edtFullname.getText()).toString().trim())) {
+            showToast("please enter your full name");
+            return false;
+        }
+
+        if (!RecentUtils.isEmailValid(Objects.requireNonNull(edtEmail.getText()).toString().trim())) {
+            showToast("please enter your valid email");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(Objects.requireNonNull(edtPhone.getText()).toString().trim())) {
+            showToast("please enter your phone number");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(Objects.requireNonNull(edtPassword.getText()).toString().trim())) {
+            showToast("please enter your password");
+            return false;
+        }
+        return true;
+    }
+
+    /*function response data from api in here*/
 
     public void doRegister() {
         if (!valid())
@@ -110,7 +139,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 hideDialogProgress();
                 if (data.isSuccessful()) {
                     if (data.code() == 200) {
-                        Toast.makeText(RegisterActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
+                        showToast("SUCCESS");
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -120,7 +149,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 } else {
                     ApiError error = ErrorUtils.parseError(data);
                     showToast(error.message());
-//                    Toast.makeText(RegisterActivity.this, String.valueOf(data.code()),Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -128,35 +156,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             public void onFailure(@NonNull Call<DoPost> call, @NonNull Throwable t) {
                 if (!call.isCanceled()){
                     hideDialogProgress();
-                    Toast.makeText(RegisterActivity.this,"Network Failure :( please try again later", Toast.LENGTH_SHORT).show();
+                    showToast(getString(R.string.toast_onfailure));
                 }
             }
         });
     }
 
-    private boolean valid() {
-        if (TextUtils.isEmpty(Objects.requireNonNull(edtFullname.getText()).toString().trim())) {
-            Toast.makeText(this,"please enter your full name",Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (!RecentUtils.isEmailValid(Objects.requireNonNull(edtEmail.getText()).toString().trim())) {
-            Toast.makeText(this,"please enter your valid email", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (TextUtils.isEmpty(Objects.requireNonNull(edtPhone.getText()).toString().trim())) {
-            Toast.makeText(this,"please enter your phone number", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (TextUtils.isEmpty(Objects.requireNonNull(edtPassword.getText()).toString().trim())) {
-            Toast.makeText(this,"please enter your password", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
-
+    /*declare function click in here */
 
     @Override
     public void onClick(View view) {

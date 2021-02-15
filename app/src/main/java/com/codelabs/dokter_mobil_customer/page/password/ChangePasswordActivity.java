@@ -1,28 +1,41 @@
 package com.codelabs.dokter_mobil_customer.page.password;
 
-
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
-
 import com.codelabs.dokter_mobil_customer.R;
+import com.codelabs.dokter_mobil_customer.connection.ApiError;
+import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
+import com.codelabs.dokter_mobil_customer.connection.AppConstant;
+import com.codelabs.dokter_mobil_customer.connection.DataManager;
+import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
+import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
-
+import com.codelabs.dokter_mobil_customer.page.login.LoginActivity;
+import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChangePasswordActivity extends BaseActivity implements View.OnClickListener {
+
+    /*declare layout component in here*/
 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.iv_back)
@@ -43,9 +56,11 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
     @BindView(R.id.btn_submit)
     AppCompatButton btnSubmit;
 
+    /*declare global variable in here*/
+
     private Boolean showPassword = false;
     private Boolean showPasswordConf = false;
-
+    String otpCode = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +69,9 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
         ButterKnife.bind(this);
         initView();
         initSetup();
-        fetchData();
+        getPrevData();
     }
+
 
     private void initView() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -70,37 +86,99 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
         btnSubmit.setOnClickListener(this);
     }
 
-    private void fetchData() {
-
+    private void getPrevData() {
+        Intent intent = getIntent();
+        otpCode = intent.getStringExtra("otpCode");
     }
+
+    /*declare validation field in here*/
 
     private boolean valid() {
         if (TextUtils.isEmpty(Objects.requireNonNull(edtPassword.getText()).toString().trim())){
-            Toast.makeText(this,"please enter your password", Toast.LENGTH_SHORT).show();
+            showToast("please enter your password");
             return false;
         }
 
         if (TextUtils.isEmpty(Objects.requireNonNull(edtConfPassword.getText()).toString().trim())) {
-            Toast.makeText(this,"please confirm your password", Toast.LENGTH_SHORT).show();
+            showToast("please confirm your password");
             return false;
         }
 
         if (!edtConfPassword.getText().toString().trim().equals(edtPassword.getText().toString().trim())) {
-            Toast.makeText(this,"password not matching", Toast.LENGTH_SHORT).show();
+            showToast("password not matching");
             return false;
         }
         return true;
     }
 
+    private void dialogSuccess() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ChangePasswordActivity.this);
+        alertDialog.setTitle("Successfully");
+        alertDialog.setMessage("Your new password has been created!");
+        alertDialog.setCancelable(true);
+        alertDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+        alert.getButton(alert.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.red_text));
+    }
+
+    /*function response data API in here*/
+
+    public void doResetPassword() {
+        if (!valid())
+            return;
+
+        Map<String, String> params = new HashMap<>();
+        params.put("otpCode", otpCode);
+        params.put("password", edtPassword.getText().toString().trim());
+        params.put("password_confirmation", edtConfPassword.getText().toString().trim());
+        showDialogProgress("Send data new password");
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getTokenAccess();
+        Call<DoPost> call = apiService.doResetPassword(auth,params);
+        call.enqueue(new Callback<DoPost>() {
+            @Override
+            public void onResponse(@NonNull Call<DoPost> call, @NonNull Response<DoPost> data) {
+                hideDialogProgress();
+                if (data.isSuccessful()) {
+                    if (data.code() == 200) {
+                        dialogSuccess();
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(data);
+                    showToast(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<DoPost> call, @NonNull Throwable t) {
+                if (!call.isCanceled()) {
+                    hideDialogProgress();
+                    showToast(getString(R.string.toast_onfailure));
+                }
+            }
+        });
+    }
 
     @Override
     public void onClick(View view) {
         if (ivBack == view) {
-            finish();
+           onBackPressed();
         }
 
         if (btnSubmit == view) {
-            Toast.makeText(ChangePasswordActivity.this, "On Develop",Toast.LENGTH_SHORT).show();
+            doResetPassword();
         }
 
         if (!showPassword) {

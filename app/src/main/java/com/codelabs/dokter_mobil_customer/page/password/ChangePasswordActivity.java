@@ -1,7 +1,6 @@
 package com.codelabs.dokter_mobil_customer.page.password;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -115,17 +114,14 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ChangePasswordActivity.this);
         alertDialog.setTitle("Successfully");
         alertDialog.setMessage("Your new password has been created!");
-        alertDialog.setCancelable(true);
-        alertDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
+        alertDialog.setCancelable(false);
+        alertDialog.setPositiveButton("Done", (dialog, which) -> {
+            dialog.dismiss();
+            Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         });
 
         AlertDialog alert = alertDialog.create();
@@ -181,24 +177,28 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
             doResetPassword();
         }
 
-        if (!showPassword) {
-            imgEyePassword.setImageResource(R.drawable.ic_eye_gone);
-            edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-            showPassword = true;
-        } else {
-            imgEyePassword.setImageResource(R.drawable.ic_eye_view);
-            edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-            showPassword = false;
+        if (imgEyePassword == view) {
+            if (!showPassword) {
+                imgEyePassword.setImageResource(R.drawable.ic_eye_gone);
+                edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                showPassword = true;
+            } else {
+                imgEyePassword.setImageResource(R.drawable.ic_eye_view);
+                edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                showPassword = false;
+            }
         }
 
-        if (!showPasswordConf) {
-            imgEyeConfPassword.setImageResource(R.drawable.ic_eye_gone);
-            edtConfPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-            showPasswordConf = true;
-        } else {
-            imgEyeConfPassword.setImageResource(R.drawable.ic_eye_view);
-            edtConfPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-            showPasswordConf = false;
+        if (imgEyeConfPassword == view) {
+            if (!showPasswordConf) {
+                imgEyeConfPassword.setImageResource(R.drawable.ic_eye_gone);
+                edtConfPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                showPasswordConf = true;
+            } else {
+                imgEyeConfPassword.setImageResource(R.drawable.ic_eye_view);
+                edtConfPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                showPasswordConf = false;
+            }
         }
     }
 }

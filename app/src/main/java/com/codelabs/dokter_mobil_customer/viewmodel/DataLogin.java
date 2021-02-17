@@ -21,6 +21,8 @@ public class DataLogin {
         private DataCustomer dataCustomer;
         @SerializedName("token")
         private String token;
+        @SerializedName("logout_duration")
+        private String logout_duration;
 
         public DataCustomer getDataCustomer() {
             return dataCustomer;
@@ -36,6 +38,14 @@ public class DataLogin {
 
         public void setToken(String token) {
             this.token = token;
+        }
+
+        public String getLogout_duration() {
+            return logout_duration;
+        }
+
+        public void setLogout_duration(String logout_duration) {
+            this.logout_duration = logout_duration;
         }
     }
 

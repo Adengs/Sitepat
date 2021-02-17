@@ -4,6 +4,7 @@ import com.codelabs.dokter_mobil_customer.api.ApiConstants;
 import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetToken;
+import com.codelabs.dokter_mobil_customer.viewmodel.GetWalkThrough;
 
 import java.util.Map;
 
@@ -11,9 +12,11 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface RetrofitInterface {
 
@@ -45,5 +48,8 @@ public interface RetrofitInterface {
     @POST(AppConstant.ResetPassword)
     @FormUrlEncoded
     Call<DoPost> doResetPassword(@Header(AppConstant.AuthTitle) String auth, @FieldMap Map<String, String> names);
+
+    @GET(AppConstant.Walkthrough)
+    Call<GetWalkThrough> getWalkthrough(@Header(AppConstant.AuthTitle) String auth, @Query("sort") String sort);
 
 }

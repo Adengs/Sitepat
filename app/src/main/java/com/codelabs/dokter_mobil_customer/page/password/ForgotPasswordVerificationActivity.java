@@ -84,7 +84,7 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
     @Override
     protected void onPause() {
         super.onPause();
-        setEmptyCode();
+//        setEmptyCode();
     }
 
     private void getPrevData() {
@@ -98,7 +98,7 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
         }
 
         handleTextWatcherCode();
-        tvDescInfoUser.setText("We have sent a 6 digits code to" + " " + identity + " " + ".Please input code here!.");
+        tvDescInfoUser.setText("We have sent a 6 digits code to" + " " + identity + " " + ", Please input code here!.");
     }
 
     private void initSetup() {

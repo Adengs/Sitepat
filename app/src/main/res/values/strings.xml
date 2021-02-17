@@ -3,6 +3,8 @@
     <string name="please_wait">Please Wait …</string>
     <string name="skip">Skip</string>
     <string name="next">Next</string>
+    <string name="aboutus">About Us</string>
+    <string name="explore_hire">Explore hire!</string>
     <string name="walkthrough_title">Lorem Ipsum is Simple Dummy Text</string>
     <string name="toast_onfailure">"Network Failure :( please try again later"</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
@@ -44,11 +46,19 @@
     <string name="desc_forgot">Enter the registered email/ phone number. We will send you a verification code to reset your password.</string>
     <string name="desc_send_6_digit">We have sent a 6 digit code to  **** **** **86. Please input code here!.</string>
 
-<!--    Setting-->
+    <!--    Setting-->
     <string name="setting">Setting</string>
     <string name="getting_started">Getting Started</string>
     <string name="term_condition">Term &amp; Conditions</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="logout">Logout</string>
+
+    <!-- Menu -->
+    <string name="outlet">Outlet</string>
+    <string name="myaccount">My Account</string>
+    <string name="car_monitoring">Car Monitoring</string>
+    <string name="support">Support</string>
+    <string name="about">About</string>
+
 
 </resources>

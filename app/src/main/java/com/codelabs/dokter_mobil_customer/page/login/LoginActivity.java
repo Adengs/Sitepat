@@ -28,7 +28,11 @@ import com.codelabs.dokter_mobil_customer.page.password.ForgotPasswordActivity;
 import com.codelabs.dokter_mobil_customer.page.register.RegisterActivity;
 import com.codelabs.dokter_mobil_customer.utils.RecentUtils;
 import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import butterknife.BindView;
@@ -133,6 +137,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     if (data.code() == 200) {
                         assert response != null;
                         showToast(response.getMessage());
+                        DataManager.getInstance().setPassword(edtPassword.getText().toString().trim());
+                        DataManager.getInstance().setToken(response.getData().getToken());
+                        DataManager.getInstance().setLoginData(response.getData().getDataCustomer());
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+                        String currrentDateandTime = sdf.format(new Date());
+                        DataManager.getInstance().setLastLogin(currrentDateandTime);
+
+                        DataManager.getInstance().setLogoutDuration(response.getData().getLogout_duration());
+
+
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

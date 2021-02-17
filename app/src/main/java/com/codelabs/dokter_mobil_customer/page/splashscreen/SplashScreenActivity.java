@@ -3,10 +3,7 @@ package com.codelabs.dokter_mobil_customer.page.splashscreen;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
@@ -19,6 +16,7 @@ import com.codelabs.dokter_mobil_customer.page.login.LoginActivity;
 import com.codelabs.dokter_mobil_customer.page.main.MainActivity;
 import com.codelabs.dokter_mobil_customer.page.walkthrough.WalkthroughActivity;
 import com.codelabs.dokter_mobil_customer.utils.RecentUtils;
+import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetToken;
 
 import java.util.HashMap;
@@ -30,11 +28,16 @@ import retrofit2.Response;
 
 public class SplashScreenActivity extends BaseActivity {
 
+    String tokenAccess = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        loadAppToken();
         fetchData();
+
+
     }
 
 
@@ -43,13 +46,12 @@ public class SplashScreenActivity extends BaseActivity {
             @Override
             public void run() {
                 if (DataManager.getInstance().isFirstInstall()){
-//                    goToWalkThrough();
-                    loadAppToken();
+                    goToWalkThrough();
                 } else {
                     if (DataManager.getInstance().isLogin()){
-
+                        silentLogin();
                     } else {
-                        loadAppToken();
+                        goToLogin();
                     }
                 }
             }
@@ -72,9 +74,9 @@ public class SplashScreenActivity extends BaseActivity {
                     if (data.code() == 200) {
                         GetToken response = data.body();
                         assert response != null;
-                        Toast.makeText(SplashScreenActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                        showToast(response.getMessage());
+                        tokenAccess = response.getData().getAccessToken();
                         DataManager.getInstance().setTokenAccess(response.getData().getAccessToken());
-                        goToLogin();
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(data);
@@ -87,8 +89,39 @@ public class SplashScreenActivity extends BaseActivity {
             public void onFailure(@NonNull Call<GetToken> call, @NonNull Throwable t) {
                 if (!call.isCanceled()){
                     goToLogin();
-                    Toast.makeText(SplashScreenActivity.this,"Network Failure :( please try again later", Toast.LENGTH_SHORT).show();
+                    showToast("Network Failure :( please try again later");
                 }
+            }
+        });
+    }
+
+    public void silentLogin() {
+        Map<String, String> params = new HashMap<>();
+        params.put("username", DataManager.getInstance().getEmail());
+        params.put("password", DataManager.getInstance().getPassword());
+
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + tokenAccess;
+        Call<DataLogin> call = apiService.doLogin(auth,params);
+        call.enqueue(new Callback<DataLogin>() {
+            @Override
+            public void onResponse(@NonNull Call<DataLogin> call,@NonNull Response<DataLogin> data) {
+                if (data.isSuccessful()) {
+                    DataLogin response = data.body();
+                    if (data.code() == 200) {
+                        DataManager.getInstance().setToken(response.getData().getToken());
+                        goToHome();
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(data);
+                    showToast(error.message());
+                    goToLogin();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<DataLogin> call, @NonNull Throwable t) {
+
             }
         });
     }
@@ -118,7 +151,7 @@ public class SplashScreenActivity extends BaseActivity {
     }
 
     private void goToLoginCheck() {
-        if (RecentUtils.checkInternet()){
+        if (!RecentUtils.checkInternet()){
             Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -127,8 +160,6 @@ public class SplashScreenActivity extends BaseActivity {
         } else {
             goToHome();
         }
-
     }
-
 
 }

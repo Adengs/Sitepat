@@ -1,17 +1,426 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello Menu On Develop!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/black">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_notification"
+                android:layout_width="46dp"
+                android:layout_height="56dp"
+                android:padding="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_bell_on_white"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/container_banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:orientation="vertical">
+            
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="20dp">
+                    
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hi, Jhonatan"
+                        android:textSize="@dimen/_18ssp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/rajdhani_medium"
+                        android:textColor="@color/white"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Starting maintaining your car!"
+                        android:textSize="@dimen/_14ssp"
+                        android:fontFamily="@font/rajdhani_medium"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginBottom="@dimen/_25sdp"
+                    android:layout_marginHorizontal="20dp">
+
+<!--                    <androidx.viewpager.widget.ViewPager-->
+<!--                        android:id="@+id/viewpager_banner"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="@dimen/_150sdp"/>-->
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_test_banner"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/container_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:orientation="vertical"
+                android:layout_below="@id/container_banner">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginHorizontal="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/explore_hire"
+                            android:textSize="@dimen/_14ssp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/rajdhani_medium"
+                            android:textColor="@color/black"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/container_outlet"
+                            android:layout_width="0dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="2dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/white">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
+
+                                <RelativeLayout
+                                    android:layout_width="@dimen/_24sdp"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_marginHorizontal="10dp"
+                                    android:layout_marginVertical="20dp">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/ic_outlet"
+                                        tools:ignore="TooDeepLayout" />
+                                </RelativeLayout>
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/rajdhani_regular"
+                                    android:text="@string/outlet"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="@dimen/_14ssp" />
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            app:cardBackgroundColor="@color/white"
+                            android:id="@+id/container_my_account"
+                            android:layout_width="0dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="2dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
+
+                                <RelativeLayout
+                                    android:layout_width="@dimen/_24sdp"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_marginVertical="20dp"
+                                    android:layout_marginHorizontal="10dp">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/ic_my_account"/>
+                                </RelativeLayout>
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:textColor="@android:color/black"
+                                    android:fontFamily="@font/rajdhani_regular"
+                                    android:textSize="@dimen/_14ssp"
+                                    android:text="@string/myaccount" />
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            app:cardBackgroundColor="@color/white"
+                            android:id="@+id/container_car_monitoring"
+                            android:layout_width="0dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="2dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
+
+                                <RelativeLayout
+                                    android:layout_width="@dimen/_24sdp"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_marginVertical="20dp"
+                                    android:layout_marginHorizontal="10dp">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/ic_car"/>
+                                </RelativeLayout>
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:textColor="@android:color/black"
+                                    android:fontFamily="@font/rajdhani_regular"
+                                    android:textSize="@dimen/_14ssp"
+                                    android:text="@string/car_monitoring" />
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            app:cardBackgroundColor="@color/white"
+                            android:id="@+id/container_support"
+                            android:layout_width="0dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="2dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
+
+                                <RelativeLayout
+                                    android:layout_width="@dimen/_24sdp"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_marginVertical="20dp"
+                                    android:layout_marginHorizontal="10dp">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/ic_support"/>
+                                </RelativeLayout>
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:textColor="@android:color/black"
+                                    android:fontFamily="@font/rajdhani_regular"
+                                    android:textSize="@dimen/_14ssp"
+                                    android:text="@string/support" />
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            app:cardBackgroundColor="@color/white"
+                            android:id="@+id/container_about"
+                            app:cardCornerRadius="5dp"
+                            android:layout_width="0dp"
+                            app:cardElevation="2dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
+
+                                <RelativeLayout
+                                    android:layout_width="@dimen/_24sdp"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_marginVertical="20dp"
+                                    android:layout_marginHorizontal="10dp">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/ic_about"/>
+                                </RelativeLayout>
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:textColor="@android:color/black"
+                                    android:fontFamily="@font/rajdhani_regular"
+                                    android:textSize="@dimen/_14ssp"
+                                    android:text="@string/about" />
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            app:cardBackgroundColor="@color/white"
+                            android:id="@+id/container_setting"
+                            android:layout_width="0dp"
+                            android:layout_marginStart="10dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="2dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
+
+                                <RelativeLayout
+                                    android:layout_width="@dimen/_24sdp"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_marginVertical="20dp"
+                                    android:layout_marginHorizontal="10dp">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/ic_setting"/>
+                                </RelativeLayout>
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:textColor="@android:color/black"
+                                    android:fontFamily="@font/rajdhani_regular"
+                                    android:textSize="@dimen/_14ssp"
+                                    android:text="@string/setting" />
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

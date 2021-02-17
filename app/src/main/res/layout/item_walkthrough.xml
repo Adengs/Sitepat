@@ -16,8 +16,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_walkthrough"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_200sdp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"/>
@@ -29,11 +29,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/rajdhani_medium"
             android:textStyle="bold"
             android:text="@string/walkthrough_title"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/_16ssp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_desc_walkthrough"
@@ -43,8 +43,8 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@string/lorem_ipsum"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="14sp"
+            android:fontFamily="@font/rajdhani_regular"
+            android:textSize="@dimen/_14ssp"
             android:textColor="@color/gray_text"
             android:textAlignment="center"/>
 

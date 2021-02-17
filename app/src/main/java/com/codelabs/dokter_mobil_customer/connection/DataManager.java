@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
+
 public class DataManager {
     private final static DataManager instance;
 
@@ -95,6 +97,42 @@ public class DataManager {
 
     public void setToken(String val) {
         setTempJson("token", val);
+    }
+
+    public String getPassword() {
+        return getTempJSON("password");
+    }
+
+    public void setPassword(String password) {
+        setTempJson("password", password);
+    }
+
+    public void setLoginData(DataLogin.DataCustomer dataUser) {
+        setLogin(true);
+        setCustomerId(dataUser.getCustomerId());
+        setEmail(dataUser.getCustomerEmail());
+    }
+
+    public void doLogout() {
+        setLogin(false);
+        setCustomerId(0);
+        setEmail("");
+    }
+
+    public void setCustomerId(int id) {
+        setTempJSONNumber("customerId", id);
+    }
+
+    public int getCustomerId() {
+        return getTempJSONNumber("customerId");
+    }
+
+    public void setEmail(String email) {
+        setTempJson("customerEmail", email);
+    }
+
+    public String getEmail() {
+        return getTempJSON("customerEmail");
     }
 
 

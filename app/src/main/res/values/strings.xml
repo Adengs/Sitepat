@@ -53,12 +53,29 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="logout">Logout</string>
 
+
     <!-- Menu -->
     <string name="outlet">Outlet</string>
     <string name="myaccount">My Account</string>
     <string name="car_monitoring">Car Monitoring</string>
     <string name="support">Support</string>
     <string name="about">About</string>
+
+
+    <!--    Getting Started-->
+    <string name="what_do_u_want">What do you want to get started?</string>
+
+    <!--    Term and Condition-->
+    <string name="term">Term &amp; Conditions\nDokter Mobil</string>
+
+
+    <!--    Privacy Policy-->
+    <string name="privacy">Privacy Policy\nDokter Mobil</string>
+
+    <!--    Logout-->
+    <string name="logout_detail">Are you sure? If it logout, all Dokter Mobil data will be deleted from this device.</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
 
 
 </resources>

@@ -12,16 +12,11 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.codelabs.dokter_mobil_customer.R;
-import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
-import com.codelabs.dokter_mobil_customer.page.about_us.AboutAsActivity;
-import com.codelabs.dokter_mobil_customer.page.login.LoginActivity;
-import com.codelabs.dokter_mobil_customer.page.password.ForgotPasswordActivity;
-import com.codelabs.dokter_mobil_customer.page.setting.SettingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.tv_username)
@@ -61,12 +56,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initSetup() {
-        containerOutlet.setOnClickListener(this);
-        containerMyAccount.setOnClickListener(this);
-        containerCarMonitoring.setOnClickListener(this);
-        containerSupport.setOnClickListener(this);
-        containerAbout.setOnClickListener(this);
-        containerSetting.setOnClickListener(this);
+        tvUsername.setOnClickListener(this);
+//        containerOutlet.setOnClickListener(this);
+//        containerMyAccount.setOnClickListener(this);
+//        containerCarMonitoring.setOnClickListener(this);
+//        containerSupport.setOnClickListener(this);
+//        containerAbout.setOnClickListener(this);
+//        containerSetting.setOnClickListener(this);
 
     }
 
@@ -77,14 +73,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (containerAbout == view) {
-            Intent intent = new Intent(MainActivity.this, AboutAsActivity.class);
-            startActivity(intent);
-        }
-
-        if (containerSetting == view) {
-            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-            startActivity(intent);
-        }
     }
 }

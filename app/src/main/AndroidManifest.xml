@@ -20,21 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Doktermobilcustomer"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".page.about_us.AboutAsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/TemaNoActionBar"/>
-        <activity
-            android:name=".page.setting.SettingActivity"
-            android:theme="@style/TemaNoActionBar">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
         <activity
             android:name=".page.password.ForgotPasswordVerificationActivity"
             android:screenOrientation="portrait" />
@@ -57,8 +44,7 @@
         <!-- android:screenOrientation="portrait"/> -->
         <activity
             android:name=".page.main.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/TemaNoActionBar" />
+            android:screenOrientation="portrait" />
         <activity android:name=".page.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -66,6 +52,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+    <activity
+            android:name=".page.setting.PrivacyPolicyActivity"/>
+        <activity
+            android:name=".page.setting.TermConditionActivity" />
+        <activity
+            android:name=".page.setting.GettingStartedActivity" />
+        <activity
+            android:name=".page.setting.SettingActivity"
+            android:theme="@style/TemaNoActionBar"/>
+
+        <activity
+            android:name=".page.about_us.AboutAsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TemaNoActionBar" />
+
+
+
     </application>
 
 </manifest>

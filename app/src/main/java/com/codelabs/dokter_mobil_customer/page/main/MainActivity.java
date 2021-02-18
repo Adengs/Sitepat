@@ -6,10 +6,13 @@ import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.codelabs.dokter_mobil_customer.R;
+import com.codelabs.dokter_mobil_customer.page.about.AboutUsActivity;
+import com.codelabs.dokter_mobil_customer.page.setting.SettingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,13 +57,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initSetup() {
-//        tvUsername.setOnClickListener(this);
-//        containerOutlet.setOnClickListener(this);
-//        containerMyAccount.setOnClickListener(this);
-//        containerCarMonitoring.setOnClickListener(this);
-//        containerSupport.setOnClickListener(this);
-//        containerAbout.setOnClickListener(this);
-//        containerSetting.setOnClickListener(this);
+        tvUsername.setOnClickListener(this);
+        containerOutlet.setOnClickListener(this);
+        containerMyAccount.setOnClickListener(this);
+        containerCarMonitoring.setOnClickListener(this);
+        containerSupport.setOnClickListener(this);
+        containerAbout.setOnClickListener(this);
+        containerSetting.setOnClickListener(this);
 
     }
 
@@ -71,5 +74,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        if (containerSetting == view) {
+            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+            startActivity(intent);
+        }
+
+        if (containerAbout == view) {
+            Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
+            startActivity(intent);
+        }
     }
 }

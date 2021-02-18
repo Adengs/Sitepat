@@ -217,6 +217,7 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
                 hideDialogProgress();
                 if (data.isSuccessful()) {
                     if (data.code() == 200) {
+
                         showToast("Please check your email to get OTP code");
                     }
                 } else {

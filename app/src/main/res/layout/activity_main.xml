@@ -55,21 +55,41 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginHorizontal="20dp">
-                    
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_username"
-                        android:layout_width="match_parent"
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hi, Jhonatan"
-                        android:textSize="@dimen/_18ssp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/rajdhani_medium"
-                        android:textColor="@color/white"/>
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/hi"
+                            android:textSize="@dimen/_18ssp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/rajdhani_medium"
+                            android:textColor="@color/white"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_username"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            tools:text="Joni yes papa"
+                            android:minLines="1"
+                            android:maxLines="1"
+                            android:textSize="@dimen/_18ssp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/rajdhani_medium"
+                            android:textColor="@color/white"/>
+
+
+                    </LinearLayout>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Starting maintaining your car!"
+                        android:text="@string/starting_maintaining"
                         android:textSize="@dimen/_14ssp"
                         android:fontFamily="@font/rajdhani_medium"
                         android:textColor="@color/white"/>
@@ -174,7 +194,7 @@
                                     android:fontFamily="@font/rajdhani_regular"
                                     android:text="@string/outlet"
                                     android:textColor="@android:color/black"
-                                    android:textSize="@dimen/_14ssp" />
+                                    android:textSize="@dimen/_13ssp" />
 
                             </LinearLayout>
 
@@ -216,7 +236,7 @@
                                     android:layout_gravity="center_vertical"
                                     android:textColor="@android:color/black"
                                     android:fontFamily="@font/rajdhani_regular"
-                                    android:textSize="@dimen/_14ssp"
+                                    android:textSize="@dimen/_13ssp"
                                     android:text="@string/myaccount" />
 
                             </LinearLayout>
@@ -262,14 +282,33 @@
                                         android:src="@drawable/ic_car"/>
                                 </RelativeLayout>
 
-                                <androidx.appcompat.widget.AppCompatTextView
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:textColor="@android:color/black"
-                                    android:fontFamily="@font/rajdhani_regular"
-                                    android:textSize="@dimen/_14ssp"
-                                    android:text="@string/car_monitoring" />
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@android:color/black"
+                                        android:fontFamily="@font/rajdhani_regular"
+                                        android:textSize="@dimen/_13ssp"
+                                        android:text="@string/car" />
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@android:color/black"
+                                        android:fontFamily="@font/rajdhani_regular"
+                                        android:textSize="@dimen/_13ssp"
+                                        android:text="@string/monitoring" />
+
+                                </LinearLayout>
+
+
 
                             </LinearLayout>
 
@@ -311,7 +350,7 @@
                                     android:layout_gravity="center_vertical"
                                     android:textColor="@android:color/black"
                                     android:fontFamily="@font/rajdhani_regular"
-                                    android:textSize="@dimen/_14ssp"
+                                    android:textSize="@dimen/_13ssp"
                                     android:text="@string/support" />
 
                             </LinearLayout>
@@ -363,7 +402,7 @@
                                     android:layout_gravity="center_vertical"
                                     android:textColor="@android:color/black"
                                     android:fontFamily="@font/rajdhani_regular"
-                                    android:textSize="@dimen/_14ssp"
+                                    android:textSize="@dimen/_13ssp"
                                     android:text="@string/about" />
 
                             </LinearLayout>
@@ -406,7 +445,7 @@
                                     android:layout_gravity="center_vertical"
                                     android:textColor="@android:color/black"
                                     android:fontFamily="@font/rajdhani_regular"
-                                    android:textSize="@dimen/_14ssp"
+                                    android:textSize="@dimen/_13ssp"
                                     android:text="@string/setting" />
 
                             </LinearLayout>

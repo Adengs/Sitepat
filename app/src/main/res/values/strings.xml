@@ -4,6 +4,8 @@
     <string name="skip">Skip</string>
     <string name="next">Next</string>
     <string name="aboutus">About Us</string>
+    <string name="hi">Hi,</string>
+    <string name="starting_maintaining">Starting maintaining your car!</string>
     <string name="explore_hire">Explore hire!</string>
     <string name="walkthrough_title">Lorem Ipsum is Simple Dummy Text</string>
     <string name="toast_onfailure">"Network Failure :( please try again later"</string>
@@ -57,7 +59,8 @@
     <!-- Menu -->
     <string name="outlet">Outlet</string>
     <string name="myaccount">My Account</string>
-    <string name="car_monitoring">Car Monitoring</string>
+    <string name="car">Car</string>
+    <string name="monitoring">Monitoring</string>
     <string name="support">Support</string>
     <string name="about">About</string>
 

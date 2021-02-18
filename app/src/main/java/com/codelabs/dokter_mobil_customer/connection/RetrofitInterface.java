@@ -1,10 +1,12 @@
 package com.codelabs.dokter_mobil_customer.connection;
 
 import com.codelabs.dokter_mobil_customer.api.ApiConstants;
+import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
 import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetToken;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetWalkThrough;
+import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 
 import java.util.Map;
 
@@ -51,5 +53,11 @@ public interface RetrofitInterface {
 
     @GET(AppConstant.Walkthrough)
     Call<GetWalkThrough> getWalkthrough(@Header(AppConstant.AuthTitle) String auth, @Query("sort") String sort);
+
+    @GET(AppConstant.AboutUs)
+    Call<AboutUs> getAboutUs(@Header(AppConstant.AuthTitle) String auth);
+
+    @GET(AppConstant.Profile)
+    Call<Profile> getProfile(@Header(AppConstant.AuthTitle) String auth);
 
 }

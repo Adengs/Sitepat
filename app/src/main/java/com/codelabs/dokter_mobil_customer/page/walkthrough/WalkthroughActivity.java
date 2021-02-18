@@ -69,6 +69,10 @@ public class WalkthroughActivity extends BaseActivity implements View.OnClickLis
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.grayBackground));
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
     }
 
     private void initSetup() {
@@ -92,7 +96,6 @@ public class WalkthroughActivity extends BaseActivity implements View.OnClickLis
                     if (data.code() == 200) {
                         mAdapter.setData(response.getData().getItemsWalkthrough());
                         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
-
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(data);

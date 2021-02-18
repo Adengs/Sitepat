@@ -34,7 +34,7 @@
                 android:textSize="@dimen/_14ssp"
                 android:padding="16dp"
                 android:textColor="@color/red_text"
-                android:fontFamily="@font/rajdhani_regular"
+                android:fontFamily="@font/rajdhani_bold"
                 android:text="@string/skip"/>
         </RelativeLayout>
 

@@ -24,6 +24,7 @@
         <activity
             android:name=".page.about.AboutUsActivity"
             android:theme="@style/TemaNoActionBar"/>
+
         <activity android:name=".page.setting.PrivacyPolicyActivity" />
         <activity android:name=".page.setting.TermConditionActivity" />
         <activity android:name=".page.setting.GettingStartedActivity" />
@@ -51,7 +52,7 @@
         <activity
             android:name=".page.main.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TemaNoActionBar"/>
+            android:theme="@style/TemaNoActionBar" />
         <activity android:name=".page.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

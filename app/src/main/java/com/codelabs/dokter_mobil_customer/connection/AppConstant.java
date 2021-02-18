@@ -24,5 +24,7 @@ public class AppConstant {
     public static final String CheckOTP = "api/v1/check_otp";
     public static final String ResendOTP = "api/v1/resend_otp";
     public static final String ResetPassword = "api/v1/reset_password";
+    public static final String AboutUs = "general/api/v1/aboutUs";
+    public static final String Profile = "api/v1/profile";
 
 }

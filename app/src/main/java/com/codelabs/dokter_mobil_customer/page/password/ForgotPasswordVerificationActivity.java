@@ -10,8 +10,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.codelabs.dokter_mobil_customer.R;
@@ -65,10 +67,17 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.edt_code_6)
     AppCompatEditText edtCode6;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.tv_timer)
+    AppCompatTextView tvTimer;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
 
     /*declare global variable in here*/
 
     String identity = "";
+    CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +87,7 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
         getPrevData();
         initView();
         initSetup();
+        startTimer(2);
 
     }
 
@@ -223,6 +233,30 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
                 }
             }
         });
+    }
+
+    private void startTimer(final int minute) {
+        countDownTimer = new CountDownTimer(60 * minute * 1000, 500) {
+            @Override
+            public void onTick(long leftTimeInMilliseconds) {
+                long seconds = leftTimeInMilliseconds / 1000;
+                progressBar.setProgress((int)seconds);
+                tvTimer.setText(String.format("%02d", seconds/60) + ":" + String.format("%02d", seconds%60));
+                // format the textview to show the easily readable format
+
+            }
+            @Override
+            public void onFinish() {
+                if(tvTimer.getText().equals("00:00")){
+                    tvTimer.setText("OTP expired");
+                }
+               /* else{
+                    tvTimer.setText("2:00");
+                    progressBar.setProgress(60*minute);
+                }*/
+            }
+        }.start();
+
     }
 
     /*declare function click in here*/

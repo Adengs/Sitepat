@@ -24,6 +24,8 @@ import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.page.login.LoginActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetWalkThrough;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -47,7 +49,9 @@ public class WalkthroughActivity extends BaseActivity implements View.OnClickLis
     /*declare global variable in here*/
 
     private WalkthroughAdapter mAdapter;
-    private int[] positions;
+    Integer position = 0;
+    Integer [] listWalkthrough;
+    private List<GetWalkThrough.ItemsWalkthrough> dataWalkthrough;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,7 @@ public class WalkthroughActivity extends BaseActivity implements View.OnClickLis
                     if (data.code() == 200) {
                         mAdapter.setData(response.getData().getItemsWalkthrough());
                         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(data);
@@ -120,7 +125,7 @@ public class WalkthroughActivity extends BaseActivity implements View.OnClickLis
 
         if (btnNext == view) {
             int current = getItem( +1);
-            if (current < 3) {
+            if (current < mAdapter.getCount()) {
                 viewPager.setCurrentItem(current);
             } else {
                 launchHomeScreen();
@@ -135,14 +140,21 @@ public class WalkthroughActivity extends BaseActivity implements View.OnClickLis
         }
 
         @Override
-        public void onPageSelected(int position) {
-            if (position == 4 - 1) {
-                btnNext.setText(getString(R.string.con));
-                tvSkip.setText("");
+        public void onPageSelected(int i) {
+            position = i;
+            if (i == 0) {
+               tvSkip.setText(getString(R.string.skip));
+               btnNext.setText(getString(R.string.next));
             } else {
+                tvSkip.setText("");
                 btnNext.setText(getString(R.string.next));
-                tvSkip.setText("Skip");
             }
+
+            if (position == mAdapter.getCount() -1) {
+                tvSkip.setText("");
+                btnNext.setText(getString(R.string.con));
+            }
+
         }
 
         @Override

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 
@@ -12,6 +13,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.codelabs.dokter_mobil_customer.R;
+import com.codelabs.dokter_mobil_customer.adapter.PromoAdapter;
+import com.codelabs.dokter_mobil_customer.api.ApiResult;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
 import com.codelabs.dokter_mobil_customer.connection.AppConstant;
@@ -21,7 +24,9 @@ import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.page.about.AboutUsActivity;
 import com.codelabs.dokter_mobil_customer.page.setting.SettingActivity;
+import com.codelabs.dokter_mobil_customer.page.support.SupportActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
+import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.tv_username)
@@ -52,7 +57,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.container_setting)
     CardView containerSetting;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.viewpager_promo)
+    ViewPager viewPagerPromo;
 
+    PromoAdapter promoAdapter;
+    private int currentCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +75,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
+        promoAdapter = new PromoAdapter(getApplicationContext());
+        viewPagerPromo.setAdapter(promoAdapter);
+        autoPlay(viewPagerPromo);
 
     }
 
@@ -80,6 +93,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void fetchData() {
         loadProfile();
+        loadPromoBanner();
     }
 
     public void loadProfile() {
@@ -88,14 +102,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Call<Profile> call = apiService.getProfile(auth);
         call.enqueue(new Callback<Profile>() {
             @Override
-            public void onResponse(@NonNull Call<Profile> call, @NonNull Response<Profile> data) {
-                if (data.isSuccessful()) {
-                    Profile response = data.body();
-                    if (data.code() == 200) {
-                        tvUsername.setText(response.getDataProfile().getCustomerName());
+            public void onResponse(@NonNull Call<Profile> call, @NonNull Response<Profile> response) {
+                if (response.isSuccessful()) {
+                    Profile data = response.body();
+                    if (response.code() == 200) {
+                        tvUsername.setText(data.getDataProfile().getCustomerName());
                     }
                 } else {
-                    ApiError error = ErrorUtils.parseError(data);
+                    ApiError error = ErrorUtils.parseError(response);
                     showToast(error.message());
                 }
             }
@@ -107,6 +121,54 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
             }
         });
+    }
+
+    public void loadPromoBanner() {
+        showDialogProgress("Getting data promo");
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+        Call<Promo> call = apiService.getPromo(auth);
+        call.enqueue(new Callback<Promo>() {
+            @Override
+            public void onResponse(@NonNull Call<Promo> call, @NonNull Response<Promo> response) {
+                hideDialogProgress();
+                if (response.isSuccessful()) {
+                    Promo data = response.body();
+                    if (response.code() == 200) {
+                        promoAdapter.setData(data.getDataPromo().getItemsPromo());
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(response);
+                    showToast(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Promo> call, @NonNull Throwable t) {
+                if (!call.isCanceled()) {
+                    hideDialogProgress();
+                    showToast(getString(R.string.toast_onfailure));
+                }
+            }
+        });
+    }
+
+    private void autoPlay(final ViewPager viewPager) {
+        viewPager.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (promoAdapter != null && promoAdapter.getCount() > 0) {
+                        int position = currentCount % promoAdapter.getCount();
+                        currentCount++;
+                        viewPagerPromo.setCurrentItem(position);
+                        autoPlay(viewPagerPromo);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, 2000);
     }
 
 
@@ -127,7 +189,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 
         if (containerSupport == view) {
-            showToast("This menu on develop :(");
+//            showToast("This menu on develop :(");
+            Intent intent = new Intent(MainActivity.this, SupportActivity.class);
+            startActivity(intent);
         }
 
         if (containerCarMonitoring == view) {
@@ -137,5 +201,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (containerMyAccount == view) {
             showToast("This menu on develop :(");
         }
+    }
+
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

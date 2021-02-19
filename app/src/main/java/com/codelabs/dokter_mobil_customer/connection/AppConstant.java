@@ -26,5 +26,6 @@ public class AppConstant {
     public static final String ResetPassword = "api/v1/reset_password";
     public static final String AboutUs = "general/api/v1/aboutUs";
     public static final String Profile = "api/v1/profile";
+    public static final String Promo = "promo/api/v1/promo";
 
 }

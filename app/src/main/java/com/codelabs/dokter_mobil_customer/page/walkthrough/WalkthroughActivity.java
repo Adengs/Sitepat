@@ -50,8 +50,6 @@ public class WalkthroughActivity extends BaseActivity implements View.OnClickLis
 
     private WalkthroughAdapter mAdapter;
     Integer position = 0;
-    Integer [] listWalkthrough;
-    private List<GetWalkThrough.ItemsWalkthrough> dataWalkthrough;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

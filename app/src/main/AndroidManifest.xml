@@ -20,11 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Doktermobilcustomer"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".page.support.SupportActivity"></activity>
         <activity
             android:name=".page.about.AboutUsActivity"
-            android:theme="@style/TemaNoActionBar"/>
-
+            android:theme="@style/TemaNoActionBar" />
         <activity android:name=".page.setting.PrivacyPolicyActivity" />
         <activity android:name=".page.setting.TermConditionActivity" />
         <activity android:name=".page.setting.GettingStartedActivity" />

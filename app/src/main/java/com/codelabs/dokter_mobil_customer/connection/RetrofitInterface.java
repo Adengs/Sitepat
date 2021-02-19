@@ -7,6 +7,7 @@ import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetToken;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetWalkThrough;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
+import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
 
 import java.util.Map;
 
@@ -59,5 +60,8 @@ public interface RetrofitInterface {
 
     @GET(AppConstant.Profile)
     Call<Profile> getProfile(@Header(AppConstant.AuthTitle) String auth);
+
+    @GET(AppConstant.Promo)
+    Call<Promo> getPromo(@Header(AppConstant.AuthTitle) String auth);
 
 }

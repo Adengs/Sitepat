@@ -36,40 +36,7 @@ public class SupportActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support);
         ButterKnife.bind(this);
-        promoAdapter = new PromoAdapter(getApplicationContext());
-        viewPager.setAdapter(promoAdapter);
-        loadPromoBanner();
-
 
     }
 
-    public void loadPromoBanner() {
-        showDialogProgress("Getting data promo");
-        RetrofitInterface apiService = ApiUtils.getApiService();
-        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<Promo> call = apiService.getPromo(auth);
-        call.enqueue(new Callback<Promo>() {
-            @Override
-            public void onResponse(@NonNull Call<Promo> call, @NonNull Response<Promo> response) {
-                hideDialogProgress();
-                if (response.isSuccessful()) {
-                    Promo data = response.body();
-                    if (response.code() == 200) {
-                        promoAdapter.setData(data.getDataPromo().getItemsPromo());
-                    }
-                } else {
-                    ApiError error = ErrorUtils.parseError(response);
-                    showToast(error.message());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Promo> call, @NonNull Throwable t) {
-                if (!call.isCanceled()) {
-                    hideDialogProgress();
-                    showToast(getString(R.string.toast_onfailure));
-                }
-            }
-        });
-    }
 }

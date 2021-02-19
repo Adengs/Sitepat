@@ -98,17 +98,21 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_150sdp"
                     android:layout_marginTop="@dimen/_25sdp"
                     android:layout_marginBottom="@dimen/_25sdp"
                     android:layout_marginHorizontal="20dp">
 
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/viewpager_promo"
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
-                        android:background="@color/white"
                         android:layout_height="@dimen/_150sdp"/>
 
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_test_banner"/>
 
 
                 </RelativeLayout>
@@ -166,11 +170,21 @@
                             android:layout_weight="1"
                             app:cardBackgroundColor="@color/white">
 
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_37sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginBottom="@dimen/_15sdp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_dot_background" />
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:padding="10dp">
+
 
                                 <RelativeLayout
                                     android:layout_width="@dimen/_24sdp"
@@ -183,6 +197,8 @@
                                         android:layout_height="match_parent"
                                         android:src="@drawable/ic_outlet"
                                         tools:ignore="TooDeepLayout" />
+
+
                                 </RelativeLayout>
 
                                 <androidx.appcompat.widget.AppCompatTextView
@@ -209,6 +225,15 @@
                             android:layout_marginBottom="15dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_37sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginBottom="@dimen/_15sdp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_dot_background" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -261,6 +286,15 @@
                             android:layout_marginBottom="15dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_37sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginBottom="@dimen/_15sdp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_dot_background" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -324,6 +358,15 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
 
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_37sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginBottom="@dimen/_15sdp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_dot_background" />
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -376,6 +419,15 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
 
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_37sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginBottom="@dimen/_15sdp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_dot_background" />
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -418,6 +470,15 @@
                             android:layout_marginBottom="15dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_37sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginBottom="@dimen/_15sdp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_dot_background" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"

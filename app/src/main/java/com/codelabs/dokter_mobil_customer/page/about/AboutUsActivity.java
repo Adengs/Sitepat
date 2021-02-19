@@ -94,7 +94,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if (ivBack == view) {
-            onBackPressed();
+            finish();
         }
     }
 }

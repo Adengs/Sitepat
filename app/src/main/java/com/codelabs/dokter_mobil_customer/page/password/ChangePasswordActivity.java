@@ -170,7 +170,7 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View view) {
         if (ivBack == view) {
-           onBackPressed();
+           finish();
         }
 
         if (btnSubmit == view) {

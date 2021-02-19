@@ -85,6 +85,14 @@
     <string name="logout_detail">Are you sure? If it logout, all Dokter Mobil data will be deleted from this device.</string>
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
+    
+    <!-- Support -->
+    <string name="support_form">Support Form</string>
+    <string name="type_complaint">Type Complaint</string>
+    <string name="detail_complaint">Detail Complaint</string>
+    <string name="complaint">Complaint</string>
+    <string name="input_hire">Input hire</string>
+    <string name="send_btn">Send</string>
 
 
 </resources>

@@ -117,7 +117,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View view) {
         if (ivBack == view) {
-            onBackPressed();
+            finish();
         }
 
         if (btnContinue == view) {

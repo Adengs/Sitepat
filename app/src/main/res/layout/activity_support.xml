@@ -2,30 +2,218 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/container"/>
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:background="@color/white"
+    android:focusableInTouchMode="true">
 
     <LinearLayout
-        android:id="@+id/container"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grayBackground"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:orientation="vertical">
 
+        <RelativeLayout
+            android:id="@+id/toolbar_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/black">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_back"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="18dp"
+                android:src="@drawable/ic_back_btn"
+                android:tint="@color/white" />
+        </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/black">
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rajdhani_regular"
+                android:layout_marginStart="20dp"
+                android:text="@string/support"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18ssp"
+                android:textStyle="bold" />
 
+        </RelativeLayout>
 
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/container_support_file"
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_18ssp"
+                    android:textColor="@color/black_button"
+                    android:fontFamily="@font/rajdhani_bold"
+                    android:text="@string/support_form"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/container_type_complaint"
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_below="@+id/container_support_file">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/gray_text"
+                    android:fontFamily="@font/rajdhani_regular"
+                    android:text="@string/type_complaint"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/container_edt_type_complaint"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_edittext_grey"
+                android:layout_marginHorizontal="20dp"
+                android:layout_below="@+id/container_type_complaint">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/edt_type_complaint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="General"
+                    android:textColorHint="@color/gray_text"
+                    android:inputType="none"
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@android:color/black"
+                    android:fontFamily="@font/poppins_regular"
+                    android:adjustViewBounds="true"
+                    android:minHeight="52dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/container_detail_complaint"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_below="@+id/container_edt_type_complaint">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/gray_text"
+                    android:fontFamily="@font/rajdhani_regular"
+                    android:text="@string/detail_complaint"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/container_edt_detail_complaint"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_edittext_grey"
+                android:layout_marginHorizontal="20dp"
+                android:layout_below="@+id/container_detail_complaint">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/edt_detail_complaint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="General question"
+                    android:textColorHint="@color/gray_text"
+                    android:inputType="none"
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@android:color/black"
+                    android:fontFamily="@font/poppins_regular"
+                    android:adjustViewBounds="true"
+                    android:minHeight="52dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/container_complaint"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_below="@+id/container_edt_detail_complaint">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/gray_text"
+                    android:fontFamily="@font/rajdhani_regular"
+                    android:text="@string/complaint"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/container_edt_complaint"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_edittext_grey"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="@dimen/_80sdp"
+                android:layout_below="@+id/container_complaint">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edt_complaint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:minHeight="100dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/transparent"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:imeOptions="actionNone"
+                    android:hint="@string/input_hire"
+                    android:maxLength="500"
+                    android:textSize="@dimen/_13ssp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/layout_continue" />
 
 </RelativeLayout>

@@ -173,7 +173,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:textSize="@dimen/_14ssp"
-                    android:padding="10dp"
+                    android:padding="16dp"
                     android:textColor="@color/white"
                     android:textAllCaps="false"
                     android:fontFamily="@font/rajdhani_medium"

@@ -20,6 +20,7 @@ import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.page.about.AboutUsActivity;
+import com.codelabs.dokter_mobil_customer.page.account.MyAccountActivity;
 import com.codelabs.dokter_mobil_customer.page.setting.SettingActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 
@@ -135,7 +136,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 
         if (containerMyAccount == view) {
-            showToast("This menu on develop :(");
+            Intent intent = new Intent(MainActivity.this, MyAccountActivity.class);
+            startActivity(intent);
         }
     }
 }

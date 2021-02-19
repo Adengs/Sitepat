@@ -56,6 +56,12 @@
     <string name="logout">Logout</string>
 
 
+<!--    My Account-->
+    <string name="my_poin">My Point</string>
+    <string name="my_car">My Car</string>
+    <string name="edit">Edit</string>
+    <string name="open_now">Open Now</string>
+
     <!-- Menu -->
     <string name="outlet">Outlet</string>
     <string name="myaccount">My Account</string>

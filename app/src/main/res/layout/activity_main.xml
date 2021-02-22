@@ -98,22 +98,62 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_150sdp"
-                    android:layout_marginTop="@dimen/_25sdp"
-                    android:layout_marginBottom="@dimen/_25sdp"
+                    android:layout_height="@dimen/_160sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_marginHorizontal="20dp">
 
-                    <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/viewpager_promo"
-                        android:visibility="gone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_150sdp"/>
-
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="2dp"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_test_banner"/>
+                        android:layout_marginBottom="15dp"
+                        app:cardBackgroundColor="@color/white">
 
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/viewpager_promo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom">
+
+                            <com.google.android.material.tabs.TabLayout
+                                android:id="@+id/tab_dots"
+                                android:layout_alignParentStart="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                app:tabBackground="@drawable/tab_selector"
+                                app:tabGravity="center"
+                                app:tabIndicatorHeight="0dp"/>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tv_see_all"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:text="See all"
+                                android:textSize="@dimen/_12ssp"
+                                android:fontFamily="@font/rajdhani_regular"
+                                android:textColor="@color/white"
+                                android:layout_marginEnd="10dp"
+                                android:layout_centerVertical="true"
+                                android:paddingRight="8dp"
+                                android:paddingLeft="8dp"
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:background="@drawable/background_btn_half_black"/>
+
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
 
                 </RelativeLayout>
 

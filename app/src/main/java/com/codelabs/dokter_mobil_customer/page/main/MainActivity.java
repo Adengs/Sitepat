@@ -24,10 +24,12 @@ import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.page.about.AboutUsActivity;
 import com.codelabs.dokter_mobil_customer.page.account.MyAccountActivity;
+import com.codelabs.dokter_mobil_customer.page.outlet.OutletMapActivity;
 import com.codelabs.dokter_mobil_customer.page.setting.SettingActivity;
 import com.codelabs.dokter_mobil_customer.page.support.SupportActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
+import com.google.android.material.tabs.TabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,6 +63,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.viewpager_promo)
     ViewPager viewPagerPromo;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.tab_dots)
+    TabLayout tabDots;
+    @BindView(R.id.tv_see_all)
+    AppCompatTextView tvSeeAllBanner;
 
     PromoAdapter promoAdapter;
     private int currentCount = 0;
@@ -78,6 +85,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private void initView() {
         promoAdapter = new PromoAdapter(getApplicationContext());
         viewPagerPromo.setAdapter(promoAdapter);
+        tabDots.setupWithViewPager(viewPagerPromo, true);
         autoPlay(viewPagerPromo);
 
     }
@@ -89,6 +97,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         containerSupport.setOnClickListener(this);
         containerAbout.setOnClickListener(this);
         containerSetting.setOnClickListener(this);
+        tvSeeAllBanner.setOnClickListener(this);
 
     }
 
@@ -186,11 +195,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         }
 
         if (containerOutlet == view) {
-            showToast("This menu on develop :(");
+            Intent intent = new Intent(MainActivity.this, OutletMapActivity.class);
+            startActivity(intent);
         }
 
         if (containerSupport == view) {
-//            showToast("This menu on develop :(");
             Intent intent = new Intent(MainActivity.this, SupportActivity.class);
             startActivity(intent);
         }
@@ -202,6 +211,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         if (containerMyAccount == view) {
             Intent intent = new Intent(MainActivity.this, MyAccountActivity.class);
             startActivity(intent);
+        }
+
+        if (tvSeeAllBanner == view) {
+            showToast("This menu on develop :(");
         }
     }
 

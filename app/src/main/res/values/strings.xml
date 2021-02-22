@@ -56,7 +56,7 @@
     <string name="logout">Logout</string>
 
 
-<!--    My Account-->
+    <!--    My Account-->
     <string name="my_poin">My Point</string>
     <string name="my_car">My Car</string>
     <string name="edit">Edit</string>
@@ -85,7 +85,7 @@
     <string name="logout_detail">Are you sure? If it logout, all Dokter Mobil data will be deleted from this device.</string>
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
-    
+
     <!-- Support -->
     <string name="support_form">Support Form</string>
     <string name="type_complaint">Type Complaint</string>

@@ -162,10 +162,7 @@ public class RecentUtils {
 
     public static String formatDateTimeToDate(String date) {
 
-//        Date dt;
-//        SimpleDateFormat sdf;
-//        SimpleDateFormat sdfs;
-//        String time1;
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         SimpleDateFormat toFormat = new SimpleDateFormat("yyyy MMMM dd", Locale.getDefault());
         Date dt1 = null;

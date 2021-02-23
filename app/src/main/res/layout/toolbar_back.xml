@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         tools:text="{title}"
-        android:fontFamily="@font/rajdhani_regular"
+        android:fontFamily="@font/rajdhani_bold"
         android:textColor="@color/black"
         android:textSize="@dimen/_16ssp"
         android:textStyle="bold"

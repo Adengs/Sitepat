@@ -3,6 +3,7 @@
     <string name="please_wait">Please Wait …</string>
     <string name="skip">Skip</string>
     <string name="next">Next</string>
+    <string name="done">Done</string>
     <string name="aboutus">About Us</string>
     <string name="hi">Hi,</string>
     <string name="starting_maintaining">Starting maintaining your car!</string>
@@ -93,6 +94,13 @@
     <string name="complaint">Complaint</string>
     <string name="input_hire">Input hire</string>
     <string name="send_btn">Send</string>
+    <string name="thanks_done">Thank’s for your support</string>
+
+    <!-- Promo -->
+    <string name="promo">Promo</string>
+    <string name="periode_promo">Periode Promo</string>
+    <string name="detail_promo">Detail Promo</string>
+
 
 
 </resources>

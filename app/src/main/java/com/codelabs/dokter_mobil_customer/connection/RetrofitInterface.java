@@ -1,5 +1,7 @@
 package com.codelabs.dokter_mobil_customer.connection;
 
+import android.content.Intent;
+
 import com.codelabs.dokter_mobil_customer.api.ApiConstants;
 import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
 import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
@@ -8,6 +10,7 @@ import com.codelabs.dokter_mobil_customer.viewmodel.GetToken;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetWalkThrough;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
+import com.codelabs.dokter_mobil_customer.viewmodel.PromoDetail;
 
 import java.util.Map;
 
@@ -19,6 +22,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitInterface {
@@ -63,5 +67,8 @@ public interface RetrofitInterface {
 
     @GET(AppConstant.Promo)
     Call<Promo> getPromo(@Header(AppConstant.AuthTitle) String auth);
+
+    @GET(AppConstant.PromoDetail)
+    Call<PromoDetail> getPromoDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") Integer id);
 
 }

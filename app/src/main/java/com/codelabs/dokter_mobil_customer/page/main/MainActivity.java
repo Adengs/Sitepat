@@ -1,7 +1,6 @@
 package com.codelabs.dokter_mobil_customer.page.main;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.ViewPager;
@@ -13,8 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.codelabs.dokter_mobil_customer.R;
-import com.codelabs.dokter_mobil_customer.adapter.PromoAdapter;
-import com.codelabs.dokter_mobil_customer.api.ApiResult;
+import com.codelabs.dokter_mobil_customer.adapter.PromoBannerAdapter;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
 import com.codelabs.dokter_mobil_customer.connection.AppConstant;
@@ -24,7 +22,7 @@ import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.page.about.AboutUsActivity;
 import com.codelabs.dokter_mobil_customer.page.account.MyAccountActivity;
-import com.codelabs.dokter_mobil_customer.page.outlet.OutletMapActivity;
+import com.codelabs.dokter_mobil_customer.page.promo.PromoActivity;
 import com.codelabs.dokter_mobil_customer.page.setting.SettingActivity;
 import com.codelabs.dokter_mobil_customer.page.support.SupportActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
@@ -66,10 +64,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.tab_dots)
     TabLayout tabDots;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.tv_see_all)
     AppCompatTextView tvSeeAllBanner;
 
-    PromoAdapter promoAdapter;
+    PromoBannerAdapter promoAdapter;
     private int currentCount = 0;
 
     @Override
@@ -83,7 +82,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     }
 
     private void initView() {
-        promoAdapter = new PromoAdapter(getApplicationContext());
+        promoAdapter = new PromoBannerAdapter(getApplicationContext());
         viewPagerPromo.setAdapter(promoAdapter);
         tabDots.setupWithViewPager(viewPagerPromo, true);
         autoPlay(viewPagerPromo);
@@ -195,8 +194,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         }
 
         if (containerOutlet == view) {
-            Intent intent = new Intent(MainActivity.this, OutletMapActivity.class);
-            startActivity(intent);
+            showToast("This menu on develop :(");
         }
 
         if (containerSupport == view) {
@@ -214,7 +212,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         }
 
         if (tvSeeAllBanner == view) {
-            showToast("This menu on develop :(");
+            Intent intent = new Intent(MainActivity.this, PromoActivity.class);
+            startActivity(intent);
         }
     }
 

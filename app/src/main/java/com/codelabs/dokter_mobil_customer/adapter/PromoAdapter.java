@@ -1,17 +1,22 @@
 package com.codelabs.dokter_mobil_customer.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.viewpager.widget.PagerAdapter;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.codelabs.dokter_mobil_customer.R;
+import com.codelabs.dokter_mobil_customer.page.promo.PromoDetailActivity;
+import com.codelabs.dokter_mobil_customer.utils.RecentUtils;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -19,67 +24,78 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PromoAdapter extends PagerAdapter {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private Context mContext;
-    private List<Promo.ItemsPromo> promoList = new ArrayList<>();
+public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.viewHolder> {
 
-    public PromoAdapter(Context mContext) {
-        this.mContext = mContext;
+    private final Context mContext;
+    private List<Promo.ItemsPromo> promoList;
+
+    public PromoAdapter(Context context) {
+        this.mContext = context;
+        this.promoList = new ArrayList<>();
     }
-
-    public List<Promo.ItemsPromo> getPromoList() {
-        return promoList;
-    }
-
-    public void setData(List<Promo.ItemsPromo> items) {
-        promoList = items;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getCount() {
-        return promoList.size();
-    }
-
-
-
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view.equals(object);
-    }
-
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View) object);
-    }
-
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        LayoutInflater inflater = LayoutInflater.from(container.getContext());
-        View promo = inflater.inflate(R.layout.item_viewpager_promo, container, false);
-        assert promo != null;
+    public PromoAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_promo, parent, false);
+        return new viewHolder(view);
+    }
 
-        AppCompatImageView imgPromo = promo.findViewById(R.id.iv_promo);
-//        ProgressBar progressBar = promo.findViewById(R.id.progress_bar);
+
+    @Override
+    public void onBindViewHolder(@NonNull PromoAdapter.viewHolder holder, int position) {
         Picasso.get()
                 .load(promoList.get(position).getImage())
                 .fit().centerCrop()
-                .into(imgPromo, new Callback() {
+                .into(holder.imgPromo, new Callback() {
                     @Override
                     public void onSuccess() {
-//                        progressBar.setVisibility(View.GONE);
+                        holder.progressBar.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onError(Exception e) {
-//                        progressBar.setVisibility(View.GONE);
+                        holder.progressBar.setVisibility(View.GONE);
                     }
                 });
-
-        container.addView(promo,0);
-        return promo;
+        holder.imgPromo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, PromoDetailActivity.class);
+                intent.putExtra("promo_id", promoList.get(position).getPromo_id());
+                mContext.startActivity(intent);
+            }
+        });
+        holder.tvPromoValid.setText(RecentUtils.formatDateToDateDM(promoList.get(position).getPeriod_start()) + " - " + RecentUtils.formatDateToDateDMY(promoList.get(position).getPeriod_end()));
     }
 
+
+    @Override
+    public int getItemCount() {
+        return (promoList != null ? promoList.size() : 0);
+    }
+
+    public void setData(List<Promo.ItemsPromo> data) {
+        this.promoList = data;
+        notifyDataSetChanged();
+    }
+
+    public static class viewHolder extends RecyclerView.ViewHolder {
+        @SuppressLint("NonConstantResourceId")
+        @BindView(R.id.img_promo)
+        AppCompatImageView imgPromo;
+        @SuppressLint("NonConstantResourceId")
+        @BindView(R.id.tv_promo_valid_date)
+        AppCompatTextView tvPromoValid;
+        @SuppressLint("NonConstantResourceId")
+        @BindView(R.id.progress_bar)
+        ProgressBar progressBar;
+
+        public viewHolder(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
 }

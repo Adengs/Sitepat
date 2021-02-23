@@ -21,14 +21,16 @@
         android:theme="@style/Theme.Doktermobilcustomer"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".page.support.SupportDoneActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".page.promo.PromoDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".page.promo.PromoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TemaNoActionBar"/>
-        <activity
-            android:name=".page.outlet.OutletMapActivity" />
+            android:theme="@style/TemaNoActionBar" />
+        <activity android:name=".page.outlet.OutletMapActivity" />
         <activity
             android:name=".page.support.SupportActivity"
             android:screenOrientation="portrait"

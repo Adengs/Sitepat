@@ -29,4 +29,9 @@ public class AppConstant {
     public static final String Promo = "promo/api/v1/promo";
     public static final String PromoDetail = "promo/api/v1/promo/{id}";
 
+
+    public static final String getTC = "api/v1/general/terms";
+    public static final String getFaq = "api/v1/general/faq";
+    public static final String getPrivacyPolicy = "api/v1/general/privacy_policies";
+
 }

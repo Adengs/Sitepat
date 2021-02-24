@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codelabs.dokter_mobil_customer.R
-import com.codelabs.dokter_mobil_customer.viewmodel.Item
+import com.codelabs.dokter_mobil_customer.viewmodel.ItemPP
 import kotlinx.android.synthetic.main.item_term.view.*
 
-class AdapterTerm (c : Context, var items : List<Item>) : RecyclerView.Adapter<AdapterTerm.MyViewHolder>() {
+class AdapterPrivacyPolicy (c : Context, var items : List<ItemPP>) : RecyclerView.Adapter<AdapterPrivacyPolicy.MyViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MyViewHolder {
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_term, viewGroup, false)

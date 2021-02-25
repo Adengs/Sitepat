@@ -1,12 +1,13 @@
 package com.codelabs.dokter_mobil_customer.page.setting
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.codelabs.dokter_mobil_customer.R
+import com.codelabs.dokter_mobil_customer.connection.DataManager
 import com.codelabs.dokter_mobil_customer.dialog.LogoutDialog
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
+import com.codelabs.dokter_mobil_customer.page.login.LoginActivity
 import com.codelabs.dokter_mobil_customer.viewmodel.Logout
 import kotlinx.android.synthetic.main.activity_setting.*
 import org.greenrobot.eventbus.EventBus
@@ -36,13 +37,16 @@ class SettingActivity : BaseActivity() {
 
         ll_logout.setOnClickListener {
             val dialog = LogoutDialog.newInstance()
-            dialog.show(supportFragmentManager,"")
+            dialog.show(supportFragmentManager, "")
         }
     }
 
     @Subscribe
-    fun onLogout(data : Logout){
-        Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
+    fun onLogout(data: Logout) {
+        DataManager.getInstance().doLogout()
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
     override fun onStart() {

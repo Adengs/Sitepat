@@ -28,5 +28,9 @@ public class AppConstant {
     public static final String Profile = "api/v1/profile";
     public static final String Promo = "promo/api/v1/promo";
     public static final String PromoDetail = "promo/api/v1/promo/{id}";
+    public static final String TypeComplaint = "general/api/v1/typeComplaint";
+    public static final String DetailComplaint = "general/api/v1/detailComplaint";
+    public static final String CreateComplaint = "general/api/v1/complaint/store";
+    public static final String GetComplaintDetail = "general/api/v1/typeComplaintdetail/id={id}";
 
 }

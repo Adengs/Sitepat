@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
+import com.codelabs.dokter_mobil_customer.page.main.MainActivity;
+import com.codelabs.dokter_mobil_customer.page.setting.SettingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +42,11 @@ public class SupportDoneActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-
+        if (btnDone == view) {
+            Intent intent = new Intent(SupportDoneActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
 }

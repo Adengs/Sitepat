@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_13ssp"
-                    android:textColor="@color/gray_text"
+                    android:textColor="@color/grayFont"
                     android:fontFamily="@font/rajdhani_regular"
                     android:text="@string/type_complaint"/>
 
@@ -100,12 +100,11 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_below="@+id/container_type_complaint">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/edt_type_complaint"
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner_type_complaint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="General"
                     android:textColorHint="@color/gray_text"
                     android:inputType="none"
                     android:textSize="@dimen/_13ssp"
@@ -113,7 +112,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:adjustViewBounds="true"
                     android:minHeight="52dp"
-                    android:background="@android:color/transparent"
+                    style="@style/SpinnerTheme"
                     android:scaleType="centerInside" />
 
             </RelativeLayout>
@@ -130,7 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_13ssp"
-                    android:textColor="@color/gray_text"
+                    android:textColor="@color/grayFont"
                     android:fontFamily="@font/rajdhani_regular"
                     android:text="@string/detail_complaint"/>
 
@@ -145,12 +144,11 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_below="@+id/container_detail_complaint">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/edt_detail_complaint"
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner_detail_complaint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="General question"
                     android:textColorHint="@color/gray_text"
                     android:inputType="none"
                     android:textSize="@dimen/_13ssp"
@@ -158,7 +156,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:adjustViewBounds="true"
                     android:minHeight="52dp"
-                    android:background="@android:color/transparent"
+                    style="@style/SpinnerTheme"
                     android:scaleType="centerInside" />
 
             </RelativeLayout>
@@ -175,7 +173,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_13ssp"
-                    android:textColor="@color/gray_text"
+                    android:textColor="@color/grayFont"
                     android:fontFamily="@font/rajdhani_regular"
                     android:text="@string/complaint"/>
 
@@ -201,6 +199,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
+                    android:textColorHint="@color/gray_text"
                     android:background="@android:color/transparent"
                     android:inputType="textMultiLine|textNoSuggestions"
                     android:imeOptions="actionNone"
@@ -214,6 +213,57 @@
 
     </ScrollView>
 
-    <include layout="@layout/layout_continue" />
+    <FrameLayout
+        android:id="@+id/btn_send_hold"
+        android:layout_marginHorizontal="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:padding="16dp"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="-1dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/background_button_grey">
+
+        <TextView
+            android:id="@+id/tv_action_continue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:drawablePadding="10dp"
+            android:textStyle="bold"
+            android:text="@string/send_btn"
+            android:textColor="@color/grayFont" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/btn_action_send"
+        android:visibility="gone"
+        android:layout_marginHorizontal="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="-1dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/background_button_black">
+
+        <TextView
+            android:id="@+id/tv_action_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:drawablePadding="10dp"
+            android:textStyle="bold"
+            android:text="@string/send_btn"
+            android:textColor="@color/colorPrimary" />
+    </FrameLayout>
 
 </RelativeLayout>

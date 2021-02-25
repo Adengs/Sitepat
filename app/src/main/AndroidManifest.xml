@@ -20,9 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Doktermobilcustomer"
         android:usesCleartextTraffic="true">
+        <activity android:name=".page.outlet.OutletDetailActivity"></activity>
         <activity
             android:name=".page.support.SupportDoneActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".page.promo.PromoDetailActivity"
             android:screenOrientation="portrait" />

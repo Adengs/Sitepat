@@ -19,7 +19,6 @@
 
         <RelativeLayout
             android:id="@+id/container_promo"
-            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -44,7 +43,7 @@
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_test_banner"/>
+                    android:src="@drawable/background_btn_white"/>
 
                 </androidx.cardview.widget.CardView>
 
@@ -78,8 +77,7 @@
                         android:textSize="@dimen/_14ssp"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/grayFont"
-                        android:fontFamily="@font/rajdhani_regular"
-                        android:text="@string/periode_promo"/>
+                        android:fontFamily="@font/rajdhani_regular" />
 
                 </LinearLayout>
 
@@ -115,7 +113,7 @@
                         android:textAlignment="gravity"
                         android:textColor="@color/grayFont"
                         android:fontFamily="@font/rajdhani_regular"
-                        android:text="@string/lorem_ipsum"/>
+                        tools:text="@string/lorem_ipsum"/>
 
                 </LinearLayout>
 

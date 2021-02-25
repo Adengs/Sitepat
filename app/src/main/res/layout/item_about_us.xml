@@ -28,7 +28,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/rajdhani_regular"
             android:textAlignment="gravity"
-            android:textColor="@color/gray_text"
+            android:textColor="@color/grayFont"
             android:textSize="@dimen/_13ssp"
             tools:text="@string/lorem_ipsum" />
 

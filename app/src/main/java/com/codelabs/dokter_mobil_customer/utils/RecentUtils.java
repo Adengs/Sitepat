@@ -10,11 +10,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
 import com.codelabs.dokter_mobil_customer.connection.AppController;
-
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -132,32 +128,7 @@ public class RecentUtils {
         return result;
     }
 
-    public static void handleRetrofitError(int code) {
-        switch (code) {
-            case 404:
-                Toast.makeText(AppController.getInstance().getApplicationContext(), "Not found", Toast.LENGTH_SHORT).show();
-                break;
-            case 500:
-                Toast.makeText(AppController.getInstance().getApplicationContext(), "Server broken", Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                Toast.makeText(AppController.getInstance().getApplicationContext(), "Unknown error", Toast.LENGTH_SHORT).show();
-                break;
-        }
-    }
-    public static void handleRetrofitError(int code, TextView textView) {
-        switch (code) {
-            case 404:
-                textView.setText("Not found");
-                break;
-            case 500:
-                textView.setText("Server broken");
-                break;
-            default:
-                textView.setText("Unknown error");
-                break;
-        }
-    }
+
 
 
     public static String formatDateTimeToDate(String date) {

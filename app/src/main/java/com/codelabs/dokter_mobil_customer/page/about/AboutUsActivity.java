@@ -1,16 +1,14 @@
 package com.codelabs.dokter_mobil_customer.page.about;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
-import android.os.Build;
+import android.annotation.SuppressLint;;
 import android.os.Bundle;
 import android.view.View;
-
+import android.widget.RelativeLayout;
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.adapter.AboutUsAdapter;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
@@ -21,9 +19,7 @@ import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
-
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -38,6 +34,15 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.iv_back)
     AppCompatImageView ivBack;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.container_about)
+    RelativeLayout containerAbout;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.container_no_data)
+    RelativeLayout containerNoData;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.tv_no_data)
+    AppCompatTextView tvNoData;
 
     AboutUsAdapter mAdapter;
 
@@ -52,6 +57,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
 
     private void initView() {
         ivBack.setOnClickListener(this);
+        containerNoData.setVisibility(View.GONE);
 
         rvAboutUs.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new AboutUsAdapter(this);
@@ -64,12 +70,14 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void loadDataAbout() {
+        showDialogProgress("Getting data about us");
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
         Call<AboutUs> call = apiService.getAboutUs(auth);
         call.enqueue(new Callback<AboutUs>() {
             @Override
             public void onResponse(@NonNull Call<AboutUs> call, @NonNull Response<AboutUs> data) {
+                hideDialogProgress();
                 if (data.isSuccessful()) {
                     AboutUs response = data.body();
                     if (data.code() == 200) {
@@ -77,14 +85,20 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(data);
-                    showToast(error.message());
+                    containerNoData.setVisibility(View.VISIBLE);
+                    containerAbout.setVisibility(View.GONE);
+                    tvNoData.setText(error.message());
+
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<AboutUs> call, @NonNull Throwable t) {
                 if (!call.isCanceled()) {
-                    showToast(getString(R.string.toast_onfailure));
+                    hideDialogProgress();
+                    containerNoData.setVisibility(View.VISIBLE);
+                    containerAbout.setVisibility(View.GONE);
+                    tvNoData.setText(getString(R.string.toast_onfailure));
                 }
             }
         });

@@ -5,12 +5,15 @@ import android.content.Intent;
 import com.codelabs.dokter_mobil_customer.api.ApiConstants;
 import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
 import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
+import com.codelabs.dokter_mobil_customer.viewmodel.DetailComplaint;
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetToken;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetWalkThrough;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
 import com.codelabs.dokter_mobil_customer.viewmodel.PromoDetail;
+import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaint;
+import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaintDetail;
 
 import java.util.Map;
 
@@ -70,5 +73,16 @@ public interface RetrofitInterface {
 
     @GET(AppConstant.PromoDetail)
     Call<PromoDetail> getPromoDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") Integer id);
+
+    @GET(AppConstant.TypeComplaint)
+    Call<TypeComplaint> getTypeComplaint(@Header(AppConstant.AuthTitle) String auth);
+
+    @GET(AppConstant.GetComplaintDetail)
+    Call<TypeComplaintDetail> getDetailComplaint(@Header(AppConstant.AuthTitle) String auth, @Path("id") Integer id);
+
+    @POST(AppConstant.CreateComplaint)
+    @FormUrlEncoded
+    Call<DoPost> createComplaint(@Header(AppConstant.AuthTitle) String auth, @Field("detailComplaintId") Integer id, @Field("complaint") String complaint);
+
 
 }

@@ -47,6 +47,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/container_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar">
@@ -85,8 +86,13 @@
 
         </RelativeLayout>
 
-
-
     </RelativeLayout>
+
+    <include
+        layout="@layout/layout_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

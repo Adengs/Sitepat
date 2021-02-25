@@ -33,4 +33,9 @@ public class AppConstant {
     public static final String CreateComplaint = "general/api/v1/complaint/store";
     public static final String GetComplaintDetail = "general/api/v1/typeComplaintdetail/id={id}";
 
+
+    public static final String getTC = "api/v1/general/terms";
+    public static final String getFaq = "api/v1/general/faq";
+    public static final String getPrivacyPolicy = "api/v1/general/privacy_policies";
+
 }

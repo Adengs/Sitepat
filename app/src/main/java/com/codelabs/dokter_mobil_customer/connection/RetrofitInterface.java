@@ -1,20 +1,18 @@
 package com.codelabs.dokter_mobil_customer.connection;
 
-import android.content.Intent;
-
-import com.codelabs.dokter_mobil_customer.api.ApiConstants;
 import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
 import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
-import com.codelabs.dokter_mobil_customer.viewmodel.DetailComplaint;
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
+import com.codelabs.dokter_mobil_customer.viewmodel.Faq;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetToken;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetWalkThrough;
+import com.codelabs.dokter_mobil_customer.viewmodel.PrivacyPolicy;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
 import com.codelabs.dokter_mobil_customer.viewmodel.PromoDetail;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaint;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaintDetail;
-
+import com.codelabs.dokter_mobil_customer.viewmodel.TermsCondition;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -23,14 +21,12 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitInterface {
 
-//    @Headers({AppConstant.AuthToken+":"+AppConstant.AppToken})
     @POST(AppConstant.GetToken)
     @FormUrlEncoded
     Call<GetToken> getToken(@Header(AppConstant.AuthToken) String auth, @FieldMap Map<String, String> names);
@@ -83,6 +79,15 @@ public interface RetrofitInterface {
     @POST(AppConstant.CreateComplaint)
     @FormUrlEncoded
     Call<DoPost> createComplaint(@Header(AppConstant.AuthTitle) String auth, @Field("detailComplaintId") Integer id, @Field("complaint") String complaint);
+
+    @GET(AppConstant.getTC)
+    Call<TermsCondition> getTC(@Header(AppConstant.AuthTitle) String auth, @Query("active") Integer active, @Query("page") Integer page, @Query("limit") Integer limit);
+
+    @GET(AppConstant.getFaq)
+    Call<Faq> getFaq(@Header(AppConstant.AuthTitle) String auth, @Query("active") Integer active, @Query("page") Integer page, @Query("limit") Integer limit);
+
+    @GET(AppConstant.getPrivacyPolicy)
+    Call<PrivacyPolicy> getPrivacyPolicy(@Header(AppConstant.AuthTitle) String auth, @Query("active") Integer active, @Query("page") Integer page, @Query("limit") Integer limit);
 
 
 }

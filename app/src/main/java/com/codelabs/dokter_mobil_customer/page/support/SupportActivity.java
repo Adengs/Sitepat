@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.AppCompatTextView;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.ArrayMap;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -27,6 +30,9 @@ import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaint;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaintDetail;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +41,7 @@ import java.util.Map;
 import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,6 +66,8 @@ public class SupportActivity extends BaseActivity implements View.OnClickListene
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.spinner_detail_complaint)
     AppCompatSpinner spinnerDetailComplaint;
+    @BindView(R.id.tv_action_continue)
+    AppCompatTextView tvActionContinue;
 
     TypeComplaintAdapter adapterType;
     DetailComplaintAdapter adapterDetail;
@@ -67,8 +76,8 @@ public class SupportActivity extends BaseActivity implements View.OnClickListene
     private List<TypeComplaintDetail.DataComplaintDetail> responseDetail = new ArrayList<>();
 
     String keyword = "";
-    Integer typeComplaintID = 1;
-    Integer typeComplaintDetailID = 1;
+    Integer typeComplaintID;
+    Integer typeComplaintDetailID;
 
 
     @Override
@@ -82,8 +91,30 @@ public class SupportActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-
     private void initView() {
+        edtComplaint.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().trim().length()>0){
+                    btnActionSend.setVisibility(View.VISIBLE);
+                    btnSendHold.setVisibility(View.GONE);
+                } else {
+                    btnActionSend.setVisibility(View.GONE);
+                    btnSendHold.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         adapterType = new TypeComplaintAdapter(this, responseComplaint);
         spinnerTypeComplaint.setAdapter(adapterType);
 
@@ -93,7 +124,6 @@ public class SupportActivity extends BaseActivity implements View.OnClickListene
 
     private void initSetup() {
         ivBack.setOnClickListener(this);
-        edtComplaint.setOnClickListener(this);
         btnActionSend.setOnClickListener(this);
 
         handleSpinnerTypeComplaint();
@@ -135,6 +165,7 @@ public class SupportActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                TypeComplaintDetail.DataComplaintDetail item = adapterDetail.getItem(position);
+               typeComplaintDetailID = item.getId();
             }
 
             @Override
@@ -188,7 +219,7 @@ public class SupportActivity extends BaseActivity implements View.OnClickListene
                     TypeComplaintDetail data = response.body();
                     if (response.code() == 200) {
                         responseDetail = data.getDataComplainDetail();
-                        typeComplaintDetailID = responseDetail.get(0).getId();
+//                        typeComplaintDetailID = responseDetail.get(0).getId();
                         adapterDetail.clear();
                         adapterDetail.addAll(response.body().getDataComplainDetail());
                         adapterDetail.notifyDataSetChanged();
@@ -212,10 +243,14 @@ public class SupportActivity extends BaseActivity implements View.OnClickListene
         if (!valid())
             return;
 
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("complaint", edtComplaint.getText().toString().trim());
+        requestBody.put("detailComplaintId", String.valueOf(typeComplaintDetailID));
         showDialogProgress("Send data complaint");
+
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<DoPost> call = apiService.createComplaint(auth, typeComplaintDetailID, edtComplaint.getText().toString().trim());
+        Call<DoPost> call = apiService.doSendComplaint(auth, requestBody);
         call.enqueue(new Callback<DoPost>() {
             @Override
             public void onResponse(@NonNull Call<DoPost> call, @NonNull Response<DoPost> response) {
@@ -254,25 +289,5 @@ public class SupportActivity extends BaseActivity implements View.OnClickListene
             createComplaint();
         }
 
-        if (edtComplaint == view) {
-            assert edtComplaint != null;
-            edtComplaint.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    btnSendHold.setVisibility(View.GONE);
-                    btnActionSend.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-        }
     }
 }

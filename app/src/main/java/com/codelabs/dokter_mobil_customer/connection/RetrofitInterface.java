@@ -13,15 +13,21 @@ import com.codelabs.dokter_mobil_customer.viewmodel.PromoDetail;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaint;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaintDetail;
 import com.codelabs.dokter_mobil_customer.viewmodel.TermsCondition;
+import com.google.gson.JsonObject;
+
+import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -77,8 +83,7 @@ public interface RetrofitInterface {
     Call<TypeComplaintDetail> getDetailComplaint(@Header(AppConstant.AuthTitle) String auth, @Path("id") Integer id);
 
     @POST(AppConstant.CreateComplaint)
-    @FormUrlEncoded
-    Call<DoPost> createComplaint(@Header(AppConstant.AuthTitle) String auth, @Field("detailComplaintId") Integer id, @Field("complaint") String complaint);
+    Call<DoPost> doSendComplaint(@Header(AppConstant.AuthTitle) String auth, @Body Map<String, Object> body);
 
     @GET(AppConstant.getTC)
     Call<TermsCondition> getTC(@Header(AppConstant.AuthTitle) String auth, @Query("active") Integer active, @Query("page") Integer page, @Query("limit") Integer limit);

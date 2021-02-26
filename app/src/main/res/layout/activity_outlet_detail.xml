@@ -40,8 +40,7 @@
                         android:layout_height="@dimen/_260sdp"
                         android:layout_gravity="center"
                         android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_example_outlet"/>
+                        android:scaleType="centerCrop" />
 
                 </androidx.cardview.widget.CardView>
 

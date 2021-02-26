@@ -6,6 +6,7 @@ import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
 import com.codelabs.dokter_mobil_customer.viewmodel.Faq;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetToken;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetWalkThrough;
+import com.codelabs.dokter_mobil_customer.viewmodel.Notification;
 import com.codelabs.dokter_mobil_customer.viewmodel.PrivacyPolicy;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
@@ -93,6 +94,9 @@ public interface RetrofitInterface {
 
     @GET(AppConstant.getPrivacyPolicy)
     Call<PrivacyPolicy> getPrivacyPolicy(@Header(AppConstant.AuthTitle) String auth, @Query("active") Integer active, @Query("page") Integer page, @Query("limit") Integer limit);
+
+    @GET(AppConstant.getNotif)
+    Call<Notification> getNotif(@Header(AppConstant.AuthTitle) String auth);
 
 
 }

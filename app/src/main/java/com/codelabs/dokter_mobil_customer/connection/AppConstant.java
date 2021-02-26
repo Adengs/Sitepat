@@ -37,5 +37,6 @@ public class AppConstant {
     public static final String getTC = "api/v1/general/terms";
     public static final String getFaq = "api/v1/general/faq";
     public static final String getPrivacyPolicy = "api/v1/general/privacy_policies";
+    public static final String getNotif = "api/v1/notifications";
 
 }

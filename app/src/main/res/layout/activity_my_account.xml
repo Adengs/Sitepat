@@ -56,6 +56,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
+            android:id="@+id/iv_photo"
             android:src="@drawable/ic_profil" />
 
         <LinearLayout
@@ -68,6 +69,7 @@
 
             <TextView
                 android:layout_width="match_parent"
+                android:id="@+id/tv_name"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rajdhani_semi_bold"
                 android:textColor="@color/black"
@@ -80,6 +82,7 @@
                 android:fontFamily="@font/rajdhani_regular"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14sdp"
+                android:id="@+id/tv_email"
                 android:text="jonathan@mail.com" />
 
         </LinearLayout>

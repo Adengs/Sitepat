@@ -20,6 +20,7 @@ import com.codelabs.dokter_mobil_customer.connection.DataManager;
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
+import com.codelabs.dokter_mobil_customer.page.Notif.NotificationActivity;
 import com.codelabs.dokter_mobil_customer.page.about.AboutUsActivity;
 import com.codelabs.dokter_mobil_customer.page.account.MyAccountActivity;
 import com.codelabs.dokter_mobil_customer.page.promo.PromoActivity;
@@ -31,6 +32,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -87,6 +89,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         tabDots.setupWithViewPager(viewPagerPromo, true);
         autoPlay(viewPagerPromo);
 
+
     }
 
     private void initSetup() {
@@ -103,6 +106,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private void fetchData() {
         loadProfile();
         loadPromoBanner();
+    }
+
+    @OnClick(R.id.iv_notification)
+    void openNotif(){
+        startActivity(new Intent(this, NotificationActivity.class));
     }
 
     public void loadProfile() {

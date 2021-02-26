@@ -1,40 +1,54 @@
-package com.codelabs.dokter_mobil_customer.page.account
+package com.codelabs.dokter_mobil_customer.page.Notif
 
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.codelabs.dokter_mobil_customer.R
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils
 import com.codelabs.dokter_mobil_customer.connection.AppConstant
 import com.codelabs.dokter_mobil_customer.connection.DataManager
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
-import com.codelabs.dokter_mobil_customer.viewmodel.Profile
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_my_account.*
+import com.codelabs.dokter_mobil_customer.page.setting.NotifAdapter
+import com.codelabs.dokter_mobil_customer.viewmodel.Notification
+import kotlinx.android.synthetic.main.activity_notification.*
+import kotlinx.android.synthetic.main.activity_notification.rv_data
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MyAccountActivity : BaseActivity() {
+class NotificationActivity : BaseActivity() {
+
+    lateinit var adapter : NotifAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_account)
+        setContentView(R.layout.activity_notification)
         iv_back.setOnClickListener { finish() }
-        getProfile()
+
+
+        initView()
     }
 
-    fun getProfile(){
+    private fun initView() {
+        adapter = NotifAdapter(this, listOf())
+
+        rv_data.layoutManager = LinearLayoutManager(this)
+        rv_data.adapter = adapter
+        getData()
+
+    }
+
+    private fun getData() {
         val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
-        val call : Call<Profile> = ApiUtils.getApiService().getProfile(auth);
-        call.enqueue(object : Callback<Profile> {
-            override fun onResponse(call: Call<Profile>, data: Response<Profile>) {
+        val call : Call<Notification> = ApiUtils.getApiService().getNotif(auth);
+        call.enqueue(object : Callback<Notification> {
+            override fun onResponse(call: Call<Notification>, data: Response<Notification>) {
                 hideDialogProgress()
                 if (data.isSuccessful) {
                     val response = data.body()
                     if (data.code() == 200) {
-                        tv_name.text = response?.dataProfile?.customerName
-                        tv_email.text = response?.dataProfile?.customerEmail
-                        if(response?.dataProfile?.image!!.length > 0)
-                            Picasso.get().load(response?.dataProfile?.image).into(iv_photo)
+                        adapter.items = response?.data?.items.orEmpty()
+                        adapter.notifyDataSetChanged()
                     }
                 } else {
                     val error = ErrorUtils.parseError(data)
@@ -42,13 +56,13 @@ class MyAccountActivity : BaseActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<Profile>, t: Throwable) {
+            override fun onFailure(call: Call<Notification>, t: Throwable) {
                 if (!call.isCanceled) {
                     hideDialogProgress()
                     showToast(getString(R.string.toast_onfailure))
                 }
             }
         })
-
     }
+
 }

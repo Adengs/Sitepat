@@ -100,6 +100,8 @@
     <string name="promo">Promo</string>
     <string name="periode_promo">Periode Promo</string>
     <string name="detail_promo">Detail Promo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

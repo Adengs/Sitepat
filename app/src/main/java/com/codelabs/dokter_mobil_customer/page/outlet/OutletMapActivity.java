@@ -15,15 +15,6 @@ import butterknife.ButterKnife;
 
 public class OutletMapActivity extends BaseActivity {
 
-    @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.view_pager)
-    ViewPager viewPager;
-    @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.tv_skip)
-    AppCompatTextView tvSkip;
-    @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.btn_next)
-    AppCompatButton btnNext;
 
 
 

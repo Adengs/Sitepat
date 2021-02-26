@@ -94,5 +94,8 @@ public interface RetrofitInterface {
     @GET(AppConstant.getPrivacyPolicy)
     Call<PrivacyPolicy> getPrivacyPolicy(@Header(AppConstant.AuthTitle) String auth, @Query("active") Integer active, @Query("page") Integer page, @Query("limit") Integer limit);
 
+    @GET(AppConstant.getProfile)
+    Call<Profile> getProfile(@Header(AppConstant.AuthTitle) String auth);
+
 
 }

@@ -49,6 +49,7 @@ dependencies {
 
     implementation 'com.jakewharton:butterknife:10.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 //    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     kapt 'com.jakewharton:butterknife-compiler:10.2.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -72,6 +73,8 @@ dependencies {
     // CIV
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    //connection
+    //maps
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
 
 }

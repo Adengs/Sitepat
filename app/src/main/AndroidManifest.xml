@@ -2,11 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.codelabs.dokter_mobil_customer">
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -20,10 +25,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Doktermobilcustomer"
         android:usesCleartextTraffic="true">
-        <activity android:name=".page.Notif.NotifDetailActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB9IlbhI53KawzZ1Qwla1E-emnq3C2ndMw" />
+
+
         <activity
             android:name=".page.Notif.NotificationActivity"
-            android:theme="@style/TemaNoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/TemaNoActionBar"/>
+
         <activity android:name=".page.outlet.OutletDetailActivity" />
         <activity
             android:name=".page.support.SupportDoneActivity"
@@ -35,7 +47,9 @@
             android:name=".page.promo.PromoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TemaNoActionBar" />
-        <activity android:name=".page.outlet.OutletMapActivity" />
+        <activity
+            android:name=".page.outlet.OutletMapActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".page.support.SupportActivity"
             android:screenOrientation="portrait"

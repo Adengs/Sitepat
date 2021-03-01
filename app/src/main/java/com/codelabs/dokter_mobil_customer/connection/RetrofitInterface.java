@@ -2,6 +2,7 @@ package com.codelabs.dokter_mobil_customer.connection;
 
 import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
 import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
+import com.codelabs.dokter_mobil_customer.viewmodel.DetailNotif;
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
 import com.codelabs.dokter_mobil_customer.viewmodel.Faq;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetToken;
@@ -97,6 +98,9 @@ public interface RetrofitInterface {
 
     @GET(AppConstant.getNotif)
     Call<Notification> getNotif(@Header(AppConstant.AuthTitle) String auth);
+
+    @GET(AppConstant.getNotifDetail)
+    Call<DetailNotif> getNotifDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
 
 
 }

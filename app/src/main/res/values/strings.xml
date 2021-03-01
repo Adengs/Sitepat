@@ -102,6 +102,9 @@
     <string name="periode_promo">Periode Promo</string>
     <string name="detail_promo">Detail Promo</string>
     <!-- TODO: Remove or change this placeholder text -->
+
+<!--    Notification-->
+    <string name="check_ur_point">Check Your Point</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 

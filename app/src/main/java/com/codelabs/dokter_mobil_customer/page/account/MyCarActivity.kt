@@ -34,8 +34,9 @@ class MyCarActivity : BaseActivity() {
     }
 
     private fun getData() {
+        showDialogProgress("Getting My Car")
         val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
-        val call : Call<MyCar> = ApiUtils.getApiService().getCustomerCar(auth);
+        val call : Call<MyCar> = ApiUtils.getApiService().getCustomerCar(auth)
         call.enqueue(object : Callback<MyCar> {
             override fun onResponse(call: Call<MyCar>, data: Response<MyCar>) {
                 hideDialogProgress()

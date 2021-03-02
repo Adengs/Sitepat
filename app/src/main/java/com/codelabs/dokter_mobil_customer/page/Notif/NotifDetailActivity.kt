@@ -35,6 +35,7 @@ class NotifDetailActivity : BaseActivity() {
     }
 
     private fun getData() {
+        showDialogProgress("Getting Notification Detail")
         val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
         val call : Call<DetailNotif> = ApiUtils.getApiService().getNotifDetail(auth,id);
         call.enqueue(object : Callback<DetailNotif> {

@@ -36,6 +36,7 @@ class PrivacyPolicyActivity : BaseActivity() {
     }
 
     private fun getData() {
+        showDialogProgress("Getting Privacy Policy")
         val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
         val call : Call<PrivacyPolicy> = ApiUtils.getApiService().getPrivacyPolicy(auth, 1, 1, 1000);
         call.enqueue(object : Callback<PrivacyPolicy> {

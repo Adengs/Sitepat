@@ -2,6 +2,7 @@ package com.codelabs.dokter_mobil_customer.connection;
 
 import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
 import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
+import com.codelabs.dokter_mobil_customer.viewmodel.DetailCar;
 import com.codelabs.dokter_mobil_customer.viewmodel.DetailNotif;
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
 import com.codelabs.dokter_mobil_customer.viewmodel.Faq;
@@ -9,6 +10,7 @@ import com.codelabs.dokter_mobil_customer.viewmodel.GetToken;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetWalkThrough;
 import com.codelabs.dokter_mobil_customer.viewmodel.MyCar;
 import com.codelabs.dokter_mobil_customer.viewmodel.Notification;
+import com.codelabs.dokter_mobil_customer.viewmodel.PointHistory;
 import com.codelabs.dokter_mobil_customer.viewmodel.PrivacyPolicy;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
@@ -105,6 +107,12 @@ public interface RetrofitInterface {
 
     @GET(AppConstant.getCustomerCar)
     Call<MyCar> getCustomerCar(@Header(AppConstant.AuthTitle) String auth);
+
+    @GET(AppConstant.getCarDetail)
+    Call<DetailCar> getDetailCar(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
+
+    @GET(AppConstant.getHistoryPoint)
+    Call<PointHistory> getHistoryPoint(@Header(AppConstant.AuthTitle) String auth);
 
 
 }

@@ -40,5 +40,7 @@ public class AppConstant {
     public static final String getNotif = "api/v1/notifications";
     public static final String getNotifDetail = "api/v1/notifications/{id}";
     public static final String getCustomerCar = "api/v1/customer/cars";
+    public static final String getCarDetail = "api/v1/customer/cars/{id}}";
+    public static final String getHistoryPoint = "api/v1/points";
 
 }

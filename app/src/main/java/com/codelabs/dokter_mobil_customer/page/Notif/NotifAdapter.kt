@@ -1,4 +1,4 @@
-package com.codelabs.dokter_mobil_customer.page.setting
+package com.codelabs.dokter_mobil_customer.page.Notif
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codelabs.dokter_mobil_customer.R
-import com.codelabs.dokter_mobil_customer.page.Notif.NotifDetailActivity
 import kotlinx.android.synthetic.main.item_notif.view.*
 import com.codelabs.dokter_mobil_customer.viewmodel.ItemNotif
 

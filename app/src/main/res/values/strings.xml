@@ -59,10 +59,15 @@
 
 
     <!--    My Account-->
+    <string name="point_history">Point History</string>
     <string name="my_poin">My Point</string>
     <string name="my_car">My Car</string>
+    <string name="detail_car">Detail Car</string>
     <string name="edit">Edit</string>
     <string name="open_now">Open Now</string>
+    <string name="reedem">Reedem</string>
+    <string name="service_records">SERVICE RECORDS</string>
+    <string name="nothing_service_records">Tidak ada service record</string>
 
     <!-- Menu -->
     <string name="outlet">Outlet</string>

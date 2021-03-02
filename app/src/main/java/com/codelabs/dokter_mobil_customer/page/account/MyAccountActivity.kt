@@ -25,19 +25,25 @@ class MyAccountActivity : BaseActivity() {
 
     private fun initView() {
         iv_card.setOnClickListener {
-            val intent = Intent(this,DetailCardActivity::class.java)
+            val intent = Intent(this, DetailCardActivity::class.java)
             startActivity(intent)
         }
         ll_my_cars.setOnClickListener {
-            val intent = Intent(this,MyCarActivity::class.java)
+            val intent = Intent(this, MyCarActivity::class.java)
+            startActivity(intent)
+        }
+        ll_my_poin.setOnClickListener {
+            val intent = Intent(this, MyPointActivity::class.java)
             startActivity(intent)
         }
         iv_back.setOnClickListener { finish() }
-        getProfile()    }
+        getProfile()
+    }
 
-    fun getProfile(){
+    fun getProfile() {
+        showDialogProgress("Getting My Account")
         val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
-        val call : Call<Profile> = ApiUtils.getApiService().getProfile(auth);
+        val call: Call<Profile> = ApiUtils.getApiService().getProfile(auth);
         call.enqueue(object : Callback<Profile> {
             override fun onResponse(call: Call<Profile>, data: Response<Profile>) {
                 hideDialogProgress()
@@ -46,7 +52,7 @@ class MyAccountActivity : BaseActivity() {
                     if (data.code() == 200) {
                         tv_name.text = response?.dataProfile?.customerName
                         tv_email.text = response?.dataProfile?.customerEmail
-                        if(response?.dataProfile?.image!!.length > 0)
+                        if (response?.dataProfile?.image!!.length > 0)
                             Picasso.get().load(response?.dataProfile?.image).into(iv_photo)
                     }
                 } else {

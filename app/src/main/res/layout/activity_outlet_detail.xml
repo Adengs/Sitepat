@@ -35,7 +35,7 @@
                     app:cardBackgroundColor="@color/white">
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_promo"
+                        android:id="@+id/iv_outlet"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_260sdp"
                         android:layout_gravity="center"
@@ -75,13 +75,13 @@
                         android:textSize="@dimen/_12ssp"
                         android:layout_alignParentEnd="true"
                         android:textColor="@color/green_text"
-                        tools:text="Buka"
+                        android:text="Buka"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
                         android:background="@drawable/background_outlet_status"
-                        android:fontFamily="@font/rajdhani_regular" />
+                        android:fontFamily="@font/rajdhani_bold" />
 
                 </RelativeLayout>
 
@@ -92,6 +92,7 @@
                 android:layout_below="@+id/container_name_outlet"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:background="@color/gray_text" />
@@ -101,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:layout_marginBottom="@dimen/_80sdp"
                 android:layout_marginHorizontal="20dp">
 
@@ -117,16 +118,27 @@
                         android:textSize="@dimen/_14ssp"
                         android:textColor="@color/red_text"
                         android:fontFamily="@font/rajdhani_bold"
-                        tools:text="1.0 km"/>
+                        tools:text="1.0"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_km"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_14ssp"
+                        android:layout_marginStart="5dp"
+                        android:layout_toEndOf="@id/tv_distance"
+                        android:textColor="@color/red_text"
+                        android:fontFamily="@font/rajdhani_bold"
+                        android:text="km"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_from_you"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_14ssp"
-                        android:layout_toEndOf="@id/tv_distance"
+                        android:layout_toEndOf="@id/tv_km"
                         android:textColor="@color/grayFont"
-                        tools:text="From you"
+                        android:text="From you"
                         android:layout_marginStart="@dimen/_7sdp"
                         android:fontFamily="@font/rajdhani_regular" />
 
@@ -172,7 +184,7 @@
             android:drawableStart="@drawable/ic_wa"
             android:fontFamily="@font/rajdhani_bold"
             android:textStyle="bold"
-            tools:text="Reservation"
+            android:text="Reservation"
             android:textColor="@color/black" />
     </FrameLayout>
 

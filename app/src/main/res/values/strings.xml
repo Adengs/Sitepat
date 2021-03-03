@@ -103,6 +103,10 @@
     <string name="detail_promo">Detail Promo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <!-- Outlet -->
+    <string name="search_outlet">Search outlet ...</string>
+    <string name="detail_outlet">Detail Outlet</string>
 
 
 </resources>

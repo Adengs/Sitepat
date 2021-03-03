@@ -20,6 +20,8 @@ import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
 import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -45,6 +47,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
     AppCompatTextView tvNoData;
 
     AboutUsAdapter mAdapter;
+    List<AboutUs.ItemsAbout> responseAbout = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,11 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
         loadDataAbout();
     }
 
+    private void emptyData() {
+
+    }
+
+
     public void loadDataAbout() {
         showDialogProgress("Getting data about us");
         RetrofitInterface apiService = ApiUtils.getApiService();
@@ -82,6 +90,9 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
                     AboutUs response = data.body();
                     if (data.code() == 200) {
                         mAdapter.setData(response.getData().getItemsAbout());
+                    } else {
+                        containerNoData.setVisibility(View.VISIBLE);
+                        containerAbout.setVisibility(View.GONE);
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(data);
@@ -105,10 +116,12 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
     }
 
 
+
     @Override
     public void onClick(View view) {
         if (ivBack == view) {
             finish();
         }
     }
+
 }

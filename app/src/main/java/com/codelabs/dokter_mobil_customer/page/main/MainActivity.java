@@ -23,6 +23,7 @@ import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.page.Notif.NotificationActivity;
 import com.codelabs.dokter_mobil_customer.page.about.AboutUsActivity;
 import com.codelabs.dokter_mobil_customer.page.account.MyAccountActivity;
+import com.codelabs.dokter_mobil_customer.page.outlet.OutletMapActivity;
 import com.codelabs.dokter_mobil_customer.page.promo.PromoActivity;
 import com.codelabs.dokter_mobil_customer.page.setting.SettingActivity;
 import com.codelabs.dokter_mobil_customer.page.support.SupportActivity;
@@ -202,7 +203,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         }
 
         if (containerOutlet == view) {
-            showToast("This menu on develop :(");
+            Intent intent = new Intent(MainActivity.this, OutletMapActivity.class);
+            startActivity(intent);
         }
 
         if (containerSupport == view) {

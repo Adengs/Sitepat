@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/_5sdp"
+    android:layout_marginBottom="@dimen/_7sdp"
+    android:id="@+id/container_outlet_search">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/_75sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:id="@+id/iv_outlet"
+        android:layout_centerVertical="true"
+        android:background="@drawable/background_outlet_status"
+        android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/iv_outlet"
+            android:layout_marginStart="15dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_outlet_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_13ssp"
+                android:textColor="@color/black"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:fontFamily="@font/rajdhani_bold"
+                tools:text="Dokter mobil sektor bintaro"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_address_outlet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_12ssp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/gray_text"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:fontFamily="@font/rajdhani_regular"
+                tools:text="Jalan Bintaro Utama 3 No. 27 - Pondok Ranji"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_distance_outlet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/rajdhani_regular"
+                    tools:text="1.2"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_km"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/tv_distance_outlet"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/rajdhani_regular"
+                    android:text="Km"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_status_outlet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/green_text"
+                    android:text="Buka"
+                    android:layout_toEndOf="@id/tv_km"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold"
+                    android:background="@drawable/background_outlet_status"
+                    android:fontFamily="@font/rajdhani_regular" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="1dp"
+        android:layout_below="@id/iv_outlet"
+        android:layout_marginTop="20dp"
+        android:background="@color/gray_white" />
+
+</RelativeLayout>

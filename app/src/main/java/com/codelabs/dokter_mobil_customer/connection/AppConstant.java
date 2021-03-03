@@ -32,6 +32,8 @@ public class AppConstant {
     public static final String DetailComplaint = "general/api/v1/detailComplaint";
     public static final String CreateComplaint = "general/api/v1/complaint/store";
     public static final String GetComplaintDetail = "general/api/v1/typeComplaintdetail/id={id}";
+    public static final String Outlet = "api/v1/outlets";
+    public static final String OutletDetail = "api/v1/outlets/{id}";
 
 
     public static final String getTC = "api/v1/general/terms";

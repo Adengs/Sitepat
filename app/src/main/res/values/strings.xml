@@ -59,10 +59,20 @@
 
 
     <!--    My Account-->
+    <string name="point_history">Point History</string>
     <string name="my_poin">My Point</string>
     <string name="my_car">My Car</string>
+    <string name="detail_car">Detail Car</string>
     <string name="edit">Edit</string>
     <string name="open_now">Open Now</string>
+    <string name="reedem">Reedem</string>
+    <string name="service_records">SERVICE RECORDS</string>
+    <string name="nothing_service_records">Tidak ada service record</string>
+    <string name="name">Name</string>
+    <string name="gender">Gender</string>
+    <string name="addresses">Addresses</string>
+    <string name="save">Save</string>
+    <string name="edit_profile">Edit Profile</string>
 
     <!-- Menu -->
     <string name="outlet">Outlet</string>
@@ -102,6 +112,9 @@
     <string name="periode_promo">Periode Promo</string>
     <string name="detail_promo">Detail Promo</string>
     <!-- TODO: Remove or change this placeholder text -->
+
+    <!--    Notification-->
+    <string name="check_ur_point">Check Your Point</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     
     <!-- Outlet -->

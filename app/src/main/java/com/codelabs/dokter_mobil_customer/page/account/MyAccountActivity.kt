@@ -1,5 +1,6 @@
 package com.codelabs.dokter_mobil_customer.page.account
 
+import android.content.Intent
 import android.os.Bundle
 import com.codelabs.dokter_mobil_customer.R
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils
@@ -18,13 +19,35 @@ class MyAccountActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_account)
+        initView()
+
+    }
+
+    private fun initView() {
+        iv_card.setOnClickListener {
+            val intent = Intent(this, DetailCardActivity::class.java)
+            startActivity(intent)
+        }
+        ll_my_cars.setOnClickListener {
+            val intent = Intent(this, MyCarActivity::class.java)
+            startActivity(intent)
+        }
+        ll_my_poin.setOnClickListener {
+            val intent = Intent(this, MyPointActivity::class.java)
+            startActivity(intent)
+        }
+        btn_edit.setOnClickListener {
+            val intent = Intent(this, EditProfileActivity::class.java)
+            startActivity(intent)
+        }
         iv_back.setOnClickListener { finish() }
         getProfile()
     }
 
-    fun getProfile(){
+    fun getProfile() {
+        showDialogProgress("Getting My Account")
         val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
-        val call : Call<Profile> = ApiUtils.getApiService().getProfile(auth);
+        val call: Call<Profile> = ApiUtils.getApiService().getProfile(auth);
         call.enqueue(object : Callback<Profile> {
             override fun onResponse(call: Call<Profile>, data: Response<Profile>) {
                 hideDialogProgress()
@@ -33,7 +56,7 @@ class MyAccountActivity : BaseActivity() {
                     if (data.code() == 200) {
                         tv_name.text = response?.dataProfile?.customerName
                         tv_email.text = response?.dataProfile?.customerEmail
-                        if(response?.dataProfile?.image!!.length > 0)
+                        if (response?.dataProfile?.image!!.length > 0)
                             Picasso.get().load(response?.dataProfile?.image).into(iv_photo)
                     }
                 } else {

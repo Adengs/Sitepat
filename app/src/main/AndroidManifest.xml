@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.codelabs.dokter_mobil_customer">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -25,17 +24,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Doktermobilcustomer"
         android:usesCleartextTraffic="true">
+        <activity android:name=".page.account.EditProfileActivity"></activity>
+        <activity android:name=".page.account.ReedemPointActivity" />
+        <activity android:name=".page.account.MyPointActivity" />
+        <activity android:name=".page.account.DetailCarActivity" />
+        <activity android:name=".page.account.MyCarActivity" />
+        <activity android:name=".page.account.DetailCardActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB9IlbhI53KawzZ1Qwla1E-emnq3C2ndMw" />
 
-
         <activity
             android:name=".page.Notif.NotificationActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TemaNoActionBar"/>
-
+            android:theme="@style/TemaNoActionBar" />
+        <activity
+            android:name=".page.Notif.NotifDetailActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".page.outlet.OutletDetailActivity" />
         <activity
             android:name=".page.support.SupportDoneActivity"
@@ -49,7 +55,7 @@
             android:theme="@style/TemaNoActionBar" />
         <activity
             android:name=".page.outlet.OutletMapActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".page.support.SupportActivity"
             android:screenOrientation="portrait"

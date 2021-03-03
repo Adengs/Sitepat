@@ -91,6 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:id="@+id/btn_edit"
             android:fontFamily="@font/rajdhani_semi_bold"
             android:paddingLeft="@dimen/_3sdp"
             android:paddingRight="@dimen/_3sdp"
@@ -105,6 +106,7 @@
         android:layout_height="@dimen/_100sdp"
         android:layout_gravity="center"
         android:layout_margin="@dimen/_10sdp"
+        android:id="@+id/iv_card"
         android:layout_marginTop="@dimen/_10sdp">
 
         <ImageView
@@ -151,8 +153,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_marginRight="21dp"
+            android:textAllCaps="false"
+            android:layout_marginBottom="20dp"
             android:text="@string/open_now"
             android:textColor="@color/black_button" />
     </RelativeLayout>

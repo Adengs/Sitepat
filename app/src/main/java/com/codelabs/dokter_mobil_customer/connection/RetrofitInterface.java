@@ -2,13 +2,17 @@ package com.codelabs.dokter_mobil_customer.connection;
 
 import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
 import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
+import com.codelabs.dokter_mobil_customer.viewmodel.DetailCar;
+import com.codelabs.dokter_mobil_customer.viewmodel.DetailNotif;
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
 import com.codelabs.dokter_mobil_customer.viewmodel.Faq;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetToken;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetWalkThrough;
+import com.codelabs.dokter_mobil_customer.viewmodel.MyCar;
 import com.codelabs.dokter_mobil_customer.viewmodel.Notification;
 import com.codelabs.dokter_mobil_customer.viewmodel.Outlet;
 import com.codelabs.dokter_mobil_customer.viewmodel.OutletDetail;
+import com.codelabs.dokter_mobil_customer.viewmodel.PointHistory;
 import com.codelabs.dokter_mobil_customer.viewmodel.PrivacyPolicy;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
@@ -16,6 +20,7 @@ import com.codelabs.dokter_mobil_customer.viewmodel.PromoDetail;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaint;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaintDetail;
 import com.codelabs.dokter_mobil_customer.viewmodel.TermsCondition;
+import com.codelabs.dokter_mobil_customer.viewmodel.param.UpdateProfil;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -105,6 +110,22 @@ public interface RetrofitInterface {
 
     @GET(AppConstant.OutletDetail)
     Call<OutletDetail> getOutletDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") Integer id);
+
+    @GET(AppConstant.getNotifDetail)
+    Call<DetailNotif> getNotifDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
+
+    @GET(AppConstant.getCustomerCar)
+    Call<MyCar> getCustomerCar(@Header(AppConstant.AuthTitle) String auth);
+
+    @GET(AppConstant.getCarDetail)
+    Call<DetailCar> getDetailCar(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
+
+    @GET(AppConstant.getHistoryPoint)
+    Call<PointHistory> getHistoryPoint(@Header(AppConstant.AuthTitle) String auth);
+
+    @POST(AppConstant.Profile)
+    Call<DoPost> updateProfile(@Header(AppConstant.AuthTitle) String auth, @Body UpdateProfil param);
+
 
 
 }

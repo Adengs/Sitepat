@@ -137,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_14ssp"
                         android:layout_toEndOf="@id/tv_km"
-                        android:textColor="@color/grayFont"
+                        android:textColor="@color/black_half"
                         android:text="From you"
                         android:layout_marginStart="@dimen/_7sdp"
                         android:fontFamily="@font/rajdhani_regular" />
@@ -149,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_14ssp"
-                    android:textColor="@color/grayFont"
+                    android:textColor="@color/gray_text"
                     android:layout_marginTop="20dp"
                     tools:text="@string/lorem_ipsum"
                     android:layout_below="@id/container_distance"

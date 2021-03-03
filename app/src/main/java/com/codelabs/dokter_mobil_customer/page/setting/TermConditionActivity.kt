@@ -38,6 +38,7 @@ class TermConditionActivity : BaseActivity() {
     }
 
     private fun getData() {
+        showDialogProgress("Getting Term Condition")
         val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
         val call : Call<TermsCondition> = ApiUtils.getApiService().getTC(auth, 1, 1, 1000);
         call.enqueue(object : Callback<TermsCondition> {

@@ -8,7 +8,6 @@ import com.codelabs.dokter_mobil_customer.connection.AppConstant
 import com.codelabs.dokter_mobil_customer.connection.DataManager
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
-import com.codelabs.dokter_mobil_customer.page.setting.NotifAdapter
 import com.codelabs.dokter_mobil_customer.viewmodel.Notification
 import kotlinx.android.synthetic.main.activity_notification.*
 import kotlinx.android.synthetic.main.activity_notification.rv_data
@@ -39,6 +38,7 @@ class NotificationActivity : BaseActivity() {
     }
 
     private fun getData() {
+        showDialogProgress("Getting Notification")
         val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
         val call : Call<Notification> = ApiUtils.getApiService().getNotif(auth);
         call.enqueue(object : Callback<Notification> {

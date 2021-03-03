@@ -12,6 +12,7 @@
     <color name="colorPrimary">#FFFFFFFF</color>
 
     <!--custom color -->
+    <color name="transparent_black">#65212121</color>
     <color name="black_button">#212121</color>
     <color name="gray_text">#AAAAAA</color>
     <color name="grayFont">#707070</color>

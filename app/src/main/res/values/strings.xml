@@ -68,6 +68,11 @@
     <string name="reedem">Reedem</string>
     <string name="service_records">SERVICE RECORDS</string>
     <string name="nothing_service_records">Tidak ada service record</string>
+    <string name="name">Name</string>
+    <string name="gender">Gender</string>
+    <string name="addresses">Addresses</string>
+    <string name="save">Save</string>
+    <string name="edit_profile">Edit Profile</string>
 
     <!-- Menu -->
     <string name="outlet">Outlet</string>

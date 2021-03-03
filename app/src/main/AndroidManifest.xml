@@ -24,7 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Doktermobilcustomer"
         android:usesCleartextTraffic="true">
-        <activity android:name=".page.account.ReedemPointActivity"></activity>
+        <activity android:name=".page.account.EditProfileActivity"></activity>
+        <activity android:name=".page.account.ReedemPointActivity" />
         <activity android:name=".page.account.MyPointActivity" />
         <activity android:name=".page.account.DetailCarActivity" />
         <activity android:name=".page.account.MyCarActivity" />

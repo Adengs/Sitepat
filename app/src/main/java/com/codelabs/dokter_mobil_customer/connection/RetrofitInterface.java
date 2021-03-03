@@ -18,6 +18,7 @@ import com.codelabs.dokter_mobil_customer.viewmodel.PromoDetail;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaint;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaintDetail;
 import com.codelabs.dokter_mobil_customer.viewmodel.TermsCondition;
+import com.codelabs.dokter_mobil_customer.viewmodel.param.UpdateProfil;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -113,6 +114,9 @@ public interface RetrofitInterface {
 
     @GET(AppConstant.getHistoryPoint)
     Call<PointHistory> getHistoryPoint(@Header(AppConstant.AuthTitle) String auth);
+
+    @POST(AppConstant.Profile)
+    Call<DoPost> updateProfile(@Header(AppConstant.AuthTitle) String auth, @Body UpdateProfil param);
 
 
 }

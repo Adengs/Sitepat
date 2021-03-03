@@ -36,6 +36,10 @@ class MyAccountActivity : BaseActivity() {
             val intent = Intent(this, MyPointActivity::class.java)
             startActivity(intent)
         }
+        btn_edit.setOnClickListener {
+            val intent = Intent(this, EditProfileActivity::class.java)
+            startActivity(intent)
+        }
         iv_back.setOnClickListener { finish() }
         getProfile()
     }

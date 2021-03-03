@@ -1,6 +1,8 @@
 package com.codelabs.dokter_mobil_customer.viewmodel;
 
+import android.location.Address;
 import android.widget.ScrollView;
+import java.util.*;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -31,6 +33,8 @@ public class Profile {
         private String customerPhone;
         @SerializedName("customerAddress")
         private String customerAddress;
+        @SerializedName("customerGender")
+        private String customerGender;
         @SerializedName("image")
         private String image;
         @SerializedName("facebookId")
@@ -41,6 +45,12 @@ public class Profile {
         private String totalPoint;
         @SerializedName("membershipNo")
         private String membershipNo;
+        @SerializedName("addresses")
+        private List<Addresses> addresses;
+
+        public String getCustomerGender() {
+            return customerGender;
+        }
 
         public int getCustomerId() {
             return customerId;
@@ -85,5 +95,36 @@ public class Profile {
         public String getMembershipNo() {
             return membershipNo;
         }
+
+        public List<Addresses> getAddresses() {
+            return addresses;
+        }
+
     }
+
+    public static class Addresses{
+        public boolean input = false;
+        @SerializedName("customerId")
+        private int customerId;
+        @SerializedName("address")
+        private String address;
+
+        public void setInput(boolean is_input) {
+            this.input = is_input;
+        }
+
+        public boolean isInput() {
+            return input;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public int getCustomerId() {
+            return customerId;
+        }
+
+    }
+
 }

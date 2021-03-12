@@ -161,8 +161,9 @@ class EditProfileActivity : BaseActivity() {
             if (!it.isInput)
                 address.add(UpdateAddress(name = it.name, content = it.address))
         }
-        if (address.size > 0){
+        if (address.size == 0){
             showToast("Input address")
+            return
         }
 
         val param = UpdateProfil(

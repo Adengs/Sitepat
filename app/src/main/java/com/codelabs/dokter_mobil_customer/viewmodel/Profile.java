@@ -2,6 +2,8 @@ package com.codelabs.dokter_mobil_customer.viewmodel;
 
 import android.location.Address;
 import android.widget.ScrollView;
+
+import java.io.Serializable;
 import java.util.*;
 
 import com.google.gson.annotations.SerializedName;
@@ -102,12 +104,36 @@ public class Profile {
 
     }
 
-    public static class Addresses{
+    public static class Addresses implements Serializable {
         public boolean input = false;
         @SerializedName("customerId")
         private int customerId;
         @SerializedName("address")
         private String address;
+        @SerializedName("name")
+        private String name;
+        int position = 0;
+        String action;
+
+        public void setAction(String action) {
+            this.action = action;
+        }
+
+        public String getAction() {
+            return action;
+        }
+
+        public void setPosition(int position) {
+            this.position = position;
+        }
+
+        public int getPosition() {
+            return position;
+        }
+
+        public String getName() {
+            return name;
+        }
 
         public void setInput(boolean is_input) {
             this.input = is_input;
@@ -125,6 +151,13 @@ public class Profile {
             return customerId;
         }
 
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
     }
 
 }

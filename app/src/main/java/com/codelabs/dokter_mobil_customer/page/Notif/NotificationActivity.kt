@@ -33,8 +33,12 @@ class NotificationActivity : BaseActivity() {
 
         rv_data.layoutManager = LinearLayoutManager(this)
         rv_data.adapter = adapter
-        getData()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
     }
 
     private fun getData() {

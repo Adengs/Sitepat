@@ -69,9 +69,11 @@
     <string name="service_records">SERVICE RECORDS</string>
     <string name="nothing_service_records">Tidak ada service record</string>
     <string name="name">Name</string>
+    <string name="address">Address</string>
     <string name="gender">Gender</string>
     <string name="addresses">Address</string>
     <string name="save">Save</string>
+    <string name="save_address">Save Address</string>
     <string name="edit_profile">Edit Profile</string>
 
     <!-- Menu -->

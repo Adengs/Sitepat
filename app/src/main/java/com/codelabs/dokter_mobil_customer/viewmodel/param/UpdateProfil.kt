@@ -3,8 +3,8 @@ import com.google.gson.annotations.SerializedName
 
 
 data class UpdateProfil(
-    @SerializedName("Address")
-    val address: List<String>,
+    @SerializedName("address")
+    val address: List<UpdateAddress>,
     @SerializedName("customerEmail")
     val customerEmail: String,
     @SerializedName("customerName")
@@ -13,4 +13,10 @@ data class UpdateProfil(
     val customerPhone: String,
     @SerializedName("customerGender")
     val customerGender: String
+)
+data class UpdateAddress(
+    @SerializedName("content")
+    val content: String,
+    @SerializedName("name")
+    val name: String
 )

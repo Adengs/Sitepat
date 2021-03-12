@@ -27,6 +27,9 @@
         <activity
             android:name=".page.car_monitoring.CarMonitoringActivity"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".page.account.TambahAlamatActivity"></activity>
+
         <activity android:name=".page.account.EditProfileActivity" />
         <activity android:name=".page.account.ReedemPointActivity" />
         <activity android:name=".page.account.MyPointActivity" />

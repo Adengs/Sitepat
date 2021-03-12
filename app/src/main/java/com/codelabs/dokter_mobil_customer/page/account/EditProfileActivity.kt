@@ -1,6 +1,8 @@
 package com.codelabs.dokter_mobil_customer.page.account
 
+
 import android.os.Build
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,15 +14,19 @@ import com.codelabs.dokter_mobil_customer.connection.ErrorUtils
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile
+import com.codelabs.dokter_mobil_customer.viewmodel.param.UpdateAddress
 import com.codelabs.dokter_mobil_customer.viewmodel.param.UpdateProfil
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.toolbar_back.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class EditProfileActivity : BaseActivity() {
+    private val RESULT_ALAMAT: Int = 100
     private lateinit var dataProfile: Profile.DataProfile
     private lateinit var adapter: AddressesAdapter
 
@@ -44,6 +50,16 @@ class EditProfileActivity : BaseActivity() {
         rv_addresses.adapter = adapter
 
         getProfile()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
     }
 
     fun getProfile() {
@@ -96,6 +112,37 @@ class EditProfileActivity : BaseActivity() {
 
     }
 
+    @Subscribe
+    fun onClickItem(data : Profile.Addresses){
+        val intent = Intent(this, TambahAlamatActivity::class.java)
+        intent.putExtra("DATA",data)
+        startActivityForResult(intent, RESULT_ALAMAT)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RESULT_ALAMAT && resultCode == RESULT_OK){
+            val data = data?.getSerializableExtra("DATA") as Profile.Addresses
+            when(data.action){
+                "ADD"->{
+                    dataProfile.addresses.set(data.position,data)
+
+                    val add = Profile.Addresses();
+                    add.input = true
+                    dataProfile.addresses?.add(add)
+                }
+                "EDIT"->{
+                    dataProfile.addresses.set(data.position,data)
+                }
+                "DELETE"->{
+                    dataProfile.addresses.removeAt(data.position)
+                }
+            }
+            adapter.notifyDataSetChanged()
+
+        }
+    }
+
     private fun saveProfile() {
 
         if (txt_name.text!!.isEmpty()) {
@@ -115,11 +162,16 @@ class EditProfileActivity : BaseActivity() {
             return
         }
 
-        val address = ArrayList<String>()
+        val address = ArrayList<UpdateAddress>()
         dataProfile.addresses.forEach {
             if (!it.isInput)
-                address.add(it.address)
+                address.add(UpdateAddress(name = it.name, content = it.address))
         }
+        if (address.size == 0){
+            showToast("Input address")
+            return
+        }
+
         val param = UpdateProfil(
             customerName = txt_name.text.toString(),
             customerEmail = txt_email.text.toString(),

@@ -28,7 +28,7 @@ class NotifAdapter (val c : Context, var items : List<ItemNotif>) : RecyclerView
         holder.itemView.tv_title.text = items[position].notificationTitle
         holder.itemView.tv_desc.text = items[position].notificationShortContent
         if (items[position].isRead == 0){
-            holder.itemView.ll_background.setBackgroundColor(c.resources.getColor(R.color.grey_bg))
+            holder.itemView.ll_background.setBackgroundColor(c.resources.getColor(R.color.gray_bg_notif))
         }else{
             holder.itemView.ll_background.setBackgroundColor(c.resources.getColor(R.color.white))
 

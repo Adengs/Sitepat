@@ -5,10 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.codelabs.dokter_mobil_customer.R
+import com.codelabs.dokter_mobil_customer.helper.BaseActivity
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile
 import kotlinx.android.synthetic.main.activity_tambah_alamat.*
 
-class TambahAlamatActivity : AppCompatActivity() {
+class TambahAlamatActivity : BaseActivity() {
     private lateinit var data: Profile.Addresses
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,23 +35,43 @@ class TambahAlamatActivity : AppCompatActivity() {
         }
 
         btn_save.setOnClickListener {
-            data.name = txt_name.text.toString()
-            data.address = txt_address.text.toString()
-            data.isInput = false
+            if (txt_name.text!!.isEmpty()){
+                showToast("Input Address Name")
+                return@setOnClickListener
+            }
+            else if (txt_name.text!!.isEmpty()){
+                showToast("Input Address")
+                return@setOnClickListener
+            }
+            else {
+                data.name = txt_name.text.toString()
+                data.address = txt_address.text.toString()
+                data.isInput = false
 
-            val intent = Intent()
-            intent.putExtra("DATA",data)
-            setResult(RESULT_OK,intent)
-            finish()
+                val intent = Intent()
+                intent.putExtra("DATA", data)
+                setResult(RESULT_OK, intent)
+                finish()
+            }
         }
 
         tv_delete.setOnClickListener {
-            data.action = "DELETE"
+            if (txt_name.text!!.isEmpty()){
+                showToast("Input Address Name")
+                return@setOnClickListener
+            }
+            else if (txt_name.text!!.isEmpty()){
+                showToast("Input Address")
+                return@setOnClickListener
+            }
+            else {
+                data.action = "DELETE"
 
-            val intent = Intent()
-            intent.putExtra("DATA",data)
-            setResult(RESULT_OK,intent)
-            finish()
+                val intent = Intent()
+                intent.putExtra("DATA", data)
+                setResult(RESULT_OK, intent)
+                finish()
+            }
         }
     }
 }

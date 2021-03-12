@@ -39,7 +39,7 @@ class TambahAlamatActivity : BaseActivity() {
                 showToast("Input Address Name")
                 return@setOnClickListener
             }
-            else if (txt_name.text!!.isEmpty()){
+            else if (txt_address.text!!.isEmpty()){
                 showToast("Input Address")
                 return@setOnClickListener
             }
@@ -60,7 +60,7 @@ class TambahAlamatActivity : BaseActivity() {
                 showToast("Input Address Name")
                 return@setOnClickListener
             }
-            else if (txt_name.text!!.isEmpty()){
+            else if (txt_address.text!!.isEmpty()){
                 showToast("Input Address")
                 return@setOnClickListener
             }

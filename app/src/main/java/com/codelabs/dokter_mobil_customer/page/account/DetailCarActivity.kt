@@ -1,5 +1,6 @@
 package com.codelabs.dokter_mobil_customer.page.account
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,11 @@ class DetailCarActivity : BaseActivity() {
     }
 
     private fun initView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+
+        iv_back.setOnClickListener { finish() }
         tv_title.text = getString(R.string.detail_car)
         rv_data.layoutManager = LinearLayoutManager(this)
         adapter = ServiceRecordAdapter(this, listOf())

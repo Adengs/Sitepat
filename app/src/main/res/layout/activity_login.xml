@@ -222,7 +222,15 @@
                     android:layout_height="wrap_content"
                     android:baselineAligned="false">
 
+
+<!--                    <com.google.android.gms.common.SignInButton-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:layout_weight="1"/>-->
+
                     <RelativeLayout
+                        android:visibility="visible"
                         android:id="@+id/container_google"
                         android:layout_weight="1"
                         android:layout_width="0dp"

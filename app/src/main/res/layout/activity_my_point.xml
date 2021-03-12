@@ -18,20 +18,20 @@
         android:id="@+id/iv_card"
         android:layout_marginTop="@dimen/_10sdp">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_rectangle_2" />
+            android:src="@drawable/ic_background_mypoint" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_57sdp"
-            android:layout_height="@dimen/_44sdp"
-            android:layout_alignParentRight="true"
+            android:layout_height="@dimen/_46sdp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_5sdp"
-            android:src="@drawable/ic_totol" />
+            android:src="@drawable/ic_eclipse_card" />
 
 
         <LinearLayout
@@ -41,37 +41,40 @@
             android:layout_margin="@dimen/_10sdp"
             android:orientation="vertical">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rajdhani_bold"
-                android:text=""
+                tools:text="250"
                 android:id="@+id/tv_total_point"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_18sdp" />
+                android:textSize="@dimen/_18ssp" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/rajdhani_regular"
+                android:fontFamily="@font/rajdhani_bold"
                 android:text="Your Points"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_13ssp" />
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_alignParentEnd="true"
+            android:paddingLeft="@dimen/_20sdp"
+            android:paddingRight="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
             android:text="@string/reedem"
+            android:background="@drawable/background_btn_white"
             android:id="@+id/btn_reedem"
-            android:textAllCaps="false"
-            android:textColor="@color/black_button" />
+            android:textAllCaps="false" />
+
     </RelativeLayout>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:textSize="@dimen/_16ssp"
         android:padding="@dimen/_10sdp"
@@ -79,6 +82,7 @@
         android:text="@string/point_history"
         android:textColor="@color/black_button"
         android:fontFamily="@font/rajdhani_bold"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

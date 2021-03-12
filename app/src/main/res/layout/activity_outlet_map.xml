@@ -21,6 +21,7 @@
             class="com.google.android.gms.maps.SupportMapFragment"/>
 
         <RelativeLayout
+            android:id="@+id/container_toolbar"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -52,9 +53,10 @@
         android:visibility="visible"
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="700dp"
+        android:layout_height="match_parent"
         android:clipToPadding="true"
         android:background="@android:color/white"
+        android:layout_marginTop="@dimen/_60sdp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <LinearLayout
@@ -118,13 +120,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    tools:listitem="@layout/item_outlet_search"
                     android:scaleType="centerInside" />
 
             </RelativeLayout>
 
         </LinearLayout>
-
-
 
     </androidx.core.widget.NestedScrollView>
 

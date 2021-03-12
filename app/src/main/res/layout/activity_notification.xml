@@ -37,10 +37,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rajdhani_regular"
-                android:paddingLeft="16dp"
+                android:layout_marginStart="20dp"
                 android:text="@string/notification"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_18sdp"
+                android:textSize="@dimen/_18ssp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
@@ -50,6 +50,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rv_data"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginTop="10dp"
+        android:id="@+id/rv_data"/>
 
 </LinearLayout>

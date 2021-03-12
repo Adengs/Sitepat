@@ -70,7 +70,7 @@
     <string name="nothing_service_records">Tidak ada service record</string>
     <string name="name">Name</string>
     <string name="gender">Gender</string>
-    <string name="addresses">Addresses</string>
+    <string name="addresses">Address</string>
     <string name="save">Save</string>
     <string name="edit_profile">Edit Profile</string>
 
@@ -116,7 +116,7 @@
     <!--    Notification-->
     <string name="check_ur_point">Check Your Point</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    
+
     <!-- Outlet -->
     <string name="search_outlet">Search outlet ...</string>
     <string name="detail_outlet">Detail Outlet</string>

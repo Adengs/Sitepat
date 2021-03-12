@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include layout="@layout/toolbar_back"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_130sdp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_battery"
+            android:scaleType="centerInside"/>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/rajdhani_medium"
+            android:textStyle="bold"
+            android:text="BATTERY TEST"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_16ssp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/rajdhani_regular"
+            android:textStyle="bold"
+            android:text="Connect to device name"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/_12ssp" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/btn_checking"
+        android:layout_marginHorizontal="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/background_button_black">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_action_continue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:fontFamily="@font/rajdhani_bold"
+            android:textStyle="bold"
+            android:text="Start Checking"
+            android:textColor="@color/white" />
+    </FrameLayout>
+
+</RelativeLayout>

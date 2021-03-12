@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codelabs.dokter_mobil_customer.R
+import com.codelabs.dokter_mobil_customer.utils.RecentUtils
 import kotlinx.android.synthetic.main.item_notif.view.*
 import com.codelabs.dokter_mobil_customer.viewmodel.ItemNotif
 
@@ -23,7 +24,7 @@ class NotifAdapter (val c : Context, var items : List<ItemNotif>) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.itemView.tv_date.text = items[position].notificationDate
+        holder.itemView.tv_date.text = RecentUtils.formatDateToDateDMY(items[position].notificationDate)
         holder.itemView.tv_title.text = items[position].notificationTitle
         holder.itemView.tv_desc.text = items[position].notificationShortContent
         if (items[position].isRead == 0){

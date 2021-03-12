@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -30,6 +31,15 @@ import com.codelabs.dokter_mobil_customer.page.password.ForgotPasswordActivity;
 import com.codelabs.dokter_mobil_customer.page.register.RegisterActivity;
 import com.codelabs.dokter_mobil_customer.utils.RecentUtils;
 import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.shape.RelativeCornerSize;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -76,6 +86,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     /* declare global variable in here */
 
     private Boolean showPassword = false;
+    GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +96,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         ButterKnife.bind(this);
         initView();
         initSetup();
+        initGoogleLogin();
 
     }
 
@@ -103,6 +116,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         containerFb.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
         imgEyePassword.setOnClickListener(this);
+    }
+
+    private void initGoogleLogin() {
+        GoogleSignInOptions googleSign = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, googleSign);
+    }
+
+    private void signInGoogle() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     /*validation field in here */
@@ -152,7 +178,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                         DataManager.getInstance().setLogoutDuration(response.getData().getLogout_duration());
 
-
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -176,6 +201,78 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            assert account != null;
+            showToast(account.getEmail());
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+   /* private void handleSignInResult(Task<GoogleSignInAccount> result) {
+        try {
+            GoogleSignInAccount account = result.getResult(ApiException.class);
+            Map<String, String> params = new HashMap<>();
+            assert account != null;
+            params.put("google_id", account.getId());
+            showDialogProgress("Load data login");
+            RetrofitInterface apiService = ApiUtils.getApiService();
+            String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+            Call<DataLogin> call = apiService.doLogin(auth, params);
+            call.enqueue(new Callback<DataLogin>() {
+                @Override
+                public void onResponse(@NonNull Call<DataLogin> call,@NonNull Response<DataLogin> response) {
+                    hideDialogProgress();
+                    if (response.isSuccessful()) {
+                        DataLogin data = response.body();
+                        if (response.code() == 200) {
+                            DataManager.getInstance().setToken(data.getData().getToken());
+                            DataManager.getInstance().setLoginData(data.getData().getDataCustomer());
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+                            String currrentDateandTime = sdf.format(new Date());
+                            DataManager.getInstance().setLastLogin(currrentDateandTime);
+                            DataManager.getInstance().setLogoutDuration(data.getData().getLogout_duration());
+
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    } else {
+                        ApiError error = ErrorUtils.parseError(response);
+                        showToast(error.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<DataLogin> call, @NonNull Throwable t) {
+                    if (!call.isCanceled()){
+                        hideDialogProgress();
+                        showToast(getString(R.string.toast_onfailure));
+                    }
+                }
+            });
+
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
+
+
+    } */
+
     /*declare function click in here */
 
     @Override
@@ -185,7 +282,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
        }
 
        if (containerGoogle == view) {
-           Toast.makeText(LoginActivity.this, "On Develop", Toast.LENGTH_SHORT).show();
+           signInGoogle();
        }
 
        if (containerFb == view) {

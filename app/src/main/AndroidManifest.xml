@@ -24,7 +24,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Doktermobilcustomer"
         android:usesCleartextTraffic="true">
-        <activity android:name=".page.account.EditProfileActivity"></activity>
+        <activity
+            android:name=".page.car_monitoring.CarMonitoringActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".page.account.EditProfileActivity" />
         <activity android:name=".page.account.ReedemPointActivity" />
         <activity android:name=".page.account.MyPointActivity" />
         <activity android:name=".page.account.DetailCarActivity" />

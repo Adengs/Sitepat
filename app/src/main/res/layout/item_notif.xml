@@ -4,41 +4,53 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/_10sdp"
-    android:id="@+id/ll_background"
-    android:paddingTop="@dimen/_5sdp"
-    android:paddingRight="@dimen/_10sdp"
-    android:paddingBottom="@dimen/_5sdp">
+    android:background="@color/white"
+    android:id="@+id/ll_background">
 
-    <TextView
-        android:id="@+id/tv_date"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_3sdp"
-        android:fontFamily="@font/rajdhani_regular"
-        android:textColor="@color/red_text"
-        android:textSize="@dimen/_12sdp"
-        tools:text="Today" />
+        android:padding="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_title"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_3sdp"
+            android:fontFamily="@font/rajdhani_medium"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/_12ssp"
+            tools:text="Today" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_3sdp"
+            android:fontFamily="@font/rajdhani_bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"
+            tools:text="Yeay!! You get 100 points!" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/rajdhani_regular"
+            android:maxLines="2"
+            android:textColor="@color/grayFont"
+            android:text="@string/lorem_ipsum"
+            android:textSize="@dimen/_13ssp" />
+
+    </LinearLayout>
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_3sdp"
-        android:fontFamily="@font/rajdhani_semi_bold"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_16sdp"
-        tools:text="Yeay!! You get 100 points!" />
-
-    <TextView
-        android:id="@+id/tv_desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:fontFamily="@font/rajdhani_regular"
-        android:maxLines="2"
-        android:text="@string/lorem_ipsum"
-        android:textSize="@dimen/_14sdp" />
-
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@color/grayBackground"/>
 
 </LinearLayout>

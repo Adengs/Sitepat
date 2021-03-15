@@ -21,6 +21,7 @@ import com.codelabs.dokter_mobil_customer.connection.DataManager;
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
+import com.codelabs.dokter_mobil_customer.helper.Utils;
 import com.codelabs.dokter_mobil_customer.page.login.LoginActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
 import java.util.HashMap;
@@ -28,6 +29,12 @@ import java.util.Map;
 import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.samlss.lighter.Lighter;
+import me.samlss.lighter.interfaces.OnLighterListener;
+import me.samlss.lighter.parameter.Direction;
+import me.samlss.lighter.parameter.LighterParameter;
+import me.samlss.lighter.parameter.MarginOffset;
+import me.samlss.lighter.shape.RectShape;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -67,10 +74,43 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
         setContentView(R.layout.activity_change_password);
         ButterKnife.bind(this);
         initView();
-        initSetup();
         getPrevData();
+        if (getIntent().getBooleanExtra("IS_HIGHLIGHT_FORGOT",false)){
+            highlightForgotPassword();
+        }else {
+            initSetup();
+        }
     }
 
+    private void highlightForgotPassword(){
+        Lighter.with(this)
+                .addHighlight(new LighterParameter.Builder()
+                        .setHighlightedViewId(R.id.container_new_password)
+                        .setTipView(Utils.INSTANCE.createCommonTipViewTop(this, "Masukkan password baru anda"))
+                        .setLighterShape(new RectShape(5, 5, 30))
+                        .setTipViewRelativeDirection(Direction.TOP)
+                        .setTipViewRelativeOffset(new MarginOffset(150, 0, 30, 0))
+                        .build())
+                .addHighlight(new LighterParameter.Builder()
+                        .setHighlightedViewId(R.id.btn_submit)
+                        .setTipView(Utils.INSTANCE.createCommonTipViewBottom(this, "Kemudian klik tombol Submit untuk menyelesaikan pergantian password"))
+                        .setLighterShape(new RectShape(5, 5, 30))
+                        .setTipViewRelativeDirection(Direction.BOTTOM)
+                        .setTipViewRelativeOffset(new MarginOffset(0, 0, 0, 0))
+                        .build())
+                .setOnLighterListener(new OnLighterListener() {
+                    @Override
+                    public void onShow(int index) {
+
+                    }
+
+                    @Override
+                    public void onDismiss() {
+                        finish();
+                    }
+                })
+                .show();
+    }
 
     private void initView() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

@@ -36,6 +36,14 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import me.samlss.lighter.Lighter;
+import me.samlss.lighter.interfaces.OnLighterListener;
+import me.samlss.lighter.interfaces.OnLighterViewClickListener;
+import me.samlss.lighter.parameter.Direction;
+import me.samlss.lighter.parameter.LighterParameter;
+import me.samlss.lighter.parameter.MarginOffset;
+import me.samlss.lighter.shape.RectShape;
+import com.codelabs.dokter_mobil_customer.helper.Utils;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
 
@@ -76,7 +84,42 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
         initView();
-        initSetup();
+        if (getIntent().getBooleanExtra("IS_HIGHLIGHT_REGISTER",false)){
+            highlightRegister();
+        }else{
+            initSetup();
+        }
+
+    }
+
+    private void highlightRegister(){
+        Lighter.with(this)
+                .addHighlight(new LighterParameter.Builder()
+                        .setHighlightedViewId(R.id.container_input)
+                        .setTipView(Utils.INSTANCE.createCommonTipViewTop(this, "Pada halaman register, isikan semua data"))
+                        .setLighterShape(new RectShape(5, 5, 30))
+                        .setTipViewRelativeDirection(Direction.TOP)
+                        .setTipViewRelativeOffset(new MarginOffset(150, 0, 30, 0))
+                        .build())
+                .addHighlight(new LighterParameter.Builder()
+                        .setHighlightedViewId(R.id.btn_register)
+                        .setTipView(Utils.INSTANCE.createCommonTipViewBottom(this, "Kemudian klik tombol Register"))
+                        .setLighterShape(new RectShape(5, 5, 30))
+                        .setTipViewRelativeDirection(Direction.BOTTOM)
+                        .setTipViewRelativeOffset(new MarginOffset(150, 0, 30, 0))
+                        .build())
+                .setOnLighterListener(new OnLighterListener() {
+                    @Override
+                    public void onShow(int index) {
+
+                    }
+
+                    @Override
+                    public void onDismiss() {
+                        finish();
+                    }
+                })
+                .show();
     }
 
     private void initView() {

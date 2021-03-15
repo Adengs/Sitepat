@@ -21,13 +21,28 @@ import com.codelabs.dokter_mobil_customer.connection.DataManager;
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
+import com.codelabs.dokter_mobil_customer.helper.Utils;
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.samlss.lighter.Lighter;
+import me.samlss.lighter.interfaces.OnLighterListener;
+import me.samlss.lighter.parameter.Direction;
+import me.samlss.lighter.parameter.LighterParameter;
+import me.samlss.lighter.parameter.MarginOffset;
+import me.samlss.lighter.shape.RectShape;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import me.samlss.lighter.Lighter;
+import me.samlss.lighter.interfaces.OnLighterListener;
+import me.samlss.lighter.interfaces.OnLighterViewClickListener;
+import me.samlss.lighter.parameter.Direction;
+import me.samlss.lighter.parameter.LighterParameter;
+import me.samlss.lighter.parameter.MarginOffset;
+import me.samlss.lighter.shape.RectShape;
+import com.codelabs.dokter_mobil_customer.helper.Utils;
 
 public class ForgotPasswordActivity extends BaseActivity implements View.OnClickListener {
 
@@ -49,7 +64,46 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
         setContentView(R.layout.activity_forgot_password);
         ButterKnife.bind(this);
         initView();
-        initSetup();
+        if (getIntent().getBooleanExtra("IS_HIGHLIGHT_FORGOT",false)){
+            highlightForgotPassword();
+        }else {
+            initSetup();
+        }
+    }
+
+    private void highlightForgotPassword(){
+        Lighter.with(this)
+                .addHighlight(new LighterParameter.Builder()
+                        .setHighlightedViewId(R.id.container_edt_email_phone)
+                        .setTipView(Utils.INSTANCE.createCommonTipViewTop(this, "Pada halaman forgot password, isikan email atau nomor telepon yang terdaftar"))
+                        .setLighterShape(new RectShape(5, 5, 30))
+                        .setTipViewRelativeDirection(Direction.TOP)
+                        .setTipViewRelativeOffset(new MarginOffset(0, 0, 0, 0))
+                        .build())
+                .addHighlight(new LighterParameter.Builder()
+                        .setHighlightedViewId(R.id.btn_continue)
+                        .setTipView(Utils.INSTANCE.createCommonTipViewBottom(this, "Kemudian klik tombol Continue"))
+                        .setLighterShape(new RectShape(5, 5, 30))
+                        .setTipViewRelativeDirection(Direction.BOTTOM)
+                        .setTipViewRelativeOffset(new MarginOffset(150, 0, 30, 0))
+                        .build())
+                .setOnLighterListener(new OnLighterListener() {
+                    @Override
+                    public void onShow(int index) {
+
+                    }
+
+                    @Override
+                    public void onDismiss() {
+                        Intent intent = new Intent(ForgotPasswordActivity.this, ForgotPasswordVerificationActivity.class);
+                        intent.putExtra("identity", "************");
+                        intent.putExtra("IS_HIGHLIGHT_FORGOT",true);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .show();
+
     }
 
     private void initView() {

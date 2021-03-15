@@ -81,5 +81,6 @@ dependencies {
     //GoogleSignIn
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
+    implementation 'me.samlss:lighter:1.0.3'
 
 }

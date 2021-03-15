@@ -43,7 +43,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/container_register_account"
-                android:layout_marginHorizontal="20dp">
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="40dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -56,12 +57,15 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/container_fullname"
-                android:layout_marginTop="40dp"
+                android:id="@+id/container_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
                 android:layout_below="@+id/container_desc_register">
+            <RelativeLayout
+                android:id="@+id/container_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -249,13 +253,15 @@
 
             </RelativeLayout>
 
+            </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/container_register"
                 android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_below="@+id/container_edt_password">
+                android:layout_below="@+id/container_input">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_register"

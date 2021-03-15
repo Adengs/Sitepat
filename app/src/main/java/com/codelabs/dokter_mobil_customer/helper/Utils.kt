@@ -1,15 +1,20 @@
 package com.codelabs.dokter_mobil_customer.helper
 
+import android.app.Activity
 import android.os.Build
 import android.text.Html
 import android.text.SpannableString
 import android.text.Spanned
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import com.codelabs.dokter_mobil_customer.R
 import java.text.SimpleDateFormat
 import java.util.*
 
 object Utils {
 
-    fun parseDate(s : String, from : String, to : String) : String {
+    fun parseDate(s: String, from: String, to: String) : String {
         if(s != "") {
 //            var sdf = SimpleDateFormat(from, Locale.US)
             var sdf = SimpleDateFormat(from, Locale.getDefault())
@@ -37,6 +42,36 @@ object Utils {
         } else {
             Html.fromHtml(html)
         }
+    }
+
+    fun createCommonTipViewBottom(activity: Activity, string: String?, rotate: Int): View? {
+        val view: View = activity.layoutInflater.inflate(R.layout.layout_tip, null)
+        val textView = view.findViewById<TextView>(R.id.tv_text)
+        textView.text = string
+        val imageView = view.findViewById<ImageView>(R.id.iv_image)
+        imageView.rotation = rotate.toFloat()
+        return view
+    }
+    fun createCommonTipViewBottom(activity: Activity, string: String?): View? {
+        val view: View = activity.layoutInflater.inflate(R.layout.layout_tip, null)
+        val textView = view.findViewById<TextView>(R.id.tv_text)
+        textView.text = string
+        return view
+    }
+
+    fun createCommonTipViewTop(activity: Activity, string: String?, rotate: Int): View? {
+        val view: View = activity.layoutInflater.inflate(R.layout.layout_tip_2, null)
+        val textView = view.findViewById<TextView>(R.id.tv_text)
+        textView.text = string
+        val imageView = view.findViewById<ImageView>(R.id.iv_image)
+        imageView.rotation = rotate.toFloat()
+        return view
+    }
+    fun createCommonTipViewTop(activity: Activity, string: String?): View? {
+        val view: View = activity.layoutInflater.inflate(R.layout.layout_tip_2, null)
+        val textView = view.findViewById<TextView>(R.id.tv_text)
+        textView.text = string
+        return view
     }
 
 }

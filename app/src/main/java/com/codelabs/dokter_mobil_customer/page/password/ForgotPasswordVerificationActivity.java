@@ -25,13 +25,28 @@ import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.helper.EditTextUtils;
+import com.codelabs.dokter_mobil_customer.helper.Utils;
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.samlss.lighter.Lighter;
+import me.samlss.lighter.interfaces.OnLighterListener;
+import me.samlss.lighter.parameter.Direction;
+import me.samlss.lighter.parameter.LighterParameter;
+import me.samlss.lighter.parameter.MarginOffset;
+import me.samlss.lighter.shape.RectShape;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import me.samlss.lighter.Lighter;
+import me.samlss.lighter.interfaces.OnLighterListener;
+import me.samlss.lighter.interfaces.OnLighterViewClickListener;
+import me.samlss.lighter.parameter.Direction;
+import me.samlss.lighter.parameter.LighterParameter;
+import me.samlss.lighter.parameter.MarginOffset;
+import me.samlss.lighter.shape.RectShape;
+import com.codelabs.dokter_mobil_customer.helper.Utils;
 
 public class ForgotPasswordVerificationActivity extends BaseActivity implements View.OnClickListener {
 
@@ -86,9 +101,53 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
         ButterKnife.bind(this);
         getPrevData();
         initView();
-        initSetup();
-        startTimer(2);
+        if (getIntent().getBooleanExtra("IS_HIGHLIGHT_FORGOT",false)){
+            highlightForgotPassword();
+        }else {
+            initSetup();
+            startTimer(2);
+        }
 
+    }
+
+    private void highlightForgotPassword(){
+        Lighter.with(this)
+                .addHighlight(new LighterParameter.Builder()
+                        .setHighlightedViewId(R.id.container_edt_email_phone)
+                        .setTipView(Utils.INSTANCE.createCommonTipViewTop(this, "Masukkan OTP yang diterima"))
+                        .setLighterShape(new RectShape(5, 5, 30))
+                        .setTipViewRelativeDirection(Direction.TOP)
+                        .setTipViewRelativeOffset(new MarginOffset(0, 0, 0, 0))
+                        .build())
+                .addHighlight(new LighterParameter.Builder()
+                        .setHighlightedViewId(R.id.tv_resend_code)
+                        .setTipView(Utils.INSTANCE.createCommonTipViewTop(this, "Apabila OTP tidak diterima, klik tombol Resend",90))
+                        .setLighterShape(new RectShape(5, 5, 30))
+                        .setTipViewRelativeDirection(Direction.TOP)
+                        .setTipViewRelativeOffset(new MarginOffset(150, 0, 30, 0))
+                        .build())
+                .addHighlight(new LighterParameter.Builder()
+                        .setHighlightedViewId(R.id.btn_submit)
+                        .setTipView(Utils.INSTANCE.createCommonTipViewBottom(this, "Kemudian klik tombol Submit"))
+                        .setLighterShape(new RectShape(5, 5, 30))
+                        .setTipViewRelativeDirection(Direction.BOTTOM)
+                        .setTipViewRelativeOffset(new MarginOffset(150, 0, 30, 0))
+                        .build())
+                .setOnLighterListener(new OnLighterListener() {
+                    @Override
+                    public void onShow(int index) {
+
+                    }
+
+                    @Override
+                    public void onDismiss() {
+                        Intent intent = new Intent(ForgotPasswordVerificationActivity.this, ChangePasswordActivity.class);
+                        intent.putExtra("IS_HIGHLIGHT_FORGOT",true);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .show();
     }
 
     @Override

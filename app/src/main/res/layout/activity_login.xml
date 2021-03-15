@@ -23,7 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="70dp">
+                android:layout_marginTop="70dp"
+                android:layout_marginBottom="70dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_logo"
@@ -36,12 +37,16 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/container_email"
-                android:layout_marginTop="70dp"
+                android:id="@+id/container_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_below="@+id/container_img_logo">
+                android:layout_below="@id/container_img_logo">
+
+            <RelativeLayout
+                android:id="@+id/container_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -67,6 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:focusableInTouchMode="true"
                     android:textColorHint="@color/gray_text"
                     android:hint="@string/type_email_add"
                     android:inputType="textEmailAddress"
@@ -102,6 +108,7 @@
                 android:id="@+id/container_edt_password"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
+                android:focusableInTouchMode="true"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_edittext_grey"
                 android:layout_marginHorizontal="20dp"
@@ -136,14 +143,15 @@
                     android:src="@drawable/ic_eye_gone" />
 
             </RelativeLayout>
-
+            </RelativeLayout>
             <RelativeLayout
+
                 android:id="@+id/container_forgot_password"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_below="@+id/container_edt_password">
+                android:layout_below="@+id/container_input">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_forgot_password"

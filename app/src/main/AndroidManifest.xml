@@ -24,12 +24,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Doktermobilcustomer"
         android:usesCleartextTraffic="true">
+        <activity android:name=".page.forgot_password.ForgotPasswordActivity"></activity>
+        <activity android:name=".page.setting.getting_started.GettingStartedRegister" />
         <activity
             android:name=".page.car_monitoring.CarMonitoringActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".page.account.TambahAlamatActivity"></activity>
-
+            android:screenOrientation="portrait" />
+        <activity android:name=".page.account.TambahAlamatActivity" />
         <activity android:name=".page.account.EditProfileActivity" />
         <activity android:name=".page.account.ReedemPointActivity" />
         <activity android:name=".page.account.MyPointActivity" />
@@ -96,6 +96,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".page.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".page.setting.getting_started.GettingStartedLogin"
             android:screenOrientation="portrait" />
         <activity
             android:name=".page.main.MainActivity"

@@ -8,11 +8,13 @@ import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
+
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
@@ -24,9 +26,11 @@ import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.helper.Utils;
 import com.codelabs.dokter_mobil_customer.page.login.LoginActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.samlss.lighter.Lighter;

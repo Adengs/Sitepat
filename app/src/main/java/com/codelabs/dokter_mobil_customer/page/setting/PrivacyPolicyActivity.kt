@@ -1,6 +1,5 @@
 package com.codelabs.dokter_mobil_customer.page.setting
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codelabs.dokter_mobil_customer.R
@@ -10,7 +9,6 @@ import com.codelabs.dokter_mobil_customer.connection.DataManager
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
 import com.codelabs.dokter_mobil_customer.viewmodel.PrivacyPolicy
-import com.codelabs.dokter_mobil_customer.viewmodel.TermsCondition
 import kotlinx.android.synthetic.main.activity_term_condition.*
 import kotlinx.android.synthetic.main.toolbar_back.*
 import retrofit2.Call

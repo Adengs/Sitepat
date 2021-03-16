@@ -1,12 +1,9 @@
 package com.codelabs.dokter_mobil_customer.viewmodel;
 
-import android.location.Address;
-import android.widget.ScrollView;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.*;
-
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 public class Profile {
     @SerializedName("message")

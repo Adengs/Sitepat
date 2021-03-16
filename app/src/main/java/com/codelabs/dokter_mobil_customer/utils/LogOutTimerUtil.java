@@ -10,7 +10,6 @@ import android.util.Log;
 import com.codelabs.dokter_mobil_customer.connection.AppConstant;
 import com.codelabs.dokter_mobil_customer.connection.DataManager;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;

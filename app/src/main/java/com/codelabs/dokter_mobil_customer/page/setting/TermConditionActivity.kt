@@ -1,21 +1,19 @@
 package com.codelabs.dokter_mobil_customer.page.setting
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codelabs.dokter_mobil_customer.R
-import com.codelabs.dokter_mobil_customer.connection.*
+import com.codelabs.dokter_mobil_customer.connection.ApiUtils
+import com.codelabs.dokter_mobil_customer.connection.AppConstant
+import com.codelabs.dokter_mobil_customer.connection.DataManager
+import com.codelabs.dokter_mobil_customer.connection.ErrorUtils
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
-import com.codelabs.dokter_mobil_customer.page.main.MainActivity
-import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin
 import com.codelabs.dokter_mobil_customer.viewmodel.TermsCondition
 import kotlinx.android.synthetic.main.activity_term_condition.*
 import kotlinx.android.synthetic.main.toolbar_back.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.*
 
 class TermConditionActivity : BaseActivity() {
     lateinit var adapter : AdapterTerm

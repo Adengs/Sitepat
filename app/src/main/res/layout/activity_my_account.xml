@@ -57,7 +57,7 @@
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
             android:id="@+id/iv_photo"
-            android:src="@drawable/ic_profil" />
+            tools:src="@drawable/ic_profil" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -74,7 +74,7 @@
                 android:fontFamily="@font/rajdhani_semi_bold"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_16sdp"
-                android:text="Jonathan" />
+                tools:text="Jonathan" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14sdp"
                 android:id="@+id/tv_email"
-                android:text="jonathan@mail.com" />
+                tools:text="jonathan@mail.com" />
 
         </LinearLayout>
 

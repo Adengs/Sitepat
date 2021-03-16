@@ -9,7 +9,6 @@ import com.codelabs.dokter_mobil_customer.connection.AppConstant
 import com.codelabs.dokter_mobil_customer.connection.DataManager
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
-import com.codelabs.dokter_mobil_customer.viewmodel.DataNotif
 import com.codelabs.dokter_mobil_customer.viewmodel.DetailNotif
 import com.codelabs.dokter_mobil_customer.viewmodel.ItemNotif
 import kotlinx.android.synthetic.main.activity_notif_detail.*

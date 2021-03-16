@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codelabs.dokter_mobil_customer.R
 import com.codelabs.dokter_mobil_customer.viewmodel.ServiceRecordMyCar
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_service_records.view.*
 
 class ServiceRecordAdapter (c : Context, var items : List<ServiceRecordMyCar>) : RecyclerView.Adapter<ServiceRecordAdapter.MyViewHolder>() {

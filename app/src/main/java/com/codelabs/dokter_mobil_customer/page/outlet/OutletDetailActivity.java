@@ -1,10 +1,5 @@
 package com.codelabs.dokter_mobil_customer.page.outlet;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +7,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
@@ -21,13 +20,18 @@ import com.codelabs.dokter_mobil_customer.connection.DataManager;
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
+import com.codelabs.dokter_mobil_customer.helper.Utils;
 import com.codelabs.dokter_mobil_customer.viewmodel.OutletDetail;
 import com.squareup.picasso.Picasso;
 
-import java.net.URI;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.samlss.lighter.Lighter;
+import me.samlss.lighter.interfaces.OnLighterListener;
+import me.samlss.lighter.parameter.Direction;
+import me.samlss.lighter.parameter.LighterParameter;
+import me.samlss.lighter.parameter.MarginOffset;
+import me.samlss.lighter.shape.RectShape;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -124,7 +128,7 @@ public class OutletDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void dataOutletDetail() {
-        if (responseData.getSiteImage().equals("")){
+        if (responseData.getSiteImage().equals("")) {
             ivOutlet.setImageResource(R.drawable.background_outlet_status);
         } else {
             Picasso.get()
@@ -141,6 +145,29 @@ public class OutletDetailActivity extends BaseActivity implements View.OnClickLi
         tvOutletName.setText(responseData.getSiteName());
         tvDistance.setText(responseData.getDistance());
         tvAlamatOutlet.setText(responseData.getSiteAddress());
+        if (getIntent().getBooleanExtra("IS_HIGHLIGHT_OUTLET", false)) {
+            Lighter.with(OutletDetailActivity.this)
+                    .addHighlight(new LighterParameter.Builder()
+                            .setHighlightedViewId(R.id.btn_reservation)
+                            .setTipView(Utils.INSTANCE.createCommonTipViewTop(OutletDetailActivity.this, "Klik Reservation untuk menghubungi outlet yang dipilih"))
+                            .setLighterShape(new RectShape(5, 5, 30))
+                            .setTipViewRelativeDirection(Direction.TOP)
+                            .setTipViewRelativeOffset(new MarginOffset(0, 0, 0, 0))
+                            .build())
+                    .setOnLighterListener(new OnLighterListener() {
+                        @Override
+                        public void onShow(int index) {
+
+                        }
+
+                        @Override
+                        public void onDismiss() {
+                            finish();
+                        }
+                    })
+                    .show();
+        }
+
     }
 
 

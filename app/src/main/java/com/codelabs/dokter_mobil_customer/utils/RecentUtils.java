@@ -10,7 +10,9 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.widget.TextView;
+
 import com.codelabs.dokter_mobil_customer.connection.AppController;
+
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;

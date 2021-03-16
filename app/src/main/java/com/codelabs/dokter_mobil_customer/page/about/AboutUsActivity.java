@@ -1,14 +1,16 @@
 package com.codelabs.dokter_mobil_customer.page.about;
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.RelativeLayout;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.annotation.SuppressLint;;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.RelativeLayout;
+
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.adapter.AboutUsAdapter;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
@@ -19,6 +21,7 @@ import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +30,8 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+;
 
 public class AboutUsActivity extends BaseActivity implements View.OnClickListener{
 

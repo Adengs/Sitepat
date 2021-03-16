@@ -17,16 +17,13 @@ import com.codelabs.dokter_mobil_customer.viewmodel.PrivacyPolicy;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
 import com.codelabs.dokter_mobil_customer.viewmodel.PromoDetail;
+import com.codelabs.dokter_mobil_customer.viewmodel.TermsCondition;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaint;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaintDetail;
-import com.codelabs.dokter_mobil_customer.viewmodel.TermsCondition;
 import com.codelabs.dokter_mobil_customer.viewmodel.param.UpdateProfil;
-import com.google.gson.JsonObject;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -35,7 +32,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 

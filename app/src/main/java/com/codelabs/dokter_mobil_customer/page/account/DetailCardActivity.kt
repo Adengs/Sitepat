@@ -1,7 +1,7 @@
 package com.codelabs.dokter_mobil_customer.page.account
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.codelabs.dokter_mobil_customer.R
 
 class DetailCardActivity : AppCompatActivity() {

@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.codelabs.dokter_mobil_customer.R;
-import com.codelabs.dokter_mobil_customer.viewmodel.DetailComplaint;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaintDetail;
 
 import java.util.ArrayList;

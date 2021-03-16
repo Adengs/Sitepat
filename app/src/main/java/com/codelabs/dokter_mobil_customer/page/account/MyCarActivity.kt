@@ -1,5 +1,6 @@
 package com.codelabs.dokter_mobil_customer.page.account
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -31,6 +32,11 @@ class MyCarActivity : BaseActivity() {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
 
+
+        btn_add_car.setOnClickListener {
+            val intent = Intent(this, AddNewCarActivity::class.java)
+            startActivity(intent)
+        }
         tv_title.text = getString(R.string.my_car)
         iv_back.setOnClickListener { finish() }
         rv_data.layoutManager = LinearLayoutManager(this)

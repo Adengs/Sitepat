@@ -24,6 +24,11 @@ class MyAccountActivity : BaseActivity() {
     }
 
     private fun initView() {
+
+        ll_change_password.setOnClickListener {
+            val intent = Intent(this, AccountChangePasswordActivity::class.java)
+            startActivity(intent)
+        }
         iv_card.setOnClickListener {
             val intent = Intent(this, DetailCardActivity::class.java)
             startActivity(intent)

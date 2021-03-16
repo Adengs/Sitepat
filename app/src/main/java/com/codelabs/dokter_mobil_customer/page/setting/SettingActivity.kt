@@ -2,7 +2,6 @@ package com.codelabs.dokter_mobil_customer.page.setting
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import com.codelabs.dokter_mobil_customer.R
 import com.codelabs.dokter_mobil_customer.connection.DataManager
 import com.codelabs.dokter_mobil_customer.dialog.LogoutDialog

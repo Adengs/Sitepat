@@ -1,11 +1,5 @@
 package com.codelabs.dokter_mobil_customer.page.password;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
@@ -15,6 +9,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
@@ -39,14 +39,6 @@ import me.samlss.lighter.shape.RectShape;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import me.samlss.lighter.Lighter;
-import me.samlss.lighter.interfaces.OnLighterListener;
-import me.samlss.lighter.interfaces.OnLighterViewClickListener;
-import me.samlss.lighter.parameter.Direction;
-import me.samlss.lighter.parameter.LighterParameter;
-import me.samlss.lighter.parameter.MarginOffset;
-import me.samlss.lighter.shape.RectShape;
-import com.codelabs.dokter_mobil_customer.helper.Utils;
 
 public class ForgotPasswordVerificationActivity extends BaseActivity implements View.OnClickListener {
 

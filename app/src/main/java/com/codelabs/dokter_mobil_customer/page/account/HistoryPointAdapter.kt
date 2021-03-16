@@ -9,7 +9,6 @@ import com.codelabs.dokter_mobil_customer.R
 import com.codelabs.dokter_mobil_customer.helper.Utils
 import com.codelabs.dokter_mobil_customer.viewmodel.ItemPointHistory
 import kotlinx.android.synthetic.main.item_point_history.view.*
-import java.lang.StringBuilder
 
 class HistoryPointAdapter (val c : Context, var items : List<ItemPointHistory>) : RecyclerView.Adapter<HistoryPointAdapter.MyViewHolder>() {
 

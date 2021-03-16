@@ -24,7 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Doktermobilcustomer"
         android:usesCleartextTraffic="true">
-        <activity android:name=".page.forgot_password.ForgotPasswordActivity"></activity>
+        <activity android:name=".page.account.AddNewCarActivity"></activity>
+        <activity android:name=".page.account.AccountChangePasswordActivity" />
+        <activity android:name=".page.forgot_password.ForgotPasswordActivity" />
         <activity android:name=".page.setting.getting_started.GettingStartedRegister" />
         <activity
             android:name=".page.car_monitoring.CarMonitoringActivity"

@@ -3,7 +3,9 @@ package com.codelabs.dokter_mobil_customer.page.splashscreen;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
+
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;

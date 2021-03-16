@@ -1,15 +1,15 @@
 package com.codelabs.dokter_mobil_customer.page.promo;
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.RelativeLayout;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.RelativeLayout;
 
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.adapter.PromoAdapter;

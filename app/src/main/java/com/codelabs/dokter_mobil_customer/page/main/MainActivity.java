@@ -1,24 +1,19 @@
 package com.codelabs.dokter_mobil_customer.page.main;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
-
-import android.Manifest;
-import android.annotation.SuppressLint;
-
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.LocationManager;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.adapter.PromoBannerAdapter;
@@ -29,6 +24,7 @@ import com.codelabs.dokter_mobil_customer.connection.DataManager;
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
+import com.codelabs.dokter_mobil_customer.helper.Utils;
 import com.codelabs.dokter_mobil_customer.page.Notif.NotificationActivity;
 import com.codelabs.dokter_mobil_customer.page.about.AboutUsActivity;
 import com.codelabs.dokter_mobil_customer.page.account.MyAccountActivity;
@@ -44,6 +40,12 @@ import com.google.android.material.tabs.TabLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.samlss.lighter.Lighter;
+import me.samlss.lighter.interfaces.OnLighterListener;
+import me.samlss.lighter.parameter.Direction;
+import me.samlss.lighter.parameter.LighterParameter;
+import me.samlss.lighter.parameter.MarginOffset;
+import me.samlss.lighter.shape.RectShape;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -95,6 +97,35 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         initView();
         initSetup();
         fetchData();
+        if (getIntent().getBooleanExtra("IS_HIGHLIGHT_OUTLET",false)){
+            highlightOutlet();
+        }
+    }
+
+    private void highlightOutlet(){
+        Lighter.with(this)
+                .addHighlight(new LighterParameter.Builder()
+                        .setHighlightedViewId(R.id.container_outlet)
+                        .setTipView(Utils.INSTANCE.createCommonTipViewTop(this, "Pada halaman utama, pilih menu Outlet"))
+                        .setLighterShape(new RectShape(5, 5, 30))
+                        .setTipViewRelativeDirection(Direction.TOP)
+                        .setTipViewRelativeOffset(new MarginOffset(150, 0, 30, 0))
+                        .build())
+                .setOnLighterListener(new OnLighterListener() {
+                    @Override
+                    public void onShow(int index) {
+
+                    }
+
+                    @Override
+                    public void onDismiss() {
+                        Intent intent = new Intent(MainActivity.this, OutletMapActivity.class);
+                        intent.putExtra("IS_HIGHLIGHT_OUTLET",true);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .show();
     }
 
     private void initView() {

@@ -11,13 +11,13 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
@@ -35,11 +35,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.shape.RelativeCornerSize;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,6 +44,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;

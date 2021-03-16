@@ -1,16 +1,5 @@
 package com.codelabs.dokter_mobil_customer.page.outlet;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,19 +11,28 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.adapter.OutletAdapter;
-import com.codelabs.dokter_mobil_customer.adapter.PromoAdapter;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
 import com.codelabs.dokter_mobil_customer.connection.AppConstant;
@@ -42,9 +40,8 @@ import com.codelabs.dokter_mobil_customer.connection.DataManager;
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
-import com.codelabs.dokter_mobil_customer.page.main.MainActivity;
+import com.codelabs.dokter_mobil_customer.helper.Utils;
 import com.codelabs.dokter_mobil_customer.viewmodel.Outlet;
-import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -55,16 +52,13 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -72,11 +66,20 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.samlss.lighter.Lighter;
+import me.samlss.lighter.interfaces.OnLighterListener;
+import me.samlss.lighter.parameter.Direction;
+import me.samlss.lighter.parameter.LighterParameter;
+import me.samlss.lighter.parameter.MarginOffset;
+import me.samlss.lighter.shape.RectShape;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -119,7 +122,6 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
     private GoogleMap mMap;
     private FusedLocationProviderClient mfusedLocationProviderClient;
     View mapView;
-
 
 
     private BottomSheetBehavior mBottomSheetBehavior;
@@ -167,7 +169,7 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
         etSearchOutlet.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
+                if (hasFocus) {
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 } else {
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -198,10 +200,10 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
             // Align it to
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,0);
-            params.addRule(RelativeLayout.ALIGN_PARENT_TOP,0);
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
 //            params.height = 5200;
-            params.setMargins(0,0,0,400);
+            params.setMargins(0, 0, 0, 400);
 
 
             // Update margins, set to 10dp
@@ -223,19 +225,21 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
         Call<Outlet> call = apiService.getOutlet(auth, keyword);
         call.enqueue(new Callback<Outlet>() {
             @Override
-            public void onResponse(@NonNull Call<Outlet> call,@NonNull Response<Outlet> response) {
+            public void onResponse(@NonNull Call<Outlet> call, @NonNull Response<Outlet> response) {
                 if (response.isSuccessful()) {
                     Outlet data = response.body();
                     if (response.code() == 200) {
                         mAdapter.setData(data.getData().getItemsOutlet());
+
+
                         responseOutlet = data.getData().getItemsOutlet();
 
-                        for (int i = 0;i < responseOutlet.size(); i++) {
+                        for (int i = 0; i < responseOutlet.size(); i++) {
                             Latitude = responseOutlet.get(i).getSiteLatitude();
                             Longitude = responseOutlet.get(i).getSiteLongitude();
                             String name = responseOutlet.get(i).getSiteName();
                             lat = Double.parseDouble(Latitude.replace(",", "."));
-                            longitude = Double.parseDouble(Longitude.replace(",","."));
+                            longitude = Double.parseDouble(Longitude.replace(",", "."));
                             LatLng cordinate = new LatLng(lat, longitude);
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cordinate, 10));
 
@@ -259,6 +263,56 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onHighlightOutlet(Outlet.ItemsOutlet data) {
+        if (getIntent().getBooleanExtra("IS_HIGHLIGHT_OUTLET", false)) {
+            bottomSheet.fullScroll(View.FOCUS_UP);
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Lighter.with(OutletMapActivity.this)
+                            .addHighlight(new LighterParameter.Builder()
+                                    .setHighlightedViewId(R.id.rv_outlet)
+                                    .setTipView(Utils.INSTANCE.createCommonTipViewTop(OutletMapActivity.this, "Pilih outlet"))
+                                    .setLighterShape(new RectShape(5, 5, 30))
+                                    .setTipViewRelativeDirection(Direction.TOP)
+                                    .setTipViewRelativeOffset(new MarginOffset(150, 0, 30, 0))
+                                    .build())
+                            .setOnLighterListener(new OnLighterListener() {
+                                @Override
+                                public void onShow(int index) {
+
+                                }
+
+                                @Override
+                                public void onDismiss() {
+                                    Intent intent = new Intent(OutletMapActivity.this, OutletDetailActivity.class);
+                                    intent.putExtra("IS_HIGHLIGHT_OUTLET", true);
+                                    intent.putExtra("outlet_id", data.getSiteId());
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                            .show();
+                }
+            }, 500);
+
+        }
     }
 
     private void functionSearch() {
@@ -307,7 +361,7 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
     private void getDeviceLocation() {
         mfusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         try {
-            if (mLocationPermissionsGranted){
+            if (mLocationPermissionsGranted) {
                 final Task location = mfusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(new OnCompleteListener() {
                     @Override
@@ -329,7 +383,7 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
                 });
             }
         } catch (SecurityException e) {
-            Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage() );
+            Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage());
         }
     }
 
@@ -412,18 +466,18 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
         Log.d(TAG, "getLocationPermission: getting location permissions");
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
-        if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionsGranted = true;
                 initMap();
-            }else{
+            } else {
                 ActivityCompat.requestPermissions(this,
                         permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
-        }else{
+        } else {
             ActivityCompat.requestPermissions(this,
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
@@ -436,17 +490,15 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
     }
 
 
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         mLocationPermissionsGranted = false;
 
-        switch(requestCode){
-            case LOCATION_PERMISSION_REQUEST_CODE:{
-                if(grantResults.length > 0){
-                    for(int i = 0; i < grantResults.length; i++){
-                        if(grantResults[i] != PackageManager.PERMISSION_GRANTED){
+        switch (requestCode) {
+            case LOCATION_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0) {
+                    for (int i = 0; i < grantResults.length; i++) {
+                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                             mLocationPermissionsGranted = false;
                             Log.d(TAG, "onRequestPermissionsResult: permission failed");
                             return;

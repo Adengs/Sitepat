@@ -32,6 +32,7 @@
             app:backgroundTint="@color/black_button"
             android:src="@android:drawable/ic_input_add"
             app:tint="@color/white"
+            android:id="@+id/btn_add_car"
             android:layout_marginRight="@dimen/_16sdp"
             android:layout_above="@id/btm" />
     </RelativeLayout>

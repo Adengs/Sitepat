@@ -1,7 +1,6 @@
 package com.codelabs.dokter_mobil_customer.page.account
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.codelabs.dokter_mobil_customer.R

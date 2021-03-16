@@ -1,16 +1,16 @@
 package com.codelabs.dokter_mobil_customer.page.walkthrough;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.adapter.WalkthroughAdapter;
@@ -23,8 +23,6 @@ import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.page.login.LoginActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetWalkThrough;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

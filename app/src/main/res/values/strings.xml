@@ -75,6 +75,18 @@
     <string name="save">Save</string>
     <string name="save_address">Save Address</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="new_car">New Car</string>
+    <string name="photo">Photo</string>
+    <string name="car_name_type_model">Car name, type or model</string>
+    <string name="no_plate">No. Plate</string>
+    <string name="police_number">Police number</string>
+    <string name="year">Year</string>
+    <string name="year_production">Year production</string>
+    <string name="color">Color</string>
+    <string name="car_color">Car color</string>
+    <string name="cc">Cc</string>
+    <string name="car_cc">Car cc</string>
+    <string name="add_car">Add Car</string>
 
     <!-- Menu -->
     <string name="outlet">Outlet</string>
@@ -123,5 +135,11 @@
     <string name="search_outlet">Search outlet ...</string>
     <string name="detail_outlet">Detail Outlet</string>
 
-
+    <!--    Change password-->
+    <string name="current_password">Current Password</string>
+    <string name="type_current_password">Type current password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="min_8_character">Min 8 character</string>
+    <string name="update_password">Update Password</string>
 </resources>

@@ -9,17 +9,12 @@ import com.codelabs.dokter_mobil_customer.connection.AppConstant
 import com.codelabs.dokter_mobil_customer.connection.DataManager
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
-import com.codelabs.dokter_mobil_customer.page.login.LoginActivity
+import com.codelabs.dokter_mobil_customer.page.main.MainActivity
 import com.codelabs.dokter_mobil_customer.page.setting.getting_started.GettingStartedLogin
 import com.codelabs.dokter_mobil_customer.viewmodel.Faq
 import com.codelabs.dokter_mobil_customer.viewmodel.ItemFaq
 import kotlinx.android.synthetic.main.activity_getting_started.*
 import kotlinx.android.synthetic.main.toolbar_back.*
-import me.samlss.lighter.Lighter
-import me.samlss.lighter.parameter.Direction
-import me.samlss.lighter.parameter.LighterParameter
-import me.samlss.lighter.parameter.MarginOffset
-import me.samlss.lighter.shape.RectShape
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import retrofit2.Call
@@ -71,6 +66,12 @@ class GettingStartedActivity : BaseActivity() {
                 val intent = Intent(this, GettingStartedLogin::class.java)
                 intent.putExtra("IS_HIGHLIGHT_FORGOT_PASSWORD",true)
                 startActivity(intent)
+            }
+            5->{
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("IS_HIGHLIGHT_OUTLET",true)
+                startActivity(intent)
+
             }
         }
     }

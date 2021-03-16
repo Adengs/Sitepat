@@ -10,7 +10,6 @@ import com.codelabs.dokter_mobil_customer.connection.ErrorUtils
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
 import com.codelabs.dokter_mobil_customer.viewmodel.Notification
 import kotlinx.android.synthetic.main.activity_notification.*
-import kotlinx.android.synthetic.main.activity_notification.rv_data
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

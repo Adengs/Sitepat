@@ -6,7 +6,9 @@
     android:background="@color/white"
     android:fitsSystemWindows="true"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:forceDarkAllowed="false"
+    android:focusableInTouchMode="true"
+    tools:targetApi="q">
 
     <ScrollView
         android:id="@+id/scroll_view"

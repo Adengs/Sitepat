@@ -22,12 +22,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_domo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Doktermobilcustomer"
+        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".page.account.AddNewCarActivity"></activity>
+        <activity android:name=".page.account.AddNewCarActivity"/>
         <activity android:name=".page.account.AccountChangePasswordActivity" />
-        <activity android:name=".page.forgot_password.ForgotPasswordActivity" />
-        <activity android:name=".page.setting.getting_started.GettingStartedRegister" />
+<!--        <activity android:name=".page.forgot_password.ForgotPasswordActivity" />-->
+<!--        <activity android:name=".page.setting.getting_started.GettingStartedRegister" />-->
         <activity
             android:name=".page.car_monitoring.CarMonitoringActivity"
             android:screenOrientation="portrait" />
@@ -86,6 +86,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".page.password.ForgotPasswordActivity"
+            android:configChanges="uiMode"
             android:screenOrientation="portrait" />
         <activity
             android:name=".page.password.ChangePasswordActivity"
@@ -104,8 +105,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".page.main.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/TemaNoActionBar" />
+            android:theme="@style/TemaNoActionBar"
+            android:screenOrientation="portrait" />
+
         <activity android:name=".page.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,6 +9,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.codelabs.dokter_mobil_customer.R
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -74,4 +78,20 @@ object Utils {
         return view
     }
 
+    fun createRequestBody(s: String): RequestBody {
+        return RequestBody.create(
+            MediaType.parse("multipart/from-data"),
+            s
+        )
+    }
+
+    fun createRequestImage(foto : File, name : String): MultipartBody.Part {
+        val requestFile =
+            RequestBody.create(MediaType.parse("image/*"), foto)
+        val paramImage =
+            MultipartBody.Part.createFormData(name, foto.getName(), requestFile)
+
+        return paramImage
+
+    }
 }

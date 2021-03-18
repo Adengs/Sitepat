@@ -21,6 +21,7 @@ public class AppConstant {
     public static final String GetToken = "api/v1/auth/token";
     public static final String Register = "api/v1/register";
     public static final String ForgotPassword = "api/v1/forgot_password";
+    public static final String ChangePassword = "api/v1/change_password";
     public static final String CheckOTP = "api/v1/check_otp";
     public static final String ResendOTP = "api/v1/resend_otp";
     public static final String ResetPassword = "api/v1/reset_password";
@@ -42,7 +43,9 @@ public class AppConstant {
     public static final String getNotif = "api/v1/notifications";
     public static final String getNotifDetail = "api/v1/notifications/{id}";
     public static final String getCustomerCar = "api/v1/customer/cars";
-    public static final String getCarDetail = "api/v1/customer/cars/{id}}";
+    public static final String getCarDetail = "api/v1/customer/cars/{id}";
+    public static final String addCar = "api/v1/customer/cars";
+    public static final String editCar = "api/v1/customer/cars/{id}";
     public static final String getHistoryPoint = "api/v1/points";
 
 }

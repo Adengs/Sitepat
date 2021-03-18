@@ -76,6 +76,7 @@
     <string name="save_address">Save Address</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="new_car">New Car</string>
+    <string name="edit_car">Edit Car</string>
     <string name="photo">Photo</string>
     <string name="car_name_type_model">Car name, type or model</string>
     <string name="no_plate">No. Plate</string>

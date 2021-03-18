@@ -10,10 +10,14 @@ import com.codelabs.dokter_mobil_customer.connection.ApiUtils
 import com.codelabs.dokter_mobil_customer.connection.AppConstant
 import com.codelabs.dokter_mobil_customer.connection.DataManager
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils
+import com.codelabs.dokter_mobil_customer.dialog.UpdateCarDialog
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
+import com.codelabs.dokter_mobil_customer.viewmodel.ItemMyCar
 import com.codelabs.dokter_mobil_customer.viewmodel.MyCar
 import kotlinx.android.synthetic.main.activity_my_car.*
 import kotlinx.android.synthetic.main.toolbar_back.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,9 +46,12 @@ class MyCarActivity : BaseActivity() {
         rv_data.layoutManager = LinearLayoutManager(this)
         adapter = MyCarAdapter(this, listOf())
         rv_data.adapter = adapter
-        getData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
     private fun getData() {
         showDialogProgress("Getting My Car")
         val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
@@ -71,6 +78,22 @@ class MyCarActivity : BaseActivity() {
                 }
             }
         })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe
+    fun onLongClickItem(data : ItemMyCar){
+        val dialog = UpdateCarDialog.newInstance(data)
+        dialog.show(supportFragmentManager,"")
     }
 
 }

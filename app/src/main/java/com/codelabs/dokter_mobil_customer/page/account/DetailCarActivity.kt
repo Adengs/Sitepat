@@ -76,7 +76,8 @@ class DetailCarActivity : BaseActivity() {
         iv_maintenance.visibility =
             if (data?.detail?.isMaintenance == 1) View.VISIBLE else View.INVISIBLE
 
-        Picasso.get().load(data?.detail?.image).into(iv_mobil)
+        if (data?.detail?.image!!.isNotEmpty())
+            Picasso.get().load(data?.detail?.image).into(iv_mobil)
         tv_plat_no.text = data?.detail?.carPlateNumber
         tv_tipe_mobil.text = data?.detail?.carName
         tv_tahun_mobil.text = data?.detail?.carYear

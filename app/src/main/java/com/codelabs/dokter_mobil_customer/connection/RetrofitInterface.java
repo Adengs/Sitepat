@@ -31,9 +31,14 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public interface RetrofitInterface {
 
@@ -52,6 +57,10 @@ public interface RetrofitInterface {
     @POST(AppConstant.ForgotPassword)
     @FormUrlEncoded
     Call<DoPost> doForgotPassword(@Header(AppConstant.AuthTitle) String auth, @Field("identity") String identity);
+
+    @POST(AppConstant.ChangePassword)
+    @FormUrlEncoded
+    Call<DoPost> changePassword(@Header(AppConstant.AuthTitle) String auth, @FieldMap Map<String, String> names);
 
     @POST(AppConstant.CheckOTP)
     @FormUrlEncoded
@@ -122,6 +131,17 @@ public interface RetrofitInterface {
     @POST(AppConstant.Profile)
     Call<DoPost> updateProfile(@Header(AppConstant.AuthTitle) String auth, @Body UpdateProfil param);
 
+    @Multipart
+    @POST(AppConstant.addCar)
+    Call<DoPost> addCar(@Header(AppConstant.AuthTitle) String auth, @PartMap Map<String, RequestBody> param, @Part MultipartBody.Part file);
+
+    @Multipart
+    @POST(AppConstant.editCar)
+    Call<DoPost> editCar(@Header(AppConstant.AuthTitle) String auth, @Path("id") String id, @PartMap Map<String, RequestBody> param, @Part MultipartBody.Part file);
+
+    @Multipart
+    @POST(AppConstant.editCar)
+    Call<DoPost> editCar(@Header(AppConstant.AuthTitle) String auth, @Path("id") String id, @PartMap Map<String, RequestBody> param);
 
 
 }

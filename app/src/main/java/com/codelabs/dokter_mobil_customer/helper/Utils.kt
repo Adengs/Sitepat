@@ -85,6 +85,13 @@ object Utils {
         )
     }
 
+    fun createRequestJson(s: String): RequestBody {
+        return RequestBody.create(
+            MediaType.parse("application/json"),
+            s
+        )
+    }
+
     fun createRequestImage(foto : File, name : String): MultipartBody.Part {
         val requestFile =
             RequestBody.create(MediaType.parse("image/*"), foto)

@@ -20,8 +20,13 @@ import com.codelabs.dokter_mobil_customer.viewmodel.PromoDetail;
 import com.codelabs.dokter_mobil_customer.viewmodel.TermsCondition;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaint;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaintDetail;
+import com.codelabs.dokter_mobil_customer.viewmodel.param.UpdateAddress;
 import com.codelabs.dokter_mobil_customer.viewmodel.param.UpdateProfil;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -128,6 +133,10 @@ public interface RetrofitInterface {
     @GET(AppConstant.getHistoryPoint)
     Call<PointHistory> getHistoryPoint(@Header(AppConstant.AuthTitle) String auth);
 
+    @Multipart
+    @POST(AppConstant.Profile)
+    Call<DoPost> updateProfile(@Header(AppConstant.AuthTitle) String auth, @PartMap Map<String, RequestBody> param, @Part MultipartBody.Part file);
+
     @POST(AppConstant.Profile)
     Call<DoPost> updateProfile(@Header(AppConstant.AuthTitle) String auth, @Body UpdateProfil param);
 
@@ -142,6 +151,5 @@ public interface RetrofitInterface {
     @Multipart
     @POST(AppConstant.editCar)
     Call<DoPost> editCar(@Header(AppConstant.AuthTitle) String auth, @Path("id") String id, @PartMap Map<String, RequestBody> param);
-
 
 }

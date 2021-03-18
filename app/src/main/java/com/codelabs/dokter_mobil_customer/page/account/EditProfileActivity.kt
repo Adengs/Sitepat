@@ -2,6 +2,8 @@ package com.codelabs.dokter_mobil_customer.page.account
 
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -11,24 +13,40 @@ import com.codelabs.dokter_mobil_customer.connection.ApiUtils
 import com.codelabs.dokter_mobil_customer.connection.AppConstant
 import com.codelabs.dokter_mobil_customer.connection.DataManager
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils
+import com.codelabs.dokter_mobil_customer.dialog.SelectImageDialog
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
+import com.codelabs.dokter_mobil_customer.helper.Utils
+import com.codelabs.dokter_mobil_customer.imagepicker.FilePickUtils
+import com.codelabs.dokter_mobil_customer.imagepicker.LifeCycleCallBackManager
 import com.codelabs.dokter_mobil_customer.viewmodel.DoPost
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile
+import com.codelabs.dokter_mobil_customer.viewmodel.eventbus.PickImage
 import com.codelabs.dokter_mobil_customer.viewmodel.param.UpdateAddress
 import com.codelabs.dokter_mobil_customer.viewmodel.param.UpdateProfil
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.toolbar_back.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.io.File
 
-class EditProfileActivity : BaseActivity() {
+class EditProfileActivity : BaseActivity(), FilePickUtils.OnFileChoose {
     private val RESULT_ALAMAT: Int = 100
     private lateinit var dataProfile: Profile.DataProfile
     private lateinit var adapter: AddressesAdapter
+    private var isSelectedImage = false
+    lateinit var lifeCycleCallBackManager: LifeCycleCallBackManager
+    lateinit var filePickUtils: FilePickUtils
+    private val CAMERA_PERMISSION = 11
+    private val STORAGE_PERMISSION_IMAGE = 22
+    lateinit var foto: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +56,13 @@ class EditProfileActivity : BaseActivity() {
     }
 
     private fun initView() {
+        filePickUtils = FilePickUtils(this, this)
+        lifeCycleCallBackManager = filePickUtils.callBackManager
+
+        iv_profil.setOnClickListener {
+            openSelectImage()
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
@@ -113,9 +138,9 @@ class EditProfileActivity : BaseActivity() {
     }
 
     @Subscribe
-    fun onClickItem(data : Profile.Addresses){
+    fun onClickItem(data: Profile.Addresses){
         val intent = Intent(this, TambahAlamatActivity::class.java)
-        intent.putExtra("DATA",data)
+        intent.putExtra("DATA", data)
         startActivityForResult(intent, RESULT_ALAMAT)
     }
 
@@ -124,22 +149,23 @@ class EditProfileActivity : BaseActivity() {
         if (requestCode == RESULT_ALAMAT && resultCode == RESULT_OK){
             val data = data?.getSerializableExtra("DATA") as Profile.Addresses
             when(data.action){
-                "ADD"->{
-                    dataProfile.addresses.set(data.position,data)
+                "ADD" -> {
+                    dataProfile.addresses.set(data.position, data)
 
                     val add = Profile.Addresses();
                     add.input = true
                     dataProfile.addresses?.add(add)
                 }
-                "EDIT"->{
-                    dataProfile.addresses.set(data.position,data)
+                "EDIT" -> {
+                    dataProfile.addresses.set(data.position, data)
                 }
-                "DELETE"->{
+                "DELETE" -> {
                     dataProfile.addresses.removeAt(data.position)
                 }
             }
             adapter.notifyDataSetChanged()
-
+        }else{
+            lifeCycleCallBackManager.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -181,32 +207,117 @@ class EditProfileActivity : BaseActivity() {
         )
 
         showDialogProgress("Saving Profile")
-        val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
-        val call: Call<DoPost> = ApiUtils.getApiService().updateProfile(auth, param);
-        call.enqueue(object : Callback<DoPost> {
-            override fun onResponse(call: Call<DoPost>, data: Response<DoPost>) {
-                hideDialogProgress()
-                if (data.isSuccessful) {
-                    val response = data.body()
-                    if (data.code() == 200) {
-                        showToast(response?.message)
-                        finish()
-                    }
-                } else {
-                    val error = ErrorUtils.parseError(data)
-                    showToast(error.message())
-                }
-            }
 
-            override fun onFailure(call: Call<DoPost>, t: Throwable) {
-                if (!call.isCanceled) {
+        if (!isSelectedImage) {
+            val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
+            val call: Call<DoPost> = ApiUtils.getApiService().updateProfile(auth, param);
+            call.enqueue(object : Callback<DoPost> {
+                override fun onResponse(call: Call<DoPost>, data: Response<DoPost>) {
                     hideDialogProgress()
-                    showToast(getString(R.string.toast_onfailure))
+                    if (data.isSuccessful) {
+                        val response = data.body()
+                        if (data.code() == 200) {
+                            showToast(response?.message)
+                            finish()
+                        }
+                    } else {
+                        val error = ErrorUtils.parseError(data)
+                        showToast(error.message())
+                    }
                 }
-            }
-        })
 
+                override fun onFailure(call: Call<DoPost>, t: Throwable) {
+                    if (!call.isCanceled) {
+                        hideDialogProgress()
+                        showToast(getString(R.string.toast_onfailure))
+                    }
+                }
+            })
+        }else{
+            val params = HashMap<String, RequestBody>()
+            params["customerName"] = Utils.createRequestBody(param.customerName.trim())
+            params["customerPhone"] = Utils.createRequestBody(param.customerPhone.trim())
+            params["customerEmail"] = Utils.createRequestBody(param.customerEmail.trim())
+            params["customerGender"] = Utils.createRequestBody(param.customerGender.trim())
+            params["address"] = Utils.createRequestJson(Gson().toJson(param.address))
+
+            val imageParams = Utils.createRequestImage(foto, "image")
+            val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
+            val call: Call<DoPost> = ApiUtils.getApiService().updateProfile(
+                auth,
+                params,
+                imageParams
+            );
+            call.enqueue(object : Callback<DoPost> {
+                override fun onResponse(call: Call<DoPost>, data: Response<DoPost>) {
+                    hideDialogProgress()
+                    if (data.isSuccessful) {
+                        val response = data.body()
+                        if (data.code() == 200) {
+                            showToast(response?.message)
+                            finish()
+                        }
+                    } else {
+                        val error = ErrorUtils.parseError(data)
+                        showToast(error.message())
+                    }
+                }
+
+                override fun onFailure(call: Call<DoPost>, t: Throwable) {
+                    if (!call.isCanceled) {
+                        hideDialogProgress()
+                        showToast(getString(R.string.toast_onfailure))
+                    }
+                }
+            })
+        }
+    }
+
+    @Subscribe
+    fun onSelectImage(data: PickImage) {
+        if (data.type == 1) {
+            filePickUtils.requestImageCamera(
+                CAMERA_PERMISSION,
+                true,
+                false,
+                false
+            )
+        } else {
+            filePickUtils.requestImageGallery(
+                STORAGE_PERMISSION_IMAGE,
+                true,
+                false,
+                false
+            )
+
+        }
+    }
+
+    private fun openSelectImage() {
+        val dialog = SelectImageDialog.newInstance()
+        dialog.show(supportFragmentManager, "")
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        lifeCycleCallBackManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
     }
+
+    override fun onFileChoose(fileUri: String?, requestCode: Int) {
+        var imageFoto = File(fileUri)
+        foto = imageFoto
+        isSelectedImage = true
+        val bitmap = BitmapFactory.decodeFile(imageFoto.getPath())
+        val byteArrayOutputStream =
+            ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 70, byteArrayOutputStream)
+        Picasso.get().load(imageFoto).into(iv_profil)
+    }
+
 
 }

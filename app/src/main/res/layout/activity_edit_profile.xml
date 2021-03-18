@@ -36,7 +36,7 @@
                     android:layout_height="@dimen/_65sdp"
                     android:src="@color/transparent_black" />
 
-<!--                <de.hdodenhof.circleimageview.CircleImageView-->
+                <!--                <de.hdodenhof.circleimageview.CircleImageView-->
 <!--                    android:layout_width="@dimen/_75sdp"-->
 <!--                    android:layout_height="@dimen/_75sdp"-->
 <!--                    android:scaleType="center"-->

@@ -6,6 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/_10sdp"
     android:id="@+id/ll_background"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:layout_marginLeft="@dimen/_5sdp"
     android:layout_marginRight="@dimen/_5sdp"
     app:cardCornerRadius="@dimen/_10sdp"

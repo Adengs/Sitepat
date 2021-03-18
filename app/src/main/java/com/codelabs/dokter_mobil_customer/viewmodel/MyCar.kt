@@ -1,5 +1,6 @@
 package com.codelabs.dokter_mobil_customer.viewmodel
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class MyCar(
@@ -42,5 +43,7 @@ data class ItemMyCar(
     @SerializedName("notes")
     val notes: String,
     @SerializedName("updatedAt")
-    val updatedAt: String
-)
+    val updatedAt: String,
+    @SerializedName("carCc")
+    val carCc: String
+) : Serializable

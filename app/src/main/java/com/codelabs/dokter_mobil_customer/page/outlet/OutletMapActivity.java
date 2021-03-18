@@ -159,7 +159,7 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
         rvOutlet.setAdapter(mAdapter);
 
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        mBottomSheetBehavior.setPeekHeight(300);
+        mBottomSheetBehavior.setPeekHeight(400);
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 

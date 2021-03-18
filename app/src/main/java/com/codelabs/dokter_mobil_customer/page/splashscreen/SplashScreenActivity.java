@@ -38,10 +38,7 @@ public class SplashScreenActivity extends BaseActivity {
         setContentView(R.layout.activity_splash_screen);
         loadAppToken();
         fetchData();
-
-
     }
-
 
     private void fetchData() {
         new Handler().postDelayed(new Runnable() {

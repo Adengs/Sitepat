@@ -50,7 +50,9 @@
         <activity
             android:name=".page.Notif.NotifDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".page.outlet.OutletDetailActivity" />
+        <activity
+            android:name=".page.outlet.OutletDetailActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".page.support.SupportDoneActivity"
             android:screenOrientation="portrait" />

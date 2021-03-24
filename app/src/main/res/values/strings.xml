@@ -5,7 +5,10 @@
     <string name="next">Next</string>
     <string name="done">Done</string>
     <string name="aboutus">About Us</string>
+    <string name="search_articles">Search articles ...</string>
     <string name="hi">Hi,</string>
+    <string name="author">Author : </string>
+    <string name="video">Video</string>
     <string name="starting_maintaining">Starting maintaining your car!</string>
     <string name="explore_hire">Explore hire!</string>
     <string name="walkthrough_title">Lorem Ipsum is Simple Dummy Text</string>
@@ -96,6 +99,7 @@
     <string name="monitoring">Monitoring</string>
     <string name="support">Support</string>
     <string name="about">About</string>
+    <string name="article">Article</string>
 
 
     <!--    Getting Started-->

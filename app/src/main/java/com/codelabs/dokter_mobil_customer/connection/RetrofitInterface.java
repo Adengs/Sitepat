@@ -1,6 +1,8 @@
 package com.codelabs.dokter_mobil_customer.connection;
 
 import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
+import com.codelabs.dokter_mobil_customer.viewmodel.Articles;
+import com.codelabs.dokter_mobil_customer.viewmodel.ArticlesDetail;
 import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
 import com.codelabs.dokter_mobil_customer.viewmodel.DetailCar;
 import com.codelabs.dokter_mobil_customer.viewmodel.DetailNotif;
@@ -20,15 +22,8 @@ import com.codelabs.dokter_mobil_customer.viewmodel.PromoDetail;
 import com.codelabs.dokter_mobil_customer.viewmodel.TermsCondition;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaint;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaintDetail;
-import com.codelabs.dokter_mobil_customer.viewmodel.param.UpdateAddress;
 import com.codelabs.dokter_mobil_customer.viewmodel.param.UpdateProfil;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -151,5 +146,11 @@ public interface RetrofitInterface {
     @Multipart
     @POST(AppConstant.editCar)
     Call<DoPost> editCar(@Header(AppConstant.AuthTitle) String auth, @Path("id") String id, @PartMap Map<String, RequestBody> param);
+
+    @GET(AppConstant.Articles)
+    Call<Articles> getArticles(@Header(AppConstant.AuthTitle) String auth, @Query("keyword") String keyword);
+
+    @GET(AppConstant.ArticlesDetail)
+    Call<ArticlesDetail> getArticlesDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") Integer id);
 
 }

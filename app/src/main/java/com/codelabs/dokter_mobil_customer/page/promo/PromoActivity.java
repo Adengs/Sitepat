@@ -54,7 +54,6 @@ public class PromoActivity extends BaseActivity implements View.OnClickListener 
         ButterKnife.bind(this);
         initView();
         fetchData();
-
     }
 
     private void initView() {

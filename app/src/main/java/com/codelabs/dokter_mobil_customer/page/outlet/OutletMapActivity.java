@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -59,6 +60,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -159,7 +161,7 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
         rvOutlet.setAdapter(mAdapter);
 
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        mBottomSheetBehavior.setPeekHeight(400);
+        mBottomSheetBehavior.setPeekHeight(900);
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
@@ -203,7 +205,7 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
             params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
 //            params.height = 5200;
-            params.setMargins(0, 0, 0, 400);
+            params.setMargins(0, 0, 0, 930);
 
 
             // Update margins, set to 10dp
@@ -230,8 +232,6 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
                     Outlet data = response.body();
                     if (response.code() == 200) {
                         mAdapter.setData(data.getData().getItemsOutlet());
-
-
                         responseOutlet = data.getData().getItemsOutlet();
 
                         for (int i = 0; i < responseOutlet.size(); i++) {
@@ -242,11 +242,8 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
                             longitude = Double.parseDouble(Longitude.replace(",", "."));
                             LatLng cordinate = new LatLng(lat, longitude);
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cordinate, 10));
-
-
                             BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_baloon_marker);
                             mMap.addMarker(new MarkerOptions().position(cordinate).icon(icon));
-
                         }
 
                     }
@@ -352,10 +349,13 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
 
-
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    Toast.makeText(getApplicationContext(), "hai", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
-
-
     }
 
     private void getDeviceLocation() {

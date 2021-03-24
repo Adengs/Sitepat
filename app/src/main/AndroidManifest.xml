@@ -25,10 +25,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".page.account.AddNewCarActivity"/>
-        <activity android:name=".page.account.AccountChangePasswordActivity" />
-<!--        <activity android:name=".page.forgot_password.ForgotPasswordActivity" />-->
-<!--        <activity android:name=".page.setting.getting_started.GettingStartedRegister" />-->
+        <activity android:name=".page.article.ArticleDetailActivity"></activity>
+        <activity android:name=".page.article.ArticleActivity" />
+        <activity android:name=".page.account.AddNewCarActivity" />
+        <activity android:name=".page.account.AccountChangePasswordActivity" /> <!-- <activity android:name=".page.forgot_password.ForgotPasswordActivity" /> -->
+        <!-- <activity android:name=".page.setting.getting_started.GettingStartedRegister" /> -->
         <activity
             android:name=".page.car_monitoring.CarMonitoringActivity"
             android:screenOrientation="portrait" />
@@ -53,7 +54,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".page.outlet.OutletDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".page.support.SupportDoneActivity"
             android:screenOrientation="portrait" />
@@ -108,9 +109,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".page.main.MainActivity"
-            android:theme="@style/TemaNoActionBar"
-            android:screenOrientation="portrait" />
-
+            android:screenOrientation="portrait"
+            android:theme="@style/TemaNoActionBar" />
         <activity android:name=".page.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -118,7 +118,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
@@ -132,7 +131,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
     </application>
 
 </manifest>

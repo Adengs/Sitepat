@@ -35,6 +35,7 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.viewHolder> 
         this.mContext = context;
         this.promoList = new ArrayList<>();
     }
+
     @NonNull
     @Override
     public PromoAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {

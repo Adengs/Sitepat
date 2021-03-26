@@ -98,7 +98,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 keyword = s.toString();
-                loadDataArticle();
+                searchDataArticle();
             }
 
             @Override
@@ -140,6 +140,34 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         });
     }
 
+    public void searchDataArticle() {
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+        Call<Articles> call = apiService.getArticles(auth, keyword);
+        call.enqueue(new Callback<Articles>() {
+            @Override
+            public void onResponse(@NonNull Call<Articles> call, @NonNull Response<Articles> response) {
+                if (response.isSuccessful()) {
+                    Articles data = response.body();
+                    if (response.code() == 200) {
+                        mAdapter.setData(data.getData().getItemsArticles());
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(response);
+                    containerNoData.setVisibility(View.VISIBLE);
+                    tvNoData.setText(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Articles> call,@NonNull Throwable t) {
+                if (!call.isCanceled()) {
+                    containerNoData.setVisibility(View.VISIBLE);
+                    tvNoData.setText(getString(R.string.toast_onfailure));
+                }
+            }
+        });
+    }
 
     @Override
     public void onClick(View view) {

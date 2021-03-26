@@ -80,7 +80,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.viewHold
                 });
 
         holder.tvTitleArticle.setText(articlesList.get(position).getTitle());
-        holder.tvDateArticle.setText(RecentUtils.formatDateToDateDM(articlesList.get(position).getCreatedAt()));
+        holder.tvDateArticle.setText(RecentUtils.formatDateToDateDMY(articlesList.get(position).getCreatedAt()));
         holder.containerArticleList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

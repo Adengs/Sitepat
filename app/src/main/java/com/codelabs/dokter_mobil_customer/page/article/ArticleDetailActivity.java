@@ -67,6 +67,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.container_article)
     RelativeLayout containerArticle;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.container_video_youtube)
+    RelativeLayout containerVideoYoutube;
 
     int idArticle = -1;
     private ArticlesDetail.DataArticlesDetail responseData;
@@ -91,6 +94,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+
+        ivBack.setOnClickListener(this);
+        containerNoData.setVisibility(View.GONE);
 
     }
 
@@ -133,20 +139,34 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         });
     }
 
+
+
     public void dataArticleDetail() {
         Picasso.get()
                 .load(responseData.getImageUrl())
                 .into(ivPromo);
 
+        if (responseData.getIsVideo() == 1) {
+            containerVideoYoutube.setVisibility(View.VISIBLE);
+            containerTypeArticle.setVisibility(View.GONE);
+            containerTypeVideo.setVisibility(View.VISIBLE);
+        } else {
+            containerVideoYoutube.setVisibility(View.GONE);
+            containerTypeVideo.setVisibility(View.GONE);
+            containerTypeArticle.setVisibility(View.VISIBLE);
+        }
+
+
         tvTitleArticle.setText(responseData.getTitle());
-        tvDateArticle.setText(RecentUtils.formatDateToDateDM(responseData.getContent()));
+        tvDateArticle.setText(RecentUtils.formatDateToDateDMY(responseData.getCreatedAt()));
         tvDescArticle.setText(RecentUtils.fromHtml(responseData.getContent()));
 
     }
 
-
     @Override
     public void onClick(View view) {
-
+        if (ivBack == view) {
+            finish();
+        }
     }
 }

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".page.article.ArticleDetailActivity">
 
     <include layout="@layout/toolbar_back"/>
@@ -16,7 +17,7 @@
 
         <RelativeLayout
             android:id="@+id/container_article"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -41,6 +42,7 @@
                     android:layout_marginTop="@dimen/_5sdp">
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/container_type_article"
@@ -102,7 +104,7 @@
                     android:id="@+id/container_img_promo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="10dp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
@@ -117,7 +119,7 @@
                             android:layout_height="@dimen/_160sdp"
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
-                            android:scaleType="fitCenter"
+                            android:scaleType="fitXY"
                             android:src="@drawable/background_outlet_status"/>
 
                     </androidx.cardview.widget.CardView>
@@ -133,13 +135,14 @@
                     android:textAlignment="gravity"
                     android:textColor="@color/grayFont"
                     android:fontFamily="@font/poppins_regular"
-                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_1sdp"
                     tools:text="@string/lorem_ipsum"/>
 
                 <RelativeLayout
+                    android:id="@+id/container_video_youtube"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="5dp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
@@ -181,7 +184,7 @@
                         android:textColor="@color/black"
                         android:fontFamily="@font/poppins_regular"
                         android:layout_marginBottom="@dimen/_10sdp"
-                        tools:text="Mekanik Bon jovi "/>
+                        android:text="  Dokter Mobil "/>
 
                 </RelativeLayout>
 

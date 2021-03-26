@@ -151,6 +151,6 @@ public interface RetrofitInterface {
     Call<Articles> getArticles(@Header(AppConstant.AuthTitle) String auth, @Query("keyword") String keyword);
 
     @GET(AppConstant.ArticlesDetail)
-    Call<ArticlesDetail> getArticlesDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") Integer id);
+    Call<ArticlesDetail> getArticlesDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
 
 }

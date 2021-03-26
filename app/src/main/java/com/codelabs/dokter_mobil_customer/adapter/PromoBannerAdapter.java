@@ -64,7 +64,6 @@ public class PromoBannerAdapter extends PagerAdapter {
         ProgressBar progressBar = promo.findViewById(R.id.progress_bar);
         Picasso.get()
                 .load(promoList.get(position).getImage())
-                .fit().centerCrop()
                 .into(imgPromo, new Callback() {
                     @Override
                     public void onSuccess() {

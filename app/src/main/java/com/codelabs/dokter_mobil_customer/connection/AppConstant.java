@@ -36,7 +36,7 @@ public class AppConstant {
     public static final String Outlet = "api/v1/outlets";
     public static final String OutletDetail = "api/v1/outlets/{id}";
     public static final String Articles = "api/v1/general/articles";
-    public static final String ArticlesDetail = "api/v1/general/articles/{id)";
+    public static final String ArticlesDetail = "api/v1/general/articles/{id}";
 
 
     public static final String getTC = "api/v1/general/terms";

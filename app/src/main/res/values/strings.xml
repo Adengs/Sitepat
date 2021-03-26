@@ -11,7 +11,12 @@
     <string name="video">Video</string>
     <string name="starting_maintaining">Starting maintaining your car!</string>
     <string name="explore_hire">Explore hire!</string>
+    <string name="our_best_promo">Our Best Promo!</string>
+    <string name="protection_from_disasters">Protection from disasters!</string>
     <string name="walkthrough_title">Lorem Ipsum is Simple Dummy Text</string>
+    <string name="article_home">Article!</string>
+    <string name="see_more">See more</string>
+    <string name="popular_article">Popular Article!</string>
     <string name="toast_onfailure">"Network Failure :( please try again later"</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
 
@@ -95,11 +100,13 @@
     <!-- Menu -->
     <string name="outlet">Outlet</string>
     <string name="myaccount">My Account</string>
+    <string name="carmonitoring">Car Monitoring</string>
     <string name="car">Car</string>
     <string name="monitoring">Monitoring</string>
     <string name="support">Support</string>
     <string name="about">About</string>
     <string name="article">Article</string>
+
 
 
     <!--    Getting Started-->

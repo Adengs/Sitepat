@@ -62,9 +62,12 @@ public class OutletDetailActivity extends BaseActivity implements View.OnClickLi
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.tv_title)
     AppCompatTextView tvTitle;
+    @BindView(R.id.tv_status_outlet_close)
+    AppCompatTextView tvStatusOutletClose;
 
     int idOutlet = -1;
     String phoneNumber = "";
+    private double valueLatitude, valueLongitude;
     private OutletDetail.DataOutletDetail responseData;
 
 
@@ -81,6 +84,8 @@ public class OutletDetailActivity extends BaseActivity implements View.OnClickLi
     private void getPrevData() {
         Intent intent = getIntent();
         idOutlet = intent.getIntExtra("outlet_id", -1);
+        valueLatitude = intent.getDoubleExtra("latitude", 0.0);
+        valueLongitude = intent.getDoubleExtra("longitude", 0.0);
     }
 
     private void initView() {
@@ -101,7 +106,7 @@ public class OutletDetailActivity extends BaseActivity implements View.OnClickLi
         showDialogProgress("Getting data outlet detail");
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<OutletDetail> call = apiService.getOutletDetail(auth, idOutlet);
+        Call<OutletDetail> call = apiService.getOutletDetail(auth, idOutlet, valueLatitude, valueLongitude);
         call.enqueue(new Callback<OutletDetail>() {
             @Override
             public void onResponse(@NonNull Call<OutletDetail> call, @NonNull Response<OutletDetail> response) {
@@ -139,7 +144,9 @@ public class OutletDetailActivity extends BaseActivity implements View.OnClickLi
 
         if (responseData.getIsOpen() == 1) {
             tvStatusOutlet.setVisibility(View.VISIBLE);
+            tvStatusOutletClose.setVisibility(View.GONE);
         } else {
+            tvStatusOutletClose.setVisibility(View.VISIBLE);
             tvStatusOutlet.setVisibility(View.GONE);
         }
         tvOutletName.setText(responseData.getSiteName());

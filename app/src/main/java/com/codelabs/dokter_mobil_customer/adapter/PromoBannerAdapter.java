@@ -1,16 +1,21 @@
 package com.codelabs.dokter_mobil_customer.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.codelabs.dokter_mobil_customer.R;
+import com.codelabs.dokter_mobil_customer.page.promo.PromoDetailActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -18,17 +23,17 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PromoBannerAdapter extends PagerAdapter {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class PromoBannerAdapter extends RecyclerView.Adapter<PromoBannerAdapter.viewHolder> {
 
     private Context mContext;
-    private List<Promo.ItemsPromo> promoList = new ArrayList<>();
+    private List<Promo.ItemsPromo> promoList;
 
     public PromoBannerAdapter(Context mContext) {
         this.mContext = mContext;
-    }
-
-    public List<Promo.ItemsPromo> getPromoList() {
-        return promoList;
+        this.promoList = new ArrayList<>();
     }
 
     public void setData(List<Promo.ItemsPromo> items) {
@@ -36,48 +41,44 @@ public class PromoBannerAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
-    @Override
-    public int getCount() {
-        return promoList.size();
-    }
-
-
-
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view.equals(object);
-    }
-
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View) object);
-    }
-
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        LayoutInflater inflater = LayoutInflater.from(container.getContext());
-        View promo = inflater.inflate(R.layout.item_viewpager_promo, container, false);
-        assert promo != null;
-
-        AppCompatImageView imgPromo = promo.findViewById(R.id.iv_promo);
-        ProgressBar progressBar = promo.findViewById(R.id.progress_bar);
-        Picasso.get()
-                .load(promoList.get(position).getImage())
-                .into(imgPromo, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        progressBar.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
-
-        container.addView(promo,0);
-        return promo;
+    public PromoBannerAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_viewpager_promo, parent, false);
+        return new viewHolder(view);
     }
 
+
+    @Override
+    public void onBindViewHolder(@NonNull PromoBannerAdapter.viewHolder holder, int position) {
+        Picasso.get()
+                .load(promoList.get(position).getImage())
+                .into(holder.ivPromo);
+
+        holder.ivPromo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, PromoDetailActivity.class);
+                intent.putExtra("promo_id", promoList.get(position).getPromo_id());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return (promoList != null ? promoList.size() : 0);
+    }
+
+    public static class viewHolder extends  RecyclerView.ViewHolder {
+        @SuppressLint("NonConstantResourceId")
+        @BindView(R.id.iv_promo)
+        AppCompatImageView ivPromo;
+
+        public viewHolder(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
 }

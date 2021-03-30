@@ -98,25 +98,32 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_160sdp"
+                    android:layout_height="@dimen/_150sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    android:background="@android:color/transparent"
-                    android:layout_marginHorizontal="20dp">
+                    android:layout_marginHorizontal="0dp">
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        app:cardCornerRadius="7dp"
-                        app:cardElevation="2dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="0dp">
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/rv_promo_banner"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"/>-->
 
-                        <androidx.viewpager.widget.ViewPager
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:visibility="visible"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        app:cardCornerRadius="7dp"-->
+<!--                        app:cardElevation="2dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginBottom="0dp">-->
+
+                        <androidx.viewpager2.widget.ViewPager2
                             android:id="@+id/viewpager_promo"
+                            android:paddingStart="40dp"
+                            android:paddingEnd="40dp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
 
-                    </androidx.cardview.widget.CardView>
+<!--                    </androidx.cardview.widget.CardView>-->
 
                 </RelativeLayout>
 
@@ -407,7 +414,7 @@
                                 android:textSize="@dimen/_12ssp"
                                 android:fontFamily="@font/poppins_regular"
                                 android:layout_alignParentEnd="true"
-                                android:textColor="@color/gray_text"
+                                android:textColor="@color/red_text"
                                 tools:ignore="RelativeOverlap" />
 
                         </RelativeLayout>

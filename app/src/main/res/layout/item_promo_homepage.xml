@@ -37,10 +37,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_120sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/background_edittext_grey"
+                    android:src="@drawable/iv_test_promo"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/app_name"
-                    android:scaleType="fitXY" />
+                    android:scaleType="centerCrop" />
 
                 <ProgressBar
                     android:visibility="gone"

@@ -39,7 +39,7 @@
                     android:src="@drawable/background_outlet_status"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/app_name"
-                    android:scaleType="fitXY" />
+                    android:scaleType="centerCrop" />
 
                 <ProgressBar
                     android:visibility="gone"

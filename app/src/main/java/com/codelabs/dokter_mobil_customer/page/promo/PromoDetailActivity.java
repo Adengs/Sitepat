@@ -125,7 +125,6 @@ public class PromoDetailActivity extends BaseActivity implements View.OnClickLis
     public void dataPromoDetail() {
         Picasso.get()
                 .load(responseData.getImage())
-                .fit().centerCrop()
                 .into(ivPromo);
 
         tvPeriodePromo.setText(RecentUtils.formatDateToDateDM(responseData.getPeriod_start()) + " - " + RecentUtils.formatDateToDateDMY(responseData.getPeriod_end()));

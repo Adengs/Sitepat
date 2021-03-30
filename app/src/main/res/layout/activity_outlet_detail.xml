@@ -83,6 +83,22 @@
                         android:background="@drawable/background_outlet_status"
                         android:fontFamily="@font/rajdhani_bold" />
 
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:visibility="gone"
+                        android:id="@+id/tv_status_outlet_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_12ssp"
+                        android:layout_alignParentEnd="true"
+                        android:textColor="@color/red_text"
+                        android:text="Tutup"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:background="@drawable/background_outlet_status_close"
+                        android:fontFamily="@font/rajdhani_bold" />
+
                 </RelativeLayout>
 
             </RelativeLayout>

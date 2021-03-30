@@ -64,7 +64,9 @@ public class OutletAdapter extends RecyclerView.Adapter<OutletAdapter.viewHolder
         holder.tvDistanceOutlet.setText(outletList.get(position).getDistance());
         if (outletList.get(position).getIsOpen() == 1) {
             holder.tvStatusOutlet.setVisibility(View.VISIBLE);
+            holder.tvStatusOutletClose.setVisibility(View.GONE);
         } else {
+            holder.tvStatusOutletClose.setVisibility(View.VISIBLE);
             holder.tvStatusOutlet.setVisibility(View.GONE);
         }
 
@@ -107,6 +109,9 @@ public class OutletAdapter extends RecyclerView.Adapter<OutletAdapter.viewHolder
         @SuppressLint("NonConstantResourceId")
         @BindView(R.id.container_outlet_search)
         RelativeLayout containerOutlet;
+        @SuppressLint("NonConstantResourceId")
+        @BindView(R.id.tv_status_outlet_close)
+        AppCompatTextView tvStatusOutletClose;
 
 
         public viewHolder(@NonNull View itemView) {

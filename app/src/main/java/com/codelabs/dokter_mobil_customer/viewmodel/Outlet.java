@@ -74,6 +74,8 @@ public class Outlet {
         private int isOpen;
         @SerializedName("distance")
         private String distance;
+        @SerializedName("sitePhone")
+        private String sitePhone;
         @SerializedName("createdAt")
         private String createdAt;
         @SerializedName("updatedAt")
@@ -117,6 +119,10 @@ public class Outlet {
 
         public int getIsOpen() {
             return isOpen;
+        }
+
+        public String getSitePhone() {
+            return sitePhone;
         }
 
         public String getDistance() {

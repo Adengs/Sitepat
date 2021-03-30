@@ -86,7 +86,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OutletMapActivity extends BaseActivity implements View.OnClickListener, OnMapReadyCallback {
+public class OutletMapActivity extends BaseActivity implements View.OnClickListener, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.iv_back)
@@ -135,6 +135,7 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
     private String Longitude;
     private double lat;
     private double longitude;
+    private double valueLatitude, valueLongitude;
 
 
     @Override
@@ -224,7 +225,7 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
     public void loadOutlet() {
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<Outlet> call = apiService.getOutlet(auth, keyword);
+        Call<Outlet> call = apiService.getOutlet(auth, keyword, valueLatitude, valueLongitude);
         call.enqueue(new Callback<Outlet>() {
             @Override
             public void onResponse(@NonNull Call<Outlet> call, @NonNull Response<Outlet> response) {
@@ -243,7 +244,11 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
                             LatLng cordinate = new LatLng(lat, longitude);
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cordinate, 10));
                             BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_baloon_marker);
-                            mMap.addMarker(new MarkerOptions().position(cordinate).icon(icon));
+
+                            Marker mk = mMap.addMarker(new MarkerOptions().position(new LatLng(lat, longitude)).title(name));
+                            mk.setIcon(icon);
+                            mk.setTag(responseOutlet.get(i).getSiteId());
+//                            mk.setSnippet(responseOutlet.get(i).getSitePhone());
                         }
 
                     }
@@ -348,13 +353,9 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
+            mMap.setOnInfoWindowClickListener(this);
 
-            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                @Override
-                public void onInfoWindowClick(Marker marker) {
-                    Toast.makeText(getApplicationContext(), "hai", Toast.LENGTH_SHORT).show();
-                }
-            });
+
         }
     }
 
@@ -486,7 +487,13 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
 
 
     private void moveCamera(LatLng latLng, float zoom) {
+
+        Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+
+        valueLatitude = latLng.latitude;
+        valueLongitude = latLng.longitude;
+        loadOutlet();
     }
 
 
@@ -520,5 +527,16 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
             finish();
         }
 
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+
+        Intent intent = new Intent(this, OutletDetailActivity.class);
+        int outletId = (Integer)marker.getTag();
+        intent.putExtra("latitude", lat);
+        intent.putExtra("longitude", longitude);
+        intent.putExtra("outlet_id", outletId);
+        startActivity(intent);
     }
 }

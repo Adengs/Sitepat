@@ -19,6 +19,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.adapter.ArticleHomePageAdapter;
@@ -92,7 +95,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.viewpager_promo)
-    ViewPager viewPagerPromo;
+    ViewPager2 viewPagerPromo;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.tab_dots)
     TabLayout tabDots;
@@ -160,7 +163,23 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private void initView() {
         promoAdapter = new PromoBannerAdapter(getApplicationContext());
         viewPagerPromo.setAdapter(promoAdapter);
-        tabDots.setupWithViewPager(viewPagerPromo, true);
+        viewPagerPromo.setClipToPadding(false);
+        viewPagerPromo.setClipChildren(false);
+        viewPagerPromo.setOffscreenPageLimit(3);
+        viewPagerPromo.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+
+        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+        compositePageTransformer.addTransformer(new MarginPageTransformer(40));
+        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float r = 1 - Math.abs(position);
+                page.setScaleY(0.85f + r * 0.15f);
+            }
+        });
+        viewPagerPromo.setPageTransformer(compositePageTransformer);
+
+//        tabDots.setupWithViewPager(viewPagerPromo, true);
         autoPlay(viewPagerPromo);
 
         articleHomePageAdapter = new ArticleHomePageAdapter(getApplicationContext());
@@ -358,13 +377,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         });
     }
 
-    private void autoPlay(final ViewPager viewPager) {
+    private void autoPlay(final ViewPager2 viewPager) {
         viewPager.postDelayed(new Runnable() {
             @Override
             public void run() {
                 try {
-                    if (promoAdapter != null && promoAdapter.getCount() > 0) {
-                        int position = currentCount % promoAdapter.getCount();
+                    if (promoAdapter != null && promoAdapter.getItemCount() > 0) {
+                        int position = currentCount % promoAdapter.getItemCount();
                         currentCount++;
                         viewPagerPromo.setCurrentItem(position);
                         autoPlay(viewPagerPromo);

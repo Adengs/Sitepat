@@ -111,10 +111,10 @@ public interface RetrofitInterface {
     Call<Notification> getNotif(@Header(AppConstant.AuthTitle) String auth);
 
     @GET(AppConstant.Outlet)
-    Call<Outlet> getOutlet(@Header(AppConstant.AuthTitle) String auth, @Query("keyword") String keyword);
+    Call<Outlet> getOutlet(@Header(AppConstant.AuthTitle) String auth, @Query("keyword") String keyword, @Query("latitude") Double latitude, @Query("longitude") Double longitude);
 
     @GET(AppConstant.OutletDetail)
-    Call<OutletDetail> getOutletDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") Integer id);
+    Call<OutletDetail> getOutletDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") Integer id, @Query("latitude") Double latitude, @Query("longitude") Double longitude);
 
     @GET(AppConstant.getNotifDetail)
     Call<DetailNotif> getNotifDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);

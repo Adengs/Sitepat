@@ -50,6 +50,7 @@ import com.codelabs.dokter_mobil_customer.viewmodel.Articles;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 
@@ -180,6 +181,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         viewPagerPromo.setPageTransformer(compositePageTransformer);
 
 //        tabDots.setupWithViewPager(viewPagerPromo, true);
+        new TabLayoutMediator(tabDots, viewPagerPromo,
+                (tab, position) -> tab.setText("OBJECT " + (position + 1))
+        ).attach();
         autoPlay(viewPagerPromo);
 
         articleHomePageAdapter = new ArticleHomePageAdapter(getApplicationContext());

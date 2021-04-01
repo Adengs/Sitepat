@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:fitsSystemWindows="true"
     android:focusable="true"
-    android:background="@color/black"
+    android:background="@android:color/black"
     android:focusableInTouchMode="true"
     android:layout_height="match_parent">
 
@@ -42,8 +42,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/hi"
-                            android:textSize="@dimen/_18ssp"
-                            android:textStyle="bold"
+                            android:textSize="@dimen/_16ssp"
                             android:fontFamily="@font/rajdhani_medium"
                             android:textColor="@color/white"/>
 
@@ -56,8 +55,7 @@
                             android:minLines="1"
                             android:maxLines="1"
                             android:layout_toEndOf="@+id/tv_hi"
-                            android:textSize="@dimen/_18ssp"
-                            android:textStyle="bold"
+                            android:textSize="@dimen/_16ssp"
                             android:fontFamily="@font/rajdhani_medium"
                             android:textColor="@color/white"
                             tools:ignore="RelativeOverlap" />
@@ -69,7 +67,7 @@
                             android:text="@string/starting_maintaining"
                             android:textSize="@dimen/_14ssp"
                             android:layout_below="@+id/tv_hi"
-                            android:fontFamily="@font/rajdhani_medium"
+                            android:fontFamily="@font/rajdhani_regular"
                             android:textColor="@color/white"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -93,28 +91,15 @@
                     android:textSize="@dimen/_16ssp"
                     android:gravity="center"
                     android:textAllCaps="true"
-                    android:fontFamily="@font/rajdhani_bold"
+                    android:fontFamily="@font/rajdhani_medium"
                     android:textColor="@color/white"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_150sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_1sdp"
                     android:layout_marginHorizontal="0dp">
-
-<!--                    <androidx.recyclerview.widget.RecyclerView-->
-<!--                        android:id="@+id/rv_promo_banner"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"/>-->
-
-<!--                    <androidx.cardview.widget.CardView-->
-<!--                        android:visibility="visible"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        app:cardCornerRadius="7dp"-->
-<!--                        app:cardElevation="2dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_marginBottom="0dp">-->
 
                         <androidx.viewpager2.widget.ViewPager2
                             android:id="@+id/viewpager_promo"
@@ -123,23 +108,23 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
 
-<!--                    </androidx.cardview.widget.CardView>-->
 
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
+                    android:visibility="visible"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_gravity="bottom">
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="0dp">
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tab_dots"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_70sdp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_centerInParent="true"
                         app:tabBackground="@drawable/tab_selector"
                         app:tabGravity="center"
                         app:tabIndicatorHeight="0dp"/>
@@ -215,7 +200,7 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_outlet"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_35sdp"
+                                android:layout_height="@dimen/_45sdp"
                                 android:src="@drawable/outlet"
                                 tools:ignore="TooDeepLayout" />
 
@@ -223,11 +208,11 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"
-                                android:fontFamily="@font/rajdhani_regular"
+                                android:fontFamily="@font/rajdhani_medium"
                                 android:text="@string/outlet"
                                 android:padding="10dp"
                                 android:textColor="@android:color/black"
-                                android:textSize="@dimen/_13ssp" />
+                                android:textSize="@dimen/_12ssp" />
 
                         </LinearLayout>
 
@@ -241,7 +226,7 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_car_monitoring"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_35sdp"
+                                android:layout_height="@dimen/_45sdp"
                                 android:src="@drawable/carmonitoring"/>
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -251,8 +236,8 @@
                                 android:layout_gravity="center_horizontal"
                                 android:textColor="@android:color/black"
                                 android:padding="10dp"
-                                android:fontFamily="@font/rajdhani_regular"
-                                android:textSize="@dimen/_13ssp"
+                                android:fontFamily="@font/rajdhani_medium"
+                                android:textSize="@dimen/_12ssp"
                                 android:text="@string/carmonitoring" />
 
                         </LinearLayout>
@@ -267,7 +252,7 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_about"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_35sdp"
+                                android:layout_height="@dimen/_45sdp"
                                 android:src="@drawable/about"
                                 tools:ignore="TooDeepLayout" />
 
@@ -275,11 +260,11 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"
-                                android:fontFamily="@font/rajdhani_regular"
+                                android:fontFamily="@font/rajdhani_medium"
                                 android:text="@string/about"
                                 android:padding="10dp"
                                 android:textColor="@android:color/black"
-                                android:textSize="@dimen/_13ssp" />
+                                android:textSize="@dimen/_12ssp" />
 
                         </LinearLayout>
 
@@ -303,18 +288,18 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_my_account"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_35sdp"
+                                android:layout_height="@dimen/_45sdp"
                                 android:src="@drawable/myaccount" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"
-                                android:fontFamily="@font/rajdhani_regular"
+                                android:fontFamily="@font/rajdhani_medium"
                                 android:text="@string/myaccount"
                                 android:padding="10dp"
                                 android:textColor="@android:color/black"
-                                android:textSize="@dimen/_13ssp" />
+                                android:textSize="@dimen/_12ssp" />
 
                         </LinearLayout>
 
@@ -328,7 +313,7 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_support"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_35sdp"
+                                android:layout_height="@dimen/_45sdp"
                                 android:src="@drawable/support"/>
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -336,8 +321,8 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"
                                 android:textColor="@android:color/black"
-                                android:fontFamily="@font/rajdhani_regular"
-                                android:textSize="@dimen/_13ssp"
+                                android:fontFamily="@font/rajdhani_medium"
+                                android:textSize="@dimen/_12ssp"
                                 android:padding="10dp"
                                 android:text="@string/support" />
 
@@ -353,7 +338,7 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_setting"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_35sdp"
+                                android:layout_height="@dimen/_45sdp"
                                 android:src="@drawable/setting"
                                 tools:ignore="TooDeepLayout" />
 
@@ -361,11 +346,11 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"
-                                android:fontFamily="@font/rajdhani_regular"
+                                android:fontFamily="@font/rajdhani_medium"
                                 android:text="@string/setting"
                                 android:padding="10dp"
                                 android:textColor="@android:color/black"
-                                android:textSize="@dimen/_13ssp" />
+                                android:textSize="@dimen/_12ssp" />
 
                         </LinearLayout>
 

@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -70,8 +71,12 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.container_video_youtube)
     RelativeLayout containerVideoYoutube;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.iv_youtube)
+    AppCompatImageView ivYoutube;
 
     int idArticle = -1;
+    String urlYoutube = "";
     private ArticlesDetail.DataArticlesDetail responseData;
 
 
@@ -96,6 +101,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         }
 
         ivBack.setOnClickListener(this);
+        ivYoutube.setOnClickListener(this);
         containerNoData.setVisibility(View.GONE);
 
     }
@@ -146,16 +152,20 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                 .load(responseData.getImageUrl())
                 .into(ivPromo);
 
+        Picasso.get()
+                .load(responseData.getImageUrl())
+                .into(ivYoutube);
+
         if (responseData.getIsVideo() == 1) {
             containerVideoYoutube.setVisibility(View.VISIBLE);
             containerTypeArticle.setVisibility(View.GONE);
             containerTypeVideo.setVisibility(View.VISIBLE);
+            urlYoutube = responseData.getVideoUrl();
         } else {
             containerVideoYoutube.setVisibility(View.GONE);
             containerTypeVideo.setVisibility(View.GONE);
             containerTypeArticle.setVisibility(View.VISIBLE);
         }
-
 
         tvTitleArticle.setText(responseData.getTitle());
         tvDateArticle.setText(RecentUtils.formatDateToDateDMY(responseData.getCreatedAt()));
@@ -167,6 +177,13 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     public void onClick(View view) {
         if (ivBack == view) {
             finish();
+        }
+
+        if (ivYoutube == view) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setPackage("com.google.android.youtube");
+            intent.setData(Uri.parse(urlYoutube));
+            startActivity(intent);
         }
     }
 }

@@ -4,9 +4,9 @@
         android:gravity="center_vertical|fill_horizontal">
         <shape android:shape="rectangle">
             <corners android:radius="8dp"/>
-            <size android:height="6dp" />
+            <size android:height="7dp" />
             <solid android:color="@color/red_text" />
-            <padding android:left="10dp" android:right="10dp"/>
+            <padding android:left="20dp" android:right="20dp"/>
         </shape>
     </item>
 </layer-list>

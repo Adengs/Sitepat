@@ -148,7 +148,7 @@ public interface RetrofitInterface {
     Call<DoPost> editCar(@Header(AppConstant.AuthTitle) String auth, @Path("id") String id, @PartMap Map<String, RequestBody> param);
 
     @GET(AppConstant.Articles)
-    Call<Articles> getArticles(@Header(AppConstant.AuthTitle) String auth, @Query("keyword") String keyword);
+    Call<Articles> getArticles(@Header(AppConstant.AuthTitle) String auth, @Query("keyword") String keyword, @Query("limit") int limit, @Query("category") int category);
 
     @GET(AppConstant.ArticlesDetail)
     Call<ArticlesDetail> getArticlesDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);

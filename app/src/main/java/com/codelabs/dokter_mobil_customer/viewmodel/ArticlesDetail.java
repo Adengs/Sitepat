@@ -37,6 +37,8 @@ public class ArticlesDetail {
         private String createdAt;
         @SerializedName("updatedAt")
         private String updatedAt;
+        @SerializedName("author")
+        private String author;
 
         public int getArticleId() {
             return articleId;
@@ -76,6 +78,10 @@ public class ArticlesDetail {
 
         public String getUpdatedAt() {
             return updatedAt;
+        }
+
+        public String getAuthor() {
+            return author;
         }
     }
 }

@@ -205,12 +205,12 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_12ssp"
                         android:layout_marginTop="15dp"
+                        android:layout_marginStart="@dimen/_2sdp"
                         android:layout_toEndOf="@+id/tv_desc_author"
                         android:textAlignment="gravity"
                         android:textColor="@color/black"
                         android:fontFamily="@font/poppins_regular"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:text="  Dokter Mobil "/>
+                        android:layout_marginBottom="@dimen/_10sdp" />
 
                 </RelativeLayout>
 

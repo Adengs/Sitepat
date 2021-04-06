@@ -26,6 +26,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.adapter.ArticleHomePageAdapter;
 import com.codelabs.dokter_mobil_customer.adapter.ArticleHomeVerticalAdapter;
+import com.codelabs.dokter_mobil_customer.adapter.ArticleHorizontalAdapter;
 import com.codelabs.dokter_mobil_customer.adapter.PromoBannerAdapter;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
@@ -112,12 +113,18 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.rv_popular_article)
     RecyclerView rvPopularArticle;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.rv_article_horizontal)
+    RecyclerView rvArticleHorizontal;
 
     PromoBannerAdapter promoAdapter;
     ArticleHomePageAdapter articleHomePageAdapter;
+    ArticleHorizontalAdapter articleHorizontalAdapter;
     ArticleHomeVerticalAdapter articleHomeVerticalAdapter;
     private String keyword = "";
     private int currentCount = 0;
+    private int category = -1;
+    private int limit = -1;
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
@@ -170,7 +177,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         viewPagerPromo.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
 
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
-        compositePageTransformer.addTransformer(new MarginPageTransformer(40));
+        compositePageTransformer.addTransformer(new MarginPageTransformer(0));
         compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
             @Override
             public void transformPage(@NonNull View page, float position) {
@@ -180,7 +187,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         });
         viewPagerPromo.setPageTransformer(compositePageTransformer);
 
-//        tabDots.setupWithViewPager(viewPagerPromo, true);
         new TabLayoutMediator(tabDots, viewPagerPromo,
                 (tab, position) -> tab.setText("OBJECT " + (position + 1))
         ).attach();
@@ -192,11 +198,16 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         HorizontalItemDecoration itemDecoration = new HorizontalItemDecoration(RecentUtils.ConvertDpToPx(this, 10));
         rvArticleHomepage.addItemDecoration(itemDecoration);
 
+        articleHorizontalAdapter = new ArticleHorizontalAdapter(getApplicationContext());
+        rvArticleHorizontal.setAdapter(articleHorizontalAdapter);
+        rvArticleHorizontal.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        HorizontalItemDecoration itemDecoration1 = new HorizontalItemDecoration(RecentUtils.ConvertDpToPx(this, 0));
+        rvArticleHorizontal.addItemDecoration(itemDecoration1);
+
         rvPopularArticle.setLayoutManager(new LinearLayoutManager(this));
         articleHomeVerticalAdapter = new ArticleHomeVerticalAdapter(this);
         articleHomeVerticalAdapter.setData(new ArrayList<>());
         rvPopularArticle.setAdapter(articleHomeVerticalAdapter);
-
 
     }
 
@@ -209,7 +220,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         containerSetting.setOnClickListener(this);
         tvSeeAllBanner.setOnClickListener(this);
         tvSeeMoreArticle.setOnClickListener(this);
-
     }
 
     private void fetchData() {
@@ -217,6 +227,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         loadPromoBanner();
         loadDataArticle();
         loadDataArticleVertical();
+        loadDataArticleDisasters();
     }
 
 
@@ -232,7 +243,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             }
         }
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -319,7 +329,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 //        showDialogProgress("Getting data article");
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<Articles> call = apiService.getArticles(auth, keyword);
+        Call<Articles> call = apiService.getArticles(auth, keyword, 6, 0);
         call.enqueue(new Callback<Articles>() {
             @Override
             public void onResponse(@NonNull Call<Articles> call, @NonNull Response<Articles> response) {
@@ -328,6 +338,40 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     Articles data = response.body();
                     if (response.code() == 200) {
                         articleHomePageAdapter.setData(data.getData().getItemsArticles());
+                        articleHorizontalAdapter.setData(data.getData().getItemsArticles());
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(response);
+                    showToast(error.message());
+//                    containerNoData.setVisibility(View.VISIBLE);
+//                    tvNoData.setText(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Articles> call,@NonNull Throwable t) {
+                if (!call.isCanceled()) {
+                    hideDialogProgress();
+//                    containerNoData.setVisibility(View.VISIBLE);
+//                    tvNoData.setText(getString(R.string.toast_onfailure));
+                }
+            }
+        });
+    }
+
+    public void loadDataArticleDisasters() {
+//        showDialogProgress("Getting data article");
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+        Call<Articles> call = apiService.getArticles(auth, keyword, 3, 1);
+        call.enqueue(new Callback<Articles>() {
+            @Override
+            public void onResponse(@NonNull Call<Articles> call, @NonNull Response<Articles> response) {
+//                hideDialogProgress();
+                if (response.isSuccessful()) {
+                    Articles data = response.body();
+                    if (response.code() == 200) {
+                        articleHorizontalAdapter.setData(data.getData().getItemsArticles());
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(response);
@@ -352,7 +396,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 //        showDialogProgress("Getting data article");
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<Articles> call = apiService.getArticles(auth, keyword);
+        Call<Articles> call = apiService.getArticles(auth, keyword, 2, 0);
         call.enqueue(new Callback<Articles>() {
             @Override
             public void onResponse(@NonNull Call<Articles> call, @NonNull Response<Articles> response) {

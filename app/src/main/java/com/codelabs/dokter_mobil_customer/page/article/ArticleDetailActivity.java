@@ -145,8 +145,6 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         });
     }
 
-
-
     public void dataArticleDetail() {
         Picasso.get()
                 .load(responseData.getImageUrl())
@@ -170,6 +168,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         tvTitleArticle.setText(responseData.getTitle());
         tvDateArticle.setText(RecentUtils.formatDateToDateDMY(responseData.getCreatedAt()));
         tvDescArticle.setText(RecentUtils.fromHtml(responseData.getContent()));
+        tvAuthor.setText(responseData.getAuthor());
 
     }
 

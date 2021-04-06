@@ -112,7 +112,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         showDialogProgress("Getting data article");
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<Articles> call = apiService.getArticles(auth, keyword);
+        Call<Articles> call = apiService.getArticles(auth, keyword, 0,0);
         call.enqueue(new Callback<Articles>() {
             @Override
             public void onResponse(@NonNull Call<Articles> call, @NonNull Response<Articles> response) {
@@ -143,7 +143,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     public void searchDataArticle() {
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<Articles> call = apiService.getArticles(auth, keyword);
+        Call<Articles> call = apiService.getArticles(auth, keyword,0,0);
         call.enqueue(new Callback<Articles>() {
             @Override
             public void onResponse(@NonNull Call<Articles> call, @NonNull Response<Articles> response) {

@@ -36,22 +36,20 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/rajdhani_regular"
-                android:paddingLeft="16dp"
+                android:fontFamily="@font/rajdhani_bold"
                 android:text="@string/myaccount"
+                android:layout_marginHorizontal="@dimen/_18sdp"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_18sdp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/_18ssp" />
 
         </RelativeLayout>
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/_10sdp">
+        android:padding="@dimen/_15sdp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="@dimen/_50sdp"
@@ -63,11 +61,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:id="@+id/tv_name"
                 android:layout_height="wrap_content"
@@ -76,7 +74,7 @@
                 android:textSize="@dimen/_16sdp"
                 tools:text="Jonathan" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rajdhani_regular"
@@ -87,88 +85,90 @@
 
         </LinearLayout>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/btn_edit"
-            android:fontFamily="@font/rajdhani_semi_bold"
+            android:fontFamily="@font/rajdhani_medium"
             android:paddingLeft="@dimen/_3sdp"
             android:paddingRight="@dimen/_3sdp"
             android:text="@string/edit"
             android:textColor="@color/red_text"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="@dimen/_14ssp" />
 
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_height="@dimen/_90sdp"
         android:layout_gravity="center"
         android:layout_margin="@dimen/_10sdp"
         android:id="@+id/iv_card"
-        android:layout_marginTop="@dimen/_10sdp">
+        android:layout_marginTop="@dimen/_5sdp">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_rectangle" />
+            android:src="@drawable/ic_card_rectangle" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_57sdp"
             android:layout_height="@dimen/_44sdp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:src="@drawable/ic_totol" />
-
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/_20sdp"
             android:orientation="vertical">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/stika"
                 android:text="VIP"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_18sdp" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/rajdhani_regular"
+                android:fontFamily="@font/rajdhani_medium"
                 android:text="Domo Member VIP"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp" />
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_open_now"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="21dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="28dp"
             android:textAllCaps="false"
-            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/rajdhani_medium"
             android:text="@string/open_now"
-            android:textColor="@color/black_button" />
+            android:background="@drawable/bg_rounded_white"
+            android:textColor="@color/black" />
+
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
         android:orientation="vertical"
         android:paddingLeft="@dimen/_10sdp"
-        android:paddingTop="@dimen/_10sdp"
+        android:paddingTop="@dimen/_20sdp"
         android:paddingRight="@dimen/_10sdp">
-
 
         <LinearLayout
             android:id="@+id/ll_change_password"
@@ -182,37 +182,39 @@
                 android:layout_gravity="center"
                 android:gravity="center">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/_15sdp"
                     android:layout_height="@dimen/_15sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:src="@drawable/ic_key" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/rajdhani_regular"
+                    android:fontFamily="@font/rajdhani_medium"
                     android:text="@string/change_password"
-                    android:textColor="@color/black_button"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_14ssp" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:src="@drawable/ic_right_arrow" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.1dp"
+                android:layout_height="0.5dp"
                 android:background="@color/gray_text" />
+
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_my_poin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -224,26 +226,26 @@
                 android:layout_gravity="center"
                 android:gravity="center">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/_15sdp"
                     android:layout_height="@dimen/_15sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:src="@drawable/ic_star" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:fontFamily="@font/rajdhani_regular"
                     android:text="@string/my_poin"
                     android:textColor="@color/black_button"
                     android:textSize="@dimen/_14ssp" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:src="@drawable/ic_right_arrow" />
 
             </LinearLayout>
@@ -252,6 +254,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:background="@color/gray_text" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -266,36 +269,33 @@
                 android:layout_gravity="center"
                 android:gravity="center">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/_15sdp"
                     android:layout_height="@dimen/_15sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:src="@drawable/ic_drive" />
+                    android:src="@drawable/ic_steering" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/rajdhani_regular"
+                    android:fontFamily="@font/rajdhani_medium"
                     android:text="@string/my_car"
-                    android:textColor="@color/black_button"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_14ssp" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:src="@drawable/ic_right_arrow" />
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="@color/gray_text" />
+
         </LinearLayout>
 
-
     </LinearLayout>
+
 </LinearLayout>

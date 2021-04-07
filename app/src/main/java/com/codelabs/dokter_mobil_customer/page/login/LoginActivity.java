@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
@@ -37,6 +40,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -80,6 +84,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.img_eye_password)
     AppCompatImageView imgEyePassword;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.container_login_page)
+    CoordinatorLayout containerLoginPage;
 
     /* declare global variable in here */
 
@@ -134,6 +141,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private boolean valid() {
         if (!RecentUtils.isEmailValid(Objects.requireNonNull(edtEmail.getText()).toString().trim())) {
             showToast("please enter your valid email");
+//            Snackbar snackbar = Snackbar.make(containerLoginPage,"please enter your valid email", Snackbar.LENGTH_SHORT);
+//            View view = snackbar.getView();
+//            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)view.getLayoutParams();
+//            params.gravity = Gravity.BOTTOM ;
+//            params.setMargins(0,150,0,0);
+//            snackbar.show();
             return false;
         }
 

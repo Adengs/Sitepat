@@ -29,7 +29,7 @@ class MyAccountActivity : BaseActivity() {
             val intent = Intent(this, AccountChangePasswordActivity::class.java)
             startActivity(intent)
         }
-        iv_card.setOnClickListener {
+        btn_open_now.setOnClickListener {
             val intent = Intent(this, DetailCardActivity::class.java)
             startActivity(intent)
         }

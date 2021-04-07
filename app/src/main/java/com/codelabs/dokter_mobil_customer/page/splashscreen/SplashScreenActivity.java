@@ -73,7 +73,6 @@ public class SplashScreenActivity extends BaseActivity {
                     if (data.code() == 200) {
                         GetToken response = data.body();
                         assert response != null;
-                        showToast(response.getMessage());
                         tokenAccess = response.getData().getAccessToken();
                         DataManager.getInstance().setTokenAccess(response.getData().getAccessToken());
                     }

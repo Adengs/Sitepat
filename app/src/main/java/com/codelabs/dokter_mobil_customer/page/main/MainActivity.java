@@ -462,7 +462,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         }
 
         if (containerSupport == view) {
-
             Intent intent = new Intent(MainActivity.this, SupportActivity.class);
             startActivity(intent);
         }

@@ -124,11 +124,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void initGoogleLogin() {
-        GoogleSignInOptions googleSign = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, googleSign);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
     private void signInGoogle() {
@@ -217,29 +219,34 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+            if (task.isSuccessful()) {
+                handleSignInResult(task);
+            }else {
+                showToast(task.getException().getMessage());
+            }
         }
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            assert account != null;
-            showToast(account.getEmail());
-        } catch (ApiException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+//        try {
+//            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+//            assert account != null;
+//            showToast(account.getEmail());
+//        } catch (ApiException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-   /* private void handleSignInResult(Task<GoogleSignInAccount> result) {
+    private void handleSignInResult(Task<GoogleSignInAccount> result) {
         try {
             GoogleSignInAccount account = result.getResult(ApiException.class);
             Map<String, String> params = new HashMap<>();
             assert account != null;
             params.put("google_id", account.getId());
+            params.put("username", account.getEmail());
             showDialogProgress("Load data login");
             RetrofitInterface apiService = ApiUtils.getApiService();
-            String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+            String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getTokenAccess();
             Call<DataLogin> call = apiService.doLogin(auth, params);
             call.enqueue(new Callback<DataLogin>() {
                 @Override
@@ -282,7 +289,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
 
 
-    } */
+    }
 
     /*declare function click in here */
 

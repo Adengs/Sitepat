@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Dokter Mobil</string>
+    <string name="default_web_client_id">502079082161-bq2d119n61h0huuium6ifodk9d16d36g.apps.googleusercontent.com</string>
+    <string name="default_web_client_secret">gNcmjhlIllk622t6pwQ4PLpX</string>
     <string name="please_wait">Please Wait …</string>
     <string name="skip">Skip</string>
     <string name="next">Next</string>

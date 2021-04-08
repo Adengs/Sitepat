@@ -120,6 +120,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 if (response.isSuccessful()) {
                     Articles data = response.body();
                     if (response.code() == 200) {
+                        assert data != null;
                         mAdapter.setData(data.getData().getItemsArticles());
                     }
                 } else {

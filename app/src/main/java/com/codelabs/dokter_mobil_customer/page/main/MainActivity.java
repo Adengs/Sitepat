@@ -73,8 +73,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.tv_username)
     AppCompatTextView tvUsername;
-
-
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.iv_outlet)
     AppCompatImageView containerOutlet;

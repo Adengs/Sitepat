@@ -244,6 +244,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             assert account != null;
             params.put("google_id", account.getId());
             params.put("username", account.getEmail());
+            params.put("fullname", account.getDisplayName());
             showDialogProgress("Load data login");
             RetrofitInterface apiService = ApiUtils.getApiService();
             String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getTokenAccess();

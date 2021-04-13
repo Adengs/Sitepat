@@ -15,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "502079082161-d8rpr7v341nsg4kn3rd8cog68csttk9d.apps.googleusercontent.com",
+          "client_id": "502079082161-c0lh4olrh6kg66lgl6pkepaot1amd2nv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codelabs.dokter_mobil_customer",
+            "certificate_hash": "4aefb59e74977844f34ba74d7a4409e4ba72306c"
+          }
+        },
+        {
+          "client_id": "502079082161-k9enuo0buf5261l0dlu44b37hjgbanu2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.codelabs.dokter_mobil_customer",

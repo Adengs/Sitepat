@@ -1,22 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".page.account.ServiceRecordActivity">
 
     <include layout="@layout/toolbar_back"/>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
 
+        <RelativeLayout
+            android:id="@+id/container_service_record"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <RelativeLayout
+                android:id="@+id/container_invoice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_bg"
+                android:padding="@dimen/_16sdp"
+                android:layout_marginTop="20dp">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_invoice_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_16ssp"
+                        android:textColor="@color/green_text"
+                        android:layout_toStartOf="@id/tv_invoice_date"
+                        android:fontFamily="@font/rajdhani_bold"
+                        tools:text="INV12390022"/>
 
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_invoice_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_12ssp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:textColor="@color/grayFont"
+                        tools:text="1 Jan 2021, 14:05 WIB"
+                        android:fontFamily="@font/rajdhani_regular" />
 
-    </androidx.core.widget.NestedScrollView>
+                </RelativeLayout>
 
-</LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/container_amount"
+                android:layout_below="@+id/container_invoice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_16sdp"
+                android:layout_marginTop="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_13ssp"
+                        android:textColor="@color/grayFont"
+                        android:textAllCaps="true"
+                        android:fontFamily="@font/rajdhani_regular"
+                        android:text="@string/service"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_13ssp"
+                        android:layout_alignParentEnd="true"
+                        android:textColor="@color/grayFont"
+                        android:text="@string/amount"
+                        android:textAllCaps="true"
+                        android:fontFamily="@font/rajdhani_regular"
+                        tools:ignore="RelativeOverlap" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view"
+                android:layout_below="@+id/container_amount"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_text" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_service_record"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_below="@+id/view"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_detail_service_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:id="@+id/container_sub_total"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_below="@+id/rv_service_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_title_subtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/grayFont"
+                    android:layout_toStartOf="@id/tv_value_subtotal"
+                    android:fontFamily="@font/rajdhani_regular"
+                    android:text="@string/sub_total"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_value_subtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/black_half"
+                    tools:text="Rp 3.000.000"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/rajdhani_regular" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/container_ppn"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_below="@+id/container_sub_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_title_ppn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/grayFont"
+                    android:layout_toStartOf="@id/tv_value_ppn"
+                    android:fontFamily="@font/rajdhani_regular"
+                    android:text="@string/ppn"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_value_ppn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/black_half"
+                    tools:text="Rp 300.000"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/rajdhani_regular" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/container_total"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_below="@+id/container_ppn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_title_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/grayFont"
+                    android:layout_toStartOf="@id/tv_value_total"
+                    android:fontFamily="@font/rajdhani_regular"
+                    android:text="@string/total"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_value_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/green_text"
+                    tools:text="Rp 3.300.000"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/rajdhani_regular" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

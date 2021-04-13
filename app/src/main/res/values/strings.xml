@@ -156,4 +156,11 @@
     <string name="confirm_new_password">Confirm New Password</string>
     <string name="min_8_character">Min 8 character</string>
     <string name="update_password">Update Password</string>
+
+
+
+<!--    Login Pesbuk-->
+    <string name="facebook_app_id">2882561305334771</string>
+    <string name="fb_login_protocol_scheme">fb2882561305334771</string>
+
 </resources>

@@ -54,6 +54,12 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import com.facebook.*;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import java.util.*;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -94,6 +100,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 1;
 
+    private CallbackManager callbackManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,8 +109,102 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         ButterKnife.bind(this);
         initView();
         initSetup();
+        initFb();
         initGoogleLogin();
 
+    }
+
+    private void initFb(){
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+
+                        AccessToken accessToken = loginResult.getAccessToken();
+                        Profile profile = Profile.getCurrentProfile();
+                        GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                                new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(JSONObject object, GraphResponse response) {
+                                        try {
+                                            Map<String, String> params = new HashMap<>();
+                                            params.put("fullname",profile.getName());
+                                            if (object.has("email")){
+                                                params.put("username", object.getString("email"));
+                                            }else{
+                                                params.put("username",object.getString("id"));
+                                            }
+                                            params.put("facebook_id",profile.getId());
+                                            handleLoginFacebook(params);
+                                        } catch(JSONException ex) {
+                                            ex.printStackTrace();
+                                        }
+                                    }
+                                });
+
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id,name,email");
+                        request.setParameters(parameters);
+                        request.executeAsync();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        showToast("Maaf, telah terjadi kesalahan");
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        showToast(exception.getMessage());
+                        exception.printStackTrace();
+
+                    }
+                });
+
+
+    }
+
+    private void handleLoginFacebook(Map<String, String> params){
+        showDialogProgress("Load data login");
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getTokenAccess();
+        Call<DataLogin> call = apiService.doLogin(auth, params);
+        call.enqueue(new Callback<DataLogin>() {
+            @Override
+            public void onResponse(@NonNull Call<DataLogin> call,@NonNull Response<DataLogin> response) {
+                hideDialogProgress();
+                if (response.isSuccessful()) {
+                    DataLogin data = response.body();
+                    if (response.code() == 200) {
+                        DataManager.getInstance().setToken(data.getData().getToken());
+                        DataManager.getInstance().setLoginData(data.getData().getDataCustomer());
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+                        String currrentDateandTime = sdf.format(new Date());
+                        DataManager.getInstance().setLastLogin(currrentDateandTime);
+                        DataManager.getInstance().setLogoutDuration(data.getData().getLogout_duration());
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(response);
+                    showToast(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<DataLogin> call, @NonNull Throwable t) {
+                if (!call.isCanceled()){
+                    hideDialogProgress();
+                    showToast(getString(R.string.toast_onfailure));
+                }
+            }
+        });
     }
 
     private void initView() {
@@ -224,6 +326,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             }else {
                 showToast(task.getException().getMessage());
             }
+        }else{
+            callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -305,7 +409,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
        }
 
        if (containerFb == view) {
-           Toast.makeText(LoginActivity.this, "On Develop", Toast.LENGTH_SHORT).show();
+           signInFacebook();
+//           Toast.makeText(LoginActivity.this, "On Develop", Toast.LENGTH_SHORT).show();
        }
 
        if (tvForgotPassword == view) {
@@ -330,5 +435,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 showPassword = false;
             }
        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LoginManager.getInstance().logOut();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LoginManager.getInstance().logOut();
+    }
+
+    private void signInFacebook(){
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile","email"));
     }
 }

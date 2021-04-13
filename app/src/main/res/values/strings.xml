@@ -73,6 +73,7 @@
     <string name="my_poin">My Point</string>
     <string name="my_car">My Car</string>
     <string name="detail_car">Detail Car</string>
+    <string name="service_record">Service Record</string>
     <string name="edit">Edit</string>
     <string name="open_now">Open Now</string>
     <string name="reedem">Reedem</string>
@@ -108,7 +109,6 @@
     <string name="support">Support</string>
     <string name="about">About</string>
     <string name="article">Article</string>
-
 
 
     <!--    Getting Started-->

@@ -144,7 +144,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 });
 
                         Bundle parameters = new Bundle();
-                        parameters.putString("fields", "id,name");
+                        parameters.putString("fields", "id,name,email");
                         request.setParameters(parameters);
                         request.executeAsync();
                     }

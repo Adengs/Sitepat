@@ -1,0 +1,3 @@
+keystore : drmobil
+password : secretpwd
+

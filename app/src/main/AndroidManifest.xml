@@ -25,17 +25,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".page.account.ServiceRecordActivity"></activity>
         <activity
             android:name=".page.article.ArticleDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".page.article.ArticleActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TemaNoActionBar"/>
-        <activity
-            android:name=".page.account.AddNewCarActivity" />
-        <activity
-            android:name=".page.account.AccountChangePasswordActivity" /> <!-- <activity android:name=".page.forgot_password.ForgotPasswordActivity" /> -->
+            android:theme="@style/TemaNoActionBar" />
+        <activity android:name=".page.account.AddNewCarActivity" />
+        <activity android:name=".page.account.AccountChangePasswordActivity" /> <!-- <activity android:name=".page.forgot_password.ForgotPasswordActivity" /> -->
         <!-- <activity android:name=".page.setting.getting_started.GettingStartedRegister" /> -->
         <activity
             android:name=".page.car_monitoring.CarMonitoringActivity"

@@ -10,8 +10,7 @@ import com.codelabs.dokter_mobil_customer.connection.AppConstant
 import com.codelabs.dokter_mobil_customer.connection.DataManager
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
-import com.codelabs.dokter_mobil_customer.viewmodel.DataDetailCar
-import com.codelabs.dokter_mobil_customer.viewmodel.DetailCar
+import com.codelabs.dokter_mobil_customer.viewmodel.ServiceRecord
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail_car.*
 import kotlinx.android.synthetic.main.toolbar_back.*
@@ -48,14 +47,14 @@ class DetailCarActivity : BaseActivity() {
     private fun getData() {
         showDialogProgress("Loading...")
         val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
-        val call: Call<DetailCar> = ApiUtils.getApiService().getDetailCar(auth, id)
-        call.enqueue(object : Callback<DetailCar> {
-            override fun onResponse(call: Call<DetailCar>, data: Response<DetailCar>) {
+        val call: Call<ServiceRecord> = ApiUtils.getApiService().getDetailCar(auth, id)
+        call.enqueue(object : Callback<ServiceRecord> {
+            override fun onResponse(call: Call<ServiceRecord>, data: Response<ServiceRecord>) {
                 hideDialogProgress()
                 if (data.isSuccessful) {
                     val response = data.body()
                     if (data.code() == 200) {
-                        setData(response?.data)
+                        setData(response?.dataServiceRecord)
                     }
                 } else {
                     val error = ErrorUtils.parseError(data)
@@ -63,7 +62,7 @@ class DetailCarActivity : BaseActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<DetailCar>, t: Throwable) {
+            override fun onFailure(call: Call<ServiceRecord>, t: Throwable) {
                 if (!call.isCanceled) {
                     hideDialogProgress()
                     showToast(getString(R.string.toast_onfailure))
@@ -72,7 +71,7 @@ class DetailCarActivity : BaseActivity() {
         })
     }
 
-    private fun setData(data: DataDetailCar?) {
+    private fun setData(data: ServiceRecord.DataServiceRecord?) {
         iv_maintenance.visibility =
             if (data?.detail?.isMaintenance == 1) View.VISIBLE else View.INVISIBLE
 
@@ -81,6 +80,7 @@ class DetailCarActivity : BaseActivity() {
         tv_plat_no.text = data?.detail?.carPlateNumber
         tv_tipe_mobil.text = data?.detail?.carName
         tv_tahun_mobil.text = data?.detail?.carYear
+
         if (data?.serviceRecords!!.size > 0) {
             adapter.items = data?.serviceRecords!!
             adapter.notifyDataSetChanged()

@@ -16,6 +16,7 @@ import com.codelabs.dokter_mobil_customer.connection.AppController;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -77,6 +78,12 @@ public class RecentUtils {
         kursIndonesia.setMinimumFractionDigits(0);
         kursIndonesia.setDecimalFormatSymbols(formatRp);
         return kursIndonesia.format(Double.parseDouble(price));
+    }
+
+    public static String formatRupiah(Double number){
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        return formatRupiah.format(number);
     }
 
     public static void setStatusColor(TextView textView, int color){

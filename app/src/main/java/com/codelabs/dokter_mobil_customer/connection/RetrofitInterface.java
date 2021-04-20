@@ -19,6 +19,7 @@ import com.codelabs.dokter_mobil_customer.viewmodel.PrivacyPolicy;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
 import com.codelabs.dokter_mobil_customer.viewmodel.PromoDetail;
+import com.codelabs.dokter_mobil_customer.viewmodel.ServiceRecord;
 import com.codelabs.dokter_mobil_customer.viewmodel.TermsCondition;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaint;
 import com.codelabs.dokter_mobil_customer.viewmodel.TypeComplaintDetail;
@@ -123,7 +124,7 @@ public interface RetrofitInterface {
     Call<MyCar> getCustomerCar(@Header(AppConstant.AuthTitle) String auth);
 
     @GET(AppConstant.getCarDetail)
-    Call<DetailCar> getDetailCar(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
+    Call<ServiceRecord> getDetailCar(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
 
     @GET(AppConstant.getHistoryPoint)
     Call<PointHistory> getHistoryPoint(@Header(AppConstant.AuthTitle) String auth);
@@ -152,5 +153,6 @@ public interface RetrofitInterface {
 
     @GET(AppConstant.ArticlesDetail)
     Call<ArticlesDetail> getArticlesDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
+
 
 }

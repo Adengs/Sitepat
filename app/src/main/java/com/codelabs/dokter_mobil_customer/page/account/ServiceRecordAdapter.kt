@@ -1,15 +1,19 @@
 package com.codelabs.dokter_mobil_customer.page.account
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.codelabs.dokter_mobil_customer.R
-import com.codelabs.dokter_mobil_customer.viewmodel.ServiceRecordMyCar
+import com.codelabs.dokter_mobil_customer.page.service_record.ServiceRecordActivity
+import com.codelabs.dokter_mobil_customer.utils.RecentUtils
+import com.codelabs.dokter_mobil_customer.viewmodel.ServiceRecord
 import kotlinx.android.synthetic.main.item_service_records.view.*
 
-class ServiceRecordAdapter (c : Context, var items : List<ServiceRecordMyCar>) : RecyclerView.Adapter<ServiceRecordAdapter.MyViewHolder>() {
+class ServiceRecordAdapter (val c : Context, var items : List<ServiceRecord.serviceRecords>) : RecyclerView.Adapter<ServiceRecordAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MyViewHolder {
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_service_records, viewGroup, false)
@@ -22,8 +26,15 @@ class ServiceRecordAdapter (c : Context, var items : List<ServiceRecordMyCar>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.itemView.tv_invoice.text = items[position].invoiceCode
-        holder.itemView.tv_tgl_invoice.text = items[position].createdAt
+        holder.itemView.tv_invoice.text = (items[position].invoiceCode)
+        holder.itemView.tv_tgl_invoice.text = RecentUtils.formatDateToDateDMY(items[position].createdAt)
+        holder.itemView.tv_detail.setOnClickListener {
+            val intent = Intent(c, ServiceRecordActivity::class.java)
+            intent.putExtra("invoice_code", items[position].invoiceCode)
+            intent.putExtra("date_invoice", items[position].createdAt)
+            intent.putExtra("total_amount", items[position].totalAmount)
+            c.startActivity(intent)
+        }
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

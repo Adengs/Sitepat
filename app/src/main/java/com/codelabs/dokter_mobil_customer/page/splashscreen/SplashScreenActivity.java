@@ -119,6 +119,8 @@ public class SplashScreenActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put("username", DataManager.getInstance().getEmail());
         params.put("password", DataManager.getInstance().getPassword());
+        params.put("google_id", DataManager.getInstance().getGoogleId());
+        params.put("fullname", DataManager.getInstance().getFullname());
 
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + tokenAccess;

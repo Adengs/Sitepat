@@ -107,6 +107,39 @@ public class DataManager {
         setTempJson("password", password);
     }
 
+    public String getFullname() {
+        return getTempJSON("fullname");
+    }
+
+    public void setFullname(String fullname) {
+        setTempJson("fullname", fullname);
+    }
+
+    public String getUserNameGoogle() {
+        return getTempJSON("username");
+    }
+
+    public void setUsernameGoogle(String usernameGoogle) {
+        setTempJson("username", usernameGoogle);
+    }
+
+    public String getGoogleId() {
+        return getTempJSON("google_id");
+    }
+
+    public void setGoogleId(String googleId) {
+        setTempJson("google_id", googleId);
+    }
+
+    public String getFacebookId() {
+        return getTempJSON("facebook_id");
+    }
+
+    public void setFacebokId(String facebokId) {
+        setTempJson("facebook_id", facebokId);
+    }
+
+
     public void setLoginData(DataLogin.DataCustomer dataUser) {
         setLogin(true);
         setCustomerId(dataUser.getCustomerId());

@@ -1,4 +1,4 @@
-package com.codelabs.dokter_mobil_customer.page.article;
+package com.codelabs.dokter_mobil_customer.page.news;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +7,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -23,9 +24,12 @@ import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.utils.RecentUtils;
-import com.codelabs.dokter_mobil_customer.viewmodel.Articles;
-import com.codelabs.dokter_mobil_customer.viewmodel.ArticlesDetail;
+import com.codelabs.dokter_mobil_customer.viewmodel.NewsDetail;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ArticleDetailActivity extends BaseActivity implements View.OnClickListener {
+public class NewsDetailActivity extends BaseActivity implements View.OnClickListener {
 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.iv_back)
@@ -75,15 +79,13 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @BindView(R.id.iv_youtube)
     AppCompatImageView ivYoutube;
 
-    int idArticle = -1;
-    String urlYoutube = "";
-    private ArticlesDetail.DataArticlesDetail responseData;
-
+    int idNews = -1;
+    private NewsDetail.DataNewsDetail responseData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView( R.layout.activity_article_detail);
+        setContentView(R.layout.activity_news_detail);
         ButterKnife.bind(this);
         getPrefData();
         initView();
@@ -92,7 +94,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
 
     private void getPrefData() {
         Intent intent = getIntent();
-        idArticle = intent.getIntExtra("article_id",1);
+        idNews = intent.getIntExtra("news_id",1);
     }
 
     private void initView() {
@@ -103,27 +105,26 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         ivBack.setOnClickListener(this);
         ivYoutube.setOnClickListener(this);
         containerNoData.setVisibility(View.GONE);
-
     }
 
     private void fetchData() {
-        loadDataArticle();
+        loadDataNews();
     }
 
-    public void loadDataArticle() {
-        showDialogProgress("Getting data article detail");
+    public void loadDataNews() {
+        showDialogProgress("Getting data news detail");
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<ArticlesDetail> call = apiService.getArticlesDetail(auth, idArticle);
-        call.enqueue(new Callback<ArticlesDetail>() {
+        Call<NewsDetail> call = apiService.getNewsDetail(auth, idNews);
+        call.enqueue(new Callback<NewsDetail>() {
             @Override
-            public void onResponse(@NonNull Call<ArticlesDetail> call,@NonNull Response<ArticlesDetail> response) {
+            public void onResponse(@NonNull Call<NewsDetail> call, @NonNull Response<NewsDetail> response) {
                 hideDialogProgress();
                 if (response.isSuccessful()) {
-                    ArticlesDetail data = response.body();
+                    NewsDetail data = response.body();
                     if (response.code() == 200) {
                         responseData = data.getData();
-                        dataArticleDetail();
+                        dataNewsDetail();
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(response);
@@ -134,7 +135,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             }
 
             @Override
-            public void onFailure(@NonNull Call<ArticlesDetail> call,@NonNull Throwable t) {
+            public void onFailure(@NonNull Call<NewsDetail> call, @NonNull Throwable t) {
                 if (!call.isCanceled()) {
                     hideDialogProgress();
                     containerNoData.setVisibility(View.VISIBLE);
@@ -145,25 +146,11 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         });
     }
 
-    public void dataArticleDetail() {
+    public void dataNewsDetail() {
+
         Picasso.get()
-                .load(responseData.getImageUrl())
+                .load(responseData.getImage())
                 .into(ivPromo);
-
-        Picasso.get()
-                .load(responseData.getImageUrl())
-                .into(ivYoutube);
-
-        if (responseData.getIsVideo() == 1) {
-            containerVideoYoutube.setVisibility(View.VISIBLE);
-            containerTypeArticle.setVisibility(View.GONE);
-            containerTypeVideo.setVisibility(View.VISIBLE);
-            urlYoutube = responseData.getVideoUrl();
-        } else {
-            containerVideoYoutube.setVisibility(View.GONE);
-            containerTypeVideo.setVisibility(View.GONE);
-            containerTypeArticle.setVisibility(View.VISIBLE);
-        }
 
         tvTitleArticle.setText(responseData.getTitle());
         tvDateArticle.setText(RecentUtils.formatDateToDateDMY(responseData.getCreatedAt()));
@@ -176,13 +163,6 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     public void onClick(View view) {
         if (ivBack == view) {
             finish();
-        }
-
-        if (ivYoutube == view) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setPackage("com.google.android.youtube");
-            intent.setData(Uri.parse(urlYoutube));
-            startActivity(intent);
         }
     }
 }

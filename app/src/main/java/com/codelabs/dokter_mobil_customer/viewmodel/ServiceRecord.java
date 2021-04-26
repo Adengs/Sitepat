@@ -2,6 +2,7 @@ package com.codelabs.dokter_mobil_customer.viewmodel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ServiceRecord {
@@ -102,7 +103,7 @@ public class ServiceRecord {
         }
     }
 
-    public static class serviceRecords {
+    public static class serviceRecords implements Serializable {
         @SerializedName("transactionId")
         private int transactionId;
         @SerializedName("customerId")
@@ -159,7 +160,7 @@ public class ServiceRecord {
         }
     }
 
-    public static class Orders {
+    public static class Orders implements Serializable {
         @SerializedName("transactionItemId")
         private int transactionItemId;
         @SerializedName("transactionItemCode")
@@ -186,7 +187,7 @@ public class ServiceRecord {
         }
     }
 
-    public static class ItemsService {
+    public static class ItemsService implements Serializable{
         @SerializedName("transactionItemDetailId")
         private int transactionItemDetailId;
         @SerializedName("transactionItemId")
@@ -207,8 +208,8 @@ public class ServiceRecord {
         private int itemQty;
         @SerializedName("itemNote")
         private String itemNote;
-        @SerializedName("services")
-        private List<Services> service;
+//        @SerializedName("services")
+//        private List<Services> service;
 
         public int getTransactionItemDetailId() {
             return transactionItemDetailId;
@@ -250,12 +251,12 @@ public class ServiceRecord {
             return itemNote;
         }
 
-        public List<Services> getService() {
-            return service;
-        }
+//        public List<Services> getService() {
+//            return service;
+//        }
     }
 
-    public static class Services {
-
-    }
+//    public static class Services {
+//
+//    }
 }

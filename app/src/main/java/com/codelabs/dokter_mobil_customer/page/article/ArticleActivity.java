@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.adapter.ArticleAdapter;
+import com.codelabs.dokter_mobil_customer.adapter.NewsAdapter;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
 import com.codelabs.dokter_mobil_customer.connection.AppConstant;
@@ -25,6 +26,7 @@ import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.viewmodel.Articles;
+import com.codelabs.dokter_mobil_customer.viewmodel.News;
 import com.google.android.gms.dynamic.IFragmentWrapper;
 
 import java.util.ArrayList;
@@ -55,8 +57,12 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.container_no_data)
     RelativeLayout containerNoData;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.rv_news)
+    RecyclerView rvNews;
 
     ArticleAdapter mAdapter;
+    NewsAdapter newsAdapter;
     private String keyword = "";
 
     @Override
@@ -78,6 +84,11 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         mAdapter = new ArticleAdapter(this);
         mAdapter.setData(new ArrayList<>());
         rvArticle.setAdapter(mAdapter);
+
+        rvNews.setLayoutManager(new LinearLayoutManager(this));
+        newsAdapter = new NewsAdapter(this);
+        newsAdapter.setData(new ArrayList<>());
+        rvNews.setAdapter(newsAdapter);
     }
 
     private void initSetup() {
@@ -86,6 +97,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
 
     private void fetchData() {
         loadDataArticle();
+        loadDataNews();
     }
 
     private void functionSearch() {
@@ -165,6 +177,34 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                 if (!call.isCanceled()) {
                     containerNoData.setVisibility(View.VISIBLE);
                     tvNoData.setText(getString(R.string.toast_onfailure));
+                }
+            }
+        });
+    }
+
+    public void loadDataNews() {
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+        Call<News> call = apiService.getNews(auth);
+        call.enqueue(new Callback<News>() {
+            @Override
+            public void onResponse(@NonNull Call<News> call, @NonNull Response<News> response) {
+                if (response.isSuccessful()) {
+                    News data = response.body();
+                    if (response.code() == 200) {
+                        newsAdapter.setData(data.getData().getItemsNews());
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(response);
+                    containerNoData.setVisibility(View.VISIBLE);
+                    tvNoData.setText(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<News> call,@NonNull Throwable t) {
+                if (!call.isCanceled()) {
+                   t.printStackTrace();
                 }
             }
         });

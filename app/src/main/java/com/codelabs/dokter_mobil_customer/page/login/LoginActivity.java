@@ -137,6 +137,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                             }
                                             params.put("facebook_id",profile.getId());
                                             handleLoginFacebook(params);
+                                            DataManager.getInstance().setFacebokId(profile.getId());
                                         } catch(JSONException ex) {
                                             ex.printStackTrace();
                                         }
@@ -161,8 +162,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                     }
                 });
-
-
     }
 
     private void handleLoginFacebook(Map<String, String> params){
@@ -331,15 +330,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-//    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-//        try {
-//            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-//            assert account != null;
-//            showToast(account.getEmail());
-//        } catch (ApiException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void handleSignInResult(Task<GoogleSignInAccount> result) {
         try {
@@ -360,6 +350,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     if (response.isSuccessful()) {
                         DataLogin data = response.body();
                         if (response.code() == 200) {
+                            DataManager.getInstance().setGoogleId(account.getId());
+                            DataManager.getInstance().setFullname(account.getDisplayName());
+                            DataManager.getInstance().setEmail(account.getEmail());
+
                             DataManager.getInstance().setToken(data.getData().getToken());
                             DataManager.getInstance().setLoginData(data.getData().getDataCustomer());
 

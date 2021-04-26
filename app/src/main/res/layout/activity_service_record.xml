@@ -103,8 +103,6 @@
                 android:id="@+id/rv_service_record"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_below="@+id/view"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_detail_service_record"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -127,16 +125,17 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_value_subtotal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
+                    android:gravity="end"
                     android:fontFamily="@font/rajdhani_regular"
                     android:textColor="@color/black_half"
                     android:textSize="@dimen/_12ssp"
                     android:textStyle="bold"
-                    tools:text="Rp 3.000.000" />
+                    tools:text="Rp 3333.000.000" />
 
             </RelativeLayout>
 
@@ -160,7 +159,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_value_ppn"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12ssp"
                     android:layout_marginStart="@dimen/_20sdp"
@@ -168,7 +167,8 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:textColor="@color/black_half"
-                    tools:text="Rp 300.000"
+                    android:text="Rp. 0"
+                    android:gravity="end"
                     android:textStyle="bold"
                     android:fontFamily="@font/rajdhani_regular" />
 
@@ -189,19 +189,21 @@
                     android:textColor="@color/grayFont"
                     android:layout_toStartOf="@id/tv_value_total"
                     android:fontFamily="@font/rajdhani_regular"
+                    android:textStyle="bold"
                     android:text="@string/total"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_value_total"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12ssp"
-                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:textColor="@color/green_text"
                     tools:text="Rp 3.300.000"
+                    android:gravity="end"
                     android:textStyle="bold"
                     android:fontFamily="@font/rajdhani_regular" />
 

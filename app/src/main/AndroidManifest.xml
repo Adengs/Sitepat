@@ -25,7 +25,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".page.service_record.ServiceRecordActivity"/>
+        <activity android:name=".page.news.NewsDetailActivity"></activity>
+        <activity android:name=".page.service_record.ServiceRecordActivity" />
         <activity
             android:name=".page.article.ArticleDetailActivity"
             android:screenOrientation="portrait" />

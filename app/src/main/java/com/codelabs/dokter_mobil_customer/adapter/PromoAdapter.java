@@ -48,7 +48,6 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.viewHolder> 
     public void onBindViewHolder(@NonNull PromoAdapter.viewHolder holder, int position) {
         Picasso.get()
                 .load(promoList.get(position).getImage())
-                .fit().centerCrop()
                 .into(holder.imgPromo, new Callback() {
                     @Override
                     public void onSuccess() {

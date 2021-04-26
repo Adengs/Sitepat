@@ -86,6 +86,28 @@ public class RecentUtils {
         return formatRupiah.format(number);
     }
 
+    public static String toCurrency(String price) {
+        price = price.replace(".00","");
+        if (TextUtils.isEmpty(price)) {
+            price = "0";
+        }
+
+
+        Locale locale = new Locale("in", "ID");
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(locale);
+        //format.setCurrency(Currency.getInstance(currency));
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+
+        formatRp.setCurrencySymbol("");
+        formatRp.setDecimalSeparator('.');
+        formatRp.setGroupingSeparator(',');
+
+
+        kursIndonesia.setMinimumFractionDigits(0);
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+        return kursIndonesia.format(Double.parseDouble(price)).replace(",", ".");
+    }
+
     public static void setStatusColor(TextView textView, int color){
 //        Drawable drawable = ContextCompat.getDrawable(AppController.getInstance().getApplicationContext(), R.drawable.urgentsmall);
 //        drawable = DrawableCompat.wrap(drawable);

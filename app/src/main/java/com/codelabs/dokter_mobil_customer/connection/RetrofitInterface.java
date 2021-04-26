@@ -1,5 +1,7 @@
 package com.codelabs.dokter_mobil_customer.connection;
 
+import androidx.appcompat.widget.AppCompatTextView;
+
 import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
 import com.codelabs.dokter_mobil_customer.viewmodel.Articles;
 import com.codelabs.dokter_mobil_customer.viewmodel.ArticlesDetail;
@@ -11,6 +13,8 @@ import com.codelabs.dokter_mobil_customer.viewmodel.Faq;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetToken;
 import com.codelabs.dokter_mobil_customer.viewmodel.GetWalkThrough;
 import com.codelabs.dokter_mobil_customer.viewmodel.MyCar;
+import com.codelabs.dokter_mobil_customer.viewmodel.News;
+import com.codelabs.dokter_mobil_customer.viewmodel.NewsDetail;
 import com.codelabs.dokter_mobil_customer.viewmodel.Notification;
 import com.codelabs.dokter_mobil_customer.viewmodel.Outlet;
 import com.codelabs.dokter_mobil_customer.viewmodel.OutletDetail;
@@ -153,6 +157,12 @@ public interface RetrofitInterface {
 
     @GET(AppConstant.ArticlesDetail)
     Call<ArticlesDetail> getArticlesDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
+
+    @GET(AppConstant.News)
+    Call<News> getNews(@Header(AppConstant.AuthTitle) String auth);
+
+    @GET(AppConstant.NewsDetail)
+    Call<NewsDetail> getNewsDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
 
 
 }

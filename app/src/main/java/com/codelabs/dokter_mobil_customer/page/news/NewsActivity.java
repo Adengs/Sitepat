@@ -1,7 +1,6 @@
-package com.codelabs.dokter_mobil_customer.page.article;
+package com.codelabs.dokter_mobil_customer.page.news;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.codelabs.dokter_mobil_customer.R;
-import com.codelabs.dokter_mobil_customer.adapter.ArticleAdapter;
 import com.codelabs.dokter_mobil_customer.adapter.NewsAdapter;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
@@ -25,9 +23,7 @@ import com.codelabs.dokter_mobil_customer.connection.DataManager;
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils;
 import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
-import com.codelabs.dokter_mobil_customer.viewmodel.Articles;
 import com.codelabs.dokter_mobil_customer.viewmodel.News;
-import com.google.android.gms.dynamic.IFragmentWrapper;
 
 import java.util.ArrayList;
 
@@ -37,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ArticleActivity extends BaseActivity implements View.OnClickListener {
+public class NewsActivity extends BaseActivity implements View.OnClickListener {
 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.iv_back)
@@ -46,25 +42,25 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     @BindView(R.id.iv_search)
     AppCompatImageView ivSearch;
     @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.et_search_article)
-    AppCompatEditText edtSeacrhArticle;
-    @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.rv_article)
-    RecyclerView rvArticle;
+    @BindView(R.id.et_search_news)
+    AppCompatEditText etSearchNews;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.tv_no_data)
     AppCompatTextView tvNoData;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.container_no_data)
     RelativeLayout containerNoData;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.rv_news)
+    RecyclerView rvNews;
 
-    ArticleAdapter mAdapter;
+    NewsAdapter newsAdapter;
     private String keyword = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_article);
+        setContentView(R.layout.activity_news);
         ButterKnife.bind(this);
         initView();
         initSetup();
@@ -76,11 +72,10 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         ivBack.setOnClickListener(this);
         ivSearch.setOnClickListener(this);
 
-        rvArticle.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new ArticleAdapter(this);
-        mAdapter.setData(new ArrayList<>());
-        rvArticle.setAdapter(mAdapter);
-
+        rvNews.setLayoutManager(new LinearLayoutManager(this));
+        newsAdapter = new NewsAdapter(this);
+        newsAdapter.setData(new ArrayList<>());
+        rvNews.setAdapter(newsAdapter);
     }
 
     private void initSetup() {
@@ -88,11 +83,11 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void fetchData() {
-        loadDataArticle();
+        loadDataNews();
     }
 
     private void functionSearch() {
-        edtSeacrhArticle.addTextChangedListener(new TextWatcher() {
+        etSearchNews.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -101,7 +96,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 keyword = s.toString();
-                searchDataArticle();
+                searchDataNews();
             }
 
             @Override
@@ -111,20 +106,19 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         });
     }
 
-    public void loadDataArticle() {
-        showDialogProgress("Getting data article");
+    public void loadDataNews() {
+        showDialogProgress("Getting data news");
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<Articles> call = apiService.getArticles(auth, keyword, 0,0);
-        call.enqueue(new Callback<Articles>() {
+        Call<News> call = apiService.getNews(auth, keyword);
+        call.enqueue(new Callback<News>() {
             @Override
-            public void onResponse(@NonNull Call<Articles> call, @NonNull Response<Articles> response) {
+            public void onResponse(@NonNull Call<News> call, @NonNull Response<News> response) {
                 hideDialogProgress();
                 if (response.isSuccessful()) {
-                    Articles data = response.body();
+                    News data = response.body();
                     if (response.code() == 200) {
-                        assert data != null;
-                        mAdapter.setData(data.getData().getItemsArticles());
+                        newsAdapter.setData(data.getData().getItemsNews());
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(response);
@@ -134,8 +128,9 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             }
 
             @Override
-            public void onFailure(@NonNull Call<Articles> call,@NonNull Throwable t) {
+            public void onFailure(@NonNull Call<News> call,@NonNull Throwable t) {
                 if (!call.isCanceled()) {
+                    t.printStackTrace();
                     hideDialogProgress();
                     containerNoData.setVisibility(View.VISIBLE);
                     tvNoData.setText(getString(R.string.toast_onfailure));
@@ -144,17 +139,17 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         });
     }
 
-    public void searchDataArticle() {
+    public void searchDataNews() {
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<Articles> call = apiService.getArticles(auth, keyword,0,0);
-        call.enqueue(new Callback<Articles>() {
+        Call<News> call = apiService.getNews(auth, keyword);
+        call.enqueue(new Callback<News>() {
             @Override
-            public void onResponse(@NonNull Call<Articles> call, @NonNull Response<Articles> response) {
+            public void onResponse(@NonNull Call<News> call,@NonNull  Response<News> response) {
                 if (response.isSuccessful()) {
-                    Articles data = response.body();
+                    News data = response.body();
                     if (response.code() == 200) {
-                        mAdapter.setData(data.getData().getItemsArticles());
+                        newsAdapter.setData(data.getData().getItemsNews());
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(response);
@@ -164,7 +159,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
             }
 
             @Override
-            public void onFailure(@NonNull Call<Articles> call,@NonNull Throwable t) {
+            public void onFailure(@NonNull Call<News> call, @NonNull Throwable t) {
                 if (!call.isCanceled()) {
                     containerNoData.setVisibility(View.VISIBLE);
                     tvNoData.setText(getString(R.string.toast_onfailure));
@@ -181,10 +176,10 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
         }
 
         if (ivSearch == view) {
-            if (edtSeacrhArticle.getVisibility() == View.VISIBLE) {
-                edtSeacrhArticle.setVisibility(View.GONE);
+            if (etSearchNews.getVisibility() == View.VISIBLE) {
+                etSearchNews.setVisibility(View.GONE);
             } else {
-                edtSeacrhArticle.setVisibility(View.VISIBLE);
+                etSearchNews.setVisibility(View.VISIBLE);
             }
         }
     }

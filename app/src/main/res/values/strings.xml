@@ -8,6 +8,7 @@
     <string name="done">Done</string>
     <string name="aboutus">About Us</string>
     <string name="search_articles">Search articles ...</string>
+    <string name="search_news">Search news ...</string>
     <string name="hi">Hi,</string>
     <string name="author">Author : </string>
     <string name="video">Video</string>
@@ -17,6 +18,8 @@
     <string name="protection_from_disasters">Protection from disasters!</string>
     <string name="walkthrough_title">Lorem Ipsum is Simple Dummy Text</string>
     <string name="article_home">Article!</string>
+    <string name="news">News</string>
+    <string name="news_home">News!</string>
     <string name="see_more">See more</string>
     <string name="popular_article">Popular Article!</string>
     <string name="toast_onfailure">"Network Failure :( please try again later"</string>

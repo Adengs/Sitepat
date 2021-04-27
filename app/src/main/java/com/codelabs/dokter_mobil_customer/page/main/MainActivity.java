@@ -27,6 +27,7 @@ import com.codelabs.dokter_mobil_customer.R;
 import com.codelabs.dokter_mobil_customer.adapter.ArticleHomePageAdapter;
 import com.codelabs.dokter_mobil_customer.adapter.ArticleHomeVerticalAdapter;
 import com.codelabs.dokter_mobil_customer.adapter.ArticleHorizontalAdapter;
+import com.codelabs.dokter_mobil_customer.adapter.NewsHomePageAdapter;
 import com.codelabs.dokter_mobil_customer.adapter.PromoBannerAdapter;
 import com.codelabs.dokter_mobil_customer.connection.ApiError;
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils;
@@ -42,12 +43,14 @@ import com.codelabs.dokter_mobil_customer.page.about.AboutUsActivity;
 import com.codelabs.dokter_mobil_customer.page.account.MyAccountActivity;
 import com.codelabs.dokter_mobil_customer.page.article.ArticleActivity;
 import com.codelabs.dokter_mobil_customer.page.car_monitoring.CarMonitoringActivity;
+import com.codelabs.dokter_mobil_customer.page.news.NewsActivity;
 import com.codelabs.dokter_mobil_customer.page.outlet.OutletMapActivity;
 import com.codelabs.dokter_mobil_customer.page.promo.PromoActivity;
 import com.codelabs.dokter_mobil_customer.page.setting.SettingActivity;
 import com.codelabs.dokter_mobil_customer.page.support.SupportActivity;
 import com.codelabs.dokter_mobil_customer.utils.RecentUtils;
 import com.codelabs.dokter_mobil_customer.viewmodel.Articles;
+import com.codelabs.dokter_mobil_customer.viewmodel.News;
 import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
 import com.google.android.material.tabs.TabLayout;
@@ -109,16 +112,23 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @BindView(R.id.tv_see_more)
     AppCompatTextView tvSeeMoreArticle;
     @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.tv_see_more_news)
+    AppCompatTextView tvSeeMoreNews;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.rv_popular_article)
     RecyclerView rvPopularArticle;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.rv_article_horizontal)
     RecyclerView rvArticleHorizontal;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.rv_news_homepage)
+    RecyclerView rvNewsHomepage;
 
     PromoBannerAdapter promoAdapter;
     ArticleHomePageAdapter articleHomePageAdapter;
     ArticleHorizontalAdapter articleHorizontalAdapter;
     ArticleHomeVerticalAdapter articleHomeVerticalAdapter;
+    NewsHomePageAdapter newsHomePageAdapter;
     private String keyword = "";
     private int currentCount = 0;
     private int category = -1;
@@ -196,6 +206,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         HorizontalItemDecoration itemDecoration = new HorizontalItemDecoration(RecentUtils.ConvertDpToPx(this, 10));
         rvArticleHomepage.addItemDecoration(itemDecoration);
 
+        newsHomePageAdapter = new NewsHomePageAdapter(getApplicationContext());
+        rvNewsHomepage.setAdapter(newsHomePageAdapter);
+        rvNewsHomepage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        rvNewsHomepage.addItemDecoration(itemDecoration);
+
         articleHorizontalAdapter = new ArticleHorizontalAdapter(getApplicationContext());
         rvArticleHorizontal.setAdapter(articleHorizontalAdapter);
         rvArticleHorizontal.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -218,12 +233,14 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         containerSetting.setOnClickListener(this);
         tvSeeAllBanner.setOnClickListener(this);
         tvSeeMoreArticle.setOnClickListener(this);
+        tvSeeMoreNews.setOnClickListener(this);
     }
 
     private void fetchData() {
         loadProfile();
         loadPromoBanner();
         loadDataArticle();
+        loadDataNews();
         loadDataArticleVertical();
         loadDataArticleDisasters();
     }
@@ -349,6 +366,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             @Override
             public void onFailure(@NonNull Call<Articles> call,@NonNull Throwable t) {
                 if (!call.isCanceled()) {
+                    t.printStackTrace();
                     hideDialogProgress();
 //                    containerNoData.setVisibility(View.VISIBLE);
 //                    tvNoData.setText(getString(R.string.toast_onfailure));
@@ -423,6 +441,33 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         });
     }
 
+    public void loadDataNews() {
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+        Call<News> call = apiService.getNews(auth, keyword);
+        call.enqueue(new Callback<News>() {
+            @Override
+            public void onResponse(@NonNull Call<News> call, @NonNull Response<News> response) {
+                if (response.isSuccessful()) {
+                    News data = response.body();
+                    if (response.code() == 200) {
+                        newsHomePageAdapter.setData(data.getData().getItemsNews());
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(response);
+                    showToast(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<News> call,@NonNull Throwable t) {
+                if (!call.isCanceled()) {
+                    t.printStackTrace();
+                }
+            }
+        });
+    }
+
     private void autoPlay(final ViewPager2 viewPager) {
         viewPager.postDelayed(new Runnable() {
             @Override
@@ -481,6 +526,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         if (tvSeeMoreArticle == view) {
             Intent intent = new Intent(MainActivity.this, ArticleActivity.class);
+            startActivity(intent);
+        }
+
+        if (tvSeeMoreNews == view) {
+            Intent intent = new Intent(MainActivity.this, NewsActivity.class);
             startActivity(intent);
         }
     }

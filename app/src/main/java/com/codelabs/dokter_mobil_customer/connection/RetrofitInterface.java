@@ -159,7 +159,7 @@ public interface RetrofitInterface {
     Call<ArticlesDetail> getArticlesDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
 
     @GET(AppConstant.News)
-    Call<News> getNews(@Header(AppConstant.AuthTitle) String auth);
+    Call<News> getNews(@Header(AppConstant.AuthTitle) String auth, @Query("keyword") String keyword);
 
     @GET(AppConstant.NewsDetail)
     Call<NewsDetail> getNewsDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);

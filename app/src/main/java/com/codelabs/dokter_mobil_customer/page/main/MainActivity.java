@@ -55,6 +55,7 @@ import com.codelabs.dokter_mobil_customer.viewmodel.Profile;
 import com.codelabs.dokter_mobil_customer.viewmodel.Promo;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.ArrayList;
 
@@ -123,6 +124,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.rv_news_homepage)
     RecyclerView rvNewsHomepage;
+
 
     PromoBannerAdapter promoAdapter;
     ArticleHomePageAdapter articleHomePageAdapter;
@@ -199,6 +201,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 (tab, position) -> tab.setText("OBJECT " + (position + 1))
         ).attach();
         autoPlay(viewPagerPromo);
+
 
         articleHomePageAdapter = new ArticleHomePageAdapter(getApplicationContext());
         rvArticleHomepage.setAdapter(articleHomePageAdapter);

@@ -8,7 +8,11 @@
     <string name="done">Done</string>
     <string name="aboutus">About Us</string>
     <string name="search_articles">Search articles ...</string>
+    <string name="search_brand">Search brand ...</string>
+    <string name="search_type">Search type ...</string>
     <string name="search_news">Search news ...</string>
+    <string name="select_brand">Select brand</string>
+    <string name="select_type">Select type</string>
     <string name="hi">Hi,</string>
     <string name="author">Author : </string>
     <string name="video">Video</string>

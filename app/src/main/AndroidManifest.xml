@@ -25,16 +25,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".page.select.SelectCarTypeActivity"></activity>
+        <activity android:name=".page.select.SelectCarBrandActivity" />
         <activity
             android:name=".page.news.NewsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TemaNoActionBar" />
         <activity
             android:name=".page.news.NewsDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".page.service_record.ServiceRecordActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".page.article.ArticleDetailActivity"
             android:screenOrientation="portrait" />

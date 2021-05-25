@@ -45,5 +45,19 @@ data class ItemMyCar(
     @SerializedName("updatedAt")
     val updatedAt: String,
     @SerializedName("carCc")
-    val carCc: String
+    val carCc: String,
+    @SerializedName("brand")
+    val brand: BrandCarCustomer,
+    @SerializedName("brandType")
+    val brandType: BrandType
+) : Serializable
+
+data class BrandCarCustomer(
+    @SerializedName("brandName")
+    val brandName: String
+) : Serializable
+
+data class BrandType(
+    @SerializedName("typeName")
+    val typeName: String
 ) : Serializable

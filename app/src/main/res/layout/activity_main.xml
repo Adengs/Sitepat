@@ -119,15 +119,14 @@
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tab_dots"
-                        android:layout_width="@dimen/_70sdp"
+                        android:layout_width="@dimen/_120sdp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_marginEnd="@dimen/_20sdp"
-                        app:tabBackground="@drawable/tab_selector"
-                        app:tabIndicatorHeight="10dp"/>
+                        android:layout_alignParentLeft="true"
+                        app:tabBackground="@drawable/tab_selector" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:visibility="visible"
                         android:id="@+id/tv_see_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

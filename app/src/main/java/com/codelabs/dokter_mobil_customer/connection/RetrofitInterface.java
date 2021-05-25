@@ -5,6 +5,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
 import com.codelabs.dokter_mobil_customer.viewmodel.Articles;
 import com.codelabs.dokter_mobil_customer.viewmodel.ArticlesDetail;
+import com.codelabs.dokter_mobil_customer.viewmodel.BrandCar;
+import com.codelabs.dokter_mobil_customer.viewmodel.BrandTypesCar;
 import com.codelabs.dokter_mobil_customer.viewmodel.DataLogin;
 import com.codelabs.dokter_mobil_customer.viewmodel.DetailCar;
 import com.codelabs.dokter_mobil_customer.viewmodel.DetailNotif;
@@ -96,6 +98,12 @@ public interface RetrofitInterface {
 
     @GET(AppConstant.TypeComplaint)
     Call<TypeComplaint> getTypeComplaint(@Header(AppConstant.AuthTitle) String auth);
+
+    @GET(AppConstant.Brands)
+    Call<BrandCar> getBrandCar(@Header(AppConstant.AuthTitle) String auth, @Query("keyword") String keyword);
+
+    @GET(AppConstant.BrandTypes)
+    Call<BrandTypesCar> getBrandTypesCar(@Header(AppConstant.AuthTitle) String auth, @Query("brandId") Integer brandId, @Query("keyword") String keyword);
 
     @GET(AppConstant.GetComplaintDetail)
     Call<TypeComplaintDetail> getDetailComplaint(@Header(AppConstant.AuthTitle) String auth, @Path("id") Integer id);

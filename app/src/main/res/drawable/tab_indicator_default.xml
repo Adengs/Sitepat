@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background"
-        android:gravity="center_vertical|fill_horizontal">
-        <shape android:shape="rectangle">
+        android:gravity="center_vertical|fill_horizontal"
+        android:start="@dimen/_3sdp"
+        android:end="@dimen/_3sdp"
+        tools:targetApi="m">
+        <shape
+            android:thickness="4dp"
+            android:shape="rectangle">
             <corners android:radius="8dp"/>
             <size android:height="3dp" />
             <solid android:color="@color/gray_indicator" />
-            <padding android:left="20dp" android:right="20dp"/>
+
         </shape>
     </item>
 </layer-list>

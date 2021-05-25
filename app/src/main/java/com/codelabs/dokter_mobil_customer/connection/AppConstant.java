@@ -39,6 +39,9 @@ public class AppConstant {
     public static final String News = "general/api/v1/news";
     public static final String NewsDetail = "general/api/v1/news/detail/id={id}";
     public static final String ArticlesDetail = "api/v1/general/articles/{id}";
+    public static final String Brands = "api/v1/brands";
+    public static final String BrandTypes = "api/v1/brand_types";
+
 
 
     public static final String getTC = "api/v1/general/terms";

@@ -60,7 +60,8 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB9IlbhI53KawzZ1Qwla1E-emnq3C2ndMw" />
+            android:value="AIzaSyC5_2JF9dGgFkVj5EnEiWiIlJrTRLL8Vwg" />
+
 
         <activity
             android:name=".page.Notif.NotificationActivity"

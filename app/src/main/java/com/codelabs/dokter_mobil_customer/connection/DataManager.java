@@ -131,6 +131,22 @@ public class DataManager {
         setTempJson("google_id", googleId);
     }
 
+    public String getLatitude() {
+        return getTempJSON("latitude");
+    }
+
+    public void setLatitudeOutlet(String latitudeOutlet) {
+        setTempJson("latitude", latitudeOutlet);
+    }
+
+    public String getLongitude() {
+        return getTempJSON("longitude");
+    }
+
+    public void setLongitudeOutlet(String longitudeOutlet) {
+        setTempJson("longitude", longitudeOutlet);
+    }
+
     public String getFacebookId() {
         return getTempJSON("facebook_id");
     }

@@ -249,6 +249,8 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
                             mk.setIcon(icon);
                             mk.setTag(responseOutlet.get(i).getSiteId());
 //                            mk.setSnippet(responseOutlet.get(i).getSitePhone());
+                            DataManager.getInstance().setLatitudeOutlet(String.valueOf(valueLatitude));
+                            DataManager.getInstance().setLongitudeOutlet(String.valueOf(valueLongitude));
                         }
 
                     }

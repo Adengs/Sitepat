@@ -1,7 +1,9 @@
 package com.codelabs.dokter_mobil_customer.page.outlet;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +24,8 @@ import com.codelabs.dokter_mobil_customer.connection.RetrofitInterface;
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity;
 import com.codelabs.dokter_mobil_customer.helper.Utils;
 import com.codelabs.dokter_mobil_customer.viewmodel.OutletDetail;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.maps.GoogleMap;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -68,7 +72,20 @@ public class OutletDetailActivity extends BaseActivity implements View.OnClickLi
     int idOutlet = -1;
     String phoneNumber = "";
     private double valueLatitude, valueLongitude;
+    private double latitudePhone, longitudePhone;
     private OutletDetail.DataOutletDetail responseData;
+
+    private Boolean mLocationPermissionsGranted = false;
+    private GoogleMap mMap;
+    private FusedLocationProviderClient mfusedLocationProviderClient;
+    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+
+    private String Latitude;
+    private String Longitude;
+    private double lat;
+    private double longitude;
 
 
     @Override
@@ -102,11 +119,15 @@ public class OutletDetailActivity extends BaseActivity implements View.OnClickLi
         loadOutletDetail();
     }
 
+
+
     public void loadOutletDetail() {
         showDialogProgress("Getting data outlet detail");
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<OutletDetail> call = apiService.getOutletDetail(auth, idOutlet, valueLatitude, valueLongitude);
+        latitudePhone = Double.parseDouble(DataManager.getInstance().getLatitude());
+        longitudePhone = Double.parseDouble(DataManager.getInstance().getLongitude());
+        Call<OutletDetail> call = apiService.getOutletDetail(auth, idOutlet, latitudePhone, longitudePhone);
         call.enqueue(new Callback<OutletDetail>() {
             @Override
             public void onResponse(@NonNull Call<OutletDetail> call, @NonNull Response<OutletDetail> response) {
@@ -114,23 +135,28 @@ public class OutletDetailActivity extends BaseActivity implements View.OnClickLi
                 if (response.isSuccessful()) {
                     OutletDetail data = response.body();
                     if (response.code() == 200) {
+                        assert data != null;
                         responseData = data.getDataOutletDetail();
                         phoneNumber = responseData.getSitePhone();
                         dataOutletDetail();
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(response);
+                    showToast(error.message());
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<OutletDetail> call, @NonNull Throwable t) {
                 if (!call.isCanceled()) {
+                    showToast(getString(R.string.toast_onfailure));
                     hideDialogProgress();
                 }
             }
         });
     }
+
+
 
     private void dataOutletDetail() {
         if (responseData.getSiteImage().equals("")) {
@@ -178,6 +204,8 @@ public class OutletDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
 
+
+
     @Override
     public void onClick(View view) {
         if (ivBack == view) {
@@ -185,9 +213,17 @@ public class OutletDetailActivity extends BaseActivity implements View.OnClickLi
         }
 
         if (btnReservation == view) {
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:" + phoneNumber));
-            startActivity(intent);
+            String URL= "https://api.whatsapp.com/send?phone=" + phoneNumber;
+            try {
+                PackageManager packageManager = context.getPackageManager();
+                packageManager.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
+                Intent whatsApp = new Intent(Intent.ACTION_VIEW);
+                whatsApp.setData(Uri.parse(URL));
+                startActivity(whatsApp);
+            } catch (PackageManager.NameNotFoundException e) {
+                showToast("Whatsapp is not installed in your phone.");
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codelabs.dokter_mobil_customer.R;
@@ -49,7 +50,7 @@ public class NewsHomePageAdapter extends RecyclerView.Adapter<NewsHomePageAdapte
                 .load(newsList.get(position).getImage())
                 .into(holder.ivArticle);
 
-        holder.ivArticle.setOnClickListener(new View.OnClickListener() {
+        holder.containerArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, NewsDetailActivity.class);
@@ -79,6 +80,9 @@ public class NewsHomePageAdapter extends RecyclerView.Adapter<NewsHomePageAdapte
         @SuppressLint("NonConstantResourceId")
         @BindView(R.id.tv_title_article)
         AppCompatTextView tvTitleArticle;
+        @SuppressLint("NonConstantResourceId")
+        @BindView(R.id.container_article)
+        CardView containerArticle;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);

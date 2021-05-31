@@ -9,6 +9,7 @@ import com.codelabs.dokter_mobil_customer.connection.AppConstant
 import com.codelabs.dokter_mobil_customer.connection.DataManager
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
+import com.codelabs.dokter_mobil_customer.utils.RecentUtils
 import com.codelabs.dokter_mobil_customer.viewmodel.DetailNotif
 import com.codelabs.dokter_mobil_customer.viewmodel.ItemNotif
 import kotlinx.android.synthetic.main.activity_notif_detail.*
@@ -66,7 +67,7 @@ class NotifDetailActivity : BaseActivity() {
 
     private fun setDataNotif(data: ItemNotif?) {
         tv_title_notif.text = data?.notificationTitle
-        tv_desc.text = data?.notificationContent
+        tv_desc.text = RecentUtils.fromHtml(data?.notificationContent)
         btn_check_your_point.visibility = if (data?.isPoint!! == 1) View.VISIBLE else View.GONE
     }
 

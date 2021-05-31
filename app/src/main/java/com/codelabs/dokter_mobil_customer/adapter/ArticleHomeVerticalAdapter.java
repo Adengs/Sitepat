@@ -11,6 +11,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codelabs.dokter_mobil_customer.R;
@@ -47,7 +48,7 @@ public class ArticleHomeVerticalAdapter extends RecyclerView.Adapter<ArticleHome
                 .load(articlesList.get(position).getImageUrl())
                 .into(holder.ivArticle);
 
-        holder.ivArticle.setOnClickListener(new View.OnClickListener() {
+        holder.containerArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ArticleDetailActivity.class);
@@ -81,6 +82,9 @@ public class ArticleHomeVerticalAdapter extends RecyclerView.Adapter<ArticleHome
         @SuppressLint("NonConstantResourceId")
         @BindView(R.id.tv_desc_article)
         AppCompatTextView tvDescArticle;
+        @SuppressLint("NonConstantResourceId")
+        @BindView(R.id.container_article)
+        CardView containerArticle;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);

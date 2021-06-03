@@ -197,8 +197,14 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         });
         viewPagerPromo.setPageTransformer(compositePageTransformer);
 
+//        new TabLayoutMediator(tabDots, viewPagerPromo,
+//                (tab, position) -> tab.setText("" + (position))
+//        ).attach();
+//        autoPlay(viewPagerPromo);
+
+
         new TabLayoutMediator(tabDots, viewPagerPromo,
-                (tab, position) -> tab.setText("OBJECT " + (position + 1))
+                (tab, position) -> tab.setText("" + (position))
         ).attach();
         autoPlay(viewPagerPromo);
 

@@ -129,15 +129,23 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                     public void onCompleted(JSONObject object, GraphResponse response) {
                                         try {
                                             Map<String, String> params = new HashMap<>();
-                                            params.put("fullname",profile.getName());
-                                            if (object.has("email")){
-                                                params.put("username", object.getString("email"));
-                                            }else{
-                                                params.put("username",object.getString("id"));
+                                            if (profile!=null) {
+                                                params.put("fullname",profile.getName());
+                                                params.put("facebook_id",profile.getId());
+                                                DataManager.getInstance().setFacebokId(profile.getId());
+                                                if (object.has("email")){
+                                                    params.put("username", object.getString("email"));
+                                                }else{
+                                                    params.put("username",object.getString("id"));
+                                                }
+                                                handleLoginFacebook(params);
+                                            } else {
+//                                                showToast("Cannot show fb");
+                                               showToast("Please check your account" + " " + response.getRawResponse());
                                             }
-                                            params.put("facebook_id",profile.getId());
-                                            handleLoginFacebook(params);
-                                            DataManager.getInstance().setFacebokId(profile.getId());
+
+
+
                                         } catch(JSONException ex) {
                                             ex.printStackTrace();
                                         }
@@ -208,8 +216,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void initView() {
 
-//        edtEmail.setText("ruditawangga@gmail.com");
-//        edtPassword.setText("Iw0axzyg.");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }

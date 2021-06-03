@@ -119,10 +119,11 @@
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tab_dots"
-                        android:layout_width="@dimen/_120sdp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_alignStart="@+id/tv_see_all"
                         android:layout_alignParentLeft="true"
                         app:tabBackground="@drawable/tab_selector" />
 

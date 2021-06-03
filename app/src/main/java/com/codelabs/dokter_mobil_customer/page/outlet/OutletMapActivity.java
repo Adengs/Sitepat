@@ -17,6 +17,7 @@ import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -149,6 +150,12 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
         fetchData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadOutlet();
+    }
+
     private void initView() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -206,14 +213,15 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
             params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
 //            params.height = 5200;
-            params.setMargins(0, 0, 0, 930);
+            params.setMargins(0, 0, 0, 230);
+
 
 
             // Update margins, set to 10dp
 //            final int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 210,
 //                    getResources().getDisplayMetrics());
 //            params.setMargins(margin, margin, margin, margin);
-
+//
 //            myLocationButton.setLayoutParams(params);
         }
     }
@@ -355,6 +363,8 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
+//            mMap.getUiSettings().setMapToolbarEnabled(false);
+            mMap.setPadding(0,0,0,930);
             mMap.setOnInfoWindowClickListener(this);
 
 

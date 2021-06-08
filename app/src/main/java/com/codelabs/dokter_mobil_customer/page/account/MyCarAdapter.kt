@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codelabs.dokter_mobil_customer.R
+import com.codelabs.dokter_mobil_customer.connection.DataManager
 import com.codelabs.dokter_mobil_customer.viewmodel.ItemMyCar
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_mycar.view.*
@@ -37,6 +38,7 @@ class MyCarAdapter(val c: Context, var items: List<ItemMyCar>) :
         holder.itemView.ll_background.setOnClickListener {
             val intent = Intent(c, DetailCarActivity::class.java)
             intent.putExtra("DATA", items[position].carId)
+            DataManager.getInstance().customerCarId = items[position].carId
             c.startActivity(intent)
         }
 

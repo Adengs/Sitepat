@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.dialog_select_update.*
 
 class UpdateCarDialog : BottomSheetDialogFragment() {
 
-
     private lateinit var data: ItemMyCar
 
     override fun onCreateView(

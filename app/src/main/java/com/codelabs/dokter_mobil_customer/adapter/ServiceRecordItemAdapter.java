@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codelabs.dokter_mobil_customer.R;
@@ -26,7 +27,7 @@ import butterknife.ButterKnife;
 
 public class ServiceRecordItemAdapter extends RecyclerView.Adapter<ServiceRecordItemAdapter.viewHolder> {
 
-    private final Context mContext;
+    private Context mContext;
     private List<ServiceRecord.ItemsService> itemsServices;
 
     public ServiceRecordItemAdapter(Context context) {
@@ -41,17 +42,6 @@ public class ServiceRecordItemAdapter extends RecyclerView.Adapter<ServiceRecord
         return new viewHolder(view);
     }
 
-
-    @Override
-    public void onBindViewHolder(@NonNull ServiceRecordItemAdapter.viewHolder holder, int position) {
-
-        holder.tvTotalItem.setText(String.valueOf(itemsServices.get(position).getItemQty()));
-        holder.tvServicePackage.setText(itemsServices.get(position).getItemName());
-        holder.tvPricePackage.setText("Rp. " + " " + RecentUtils.toCurrency(itemsServices.get(position).getItemPrice().replace(".00","")));
-
-    }
-
-
     @Override
     public int getItemCount() {
         return (itemsServices != null ? itemsServices.size() : 0);
@@ -60,6 +50,27 @@ public class ServiceRecordItemAdapter extends RecyclerView.Adapter<ServiceRecord
     public void setData(List<ServiceRecord.ItemsService> data) {
         this.itemsServices = data;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ServiceRecordItemAdapter.viewHolder holder, int position) {
+
+        holder.tvTotalItem.setText(String.valueOf(itemsServices.get(position).getItemQty()));
+        holder.tvServicePackage.setText(itemsServices.get(position).getItemName());
+        holder.tvPricePackage.setText("Rp. " + " " + RecentUtils.toCurrency(itemsServices.get(position).getItemPrice().replace(".00","")));
+
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false);
+//        holder.rvServiceItems.setLayoutManager(linearLayoutManager);
+//        holder.rvServiceItems.setAdapter(serviceRecordHorizontalAdapter);
+//        adapter.setData(itemsServices.get(position).getService());
+
+        ServiceRecordHorizontalAdapter serviceRecordHorizontalAdapter = new ServiceRecordHorizontalAdapter(mContext, this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        holder.rvServiceItems.setLayoutManager(linearLayoutManager);
+        holder.rvServiceItems.setAdapter(serviceRecordHorizontalAdapter);
+        serviceRecordHorizontalAdapter.setData(itemsServices.get(position).getService());
+
+
     }
 
     public static class viewHolder extends RecyclerView.ViewHolder {
@@ -72,6 +83,9 @@ public class ServiceRecordItemAdapter extends RecyclerView.Adapter<ServiceRecord
         @SuppressLint("NonConstantResourceId")
         @BindView(R.id.tv_price_package)
         AppCompatTextView tvPricePackage;
+        @SuppressLint("NonConstantResourceId")
+        @BindView(R.id.rv_service_items)
+        RecyclerView rvServiceItems;
 
 
         public viewHolder(@NonNull View itemView) {

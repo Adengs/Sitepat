@@ -155,6 +155,14 @@ public class DataManager {
         setTempJson("facebook_id", facebokId);
     }
 
+    public int getCustomerCarId() {
+        return getTempJSONNumber("carId");
+    }
+
+    public void setCustomerCarId(int customerCarId) {
+        setTempJSONNumber("carId", customerCarId);
+    }
+
 
     public void setLoginData(DataLogin.DataCustomer dataUser) {
         setLogin(true);

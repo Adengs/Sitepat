@@ -103,7 +103,7 @@ public class ServiceRecord {
         }
     }
 
-    public static class serviceRecords implements Serializable {
+    public static class serviceRecords {
         @SerializedName("transactionId")
         private int transactionId;
         @SerializedName("customerId")
@@ -160,14 +160,14 @@ public class ServiceRecord {
         }
     }
 
-    public static class Orders implements Serializable {
+    public static class Orders {
         @SerializedName("transactionItemId")
         private int transactionItemId;
         @SerializedName("transactionItemCode")
         private String transactionItemCode;
         @SerializedName("carName")
         private String carName;
-        @SerializedName("itemService")
+        @SerializedName("items")
         private List<ItemsService> itemsService;
 
         public int getTransactionItemId() {
@@ -187,7 +187,7 @@ public class ServiceRecord {
         }
     }
 
-    public static class ItemsService implements Serializable{
+    public static class ItemsService{
         @SerializedName("transactionItemDetailId")
         private int transactionItemDetailId;
         @SerializedName("transactionItemId")
@@ -208,8 +208,8 @@ public class ServiceRecord {
         private int itemQty;
         @SerializedName("itemNote")
         private String itemNote;
-//        @SerializedName("services")
-//        private List<Services> service;
+        @SerializedName("services")
+        private List<String> service;
 
         public int getTransactionItemDetailId() {
             return transactionItemDetailId;
@@ -251,12 +251,8 @@ public class ServiceRecord {
             return itemNote;
         }
 
-//        public List<Services> getService() {
-//            return service;
-//        }
+        public List<String> getService() {
+            return service;
+        }
     }
-
-//    public static class Services {
-//
-//    }
 }

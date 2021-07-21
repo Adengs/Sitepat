@@ -109,7 +109,7 @@ public class ServiceRecord {
         }
     }
 
-    public static class serviceRecords {
+    public static class serviceRecords implements Serializable{
         @SerializedName("transactionId")
         private int transactionId;
         @SerializedName("customerId")
@@ -124,6 +124,8 @@ public class ServiceRecord {
         private String paymentStatus;
         @SerializedName("orders")
         private List<Orders> orders;
+        @SerializedName("payments")
+        private PaymentsService paymentsService;
         @SerializedName("createdAt")
         private String createdAt;
         @SerializedName("updatedAt")
@@ -157,6 +159,10 @@ public class ServiceRecord {
             return orders;
         }
 
+        public PaymentsService getPaymentsService() {
+            return paymentsService;
+        }
+
         public String getCreatedAt() {
             return createdAt;
         }
@@ -166,7 +172,28 @@ public class ServiceRecord {
         }
     }
 
-    public static class Orders {
+    public static class PaymentsService implements Serializable {
+        @SerializedName("subtotal")
+        private String subtotal;
+        @SerializedName("ppn")
+        private String ppn;
+        @SerializedName("total")
+        private String total;
+
+        public String getSubtotal() {
+            return subtotal;
+        }
+
+        public String getPpn() {
+            return ppn;
+        }
+
+        public String getTotal() {
+            return total;
+        }
+    }
+
+    public static class Orders implements Serializable{
         @SerializedName("transactionItemId")
         private int transactionItemId;
         @SerializedName("transactionItemCode")
@@ -193,7 +220,7 @@ public class ServiceRecord {
         }
     }
 
-    public static class ItemsService{
+    public static class ItemsService implements Serializable{
         @SerializedName("transactionItemDetailId")
         private int transactionItemDetailId;
         @SerializedName("transactionItemId")

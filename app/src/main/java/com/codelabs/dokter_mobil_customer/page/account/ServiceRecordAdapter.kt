@@ -2,17 +2,16 @@ package com.codelabs.dokter_mobil_customer.page.account
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.codelabs.dokter_mobil_customer.R
 import com.codelabs.dokter_mobil_customer.page.service_record.ServiceRecordActivity
 import com.codelabs.dokter_mobil_customer.utils.RecentUtils
 import com.codelabs.dokter_mobil_customer.viewmodel.ServiceRecord
 import kotlinx.android.synthetic.main.item_service_records.view.*
+import java.io.Serializable
 
 
 class ServiceRecordAdapter (val c : Context, var items : List<ServiceRecord.serviceRecords>) : RecyclerView.Adapter<ServiceRecordAdapter.MyViewHolder>() {
@@ -36,7 +35,20 @@ class ServiceRecordAdapter (val c : Context, var items : List<ServiceRecord.serv
             val intent = Intent(c, ServiceRecordActivity::class.java)
             intent.putExtra("invoice_code", items[position].invoiceCode)
             intent.putExtra("date_invoice", items[position].createdAt)
-            intent.putExtra("total_amount", items[position].totalAmount)
+            intent.putExtra("total_amount", items[position].paymentsService.total)
+            intent.putExtra("subtotal", items[position].paymentsService.subtotal)
+            intent.putExtra("ppn", items[position].paymentsService.ppn)
+
+            intent.putExtra("servicelist", items[position].orders as Serializable)
+
+
+
+
+           /* val bundle = Bundle()
+            bundle.putParcelable("data", sharedBookingObject)
+            intent.putExtras(bundle)*/
+
+
             c.startActivity(intent)
         }
     }

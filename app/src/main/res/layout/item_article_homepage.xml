@@ -6,12 +6,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_marginBottom="20dp"
-    card_view:cardCornerRadius="4dp"
+    card_view:cardCornerRadius="10dp"
     card_view:cardUseCompatPadding="false"
     android:layout_marginTop="10dp"
     android:layout_marginHorizontal="@dimen/_2sdp"
     card_view:cardElevation="5dp"
-    android:layout_marginVertical="@dimen/_10sdp"
+    android:layout_marginVertical="@dimen/_1sdp"
     android:id="@+id/container_article">
 
     <androidx.cardview.widget.CardView

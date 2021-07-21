@@ -1,8 +1,12 @@
 package com.codelabs.dokter_mobil_customer.page.account
 
+import android.app.Dialog
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.View
+import android.view.*
+import android.widget.RelativeLayout
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codelabs.dokter_mobil_customer.R
 import com.codelabs.dokter_mobil_customer.connection.ApiUtils
@@ -10,6 +14,8 @@ import com.codelabs.dokter_mobil_customer.connection.AppConstant
 import com.codelabs.dokter_mobil_customer.connection.DataManager
 import com.codelabs.dokter_mobil_customer.connection.ErrorUtils
 import com.codelabs.dokter_mobil_customer.helper.BaseActivity
+import com.codelabs.dokter_mobil_customer.viewmodel.DoPost
+import com.codelabs.dokter_mobil_customer.viewmodel.ItemMyCar
 import com.codelabs.dokter_mobil_customer.viewmodel.ServiceRecord
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail_car.*
@@ -18,9 +24,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class DetailCarActivity : BaseActivity() {
     private var id: Int = 0
     private lateinit var adapter: ServiceRecordAdapter
+    private lateinit var data: ItemMyCar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +37,49 @@ class DetailCarActivity : BaseActivity() {
 
         initView()
     }
+
+
+    fun showPopup(view: View) {
+        val popup = PopupMenu(this, view)
+        popup.inflate(R.menu.submenu_detail_car)
+
+        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
+
+            when (item!!.itemId) {
+                R.id.edit_car -> {
+                    val intent = Intent(this, AddNewCarActivity::class.java)
+                    intent.putExtra("IS_EDIT",true)
+                    intent.putExtra("DATA", data)
+                    startActivity(intent)
+                }
+                R.id.delete_car -> {
+                   showDialogDelete()
+                }
+            }
+
+            true
+        })
+        popup.show()
+    }
+
+    private fun showDialogDelete() {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_delete_car)
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        val yesBtn = dialog.findViewById(R.id.btn_yes) as RelativeLayout
+        val noBtn = dialog.findViewById(R.id.btn_cancel) as RelativeLayout
+        yesBtn.setOnClickListener {
+            deleteCar()
+        }
+        noBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+
+    }
+
 
     private fun initView() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -40,7 +92,8 @@ class DetailCarActivity : BaseActivity() {
         adapter = ServiceRecordAdapter(this, listOf())
         rv_data.adapter = adapter
 
-        id = intent.getIntExtra("DATA", 0)
+        id = intent.getIntExtra("carId", 0)
+        data = intent.getSerializableExtra("DATA") as ItemMyCar
         getData()
     }
 
@@ -71,8 +124,36 @@ class DetailCarActivity : BaseActivity() {
         })
     }
 
+    private fun deleteCar() {
+        showDialogProgress("Loading...")
+        val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
+        val call: Call<DoPost> = ApiUtils.getApiService().deleteCar(auth, id)
+        call.enqueue(object : Callback<DoPost> {
+            override fun onResponse(call: Call<DoPost>, data: Response<DoPost>) {
+                hideDialogProgress()
+                if (data.isSuccessful) {
+                    val response = data.body()
+                    if (data.code() == 200) {
+                        showToast(response?.message)
+                        onBackPressed()
+                    }
+                } else {
+                    val error = ErrorUtils.parseError(data)
+                    showToast(error.message())
+                }
+            }
+
+            override fun onFailure(call: Call<DoPost>, t: Throwable) {
+                if (!call.isCanceled) {
+                    hideDialogProgress()
+                    showToast(getString(R.string.toast_onfailure))
+                }
+            }
+        })
+    }
+
     private fun setData(data: ServiceRecord.DataServiceRecord?) {
-        iv_maintenance.visibility =
+        tv_maintenance.visibility =
             if (data?.detail?.isMaintenance == 1) View.VISIBLE else View.INVISIBLE
 
         if (data?.detail?.image!!.isNotEmpty())
@@ -80,6 +161,9 @@ class DetailCarActivity : BaseActivity() {
         tv_plat_no.text = data?.detail?.carPlateNumber
         tv_tipe_mobil.text = data?.detail?.carName
         tv_tahun_mobil.text = data?.detail?.carYear
+        DataManager.getInstance().subtotalPayments = data?.payments?.subtotal
+        DataManager.getInstance().ppn = data?.payments?.ppn
+        DataManager.getInstance().totalPayments = data?.payments?.total
 
         if (data?.serviceRecords!!.size > 0) {
             adapter.items = data?.serviceRecords!!
@@ -87,4 +171,6 @@ class DetailCarActivity : BaseActivity() {
         } else
             layout_nothing.visibility = View.VISIBLE
     }
+
+
 }

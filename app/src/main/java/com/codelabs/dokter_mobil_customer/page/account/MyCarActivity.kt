@@ -80,7 +80,7 @@ class MyCarActivity : BaseActivity() {
         })
     }
 
-    override fun onStart() {
+   /* override fun onStart() {
         super.onStart()
         EventBus.getDefault().register(this)
     }
@@ -94,6 +94,6 @@ class MyCarActivity : BaseActivity() {
     fun onLongClickItem(data : ItemMyCar){
         val dialog = UpdateCarDialog.newInstance(data)
         dialog.show(supportFragmentManager,"")
-    }
+    }*/
 
 }

@@ -138,6 +138,9 @@ public interface RetrofitInterface {
     @GET(AppConstant.getCarDetail)
     Call<ServiceRecord> getDetailCar(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
 
+    @GET(AppConstant.getDeleteCar)
+    Call<DoPost> deleteCar(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
+
     @GET(AppConstant.getHistoryPoint)
     Call<PointHistory> getHistoryPoint(@Header(AppConstant.AuthTitle) String auth);
 

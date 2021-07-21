@@ -25,6 +25,7 @@
     <string name="news">News</string>
     <string name="news_home">News!</string>
     <string name="see_more">See more</string>
+    <string name="see_all">See all</string>
     <string name="popular_article">Popular Article!</string>
     <string name="toast_onfailure">"Network Failure :( please try again later"</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
@@ -111,6 +112,7 @@
     <string name="add_car">Add Car</string>
     <string name="amount">Amount</string>
     <string name="service">Service</string>
+    <string name="delete_detail">Are you sure? If it delete, data car will be deleted from this device.</string>
 
     <!-- Menu -->
     <string name="outlet">Outlet</string>

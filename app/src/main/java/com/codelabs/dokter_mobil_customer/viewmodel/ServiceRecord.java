@@ -24,6 +24,8 @@ public class ServiceRecord {
         private Detail detail;
         @SerializedName("serviceRecords")
         private List<serviceRecords> serviceRecords;
+        @SerializedName("payments")
+        private Payments payments;
 
         public Detail getDetail() {
             return detail;
@@ -31,6 +33,10 @@ public class ServiceRecord {
 
         public List<serviceRecords> getServiceRecords() {
             return serviceRecords;
+        }
+
+        public Payments getPayments() {
+            return payments;
         }
     }
 
@@ -253,6 +259,27 @@ public class ServiceRecord {
 
         public List<String> getService() {
             return service;
+        }
+    }
+
+    public static class Payments {
+        @SerializedName("subtotal")
+        private String subtotal;
+        @SerializedName("ppn")
+        private String ppn;
+        @SerializedName("total")
+        private String total;
+
+        public String getSubtotal() {
+            return subtotal;
+        }
+
+        public String getPpn() {
+            return ppn;
+        }
+
+        public String getTotal() {
+            return total;
         }
     }
 }

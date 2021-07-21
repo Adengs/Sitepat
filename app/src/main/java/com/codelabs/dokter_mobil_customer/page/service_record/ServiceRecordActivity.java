@@ -60,6 +60,9 @@ public class ServiceRecordActivity extends BaseActivity implements View.OnClickL
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.rv_service_record)
     RecyclerView rvServiceRecord;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.tv_value_ppn)
+    AppCompatTextView tvValuePpn;
 
     String invoiceNumber = "";
     String invoiceDate = "";
@@ -67,6 +70,8 @@ public class ServiceRecordActivity extends BaseActivity implements View.OnClickL
 
     ServiceRecordItemAdapter serviceRecordItemAdapter;
     ServiceRecordHorizontalAdapter serviceRecordHorizontalAdapter;
+    private List<ServiceRecord.Orders> ordersList;
+    private List<ServiceRecord.ItemsService> itemsServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +90,20 @@ public class ServiceRecordActivity extends BaseActivity implements View.OnClickL
 
         invoiceNumber = intent.getStringExtra("invoice_code");
         invoiceDate = intent.getStringExtra("date_invoice");
-        totalAmount = intent.getStringExtra("total_amount");
+
+        /*  totalAmount = intent.getStringExtra("total_amount");
 
         tvInvoiceNumber.setText(invoiceNumber);
         tvInvoiceDate.setText(RecentUtils.newformatDateTimeToDateYYYYMMDDnotEEEE(invoiceDate));
         tvValueSubtotal.setText("Rp." + " " + RecentUtils.toCurrency(totalAmount.replace(".00", "")));
-        tvValueTotal.setText("Rp. " + " " + RecentUtils.toCurrency(totalAmount.replace(".00","")));
+        tvValueTotal.setText("Rp. " + " " + RecentUtils.toCurrency(totalAmount.replace(".00","")));*/
+
+
+        tvInvoiceNumber.setText(invoiceNumber);
+        tvInvoiceDate.setText(RecentUtils.newformatDateTimeToDateYYYYMMDDnotEEEE(invoiceDate));
+        tvValueSubtotal.setText("Rp." + " " + RecentUtils.toCurrency(DataManager.getInstance().getSubtotalPayments().replace(".00", "")));
+        tvValueTotal.setText("Rp. " + " " + RecentUtils.toCurrency(DataManager.getInstance().getTotalPayments().replace(".00","")));
+        tvValuePpn.setText("Rp. " + " " + RecentUtils.toCurrency(DataManager.getInstance().getPpn().replace(".00","")));
 
     }
 
@@ -126,7 +139,17 @@ public class ServiceRecordActivity extends BaseActivity implements View.OnClickL
                     ServiceRecord data = response.body();
                     if (response.code() == 200) {
                         assert data != null;
-                        serviceRecordItemAdapter.setData(data.getDataServiceRecord().getServiceRecords().get(0).getOrders().get(0).getItemsService());
+
+                        for (int service=0; service<data.getDataServiceRecord().getServiceRecords().size(); service++) {
+                            ordersList = data.getDataServiceRecord().getServiceRecords().get(service).getOrders();
+                            for (int order=0; order<ordersList.size(); order++) {
+                                itemsServices = ordersList.get(order).getItemsService();
+                                serviceRecordItemAdapter.setData(itemsServices);
+                            }
+
+
+                        }
+
                     }
                 } else {
 

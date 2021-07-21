@@ -37,15 +37,16 @@ class MyCarAdapter(val c: Context, var items: List<ItemMyCar>) :
             if (items[position].isMaintenance == 1) View.VISIBLE else View.GONE
         holder.itemView.ll_background.setOnClickListener {
             val intent = Intent(c, DetailCarActivity::class.java)
-            intent.putExtra("DATA", items[position].carId)
+            intent.putExtra("carId", items[position].carId)
+            intent.putExtra("DATA", items[position])
             DataManager.getInstance().customerCarId = items[position].carId
             c.startActivity(intent)
         }
 
-        holder.itemView.ll_background.setOnLongClickListener {
+       /* holder.itemView.ll_background.setOnLongClickListener {
             EventBus.getDefault().post(items[position])
             return@setOnLongClickListener true
-        }
+        }*/
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

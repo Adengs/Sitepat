@@ -147,10 +147,13 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
 
             tv_select_brand.setText(data.brand.brandName)
             tv_select_type.setText(data.brandType.typeName)
+            idBrand = data.brand.brandId
+            idType = data.brandType.typeId
             txt_no_plate.setText(data.carPlateNumber)
             txt_year.setText(data.carYear)
             txt_color.setText(data.carColor)
             txt_cc.setText(data.carCc)
+
             btn_add_car.text = getString(R.string.edit_car)
             btn_add_car.setOnClickListener {
                 edit()
@@ -164,7 +167,7 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
 //        handleSpinnerType()
     }
 
-    private fun handleSpinnerBrand() {
+   /* private fun handleSpinnerBrand() {
         spinner_brand.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -180,9 +183,9 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         })
-    }
+    }*/
 
-    private fun handleSpinnerType() {
+   /* private fun handleSpinnerType() {
         spinner_type.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -196,7 +199,7 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         })
-    }
+    }*/
 
    /* private fun loadBrandCar() {
 

@@ -250,12 +250,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private boolean valid() {
         if (!RecentUtils.isEmailValid(Objects.requireNonNull(edtEmail.getText()).toString().trim())) {
             showToast("please enter your valid email");
-//            Snackbar snackbar = Snackbar.make(containerLoginPage,"please enter your valid email", Snackbar.LENGTH_SHORT);
-//            View view = snackbar.getView();
-//            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)view.getLayoutParams();
-//            params.gravity = Gravity.BOTTOM ;
-//            params.setMargins(0,150,0,0);
-//            snackbar.show();
             return false;
         }
 

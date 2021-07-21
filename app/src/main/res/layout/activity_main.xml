@@ -42,8 +42,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/hi"
+                            android:textStyle="bold"
                             android:textSize="@dimen/_16ssp"
-                            android:fontFamily="@font/rajdhani_medium"
+                            android:fontFamily="@font/rajdhani_regular"
                             android:textColor="@color/white"/>
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -52,11 +53,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             tools:text="Joni yes papa"
+                            android:textStyle="bold"
                             android:minLines="1"
                             android:maxLines="1"
                             android:layout_toEndOf="@+id/tv_hi"
                             android:textSize="@dimen/_16ssp"
-                            android:fontFamily="@font/rajdhani_medium"
+                            android:fontFamily="@font/rajdhani_regular"
                             android:textColor="@color/white"
                             tools:ignore="RelativeOverlap" />
 
@@ -73,8 +75,8 @@
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/iv_notification"
                             android:layout_centerVertical="true"
-                            android:layout_width="25dp"
-                            android:layout_height="32dp"
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="@dimen/_40sdp"
                             android:padding="0dp"
                             android:layout_alignParentEnd="true"
                             android:src="@drawable/ic_bell_on_white"/>
@@ -86,12 +88,13 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:text="@string/our_best_promo"
                     android:textSize="@dimen/_16ssp"
+                    android:textStyle="bold"
                     android:gravity="center"
                     android:textAllCaps="true"
-                    android:fontFamily="@font/rajdhani_medium"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:textColor="@color/white"/>
 
                 <RelativeLayout
@@ -103,8 +106,8 @@
 
                         <androidx.viewpager2.widget.ViewPager2
                             android:id="@+id/viewpager_promo"
-                            android:paddingStart="40dp"
-                            android:paddingEnd="40dp"
+                            android:paddingStart="30dp"
+                            android:paddingEnd="30dp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
 
@@ -133,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:textSize="@dimen/_12ssp"
-                        android:text="@string/see_more"
+                        android:text="@string/see_all"
                         android:fontFamily="@font/rajdhani_medium"
                         android:textColor="@color/white"
                         android:layout_marginEnd="10dp"
@@ -153,7 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/background_homepage"
-                android:layout_marginHorizontal="0dp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:orientation="vertical"
                 android:layout_below="@id/container_banner">
 
@@ -371,23 +374,21 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"/>
 
-<!--                    <include layout="@layout/item_promo_homepage"/>-->
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:orientation="vertical">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_20sdp"
                             android:layout_marginBottom="@dimen/_2sdp">
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
                                 android:text="@string/article_home"
                                 android:textSize="@dimen/_14ssp"
                                 android:gravity="start"
@@ -398,8 +399,7 @@
                                 android:id="@+id/tv_see_more"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:text="@string/see_more"
+                                android:text="@string/see_all"
                                 android:textSize="@dimen/_12ssp"
                                 android:fontFamily="@font/poppins_regular"
                                 android:layout_alignParentEnd="true"
@@ -419,18 +419,18 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:orientation="vertical">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_20sdp"
                             android:layout_marginBottom="@dimen/_2sdp">
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
                                 android:text="@string/news_home"
                                 android:textSize="@dimen/_14ssp"
                                 android:gravity="start"
@@ -441,8 +441,7 @@
                                 android:id="@+id/tv_see_more_news"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:text="@string/see_more"
+                                android:text="@string/see_all"
                                 android:textSize="@dimen/_12ssp"
                                 android:fontFamily="@font/poppins_regular"
                                 android:layout_alignParentEnd="true"
@@ -462,12 +461,12 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10sdp"
                             android:text="@string/popular_article"
                             android:layout_marginHorizontal="@dimen/_20sdp"
                             android:textSize="@dimen/_14ssp"

@@ -53,11 +53,15 @@ data class ItemMyCar(
 ) : Serializable
 
 data class BrandCarCustomer(
+    @SerializedName("brandId")
+    val brandId: Int,
     @SerializedName("brandName")
     val brandName: String
 ) : Serializable
 
 data class BrandType(
+    @SerializedName("typeId")
+    val typeId: Int,
     @SerializedName("typeName")
     val typeName: String
 ) : Serializable

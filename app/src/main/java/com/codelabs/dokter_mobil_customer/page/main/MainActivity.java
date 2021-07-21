@@ -213,12 +213,12 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         rvArticleHomepage.setAdapter(articleHomePageAdapter);
         rvArticleHomepage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         HorizontalItemDecoration itemDecoration = new HorizontalItemDecoration(RecentUtils.ConvertDpToPx(this, 10));
-        rvArticleHomepage.addItemDecoration(itemDecoration);
+        rvArticleHomepage.addItemDecoration(new RecentUtils.PaddingItemDecoration(60));
 
         newsHomePageAdapter = new NewsHomePageAdapter(getApplicationContext());
         rvNewsHomepage.setAdapter(newsHomePageAdapter);
         rvNewsHomepage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rvNewsHomepage.addItemDecoration(itemDecoration);
+        rvNewsHomepage.addItemDecoration(new RecentUtils.PaddingItemDecoration(60));
 
         articleHorizontalAdapter = new ArticleHorizontalAdapter(getApplicationContext());
         rvArticleHorizontal.setAdapter(articleHorizontalAdapter);
@@ -249,6 +249,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         loadProfile();
         loadPromoBanner();
         loadDataArticle();
+        loadDataDisasters();
         loadDataNews();
         loadDataArticleVertical();
         loadDataArticleDisasters();
@@ -350,25 +351,20 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     }
 
     public void loadDataArticle() {
-//        showDialogProgress("Getting data article");
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
         Call<Articles> call = apiService.getArticles(auth, keyword, 6, 0);
         call.enqueue(new Callback<Articles>() {
             @Override
             public void onResponse(@NonNull Call<Articles> call, @NonNull Response<Articles> response) {
-//                hideDialogProgress();
                 if (response.isSuccessful()) {
                     Articles data = response.body();
                     if (response.code() == 200) {
                         articleHomePageAdapter.setData(data.getData().getItemsArticles());
-                        articleHorizontalAdapter.setData(data.getData().getItemsArticles());
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(response);
                     showToast(error.message());
-//                    containerNoData.setVisibility(View.VISIBLE);
-//                    tvNoData.setText(error.message());
                 }
             }
 
@@ -377,8 +373,34 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 if (!call.isCanceled()) {
                     t.printStackTrace();
                     hideDialogProgress();
-//                    containerNoData.setVisibility(View.VISIBLE);
-//                    tvNoData.setText(getString(R.string.toast_onfailure));
+                }
+            }
+        });
+    }
+
+    public void loadDataDisasters() {
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+        Call<Articles> call = apiService.getArticles(auth, keyword, 2, 0);
+        call.enqueue(new Callback<Articles>() {
+            @Override
+            public void onResponse(@NonNull Call<Articles> call, @NonNull Response<Articles> response) {
+                if (response.isSuccessful()) {
+                    Articles data = response.body();
+                    if (response.code() == 200) {
+                        articleHorizontalAdapter.setData(data.getData().getItemsArticles());
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(response);
+                    showToast(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Articles> call,@NonNull Throwable t) {
+                if (!call.isCanceled()) {
+                    t.printStackTrace();
+                    hideDialogProgress();
                 }
             }
         });

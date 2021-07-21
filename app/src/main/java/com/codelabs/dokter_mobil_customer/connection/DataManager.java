@@ -192,6 +192,30 @@ public class DataManager {
         return getTempJSON("customerEmail");
     }
 
+    public void setSubtotalPayments(String subtotalPayments) {
+        setTempJson("subtotal", subtotalPayments);
+    }
+
+    public String getSubtotalPayments() {
+        return getTempJSON("subtotal");
+    }
+
+    public void setPpn(String ppn) {
+        setTempJson("ppn", ppn);
+    }
+
+    public String getPpn() {
+        return getTempJSON("ppn");
+    }
+
+    public void setTotalPayments(String totalPayments) {
+        setTempJson("total", totalPayments);
+    }
+
+    public String getTotalPayments() {
+        return getTempJSON("total");
+    }
+
 
 
 

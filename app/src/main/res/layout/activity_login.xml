@@ -136,13 +136,13 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_eye_password"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="17dp"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_eye_gone" />
 
             </RelativeLayout>

@@ -72,5 +72,9 @@ class TambahAlamatActivity : BaseActivity() {
                 finish()
             }
         }
+
+        iv_back.setOnClickListener {
+            finish()
+        }
     }
 }

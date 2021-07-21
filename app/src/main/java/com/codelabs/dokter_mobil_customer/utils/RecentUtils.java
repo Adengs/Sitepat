@@ -2,6 +2,7 @@ package com.codelabs.dokter_mobil_customer.utils;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -9,7 +10,11 @@ import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.codelabs.dokter_mobil_customer.connection.AppController;
 
@@ -31,6 +36,22 @@ public class RecentUtils {
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
+    public static class PaddingItemDecoration extends RecyclerView.ItemDecoration {
+       int size = 10;
+
+       public PaddingItemDecoration(int size) {
+           this.size = size;
+       }
+
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+
+            if (parent.getChildAdapterPosition(view) == 0) {
+                outRect.left += size;
+            }
+        }
+    }
     public static String getPath(Context context, Uri uri) throws URISyntaxException {
         if ("content".equalsIgnoreCase(uri.getScheme())) {
             String[] projection = { "_data" };

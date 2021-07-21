@@ -141,7 +141,6 @@
 
             <RelativeLayout
                 android:id="@+id/container_ppn"
-                android:visibility="gone"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_below="@+id/container_sub_total"
                 android:layout_width="match_parent"
@@ -155,7 +154,7 @@
                     android:textColor="@color/grayFont"
                     android:layout_toStartOf="@id/tv_value_ppn"
                     android:fontFamily="@font/rajdhani_regular"
-                    android:text="@string/ppn"/>
+                    android:text="PPN"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_value_ppn"

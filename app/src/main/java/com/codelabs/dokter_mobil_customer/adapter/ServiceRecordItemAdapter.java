@@ -48,7 +48,8 @@ public class ServiceRecordItemAdapter extends RecyclerView.Adapter<ServiceRecord
     }
 
     public void setData(List<ServiceRecord.ItemsService> data) {
-        this.itemsServices = data;
+//        this.itemsServices = data;
+        this.itemsServices.addAll(data);
         notifyDataSetChanged();
     }
 
@@ -58,11 +59,6 @@ public class ServiceRecordItemAdapter extends RecyclerView.Adapter<ServiceRecord
         holder.tvTotalItem.setText(String.valueOf(itemsServices.get(position).getItemQty()));
         holder.tvServicePackage.setText(itemsServices.get(position).getItemName());
         holder.tvPricePackage.setText("Rp. " + " " + RecentUtils.toCurrency(itemsServices.get(position).getItemPrice().replace(".00","")));
-
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false);
-//        holder.rvServiceItems.setLayoutManager(linearLayoutManager);
-//        holder.rvServiceItems.setAdapter(serviceRecordHorizontalAdapter);
-//        adapter.setData(itemsServices.get(position).getService());
 
         ServiceRecordHorizontalAdapter serviceRecordHorizontalAdapter = new ServiceRecordHorizontalAdapter(mContext, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);

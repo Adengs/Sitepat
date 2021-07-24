@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+    android:background="@color/gray_bg"
     tools:context=".page.account.DetailCarActivity">
 
     <include layout="@layout/toolbar_detail_car" />
@@ -13,30 +14,38 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
+            <RelativeLayout
+                android:id="@+id/container_card_view"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_5sdp"
-                android:paddingBottom="@dimen/_20sdp"
-                app:cardBackgroundColor="@color/black_button"
-                app:cardCornerRadius="@dimen/_10sdp"
-                app:cardElevation="@dimen/_5sdp"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                app:contentPaddingBottom="@dimen/_20sdp">
+                android:paddingBottom="@dimen/_20sdp">
 
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_20sdp"
+                    app:cardBackgroundColor="@color/black_button"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="@dimen/_5sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    app:contentPaddingBottom="@dimen/_20sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
@@ -52,114 +61,122 @@
                             android:background="@color/black_button"
                             android:scaleType="centerCrop" />
 
-
                     </androidx.cardview.widget.CardView>
 
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tv_plat_no"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/rajdhani_bold"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_16ssp"
-                            tools:text="PLAT NOMOR" />
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_plat_no"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/rajdhani_bold"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_16ssp"
+                                tools:text="PLAT NOMOR" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_tipe_mobil"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/rajdhani_regular"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_14ssp"
+                                tools:text="TIPE MOBIL" />
+
+                            <TextView
+                                android:id="@+id/tv_tahun_mobil"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/rajdhani_regular"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_14ssp"
+                                tools:text="TAHUN MOBIL" />
+
+
+                            <TextView
+                                android:id="@+id/tv_maintenance"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/_15sdp"
+                                android:layout_marginEnd="@dimen/_15sdp"
+                                android:fontFamily="@font/rajdhani_regular"
+                                android:textColor="@color/white"
+                                android:gravity="center_horizontal"
+                                android:background="@drawable/background_status_maintenance"
+                                android:textSize="@dimen/_12ssp"
+                                android:text="Maintenance"/>
+
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:orientation="horizontal">
+                </androidx.cardview.widget.CardView>
 
-                        <TextView
-                            android:id="@+id/tv_tipe_mobil"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/rajdhani_regular"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_14ssp"
-                            tools:text="TIPE MOBIL" />
+            </RelativeLayout>
 
-                        <TextView
-                            android:id="@+id/tv_tahun_mobil"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/rajdhani_regular"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_14ssp"
-                            tools:text="TAHUN MOBIL" />
-
-<!--                        <ImageView-->
-<!--                            android:id="@+id/iv_maintenance"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:src="@drawable/ic_maintenance" />-->
-
-                        <TextView
-                            android:id="@+id/tv_maintenance"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:fontFamily="@font/rajdhani_regular"
-                            android:textColor="@color/white"
-                            android:gravity="center_horizontal"
-                            android:background="@drawable/background_status_maintenance"
-                            android:textSize="@dimen/_12ssp"
-                            android:text="Maintenance"/>
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginVertical="@dimen/_20sdp"
-                android:fontFamily="@font/rajdhani_bold"
-                android:text="@string/service_records"
-                android:textColor="@color/black_button"
-                android:textSize="@dimen/_14ssp" />
-
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:id="@+id/layout_nothing"
-                android:gravity="center"
-                android:visibility="gone"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/_50sdp"
-                android:text="@string/nothing_service_records"/>
+                android:layout_below="@id/container_card_view">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_data"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_service_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginVertical="@dimen/_20sdp"
+                    android:fontFamily="@font/rajdhani_bold"
+                    android:text="@string/service_records"
+                    android:textColor="@color/black_button"
+                    android:textSize="@dimen/_14ssp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/layout_nothing"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/_50sdp"
+                    android:layout_below="@id/txt_service_record"
+                    android:text="@string/nothing_service_records"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_data"
+                    android:layout_below="@+id/layout_nothing"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
     </androidx.core.widget.NestedScrollView>
-</LinearLayout>
+
+</RelativeLayout>

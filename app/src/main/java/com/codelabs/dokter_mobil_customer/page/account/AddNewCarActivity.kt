@@ -387,7 +387,13 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
 //            return false
 //        }
         if (tv_select_brand.text!!.isEmpty()) {
-            showToast("Brand car cannot")
+            showToast("Brand car is empty")
+            return false
+        }
+
+        if (tv_select_type.text!!.isEmpty()) {
+            showToast("Type car is empty")
+            return false
         }
         if (txt_no_plate.text!!.isEmpty()) {
             showToast("Police number is empty")

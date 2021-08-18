@@ -169,22 +169,29 @@ class EditProfileActivity : BaseActivity(), FilePickUtils.OnFileChoose {
         }
     }
 
-    private fun saveProfile() {
+    private fun valid(): Boolean {
 
         if (txt_name.text!!.isEmpty()) {
             showToast("Input name")
-            return
+            return false
         }
         if (txt_email.text!!.isEmpty()) {
             showToast("Input email")
-            return
+            return false
         }
         if (txt_phone.text!!.isEmpty()) {
             showToast("Input phone")
-            return
+            return false
         }
         if (txt_gender.text!!.isEmpty()) {
             showToast("Input gender")
+            return false
+        }
+        return true
+    }
+
+    private fun saveProfile() {
+        if (!valid()) {
             return
         }
 
@@ -210,7 +217,7 @@ class EditProfileActivity : BaseActivity(), FilePickUtils.OnFileChoose {
 
         if (!isSelectedImage) {
             val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
-            val call: Call<DoPost> = ApiUtils.getApiService().updateProfile(auth, param);
+            val call: Call<DoPost> = ApiUtils.getApiService().updateProfil(auth, param)
             call.enqueue(object : Callback<DoPost> {
                 override fun onResponse(call: Call<DoPost>, data: Response<DoPost>) {
                     hideDialogProgress()
@@ -243,11 +250,7 @@ class EditProfileActivity : BaseActivity(), FilePickUtils.OnFileChoose {
 
             val imageParams = Utils.createRequestImage(foto, "image")
             val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
-            val call: Call<DoPost> = ApiUtils.getApiService().updateProfile(
-                auth,
-                params,
-                imageParams
-            );
+            val call: Call<DoPost> = ApiUtils.getApiService().updateProfile(auth, params, imageParams)
             call.enqueue(object : Callback<DoPost> {
                 override fun onResponse(call: Call<DoPost>, data: Response<DoPost>) {
                     hideDialogProgress()

@@ -149,7 +149,7 @@ public interface RetrofitInterface {
     Call<DoPost> updateProfile(@Header(AppConstant.AuthTitle) String auth, @PartMap Map<String, RequestBody> param, @Part MultipartBody.Part file);
 
     @POST(AppConstant.Profile)
-    Call<DoPost> updateProfile(@Header(AppConstant.AuthTitle) String auth, @Body UpdateProfil param);
+    Call<DoPost> updateProfil(@Header(AppConstant.AuthTitle) String auth, @Body UpdateProfil param);
 
     @Multipart
     @POST(AppConstant.addCar)

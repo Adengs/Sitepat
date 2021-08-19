@@ -23,6 +23,12 @@ class MyAccountActivity : BaseActivity() {
 
     }
 
+
+    override fun onRestart() {
+        super.onRestart()
+        getProfile()
+    }
+
     private fun initView() {
 
         ll_change_password.setOnClickListener {

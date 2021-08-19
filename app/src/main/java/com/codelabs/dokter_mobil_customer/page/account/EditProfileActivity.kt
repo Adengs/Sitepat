@@ -23,11 +23,9 @@ import com.codelabs.dokter_mobil_customer.viewmodel.Profile
 import com.codelabs.dokter_mobil_customer.viewmodel.eventbus.PickImage
 import com.codelabs.dokter_mobil_customer.viewmodel.param.UpdateAddress
 import com.codelabs.dokter_mobil_customer.viewmodel.param.UpdateProfil
-import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.toolbar_back.*
-import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -36,6 +34,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
+
 
 class EditProfileActivity : BaseActivity(), FilePickUtils.OnFileChoose {
     private val RESULT_ALAMAT: Int = 100
@@ -47,6 +46,7 @@ class EditProfileActivity : BaseActivity(), FilePickUtils.OnFileChoose {
     private val CAMERA_PERMISSION = 11
     private val STORAGE_PERMISSION_IMAGE = 22
     lateinit var foto: File
+    private val TAG = "EditProfile"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -195,12 +195,12 @@ class EditProfileActivity : BaseActivity(), FilePickUtils.OnFileChoose {
             return
         }
 
-        val address = ArrayList<UpdateAddress>()
+        val valueAddress = ArrayList<UpdateAddress>()
         dataProfile.addresses.forEach {
             if (!it.isInput)
-                address.add(UpdateAddress(name = it.name, content = it.address))
+                valueAddress.add(UpdateAddress(name = it.name, content = it.address))
         }
-        if (address.size == 0){
+        if (valueAddress.size == 0){
             showToast("Input address")
             return
         }
@@ -210,7 +210,7 @@ class EditProfileActivity : BaseActivity(), FilePickUtils.OnFileChoose {
             customerEmail = txt_email.text.toString(),
             customerPhone = txt_phone.text.toString(),
             customerGender = txt_gender.text.toString(),
-            address = address
+            address = valueAddress
         )
 
         showDialogProgress("Saving Profile")
@@ -246,7 +246,12 @@ class EditProfileActivity : BaseActivity(), FilePickUtils.OnFileChoose {
             params["customerPhone"] = Utils.createRequestBody(param.customerPhone.trim())
             params["customerEmail"] = Utils.createRequestBody(param.customerEmail.trim())
             params["customerGender"] = Utils.createRequestBody(param.customerGender.trim())
-            params["address"] = Utils.createRequestJson(Gson().toJson(param.address))
+//            params["address"] = Utils.createRequestJson(Gson().toJson(param.address))
+
+            for ((index, valueAddress) in valueAddress.withIndex()){
+                params["address[${index}][name]"] = Utils.createRequestBody(valueAddress.name)
+                params["address[${index}][content]"] = Utils.createRequestBody(valueAddress.content)
+            }
 
             val imageParams = Utils.createRequestImage(foto, "image")
             val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token

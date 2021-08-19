@@ -7,8 +7,6 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import com.codelabs.dokter_mobil_customer.R
 import com.codelabs.dokter_mobil_customer.adapter.BrandCarAdapter
 import com.codelabs.dokter_mobil_customer.adapter.BrandTypeCarAdapter

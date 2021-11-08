@@ -144,16 +144,16 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_save"
-            android:background="@drawable/background_button_black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:textSize="@dimen/_14ssp"
-            android:padding="16dp"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
+            android:background="@drawable/background_button_black"
             android:fontFamily="@font/rajdhani_medium"
-            android:text="@string/save_address" />
+            android:padding="16dp"
+            android:text="@string/save_address"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp" />
 
     </RelativeLayout>
 

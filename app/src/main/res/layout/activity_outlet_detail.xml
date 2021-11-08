@@ -16,7 +16,7 @@
         android:layout_marginTop="?attr/actionBarSize">
 
         <RelativeLayout
-            android:id="@+id/container_outlet"
+            android:id="@+id/container_outlet_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -72,16 +72,16 @@
                         android:id="@+id/tv_status_outlet"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_12ssp"
                         android:layout_alignParentEnd="true"
-                        android:textColor="@color/green_text"
-                        android:text="Buka"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
                         android:background="@drawable/background_outlet_status"
-                        android:fontFamily="@font/rajdhani_bold" />
+                        android:fontFamily="@font/rajdhani_bold"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="2dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="2dp"
+                        android:text="Buka"
+                        android:textColor="@color/green_text"
+                        android:textSize="@dimen/_12ssp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:visibility="gone"

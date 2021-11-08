@@ -160,11 +160,11 @@
                                 android:id="@+id/iv_youtube"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
                                 android:layout_gravity="center"
                                 android:adjustViewBounds="true"
-                                android:layout_centerInParent="true"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/background_button_grey"/>
+                                android:src="@drawable/background_button_grey" />
 
                         </RelativeLayout>
 

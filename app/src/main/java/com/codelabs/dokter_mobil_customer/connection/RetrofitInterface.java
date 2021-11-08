@@ -1,7 +1,5 @@
 package com.codelabs.dokter_mobil_customer.connection;
 
-import androidx.appcompat.widget.AppCompatTextView;
-
 import com.codelabs.dokter_mobil_customer.viewmodel.AboutUs;
 import com.codelabs.dokter_mobil_customer.viewmodel.Articles;
 import com.codelabs.dokter_mobil_customer.viewmodel.ArticlesDetail;

@@ -155,7 +155,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private void highlightOutlet(){
         Lighter.with(this)
                 .addHighlight(new LighterParameter.Builder()
-                        .setHighlightedViewId(R.id.container_outlet)
+                        .setHighlightedViewId(R.id.container_outlet_menu)
                         .setTipView(Utils.INSTANCE.createCommonTipViewTop(this, "Pada halaman utama, pilih menu Outlet"))
                         .setLighterShape(new RectShape(5, 5, 30))
                         .setTipViewRelativeDirection(Direction.TOP)

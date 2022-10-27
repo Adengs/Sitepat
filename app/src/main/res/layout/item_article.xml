@@ -25,7 +25,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_article"
-                android:layout_width="@dimen/_123sdp"
+                android:layout_width="@dimen/_110sdp"
                 android:layout_height="@dimen/_82sdp"
                 android:background="@drawable/background_outlet_status"
                 android:layout_centerVertical="true"
@@ -45,26 +45,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginStart="15dp"
         android:layout_toEndOf="@id/container_img_article"
-        android:layout_marginStart="15dp">
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title_article"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_13ssp"
-            android:textColor="@color/black"
-            android:minLines="3"
-            android:maxLines="3"
             android:ellipsize="end"
             android:fontFamily="@font/rajdhani_bold"
-            tools:text="@string/lorem_ipsum"/>
+            android:maxLines="3"
+            android:minLines="3"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_13ssp"
+            tools:text="@string/lorem_ipsum" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/container_article"
@@ -73,41 +74,41 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_article"/>
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/ic_article" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:textSize="@dimen/_12ssp"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:text="@string/article"
                     android:textColor="@color/grayFont"
-                    android:fontFamily="@font/rajdhani_regular" />
+                    android:textSize="@dimen/_12ssp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/container_video"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_youtube"/>
+                    android:src="@drawable/ic_youtube" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:textSize="@dimen/_12ssp"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:text="@string/video"
                     android:textColor="@color/grayFont"
-                    android:fontFamily="@font/rajdhani_regular" />
+                    android:textSize="@dimen/_12ssp" />
 
             </LinearLayout>
 
@@ -115,12 +116,13 @@
                 android:id="@+id/tv_date_article"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_12ssp"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_gravity="center_vertical"
-                android:textColor="@color/grayFont"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:fontFamily="@font/rajdhani_regular"
-                tools:text="7 Oct 2020"/>
+                android:maxLines="1"
+                android:textColor="@color/grayFont"
+                android:textSize="@dimen/_12ssp"
+                tools:text="7 Sept 2020" />
 
 
         </LinearLayout>

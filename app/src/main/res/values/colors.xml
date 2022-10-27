@@ -23,10 +23,20 @@
     <color name="grayBackground">#E5E5E5</color>
     <color name="gray_float">#E8E8E8</color>
     <color name="gray_totol">#EFEFEF</color>
-    <color name="red_text">#ED1C24</color>
+    <color name="red_text">#E67817</color>
     <color name="green_text">#34A853</color>
     <color name="grey_bg">#F8F8F8</color>
     <color name="black_half">#1B1B1F</color>
     <color name="gray_bg_notif">#F6F6F6</color>
+    <color name="yellow_900">#E67817</color>
+
+    <color name="grey_200">#E9E9E9</color>
+    <color name="grey_title">#8E8E8E</color>
+    <color name="grey_view">#F2F2F2</color>
+    <color name="grey_50">#F8F8F8</color>
+
+    <color name="grey_500">#AAAAAA</color>
+    <color name="orange_background">#FFECDE</color>
+    <color name="grey_focused">#D0D0D0</color>
 
 </resources>

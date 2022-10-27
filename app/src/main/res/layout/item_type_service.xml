@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_outlet_search"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_7sdp">
+
+    <LinearLayout
+        android:id="@+id/type_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_outlet_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/rajdhani_bold"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_13ssp"
+            tools:text="Type Service" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_address_outlet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/rajdhani_regular"
+            android:singleLine="true"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/_12ssp"
+            tools:text="Included" />
+
+        <RelativeLayout
+            android:id="@+id/budget_servis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_distance_outlet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rajdhani_regular"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                tools:text="Rp. " />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_km"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/tv_distance_outlet"
+                android:fontFamily="@font/rajdhani_regular"
+                android:text="1.000.000"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_below="@id/budget_servis"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/gray_white" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/empty_service"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_65sdp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_service"
+            android:textColor="@color/gray_text"
+            android:fontFamily="@font/rajdhani_medium"
+            android:textSize="@dimen/_14sdp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

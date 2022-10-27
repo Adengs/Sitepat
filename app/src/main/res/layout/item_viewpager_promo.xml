@@ -3,11 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="7dp"
-    android:layout_marginHorizontal="@dimen/_5sdp"
-    android:layout_marginVertical="@dimen/_5sdp"
     app:cardElevation="2dp"
     android:orientation="vertical">
+<!--    app:cardCornerRadius="7dp"-->
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -15,15 +13,15 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            app:cardCornerRadius="7dp"
             app:cardElevation="2dp"
-            android:layout_height="@dimen/_150sdp">
+            android:layout_height="@dimen/_180sdp">
+<!--            app:cardCornerRadius="7dp"-->
 
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_promo"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
+                android:layout_height="@dimen/_180sdp"
                 android:layout_gravity="center"
                 android:src="@drawable/iv_test_promo"
                 android:adjustViewBounds="true"

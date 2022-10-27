@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:id="@+id/container_type">
+
+    <LinearLayout
+        android:id="@+id/lay_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginVertical="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/type"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            tools:text="@string/az"
+            android:fontFamily="@font/rajdhani_medium"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/grey_title"/>
+
+        <CheckBox
+            android:id="@+id/cb_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.50"
+            android:scaleY="0.50"
+            android:button="@drawable/custom_checkbox"
+            android:theme="@style/AppTheme"/>
+
+    </LinearLayout>
+
+<!--    <View-->
+<!--        android:id="@+id/view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/_1sdp"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/lay_type"-->
+<!--        android:background="@color/grey_view"/>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

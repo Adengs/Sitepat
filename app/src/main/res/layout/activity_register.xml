@@ -6,9 +6,11 @@
     android:background="@color/white"
     android:fitsSystemWindows="true"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:forceDarkAllowed="false"
+    tools:targetApi="q">
 
-    <include layout="@layout/toolbar_back"/>
+    <include layout="@layout/toolbar_back" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,11 +31,11 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_16ssp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black_button"
                     android:fontFamily="@font/rajdhani_regular"
-                    android:text="@string/register_account"/>
+                    android:text="@string/register_account"
+                    android:textColor="@color/black_button"
+                    android:textSize="@dimen/_16ssp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -49,10 +51,10 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_14ssp"
-                    android:textColor="@color/gray_text"
                     android:fontFamily="@font/rajdhani_regular"
-                    android:text="@string/fill_your_detail"/>
+                    android:text="@string/fill_your_detail"
+                    android:textColor="@color/gray_text"
+                    android:textSize="@dimen/_14ssp" />
 
             </RelativeLayout>
 
@@ -90,17 +92,18 @@
                     android:id="@+id/edt_fullname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:hint="@string/type_your_name"
-                    android:textColorHint="@color/gray_text"
-                    android:inputType="none"
-                    android:textSize="14sp"
-                    android:textColor="@android:color/black"
-                    android:fontFamily="@font/poppins_regular"
                     android:adjustViewBounds="true"
-                    android:minHeight="52dp"
                     android:background="@android:color/transparent"
-                    android:scaleType="centerInside" />
+                    android:fontFamily="@font/rajdhani_regular"
+                    android:hint="@string/type_your_name"
+                    android:inputType="none"
+                    android:minHeight="52dp"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/gray_text"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -135,17 +138,18 @@
                     android:id="@+id/edt_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:textColorHint="@color/gray_text"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:hint="@string/type_email_add"
                     android:inputType="textEmailAddress"
-                    android:textSize="@dimen/_14ssp"
-                    android:textColor="@android:color/black"
-                    android:fontFamily="@font/rajdhani_regular"
-                    android:adjustViewBounds="true"
                     android:minHeight="52dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerInside" />
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/gray_text"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -180,17 +184,18 @@
                     android:id="@+id/edt_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:hint="@string/type_phone_number"
                     android:inputType="number"
+                    android:minHeight="52dp"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:textColor="@android:color/black"
                     android:textColorHint="@color/gray_text"
                     android:textSize="@dimen/_14ssp"
-                    android:textColor="@android:color/black"
-                    android:fontFamily="@font/rajdhani_regular"
-                    android:adjustViewBounds="true"
-                    android:minHeight="52dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerInside" />
+                    android:textStyle="bold"/>
 
             </RelativeLayout>
 
@@ -225,19 +230,20 @@
                     android:id="@+id/edt_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:layout_toStartOf="@+id/img_eye_password"
+                    android:layout_toLeftOf="@+id/img_eye_password"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/rajdhani_regular"
                     android:hint="@string/type_password"
                     android:inputType="textPassword"
-                    android:textSize="@dimen/_14ssp"
-                    android:textColorHint="@color/gray_text"
-                    android:textColor="@android:color/black"
-                    android:fontFamily="@font/rajdhani_regular"
-                    android:adjustViewBounds="true"
                     android:minHeight="52dp"
-                    android:layout_toLeftOf="@+id/img_eye_password"
-                    android:background="@android:color/transparent"
+                    android:padding="10dp"
                     android:scaleType="centerInside"
-                    android:layout_toStartOf="@+id/img_eye_password" />
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/gray_text"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_eye_password"
@@ -265,7 +271,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_register"
-                    android:background="@drawable/background_button_black"
+                    android:background="@drawable/background_button_orange"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

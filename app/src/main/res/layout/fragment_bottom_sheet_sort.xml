@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".page.shop.BottomSheetSort"
+    android:background="@color/white"
+    android:id="@+id/bottom_sheet_sort">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_20sdp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_close"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="16dp"
+                android:src="@drawable/ic_close_button"
+                android:tint="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/rajdhani_semi_bold"
+                android:text="@string/sort"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:fontFamily="@font/rajdhani_semi_bold"
+                android:text="@string/reset"
+                android:textColor="@color/red_text"
+                android:textSize="@dimen/_14sdp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/lay_az"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/az"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/az"
+                android:fontFamily="@font/rajdhani_medium"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/grey_title"/>
+
+            <CheckBox
+                android:id="@+id/cb_az"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.50"
+                android:scaleY="0.50"
+                android:button="@drawable/custom_checkbox"
+                android:theme="@style/AppTheme"
+                android:clickable="false"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay_za"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/za"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/za"
+                android:fontFamily="@font/rajdhani_medium"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/grey_title"/>
+
+            <CheckBox
+                android:id="@+id/cb_za"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.50"
+                android:scaleY="0.50"
+                android:button="@drawable/custom_checkbox"
+                android:theme="@style/AppTheme"
+                android:clickable="false"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay_lowest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lowest"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/price_lowest"
+                android:fontFamily="@font/rajdhani_medium"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/grey_title"/>
+
+            <CheckBox
+                android:id="@+id/cb_lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.50"
+                android:scaleY="0.50"
+                android:button="@drawable/custom_checkbox"
+                android:theme="@style/AppTheme"
+                android:clickable="false"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay_highest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/highest"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/price_highest"
+                android:fontFamily="@font/rajdhani_medium"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/grey_title"/>
+
+            <CheckBox
+                android:id="@+id/cb_highest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.50"
+                android:scaleY="0.50"
+                android:button="@drawable/custom_checkbox"
+                android:theme="@style/AppTheme"
+                android:clickable="false"/>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_apply"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@drawable/background_button_orange"
+            android:text="@string/apply_low"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/rajdhani_semi_bold"/>
+
+    </LinearLayout>
+
+</FrameLayout>

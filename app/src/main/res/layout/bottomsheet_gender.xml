@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_bottomsheet">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:orientation="horizontal"
+        android:background="@color/grayBackground"
+        android:paddingHorizontal="@dimen/_15sdp"
+        android:gravity="center_vertical">
+        
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/grayFont"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/done"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/black_half"
+            android:paddingStart="@dimen/_10sdp"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+<!--            android:layout_marginVertical="@dimen/_60sdp">-->
+            
+            <NumberPicker
+                android:id="@+id/number_picker"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_180sdp"
+                android:divider="@android:color/transparent">
+            </NumberPicker>
+
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/male"-->
+<!--            android:textSize="@dimen/_16ssp"-->
+<!--            android:fontFamily="@font/poppins_medium"-->
+<!--            android:textColor="@color/grayFont"-->
+<!--            android:gravity="center_horizontal"-->
+<!--            android:paddingVertical="@dimen/_3sdp"-->
+<!--            android:background="@color/grey_focused"-->
+<!--            android:layout_marginHorizontal="@dimen/_5sdp"/>-->
+
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/female"-->
+<!--                android:textSize="@dimen/_16ssp"-->
+<!--                android:fontFamily="@font/poppins_medium"-->
+<!--                android:textColor="@color/grayFont"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:paddingVertical="@dimen/_3sdp"/>-->
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

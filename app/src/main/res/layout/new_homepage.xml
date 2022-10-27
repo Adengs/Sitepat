@@ -251,7 +251,7 @@
                                     android:id="@+id/iv_car_monitoring"
                                     android:layout_width="@dimen/_110sdp"
                                     android:layout_height="@dimen/_55sdp"
-                                    android:src="@drawable/carmonitoring"/>
+                                    android:src="@drawable/service"/>
 
                                 <androidx.appcompat.widget.AppCompatTextView
                                     android:layout_width="wrap_content"
@@ -276,7 +276,7 @@
                                 android:id="@+id/iv_about"
                                 android:layout_width="@dimen/_110sdp"
                                 android:layout_height="@dimen/_55sdp"
-                                android:src="@drawable/about"
+                                android:src="@drawable/shop"
                                 tools:ignore="TooDeepLayout" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -336,7 +336,7 @@
                                 android:id="@+id/iv_support"
                                 android:layout_width="@dimen/_110sdp"
                                 android:layout_height="@dimen/_55sdp"
-                                android:src="@drawable/support"/>
+                                android:src="@drawable/mybooking"/>
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"

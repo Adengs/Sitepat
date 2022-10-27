@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/layout_main"
         android:layout_width="match_parent"
 
@@ -26,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/rajdhani_bold"
+            android:fontFamily="@font/rajdhani_regular"
             android:text="Address 1"
             android:textSize="@dimen/_14ssp" />
 
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
-        android:fontFamily="@font/rajdhani_regular"
+        android:fontFamily="@font/rajdhani_semi_bold"
         android:textColor="@color/black"
         android:textSize="@dimen/_14ssp"
         tools:text="Bintaro Utama Sektor 3 No.90 Pondok Aren - Tangerang Selatan" />
@@ -56,7 +56,7 @@
         android:layout_gravity="center"
         android:id="@+id/layout_add_address"
         android:gravity="center"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <ImageView

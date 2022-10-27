@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_marginEnd="@dimen/_15sdp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_cart_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/period"
+        android:fontFamily="@font/rajdhani_semi_bold"
+        android:textColor="@color/grey_500"
+        android:textSize="@dimen/_14sdp"/>
+
+    <View
+        android:id="@+id/view_tab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_3sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@color/grey_view"/>
+
+</LinearLayout>

@@ -17,12 +17,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        tools:text="{title}"
         android:fontFamily="@font/rajdhani_bold"
+        android:maxWidth="260dp"
         android:textColor="@color/black"
         android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
-        android:maxWidth="260dp" />
+        tools:text="{title}" />
 
 
 </RelativeLayout>

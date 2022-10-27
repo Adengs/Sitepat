@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".page.service.ServiceActivity"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:focusable="true">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/toolbar_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/black">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_back"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="18dp"
+                android:src="@drawable/ic_back_btn"
+                android:tint="@color/white" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/black">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:fontFamily="@font/rajdhani_bold"
+                android:text="@string/service"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18ssp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp">
+
+        <LinearLayout
+            android:id="@+id/lay_booking"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            android:orientation="horizontal"
+            android:background="@drawable/ic_bg_service"
+            android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@drawable/ic_booking_service"
+                android:layout_marginStart="@dimen/_10sdp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:fontFamily="@font/rajdhani_semi_bold"
+                android:text="@string/booking_service"
+                android:textSize="@dimen/_16sdp"
+                android:textColor="@color/black"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:src="@drawable/ic_right_arrow_orange"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay_home_service"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            android:orientation="horizontal"
+            android:background="@drawable/ic_bg_service"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/_15sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@drawable/ic_home_service"
+                android:layout_marginStart="@dimen/_10sdp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:fontFamily="@font/rajdhani_semi_bold"
+                android:text="@string/home_service"
+                android:textSize="@dimen/_16sdp"
+                android:textColor="@color/black"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:src="@drawable/ic_right_arrow_orange"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay_body_paint"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            android:orientation="horizontal"
+            android:background="@drawable/ic_bg_service"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/_15sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@drawable/ic_body_paint"
+                android:layout_marginStart="@dimen/_10sdp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:fontFamily="@font/rajdhani_semi_bold"
+                android:text="@string/body"
+                android:textSize="@dimen/_16sdp"
+                android:textColor="@color/black"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:src="@drawable/ic_right_arrow_orange"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

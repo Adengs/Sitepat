@@ -24,4 +24,18 @@
         <item name="colorAccent">@color/black</item>
 
     </style>
+
+    <style name="Tema2NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="colorAccent">@color/black</item>
+
+    </style>
+
+    <style name="roundedImageViewRounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8%</item>
+        <item name="colorOnSecondary">@android:color/transparent</item>
+    </style>
 </resources>

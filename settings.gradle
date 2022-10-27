@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "dokter-mobil-customer"
+rootProject.name = "sitepat_customer"

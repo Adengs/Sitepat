@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".page.shop.BottomSheetContact"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_20sdp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_close"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="16dp"
+                android:src="@drawable/ic_close_button"
+                android:tint="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/rajdhani_semi_bold"
+                android:text="@string/contact_information"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp" />
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/name"
+            android:fontFamily="@font/rajdhani_regular"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/grey_title"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@drawable/background_edittext_grey"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:padding="@dimen/_10sdp"
+            android:textColorHint="@color/gray_text"
+            android:textSize="@dimen/_14sdp"
+            android:maxLines="1"
+            android:fontFamily="@font/rajdhani_medium"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/address"
+            android:fontFamily="@font/rajdhani_regular"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/grey_title"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@drawable/background_edittext_grey"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:padding="@dimen/_10sdp"
+            android:textColorHint="@color/gray_text"
+            android:textSize="@dimen/_14sdp"
+            android:maxLines="1"
+            android:fontFamily="@font/rajdhani_medium"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/contact"
+            android:fontFamily="@font/rajdhani_regular"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/grey_title"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_contact"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@drawable/background_edittext_grey"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:padding="@dimen/_10sdp"
+            android:textColorHint="@color/gray_text"
+            android:textSize="@dimen/_14sdp"
+            android:maxLines="1"
+            android:fontFamily="@font/rajdhani_medium"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/email"
+            android:fontFamily="@font/rajdhani_regular"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/grey_title"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@drawable/background_edittext_grey"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/_10sdp"
+            android:textColorHint="@color/gray_text"
+            android:textSize="@dimen/_14sdp"
+            android:maxLines="1"
+            android:fontFamily="@font/rajdhani_medium"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:textColor="@color/grey_title"
+            android:enabled="false"
+            android:textStyle="bold"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:background="@drawable/background_button_orange"
+            android:text="@string/save"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/rajdhani_semi_bold"/>
+
+    </LinearLayout>
+
+</FrameLayout>

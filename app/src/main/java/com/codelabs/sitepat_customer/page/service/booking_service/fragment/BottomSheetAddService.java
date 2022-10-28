@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -66,6 +70,7 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
 
     CategoryServiceAdapter categoryServiceAdapter;
     TypeServiceAdapater typeServiceAdapater;
+    private List<TypeService.ItemsEntity> selectedTypeService = new ArrayList<>();
 
     private int limit = 100;
     private String category = "";
@@ -195,8 +200,23 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
         btnSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new TypeServiceSelected(nameService, descService, price));
+              //  EventBus.getDefault().post(new TypeServiceSelected(nameService, descService, price));
                 dismiss();
+
+                for (int i = 0; i < selectedTypeService.size(); i++) {
+                    Log.e("TAG", "onClick: "+selectedTypeService.get(i).getMedicalName() );
+                }
+
+            }
+        });
+        typeServiceAdapater.OnClickSelectedItem(new TypeServiceAdapater.OnItemCLickTypeService() {
+            @Override
+            public void onItemClick(TypeService.ItemsEntity item) {
+                if (item.isSelected()){
+                    selectedTypeService.add(item);
+                }else {
+                    selectedTypeService.remove(item);
+                }
             }
         });
 

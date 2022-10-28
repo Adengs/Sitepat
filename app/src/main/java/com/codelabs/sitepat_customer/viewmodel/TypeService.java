@@ -141,6 +141,15 @@ public class TypeService {
         private int siteId;
         @SerializedName("medical_id")
         private int medicalId;
+        private boolean selected;
+
+        public boolean isSelected() {
+            return selected;
+        }
+
+        public void setSelected(boolean selected) {
+            this.selected = selected;
+        }
 
         public String getCurrentShard() {
             return currentShard;

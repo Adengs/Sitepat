@@ -197,17 +197,14 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
 //                dialog == MotionEvent.ACTION_UP;
             }
         });
-        btnSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              //  EventBus.getDefault().post(new TypeServiceSelected(nameService, descService, price));
-                dismiss();
+        btnSelect.setOnClickListener(v -> {
+          //  EventBus.getDefault().post(new TypeServiceSelected(nameService, descService, price));
+            dismiss();
 
-                for (int i = 0; i < selectedTypeService.size(); i++) {
-                    Log.e("TAG", "onClick: "+selectedTypeService.get(i).getMedicalName() );
-                }
-
+            for (int i = 0; i < selectedTypeService.size(); i++) {
+                Log.e("TAG", "onClick: "+selectedTypeService.get(i).getMedicalName() );
             }
+
         });
         typeServiceAdapater.OnClickSelectedItem(new TypeServiceAdapater.OnItemCLickTypeService() {
             @Override

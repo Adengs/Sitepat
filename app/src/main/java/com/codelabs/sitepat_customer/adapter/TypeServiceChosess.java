@@ -40,9 +40,9 @@ public class TypeServiceChosess extends RecyclerView.Adapter<TypeServiceChosess.
 
     @Override
     public void onBindViewHolder(@NonNull TypeServiceChosess.viewHolder holder, @SuppressLint("RecyclerView") int position) {
-        String serviceName = typeServiceSelectedList.get(position).serviceName;
-        String descService = typeServiceSelectedList.get(position).descService;
-        String price = String.valueOf(typeServiceSelectedList.get(position).price);
+        String serviceName = typeServiceSelectedList.get(position).getServiceName();
+        String descService = typeServiceSelectedList.get(position).getDescService();
+        String price = String.valueOf(typeServiceSelectedList.get(position).getPrice());
 
 //        holder.containerServiceChosess.setOnClickListener(new View.OnClickListener() {
 //            @Override

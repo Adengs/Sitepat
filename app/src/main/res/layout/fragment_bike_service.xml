@@ -117,7 +117,7 @@
                     android:text="@string/empty_service"
                     android:textColor="@color/grey_focused"
                     android:textSize="@dimen/_14sdp"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_service_chosess"
@@ -128,7 +128,7 @@
                     android:layout_marginBottom="@dimen/_10sdp"
                     tools:listitem="@layout/item_service_chosess"
                     tools:itemCount="3"
-                    android:visibility="gone"/>
+                    android:visibility="visible"/>
 
                 <LinearLayout
                     android:id="@+id/lay_service_chooses"

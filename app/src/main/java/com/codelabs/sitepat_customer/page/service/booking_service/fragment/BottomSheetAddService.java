@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.adapter.CategoryServiceAdapter;
 import com.codelabs.sitepat_customer.adapter.TypeServiceAdapater;
+import com.codelabs.sitepat_customer.adapter.TypeServiceChosess;
 import com.codelabs.sitepat_customer.connection.ApiError;
 import com.codelabs.sitepat_customer.connection.ApiUtils;
 import com.codelabs.sitepat_customer.connection.AppConstant;
@@ -39,6 +41,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +71,9 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
 
     CategoryServiceAdapter categoryServiceAdapter;
     TypeServiceAdapater typeServiceAdapater;
+    TypeServiceChosess typeServiceChosessAdapter;
+    private List<TypeService.ItemsEntity> selectedTypeService = new ArrayList<>();
+    private List<TypeServiceSelected> typeServiceSelect = new ArrayList<>();
 
     private int limit = 100;
     private String category = "";
@@ -166,6 +174,11 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
         rvTypeService.setAdapter(typeServiceAdapater);
         rvTypeService.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
+//        typeServiceChosessAdapter = new TypeServiceChosess(getApplicationContext());
+////        rvTypeService.setAdapter(typeServiceAdapater);
+////        rvTypeService.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+//        typeServiceChosessAdapter.notifyDataSetChanged();
+
 //        bottomSheetBehavior = BottomSheetBehavior.from(bottomsheetAdd);
 //        bottomSheetBehavior.setPeekHeight(900);
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -195,8 +208,45 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
         btnSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new TypeServiceSelected(nameService, descService, price));
+//                EventBus.getDefault().post(new TypeServiceSelected(nameService, descService, price));
                 dismiss();
+
+                for (int i = 0; i < selectedTypeService.size(); i++) {
+                    Log.e("TAG", "onClick: "+selectedTypeService.get(i).getMedicalName() );
+
+                    nameService = selectedTypeService.get(i).getMedicalName();
+                    descService = selectedTypeService.get(i).getMedicalDesc();
+                    price = selectedTypeService.get(i).getRetailPrice();
+
+                    TypeServiceSelected myItem = new TypeServiceSelected();
+                    myItem.setServiceName(nameService);
+//                    Log.e("cek name", nameService);
+                    myItem.setDescService(descService);
+//                    Log.e("cek desc", descService);
+                    myItem.setPrice(price);
+//                    Log.e("cek price", String.valueOf(price));
+
+                    typeServiceSelect.add(myItem);
+                    Log.e("cek size", String.valueOf(typeServiceSelect.size()));
+                    Log.e("cek add model", String.valueOf(myItem));
+                    EventBus.getDefault().post(new TypeServiceSelected());
+
+//                    nameService = selectedTypeService.get(i).getMedicalName();
+//                    descService = selectedTypeService.get(i).getMedicalDesc();
+//                    price = selectedTypeService.get(i).getRetailPrice();
+//                    EventBus.getDefault().post(new TypeServiceSelected(nameService, descService, price));
+                }
+            }
+        });
+
+        typeServiceAdapater.OnClickSelectedItem(new TypeServiceAdapater.OnItemCLickTypeService() {
+            @Override
+            public void onItemClick(TypeService.ItemsEntity item) {
+                if (item.isSelected()){
+                    selectedTypeService.add(item);
+                }else {
+                    selectedTypeService.remove(item);
+                }
             }
         });
 

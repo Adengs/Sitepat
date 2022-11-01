@@ -2,6 +2,7 @@ package com.codelabs.sitepat_customer.page.service.booking_service.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -102,6 +104,8 @@ public class BikeServiceFragment extends Fragment {
     TypeServiceChosess typeServiceChosessAdapter;
 //    private BottomSheetBehavior bottomSheetBehavior;
     BottomSheetBehavior<View> bottomSheetBehavior;
+
+    private List<TypeServiceSelected> typeServiceSelect = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -239,7 +243,7 @@ public class BikeServiceFragment extends Fragment {
 
     private void fetchData() {
         loadOutlet();
-//        loadServiceChosess();
+        loadServiceChosess();
     }
 
     public void loadOutlet() {
@@ -254,6 +258,18 @@ public class BikeServiceFragment extends Fragment {
                     if (response.code() == 200) {
                         myMotocycleAdapter.setData(data.getData().getItems());
 //                        Log.e("cek lat", String.valueOf(valueLatitude));
+
+//                        ArrayList<TypeServiceSelected> service = new ArrayList<>();
+////        service.addAll(TypeServiceSelected.);
+//                        Log.e("cek model" , String.valueOf(typeServiceSelect.size()));
+//                        if (typeServiceSelect.size() == 0){
+//                            emptyService.setVisibility(View.VISIBLE);
+//                            rvServiceChosess.setVisibility(View.GONE);
+//                        }else{
+//                            emptyService.setVisibility(View.GONE);
+//                            rvServiceChosess.setVisibility(View.VISIBLE);
+//                            typeServiceChosessAdapter.setData(service);
+//                        }
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(response);
@@ -274,16 +290,17 @@ public class BikeServiceFragment extends Fragment {
 
     public void loadServiceChosess() {
 
+        Log.e("cek model" , String.valueOf(typeServiceSelect.size()));
         ArrayList<TypeServiceSelected> service = new ArrayList<>();
 //        service.addAll(TypeServiceSelected.);
-        if (service.size() == 0){
-            emptyService.setVisibility(View.VISIBLE);
-            rvServiceChosess.setVisibility(View.GONE);
-        }else{
-            emptyService.setVisibility(View.GONE);
-            rvServiceChosess.setVisibility(View.VISIBLE);
+//        if (typeServiceSelect.size() == 0){
+//            emptyService.setVisibility(View.VISIBLE);
+//            rvServiceChosess.setVisibility(View.GONE);
+//        }else{
+//            emptyService.setVisibility(View.GONE);
+//            rvServiceChosess.setVisibility(View.VISIBLE);
             typeServiceChosessAdapter.setData(service);
-        }
+//        }
 
     }
 
@@ -298,27 +315,27 @@ public class BikeServiceFragment extends Fragment {
         NumberFormat rupiah = NumberFormat.getCurrencyInstance(new Locale("in", "ID"));
         String price = rupiah.format(new BigDecimal(typeServiceSelected.price));
 
-        if (typeServiceSelected.serviceName.equals("")){
-            emptyService.setVisibility(View.VISIBLE);
-            layServiceChooses.setVisibility(View.GONE);
-            edit.setVisibility(View.GONE);
-            addService.setVisibility(View.VISIBLE);
+//        if (typeServiceSelected.serviceName.equals("")){
+//            emptyService.setVisibility(View.VISIBLE);
+//            layServiceChooses.setVisibility(View.GONE);
+//            edit.setVisibility(View.GONE);
+//            addService.setVisibility(View.VISIBLE);
+//
+//            layEstimate.setVisibility(View.GONE);
+//        }else{
+//            tvServiceName.setText(typeServiceSelected.serviceName);
+//            tvDescService.setText(typeServiceSelected.descService);
+//            tvPrice.setText(price.replace(",00","").replace("Rp",""));
+//            emptyService.setVisibility(View.GONE);
+//            layServiceChooses.setVisibility(View.VISIBLE);
+//            edit.setVisibility(View.VISIBLE);
+//            addService.setVisibility(View.GONE);
+//
+//            layEstimate.setVisibility(View.VISIBLE);
+//            priceEst.setText(price.replace(",00","").replace("Rp",""));
+//        }
 
-            layEstimate.setVisibility(View.GONE);
-        }else{
-            tvServiceName.setText(typeServiceSelected.serviceName);
-            tvDescService.setText(typeServiceSelected.descService);
-            tvPrice.setText(price.replace(",00","").replace("Rp",""));
-            emptyService.setVisibility(View.GONE);
-            layServiceChooses.setVisibility(View.VISIBLE);
-            edit.setVisibility(View.VISIBLE);
-            addService.setVisibility(View.GONE);
-
-            layEstimate.setVisibility(View.VISIBLE);
-            priceEst.setText(price.replace(",00","").replace("Rp",""));
-        }
-
-//        loadServiceChosess();
+        loadServiceChosess();
     }
 
     @Override

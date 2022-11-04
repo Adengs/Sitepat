@@ -33,13 +33,18 @@ import com.codelabs.sitepat_customer.viewmodel.MyMotocycle;
 import com.codelabs.sitepat_customer.viewmodel.MyMotocycleSelected;
 import com.codelabs.sitepat_customer.viewmodel.NextBS2;
 import com.codelabs.sitepat_customer.viewmodel.Previous2;
+import com.codelabs.sitepat_customer.viewmodel.TypeService;
 import com.codelabs.sitepat_customer.viewmodel.TypeServiceSelected;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
+import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +103,7 @@ public class BikeServiceFragment extends Fragment {
 
     public String petId = "";
     public int position = -1;
+    private Normalizer.Form list;
 
     MyMotocycleAdapter myMotocycleAdapter;
     TypeServiceAdapater typeServiceAdapater;
@@ -106,6 +112,19 @@ public class BikeServiceFragment extends Fragment {
     BottomSheetBehavior<View> bottomSheetBehavior;
 
     private List<TypeServiceSelected> typeServiceSelect = new ArrayList<>();
+    private List<TypeService.ItemsEntity> selectedTypeService = new ArrayList<>();
+
+    private BottomSheetAddService bottomSheetAddService = new BottomSheetAddService();
+
+    private OnListChecked onListChecked;
+
+    public interface OnListChecked{
+        void onListChecked(List<TypeService.ItemsEntity> itemChecked);
+    }
+
+    public void onListCheckedItem(BikeServiceFragment.OnListChecked onListChecked){
+        this.onListChecked = onListChecked;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -124,8 +143,42 @@ public class BikeServiceFragment extends Fragment {
 //        initSetup();
         fetchData();
 
+        if (typeServiceSelect.size() == 0){
+            emptyService.setVisibility(View.VISIBLE);
+            rvServiceChosess.setVisibility(View.GONE);
+        }
+//        else{
+//            emptyService.setVisibility(View.GONE);
+//            rvServiceChosess.setVisibility(View.VISIBLE);
+//        }
+
         return view;
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        NumberFormat rupiah = NumberFormat.getCurrencyInstance(new Locale("in", "ID"));
+//
+//        if (typeServiceSelect.size() == 0){
+//            emptyService.setVisibility(View.VISIBLE);
+//            rvServiceChosess.setVisibility(View.GONE);
+//        }
+//        else{
+//            int price = 0;
+//            for (int i = 0; i < typeServiceSelect.size(); i++){
+//                price = price + typeServiceSelect.get(i).getPrice();
+//            }
+//
+//            typeServiceChosessAdapter.setData(typeServiceSelect);
+//            emptyService.setVisibility(View.GONE);
+//            rvServiceChosess.setVisibility(View.VISIBLE);
+//            layEstimate.setVisibility(View.VISIBLE);
+//
+//            String totalPrice = rupiah.format(new BigDecimal(price));
+//            priceEst.setText(totalPrice.replace(",00","").replace("Rp",""));
+//        }
+//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -189,7 +242,7 @@ public class BikeServiceFragment extends Fragment {
             @Override
             public void onClick(View v) {
 //                BottomSheetDialog bottomSheet = new BottomSheetDialog(requireActivity());
-                BottomSheetAddService bottomSheetAddService = new BottomSheetAddService();
+
                 bottomSheetAddService.show(getChildFragmentManager(), bottomSheetAddService.getTag());
 
 //                View bottomSheetView = LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_bottom_sheet_add_service, null);
@@ -206,6 +259,36 @@ public class BikeServiceFragment extends Fragment {
 
             }
         });
+
+        bottomSheetAddService.OnListSelectedItem(new BottomSheetAddService.OnListSelected() {
+            @Override
+            public void onListSelected(List<TypeServiceSelected> item) {
+                NumberFormat rupiah = NumberFormat.getCurrencyInstance(new Locale("in", "ID"));
+
+                int price = 0;
+                for (int i = 0; i < item.size(); i++){
+                    price = price + item.get(i).getPrice();
+                }
+
+                typeServiceChosessAdapter.setData(item);
+                emptyService.setVisibility(View.GONE);
+                rvServiceChosess.setVisibility(View.VISIBLE);
+                layEstimate.setVisibility(View.VISIBLE);
+
+                String totalPrice = rupiah.format(new BigDecimal(price));
+                priceEst.setText(totalPrice.replace(",00","").replace("Rp",""));
+
+//                selectedTypeService.add(item);
+//                onListChecked.onListChecked(selectedTypeService);
+            }
+        });
+
+//        bottomSheetAddService.OnListSelectedItem(new BottomSheetAddService.OnListSelected() {
+//            @Override
+//            public void onListSelected(List<TypeService.ItemsEntity> item) {
+//                typeServiceChosessAdapter.setData(item);
+//            }
+//        });
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,7 +326,7 @@ public class BikeServiceFragment extends Fragment {
 
     private void fetchData() {
         loadOutlet();
-        loadServiceChosess();
+//        loadServiceChosess();
     }
 
     public void loadOutlet() {
@@ -290,7 +373,7 @@ public class BikeServiceFragment extends Fragment {
 
     public void loadServiceChosess() {
 
-        Log.e("cek model" , String.valueOf(typeServiceSelect.size()));
+//        Log.e("cek model" , String.valueOf(typeServiceSelect.size()));
         ArrayList<TypeServiceSelected> service = new ArrayList<>();
 //        service.addAll(TypeServiceSelected.);
 //        if (typeServiceSelect.size() == 0){
@@ -299,7 +382,17 @@ public class BikeServiceFragment extends Fragment {
 //        }else{
 //            emptyService.setVisibility(View.GONE);
 //            rvServiceChosess.setVisibility(View.VISIBLE);
-            typeServiceChosessAdapter.setData(service);
+//            typeServiceChosessAdapter.setData(typeServiceSelect);
+
+            BikeServiceFragment fragment = new BikeServiceFragment();
+            Bundle bundle = fragment.getArguments();
+            if (bundle != null){
+                Type listType = new TypeToken<ArrayList<TypeServiceSelected>>() {}.getType();
+                typeServiceSelect = new Gson().fromJson((String) bundle.getSerializable("list service"), listType);
+
+                typeServiceChosessAdapter.setData(typeServiceSelect);
+                Log.e("cek model" , String.valueOf(typeServiceSelect.size()));
+            }
 //        }
 
     }
@@ -335,7 +428,7 @@ public class BikeServiceFragment extends Fragment {
 //            priceEst.setText(price.replace(",00","").replace("Rp",""));
 //        }
 
-        loadServiceChosess();
+//        loadServiceChosess();
     }
 
     @Override

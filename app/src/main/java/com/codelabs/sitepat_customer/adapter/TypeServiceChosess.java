@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -14,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.viewmodel.TypeServiceSelected;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +46,9 @@ public class TypeServiceChosess extends RecyclerView.Adapter<TypeServiceChosess.
     public void onBindViewHolder(@NonNull TypeServiceChosess.viewHolder holder, @SuppressLint("RecyclerView") int position) {
         String serviceName = typeServiceSelectedList.get(position).getServiceName();
         String descService = typeServiceSelectedList.get(position).getDescService();
-        String price = String.valueOf(typeServiceSelectedList.get(position).getPrice());
+//        String price = String.valueOf(typeServiceSelectedList.get(position).getPrice());
+        NumberFormat rupiah = NumberFormat.getCurrencyInstance(new Locale("in", "ID"));
+        String price = rupiah.format(new BigDecimal(typeServiceSelectedList.get(position).getPrice()));
 
 //        holder.containerServiceChosess.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -53,9 +59,14 @@ public class TypeServiceChosess extends RecyclerView.Adapter<TypeServiceChosess.
 //            }
 //        });
 
-        holder.tvServiceName.setText(serviceName);
-        holder.tvDescService.setText(descService);
-        holder.tvPrice.setText(price);
+//        if (holder.tvServiceName.getText().toString() == typeServiceSelectedList.get(position).getServiceName()){
+////            Toast.makeText(holder.itemView.getContext(), "Same data", Toast.LENGTH_LONG).show();
+//        }
+//        else {
+            holder.tvServiceName.setText(serviceName);
+            holder.tvDescService.setText(descService);
+            holder.tvPrice.setText(price.replace(",00", "").replace("Rp", ""));
+//        }
 
     }
 

@@ -4,6 +4,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +39,7 @@ import com.codelabs.sitepat_customer.viewmodel.TypeServiceSelected;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -74,12 +76,18 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
     TypeServiceChosess typeServiceChosessAdapter;
     private List<TypeService.ItemsEntity> selectedTypeService = new ArrayList<>();
     private List<TypeServiceSelected> typeServiceSelect = new ArrayList<>();
+//    private List<String> typeServiceSelect = new ArrayList<>();
 
     private int limit = 100;
     private String category = "";
     private String nameService = "";
     private String descService = "";
     private int price = 0;
+    private int medicalId = 0;
+    private String sku = "";
+    private String taxRate = "";
+
+    private OnListSelected onListSelected;
 
     //    private BottomSheetBehavior bottomSheetBehavior;
     BottomSheetDialog dialog;
@@ -88,6 +96,14 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
 
     public BottomSheetAddService() {
 
+    }
+
+    public interface OnListSelected{
+        void onListSelected(List<TypeServiceSelected> item);
+    }
+
+    public void OnListSelectedItem(BottomSheetAddService.OnListSelected onListSelected){
+        this.onListSelected = onListSelected;
     }
 
     @Override
@@ -209,6 +225,7 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
 //                EventBus.getDefault().post(new TypeServiceSelected(nameService, descService, price));
+//                onListSelected.onListSelected(typeServiceSelect);
                 dismiss();
 
                 for (int i = 0; i < selectedTypeService.size(); i++) {
@@ -217,24 +234,28 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
                     nameService = selectedTypeService.get(i).getMedicalName();
                     descService = selectedTypeService.get(i).getMedicalDesc();
                     price = selectedTypeService.get(i).getRetailPrice();
+                    medicalId = selectedTypeService.get(i).getMedicalId();
+                    sku = selectedTypeService.get(i).getSku();
+                    taxRate = selectedTypeService.get(i).getTaxRate();
+                    selectedTypeService.get(i).setSelected(!selectedTypeService.get(i).isSelected());
 
                     TypeServiceSelected myItem = new TypeServiceSelected();
                     myItem.setServiceName(nameService);
-//                    Log.e("cek name", nameService);
                     myItem.setDescService(descService);
-//                    Log.e("cek desc", descService);
                     myItem.setPrice(price);
-//                    Log.e("cek price", String.valueOf(price));
+                    myItem.setMedicalId(medicalId);
+                    myItem.setSku(sku);
+                    myItem.setTaxRate(taxRate);
 
+//                    if (medicalId == ){
+//                        typeServiceSelect.remove(myItem);
+//                    }else{
+//                        typeServiceSelect.add(myItem);
+//                        onListSelected.onListSelected(typeServiceSelect);
+//                    }
                     typeServiceSelect.add(myItem);
-                    Log.e("cek size", String.valueOf(typeServiceSelect.size()));
-                    Log.e("cek add model", String.valueOf(myItem));
-                    EventBus.getDefault().post(new TypeServiceSelected());
+                    onListSelected.onListSelected(typeServiceSelect);
 
-//                    nameService = selectedTypeService.get(i).getMedicalName();
-//                    descService = selectedTypeService.get(i).getMedicalDesc();
-//                    price = selectedTypeService.get(i).getRetailPrice();
-//                    EventBus.getDefault().post(new TypeServiceSelected(nameService, descService, price));
                 }
             }
         });
@@ -307,19 +328,20 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
                 if (response.isSuccessful()) {
                     TypeService data = response.body();
                     if (response.code() == 200) {
-                        typeServiceAdapater.typeService = -1;
-                        try {
-                            typeServiceAdapater.categoryService = Integer.parseInt(category);
-                        } catch (NumberFormatException e) {
+//                        typeServiceAdapater.typeService = -1;
+//                        try {
+//                            typeServiceAdapater.categoryService = Integer.parseInt(category);
+//                        } catch (NumberFormatException e) {
+//
+//                        }
+//
+//                        if(category.equals("")){
+//
+//                        }else{
+//                            typeServiceAdapater.setData(data.getData().getItems());
+//                        }
 
-                        }
-
-                        if(category.equals("")){
-
-                        }else{
-                            typeServiceAdapater.setData(data.getData().getItems());
-                        }
-
+                        typeServiceAdapater.setData(data.getData().getItems());
 
 //                        DataManager.getInstance().setCustomerId(data.getData().getItems().get(0).getProductId());
                     }

@@ -6,15 +6,25 @@ import com.codelabs.sitepat_customer.viewmodel.ArticlesDetail;
 import com.codelabs.sitepat_customer.viewmodel.Brand;
 import com.codelabs.sitepat_customer.viewmodel.BrandCar;
 import com.codelabs.sitepat_customer.viewmodel.BrandTypesCar;
+import com.codelabs.sitepat_customer.viewmodel.Cart;
+import com.codelabs.sitepat_customer.viewmodel.CartProduct;
 import com.codelabs.sitepat_customer.viewmodel.CategoryService;
+import com.codelabs.sitepat_customer.viewmodel.Cities;
+import com.codelabs.sitepat_customer.viewmodel.ContactInformation;
+import com.codelabs.sitepat_customer.viewmodel.ContactOutletInformation;
+import com.codelabs.sitepat_customer.viewmodel.CreateInvoice;
 import com.codelabs.sitepat_customer.viewmodel.DataLogin;
+import com.codelabs.sitepat_customer.viewmodel.DetailMyOrder;
 import com.codelabs.sitepat_customer.viewmodel.DetailNotif;
 import com.codelabs.sitepat_customer.viewmodel.DoPost;
+import com.codelabs.sitepat_customer.viewmodel.DoPostV2;
 import com.codelabs.sitepat_customer.viewmodel.Faq;
 import com.codelabs.sitepat_customer.viewmodel.GetToken;
 import com.codelabs.sitepat_customer.viewmodel.GetWalkThrough;
+import com.codelabs.sitepat_customer.viewmodel.Maps;
 import com.codelabs.sitepat_customer.viewmodel.MyCar;
 import com.codelabs.sitepat_customer.viewmodel.MyMotocycle;
+import com.codelabs.sitepat_customer.viewmodel.MyOrder;
 import com.codelabs.sitepat_customer.viewmodel.NewProduct;
 import com.codelabs.sitepat_customer.viewmodel.NewProductDetail;
 import com.codelabs.sitepat_customer.viewmodel.News;
@@ -22,12 +32,14 @@ import com.codelabs.sitepat_customer.viewmodel.NewsDetail;
 import com.codelabs.sitepat_customer.viewmodel.Notification;
 import com.codelabs.sitepat_customer.viewmodel.Outlet;
 import com.codelabs.sitepat_customer.viewmodel.OutletDetail;
+import com.codelabs.sitepat_customer.viewmodel.PaymentMethod;
 import com.codelabs.sitepat_customer.viewmodel.PointHistory;
 import com.codelabs.sitepat_customer.viewmodel.PrivacyPolicy;
 import com.codelabs.sitepat_customer.viewmodel.Product;
 import com.codelabs.sitepat_customer.viewmodel.Profile;
 import com.codelabs.sitepat_customer.viewmodel.Promo;
 import com.codelabs.sitepat_customer.viewmodel.PromoDetail;
+import com.codelabs.sitepat_customer.viewmodel.Province;
 import com.codelabs.sitepat_customer.viewmodel.ServiceRecord;
 import com.codelabs.sitepat_customer.viewmodel.TermsCondition;
 import com.codelabs.sitepat_customer.viewmodel.TypeComplaint;
@@ -36,6 +48,7 @@ import com.codelabs.sitepat_customer.viewmodel.TypeFilter;
 import com.codelabs.sitepat_customer.viewmodel.TypeService;
 import com.codelabs.sitepat_customer.viewmodel.param.UpdateProfil;
 
+import java.util.List;
 import java.util.Map;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -130,7 +143,7 @@ public interface RetrofitInterface {
     Call<Notification> getNotif(@Header(AppConstant.AuthTitle) String auth);
 
     @GET(AppConstant.Outlet)
-    Call<Outlet> getOutlet(@Header(AppConstant.AuthTitle) String auth, @Query("keyword") String keyword, @Query("latitude") Double latitude, @Query("longitude") Double longitude);
+    Call<Outlet> getOutlet(@Header(AppConstant.AuthTitle) String auth, @Query("keyword") String keyword, @Query("latitude") String latitude, @Query("longitude") String longitude);
 
     @GET(AppConstant.OutletDetail)
     Call<OutletDetail> getOutletDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") Integer id, @Query("latitude") Double latitude, @Query("longitude") Double longitude);
@@ -191,7 +204,7 @@ public interface RetrofitInterface {
     Call<TypeFilter> getType(@Header(AppConstant.AuthTitle) String auth);
 
     @GET(AppConstant.Product)
-    Call<Product> getProduct(@Header(AppConstant.AuthTitle) String auth, @Query("limit") Integer limit, @Query("active") Integer active, @Query("search") String search, @Query("brand") String brand, @Query("type") String type, @Query("minPrice") String minPrice, @Query("maxPrice") String maxPrice, @Query("sortType") String sortAZ, @Query("latitude") String latitude, @Query("longitude") String longitude);
+    Call<Product> getProduct(@Header(AppConstant.AuthTitle) String auth, @Query("limit") Integer limit, @Query("active") Integer active, @Query("search") String search, @Query("brand") String brand, @Query("type") String type, @Query("minPrice") String minPrice, @Query("maxPrice") String maxPrice, @Query("sortType") String sortAZ, @Query("latitude") String latitude, @Query("longitude") String longitude, @Query("page") Integer page);
 
     @GET(AppConstant.Brand)
     Call<Brand> getBrand(@Header(AppConstant.AuthTitle) String auth);
@@ -208,4 +221,55 @@ public interface RetrofitInterface {
     @GET(AppConstant.TypeService)
     Call<TypeService> getTypeService(@Header(AppConstant.AuthTitle) String auth, @Query("limit") Integer limit, @Query("category_id") String category);
 
+    @Multipart
+    @POST(AppConstant.CreateCart)
+    Call<Cart> createCart(@Header(AppConstant.AuthTitle) String auth, @PartMap Map<String, RequestBody> param);
+
+    @Multipart
+    @POST(AppConstant.CreateCartHome)
+    Call<Cart> createCartHome(@Header(AppConstant.AuthTitle) String auth, @PartMap Map<String, RequestBody> param);
+
+    @GET(AppConstant.MapsAPI)
+    Call<List<Maps>> getMaps(@Query("q") String search, @Query("format") String geojson);
+
+    @Multipart
+    @POST(AppConstant.CreateCartProduct)
+    Call<CartProduct> createCartProduct(@Header(AppConstant.AuthTitle) String auth, @Query("latitude") String latitude, @Query("longitude") String longitude, @PartMap Map<String, RequestBody> param);
+
+    @Multipart
+    @POST(AppConstant.AddCartProduct)
+    Call<DoPostV2> addCartProduct(@Header(AppConstant.AuthTitle) String auth, @Query("latitude") String latitude, @Query("longitude") String longitude, @PartMap Map<String, RequestBody> param);
+
+    @Multipart
+    @POST(AppConstant.DeleteCartProduct)
+    Call<DoPostV2> deleteCartProduct(@Header(AppConstant.AuthTitle) String auth, @Query("latitude") String latitude, @Query("longitude") String longitude, @PartMap Map<String, RequestBody> param);
+
+    @GET(AppConstant.ContactInformation)
+    Call<ContactInformation> getContactInformation(@Header(AppConstant.AuthTitle) String auth);
+
+    @GET(AppConstant.listPayment)
+    Call<PaymentMethod> getListPayment(@Header(AppConstant.AuthTitle) String auth, @Query("category") String category);
+
+    @GET(AppConstant.listProvince)
+    Call<Province> getListProvince(@Header(AppConstant.AuthTitle) String auth, @Query("limit") Integer limit);
+
+    @GET(AppConstant.listCities)
+    Call<Cities> getListCities(@Header(AppConstant.AuthTitle) String auth, @Query("limit") Integer limit, @Query("provinceId") String provinceId);
+
+    @GET(AppConstant.Outlet)
+    Call<Outlet> getListOutlet(@Header(AppConstant.AuthTitle) String auth, @Query("latitude") String latitude, @Query("longitude") String longitude);
+
+    @Multipart
+    @POST(AppConstant.ContactOutlet)
+    Call<ContactOutletInformation> createContactOutlet(@Header(AppConstant.AuthTitle) String auth, @Query("latitude") String latitude, @Query("longitude") String longitude, @PartMap Map<String, RequestBody> param);
+
+    @Multipart
+    @POST(AppConstant.CreateInvoice)
+    Call<CreateInvoice> createInvoice(@Header(AppConstant.AuthTitle) String auth, @PartMap Map<String, RequestBody> param);
+
+    @GET(AppConstant.MyOrder)
+    Call<MyOrder> getListMyOrder(@Header(AppConstant.AuthTitle) String auth, @Query("transactionType") String transactionType, @Query("customerId") String customerId, @Query("paymentStatus") String paymentStatu);
+
+    @GET(AppConstant.MyOrderDetail)
+    Call<DetailMyOrder> getMyOrderDetail(@Header(AppConstant.AuthTitle) String auth, @Path("id") int id);
 }

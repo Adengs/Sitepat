@@ -5,136 +5,167 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Outlet {
+
     @SerializedName("message")
     private String message;
     @SerializedName("data")
-    private DataOutlet data;
+    private DataEntity data;
 
     public String getMessage() {
         return message;
     }
 
-    public DataOutlet getData() {
+    public DataEntity getData() {
         return data;
     }
 
-    public static class DataOutlet {
-        @SerializedName("page")
-        private int page;
-        @SerializedName("lastPage")
-        private int lastPage;
-        @SerializedName("totalItem")
-        private int totalItem;
+    public static class DataEntity {
+        @SerializedName("items")
+        private List<ItemsEntity> items;
         @SerializedName("limit")
         private int limit;
-        @SerializedName("items")
-        private List<ItemsOutlet> itemsOutlet;
+        @SerializedName("totalItem")
+        private int totalitem;
+        @SerializedName("lastPage")
+        private int lastpage;
+        @SerializedName("page")
+        private int page;
 
-        public int getPage() {
-            return page;
-        }
-
-        public int getLastPage() {
-            return lastPage;
-        }
-
-        public int getTotalItem() {
-            return totalItem;
+        public List<ItemsEntity> getItems() {
+            return items;
         }
 
         public int getLimit() {
             return limit;
         }
 
-        public List<ItemsOutlet> getItemsOutlet() {
-            return itemsOutlet;
+        public int getTotalitem() {
+            return totalitem;
+        }
+
+        public int getLastpage() {
+            return lastpage;
+        }
+
+        public int getPage() {
+            return page;
         }
     }
 
-    public static class ItemsOutlet {
-        @SerializedName("siteId")
-        private int siteId;
-        @SerializedName("siteName")
-        private String siteName;
-        @SerializedName("siteAddress")
-        private String siteAddress;
-        @SerializedName("siteCity")
-        private String siteCity;
-        @SerializedName("siteLatitude")
-        private String siteLatitude;
-        @SerializedName("siteLongitude")
-        private String siteLongitude;
-        @SerializedName("siteImage")
-        private String siteImage;
-        @SerializedName("openDays")
-        private String openDays;
-        @SerializedName("openHours")
-        private String openHours;
-        @SerializedName("isOpen")
-        private int isOpen;
+    public static class ItemsEntity {
+        @SerializedName("cityName")
+        private String cityname;
+        @SerializedName("provinceName")
+        private String provincename;
+        @SerializedName("updatedAt")
+        private String updatedat;
+        @SerializedName("createdAt")
+        private String createdat;
         @SerializedName("distance")
         private String distance;
+        @SerializedName("isOpen")
+        private int isopen;
+        @SerializedName("openHours")
+        private String openhours;
+        @SerializedName("openDays")
+        private String opendays;
+        @SerializedName("siteImage")
+        private String siteimage;
+        @SerializedName("siteLongitude")
+        private String sitelongitude;
+        @SerializedName("siteLatitude")
+        private String sitelatitude;
         @SerializedName("sitePhone")
-        private String sitePhone;
-        @SerializedName("createdAt")
-        private String createdAt;
-        @SerializedName("updatedAt")
-        private String updatedAt;
+        private String sitephone;
+        @SerializedName("siteCity")
+        private String sitecity;
+        @SerializedName("siteAddress")
+        private String siteaddress;
+        @SerializedName("cityId")
+        private int cityid;
+        @SerializedName("provinceId")
+        private int provinceid;
+        @SerializedName("siteName")
+        private String sitename;
+        @SerializedName("storeId")
+        private int storeid;
+        @SerializedName("siteId")
+        private int siteid;
 
-        public int getSiteId() {
-            return siteId;
+        public String getCityname() {
+            return cityname;
         }
 
-        public String getSiteName() {
-            return siteName;
+        public String getProvincename() {
+            return provincename;
         }
 
-        public String getSiteAddress() {
-            return siteAddress;
+        public String getUpdatedat() {
+            return updatedat;
         }
 
-        public String getSiteCity() {
-            return siteCity;
-        }
-
-        public String getSiteLatitude() {
-            return siteLatitude;
-        }
-
-        public String getSiteLongitude() {
-            return siteLongitude;
-        }
-
-        public String getSiteImage() {
-            return siteImage;
-        }
-
-        public String getOpenDays() {
-            return openDays;
-        }
-
-        public String getOpenHours() {
-            return openHours;
-        }
-
-        public int getIsOpen() {
-            return isOpen;
-        }
-
-        public String getSitePhone() {
-            return sitePhone;
+        public String getCreatedat() {
+            return createdat;
         }
 
         public String getDistance() {
             return distance;
         }
 
-        public String getUpdatedAt() {
-            return updatedAt;
+        public int getIsopen() {
+            return isopen;
         }
 
-        public String getCreatedAt() {
-            return createdAt;
+        public String getOpenhours() {
+            return openhours;
+        }
+
+        public String getOpendays() {
+            return opendays;
+        }
+
+        public String getSiteimage() {
+            return siteimage;
+        }
+
+        public String getSitelongitude() {
+            return sitelongitude;
+        }
+
+        public String getSitelatitude() {
+            return sitelatitude;
+        }
+
+        public String getSitephone() {
+            return sitephone;
+        }
+
+        public String getSitecity() {
+            return sitecity;
+        }
+
+        public String getSiteaddress() {
+            return siteaddress;
+        }
+
+        public int getCityid() {
+            return cityid;
+        }
+
+        public int getProvinceid() {
+            return provinceid;
+        }
+
+        public String getSitename() {
+            return sitename;
+        }
+
+        public int getStoreid() {
+            return storeid;
+        }
+
+        public int getSiteid() {
+            return siteid;
         }
     }
 }

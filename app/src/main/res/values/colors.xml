@@ -29,6 +29,7 @@
     <color name="black_half">#1B1B1F</color>
     <color name="gray_bg_notif">#F6F6F6</color>
     <color name="yellow_900">#E67817</color>
+    <color name="red_background">#EC3434</color>
 
     <color name="grey_200">#E9E9E9</color>
     <color name="grey_title">#8E8E8E</color>

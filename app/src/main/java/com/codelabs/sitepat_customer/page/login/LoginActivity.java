@@ -402,12 +402,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
        }
 
        if (containerGoogle == view) {
+//           showToast("On Develop :(");
            signInGoogle();
        }
 
        if (containerFb == view) {
+//           showToast("On Develop :(");
            signInFacebook();
-//           Toast.makeText(LoginActivity.this, "On Develop", Toast.LENGTH_SHORT).show();
        }
 
        if (tvForgotPassword == view) {

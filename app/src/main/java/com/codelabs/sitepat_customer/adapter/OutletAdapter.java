@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codelabs.sitepat_customer.R;
+import com.codelabs.sitepat_customer.connection.DataManager;
 import com.codelabs.sitepat_customer.page.outlet.OutletDetailActivity;
 import com.codelabs.sitepat_customer.viewmodel.Outlet;
 import com.squareup.picasso.Picasso;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
 public class OutletAdapter extends RecyclerView.Adapter<OutletAdapter.viewHolder> {
 
     private final Context mContext;
-    private List<Outlet.ItemsOutlet> outletList;
+    private List<Outlet.ItemsEntity> outletList;
 
     public OutletAdapter(Context context) {
         this.mContext = context;
@@ -43,26 +44,27 @@ public class OutletAdapter extends RecyclerView.Adapter<OutletAdapter.viewHolder
         return new viewHolder(view);
     }
 
+    @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(@NonNull OutletAdapter.viewHolder holder, int position) {
         if (position == 0) {
             EventBus.getDefault().post(outletList.get(position));
         }
-        if (outletList.get(position).getSiteImage().equals("")) {
+        if (outletList.get(position).getSiteimage().equals("")) {
             holder.ivOutlet.setImageResource(R.drawable.background_outlet_status);
         } else {
             Picasso.get()
-                    .load(outletList.get(position).getSiteImage())
+                    .load(outletList.get(position).getSiteimage())
                     .fit().centerCrop()
                     .placeholder(R.drawable.background_outlet_status)
                     .error(R.drawable.background_outlet_status)
                     .into(holder.ivOutlet);
         }
 
-        holder.tvOutletName.setText(outletList.get(position).getSiteName());
-        holder.tvAddressOutlet.setText(outletList.get(position).getSiteAddress());
+        holder.tvOutletName.setText(outletList.get(position).getSitename());
+        holder.tvAddressOutlet.setText(outletList.get(position).getSiteaddress());
         holder.tvDistanceOutlet.setText(outletList.get(position).getDistance());
-        if (outletList.get(position).getIsOpen() == 1) {
+        if (outletList.get(position).getIsopen() == 1) {
             holder.tvStatusOutlet.setVisibility(View.VISIBLE);
             holder.tvStatusOutletClose.setVisibility(View.GONE);
         } else {
@@ -74,8 +76,9 @@ public class OutletAdapter extends RecyclerView.Adapter<OutletAdapter.viewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, OutletDetailActivity.class);
-                intent.putExtra("outlet_id", outletList.get(position).getSiteId());
+                intent.putExtra("outlet_id", outletList.get(position).getSiteid());
                 mContext.startActivity(intent);
+                DataManager.getInstance().setImageOutlet(outletList.get(position).getSiteimage());
             }
         });
     }
@@ -85,7 +88,7 @@ public class OutletAdapter extends RecyclerView.Adapter<OutletAdapter.viewHolder
         return (outletList != null ? outletList.size() : 0);
     }
 
-    public void setData(List<Outlet.ItemsOutlet> data) {
+    public void setData(List<Outlet.ItemsEntity> data) {
         this.outletList = data;
         notifyDataSetChanged();
     }

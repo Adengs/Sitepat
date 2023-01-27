@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:foreground="?selectableItemBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container_provincie">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp"
+        tools:text="sample"
+        android:textAlignment="textStart"
+        android:maxLines="1"
+        android:id="@+id/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_200"
+        app:layout_constraintTop_toBottomOf="@+id/text"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

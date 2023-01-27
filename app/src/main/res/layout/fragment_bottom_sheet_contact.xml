@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".page.shop.BottomSheetContact"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:fitsSystemWindows="true"
     android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingTop="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_20sdp">
+        android:paddingBottom="@dimen/_10sdp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -157,6 +157,11 @@
             android:enabled="false"
             android:textStyle="bold"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/btn_save"
             android:layout_width="match_parent"
@@ -172,4 +177,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

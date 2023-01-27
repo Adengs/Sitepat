@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_15sdp"
+    android:orientation="horizontal">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img_product"
+        app:shapeAppearance="@style/roundedImageViewRounded"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_dummy_myorder" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rajdhani_bold"
+            android:text="@string/product"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:fontFamily="@font/rajdhani_medium"
+            android:text="@string/product"
+            android:textColor="@color/grey_title"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:fontFamily="@font/rajdhani_medium"
+            android:text="pcs"
+            android:textColor="@color/grey_title"
+            android:textSize="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_3sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rajdhani_medium"
+                android:text="Rp "
+                android:textColor="@color/grey_title"
+                android:textSize="@dimen/_12sdp" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rajdhani_medium"
+                android:text="56.000"
+                android:textColor="@color/grey_title"
+                android:textSize="@dimen/_12sdp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

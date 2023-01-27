@@ -87,7 +87,7 @@ public class TypeServiceAdapater extends RecyclerView.Adapter<TypeServiceAdapate
 //        }
 
         holder.cbTypeService.setChecked(typeServiceList.get(position).isSelected());
-        Log.e("cek isi" , String.valueOf(typeServiceList.get(position).isSelected()));
+//        Log.e("cek isi" , String.valueOf(typeServiceList.get(position).isSelected()));
 
 //        holder.containerChooseService.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -149,7 +149,6 @@ public class TypeServiceAdapater extends RecyclerView.Adapter<TypeServiceAdapate
                 typeServiceList.get(getAdapterPosition()).setSelected(!typeServiceList.get(getAdapterPosition()).isSelected());
                 notifyItemChanged(getAdapterPosition());
                 onItemCLickTypeService.onItemClick(typeServiceList.get(getAdapterPosition()));
-
             });
 
 //            if (typeServiceList.get(getAdapterPosition()).isSelected()){

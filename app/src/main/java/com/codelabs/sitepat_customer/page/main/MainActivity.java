@@ -46,6 +46,7 @@ import com.codelabs.sitepat_customer.page.shop.NewProductActivity;
 import com.codelabs.sitepat_customer.page.shop.ShopActivity;
 import com.codelabs.sitepat_customer.utils.RecentUtils;
 import com.codelabs.sitepat_customer.viewmodel.Articles;
+import com.codelabs.sitepat_customer.viewmodel.Data;
 import com.codelabs.sitepat_customer.viewmodel.NewProduct;
 import com.codelabs.sitepat_customer.viewmodel.Profile;
 import com.codelabs.sitepat_customer.viewmodel.Promo;
@@ -193,7 +194,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     }
 
     private void initView() {
-        promoAdapter = new PromoBannerAdapter(getApplicationContext());
+        promoAdapter = new PromoBannerAdapter(MainActivity.this);
         viewPagerPromo.setAdapter(promoAdapter);
         viewPagerPromo.setClipToPadding(false);
         viewPagerPromo.setClipChildren(false);
@@ -225,18 +226,18 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         autoPlay(viewPagerPromo);
 
 
-        articleHomePageAdapter = new ArticleHomePageAdapter(getApplicationContext());
+        articleHomePageAdapter = new ArticleHomePageAdapter(MainActivity.this);
         rvArticleHomepage.setAdapter(articleHomePageAdapter);
         rvArticleHomepage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         HorizontalItemDecoration itemDecoration = new HorizontalItemDecoration(RecentUtils.ConvertDpToPx(this, 10));
         rvArticleHomepage.addItemDecoration(new RecentUtils.PaddingItemDecoration(60));
 
-        newProductAdapter = new NewProductAdapter(getApplicationContext());
+        newProductAdapter = new NewProductAdapter(MainActivity.this);
         rvProductHomepage.setAdapter(newProductAdapter);
         rvProductHomepage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvProductHomepage.addItemDecoration(new RecentUtils.PaddingItemDecoration(60));
 
-        articleHorizontalAdapter = new ArticleHorizontalAdapter(getApplicationContext());
+        articleHorizontalAdapter = new ArticleHorizontalAdapter(MainActivity.this);
 //        rvArticleHorizontal.setAdapter(articleHorizontalAdapter);
 //        rvArticleHorizontal.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         HorizontalItemDecoration itemDecoration1 = new HorizontalItemDecoration(RecentUtils.ConvertDpToPx(this, 0));
@@ -261,7 +262,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         tvSeeMoreArticle.setOnClickListener(this);
 
         if (ContextCompat.checkSelfPermission(
-                getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION
+                MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION
         ) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                     MainActivity.this,
@@ -332,6 +333,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     Profile data = response.body();
                     if (response.code() == 200) {
                         tvUsername.setText(data.getDataProfile().getCustomerName());
+                        DataManager.getInstance().setName(data.getDataProfile().getCustomerName());
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(response);

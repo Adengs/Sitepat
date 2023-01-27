@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".page.shop.BottomSheetOutlet"
     android:focusableInTouchMode="true"
     android:focusable="true"
     android:background="@color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,8 +71,10 @@
             android:fontFamily="@font/rajdhani_medium"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:textColor="@color/black"
-            android:enabled="false"
-            android:drawableEnd="@drawable/ic_arrow_bottom"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/select_province"
             android:textStyle="bold"/>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -95,8 +104,10 @@
             android:fontFamily="@font/rajdhani_medium"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:textColor="@color/black"
-            android:enabled="false"
-            android:drawableEnd="@drawable/ic_arrow_bottom"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/select_city"
             android:textStyle="bold"/>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -126,8 +137,10 @@
             android:fontFamily="@font/rajdhani_medium"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:textColor="@color/black"
-            android:enabled="false"
-            android:drawableEnd="@drawable/ic_arrow_bottom"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/select_outlet"
             android:textStyle="bold"/>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -157,9 +170,12 @@
             android:fontFamily="@font/rajdhani_medium"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:textColor="@color/black"
-            android:enabled="false"
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:drawableEnd="@drawable/ic_calendar"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:hint="@string/select_date"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/time"
@@ -188,23 +204,31 @@
             android:fontFamily="@font/rajdhani_medium"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:textColor="@color/black"
-            android:enabled="false"
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:drawableEnd="@drawable/ic_clock"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_45sdp"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_25sdp"
-            android:background="@drawable/background_button_orange"
-            android:text="@string/save"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp"
-            android:fontFamily="@font/rajdhani_semi_bold"/>
+            android:textStyle="bold"
+            android:hint="@string/select_time"/>
 
     </LinearLayout>
 
-</FrameLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:background="@drawable/background_button_orange"
+        android:text="@string/save"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14sdp"
+        android:fontFamily="@font/rajdhani_semi_bold"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/scroll"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

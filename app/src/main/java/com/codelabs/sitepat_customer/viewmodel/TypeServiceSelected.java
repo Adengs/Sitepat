@@ -7,6 +7,15 @@ public class TypeServiceSelected {
     public int medicalId;
     public String sku;
     public String taxRate;
+    public boolean selected;
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 //    public TypeServiceSelected(String serviceName, String descService, int price){
 //        this.serviceName = serviceName;
 //        this.descService = descService;

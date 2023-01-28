@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.viewmodel.CategoryService;
 import com.codelabs.sitepat_customer.viewmodel.ServiceSelected;
+import com.codelabs.sitepat_customer.viewmodel.TypeService;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -26,12 +27,17 @@ import butterknife.ButterKnife;
 
 public class CategoryServiceAdapter extends RecyclerView.Adapter<CategoryServiceAdapter.viewHolder>  {
     private Context mContext;
-    private List<CategoryService.ItemsEntity> productList;
+    public List<CategoryService.ItemsEntity> productList;
     public int variant = 0;
+    public OnCart onCart;
 
     public CategoryServiceAdapter(Context context){
         this.mContext = context;
         this.productList = new ArrayList<>();
+    }
+
+    public interface OnCart{
+        void onCart(String cart);
     }
 
     @NonNull
@@ -62,7 +68,8 @@ public class CategoryServiceAdapter extends RecyclerView.Adapter<CategoryService
             @Override
             public void onClick(View v) {
                 variant = position;
-                EventBus.getDefault().post(new ServiceSelected(cartId));
+                onCart.onCart(cartId);
+//                EventBus.getDefault().post(new ServiceSelected(cartId));
                 Log.e("cek data", String.valueOf(variant));
 
 //                Log.e("cek_adapter", type);

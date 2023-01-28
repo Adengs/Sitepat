@@ -3,13 +3,18 @@ package com.codelabs.sitepat_customer.page.service.booking_service.fragment;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.adapter.CategoryServiceAdapter;
 import com.codelabs.sitepat_customer.adapter.TypeServiceAdapater;
+import com.codelabs.sitepat_customer.adapter.TypeServiceChosess;
 import com.codelabs.sitepat_customer.connection.ApiError;
 import com.codelabs.sitepat_customer.connection.ApiUtils;
 import com.codelabs.sitepat_customer.connection.AppConstant;
@@ -37,6 +43,7 @@ import com.codelabs.sitepat_customer.viewmodel.TypeServiceSelected;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -70,13 +77,21 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
 
     CategoryServiceAdapter categoryServiceAdapter;
     TypeServiceAdapater typeServiceAdapater;
+    TypeServiceChosess typeServiceChosessAdapter;
     private List<TypeService.ItemsEntity> selectedTypeService = new ArrayList<>();
+    private List<TypeServiceSelected> typeServiceSelect = new ArrayList<>();
+//    private List<String> typeServiceSelect = new ArrayList<>();
 
     private int limit = 100;
     private String category = "";
     private String nameService = "";
     private String descService = "";
     private int price = 0;
+    private int medicalId = 0;
+    private String sku = "";
+    private String taxRate = "";
+
+    private OnListSelected onListSelected;
 
     //    private BottomSheetBehavior bottomSheetBehavior;
     BottomSheetDialog dialog;
@@ -85,6 +100,19 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
 
     public BottomSheetAddService() {
 
+    }
+
+    public interface OnListSelected {
+        void onListSelected(List<TypeService.ItemsEntity> item);
+    }
+
+    public void OnListSelectedItem(BottomSheetAddService.OnListSelected onListSelected) {
+        this.onListSelected = onListSelected;
+    }
+
+    public void setData(List<TypeService.ItemsEntity> data) {
+        this.selectedTypeService = data;
+        Log.e("cek this", String.valueOf(selectedTypeService.size()));
     }
 
     @Override
@@ -96,15 +124,46 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-
         dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-//        bottomSheetBehavior = BottomSheetBehavior.from(bottomsheetAdd);
+
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialogInterface) {
+//                BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) dialogInterface;
+//                setupFullHeight(bottomSheetDialog);
+//            }
+//        });
+
+//        View bottomSheetView = LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_bottom_sheet_add_service, null);
+//        dialog.setContentView(bottomSheetView);
+//
+//        bottomSheetBehavior = BottomSheetBehavior.from((View) bottomSheetView.getParent());
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 //
-//        assert bottomsheetAdd != null;
-//        bottomsheetAdd.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
+//        CoordinatorLayout layout = dialog.findViewById(R.id.bottom_sheet_add_service);
+//        assert layout != null;
+//        layout.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
         return dialog;
     }
+
+//    private void setupFullHeight(BottomSheetDialog bottomSheetDialog){
+//        FrameLayout layout = (FrameLayout) bottomSheetDialog.findViewById(R.id.bottom_sheet_add_service);
+//        BottomSheetBehavior behavior = BottomSheetBehavior.from(layout);
+//        ViewGroup.LayoutParams layoutParams = layout.getLayoutParams();
+//
+//        int windowHeight = getWindowHeight();
+//        if (layoutParams != null){
+//            layoutParams.height = windowHeight;
+//        }
+//        layout.setLayoutParams(layoutParams);
+//        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//    }
+//
+//    private int getWindowHeight(){
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//        return displayMetrics.heightPixels;
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,6 +171,10 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_bottom_sheet_add_service, container, false);
         ButterKnife.bind(this, rootView);
+
+        category = DataManager.getInstance().getCartId();
+        Log.e("TAG", "onCreateView: " + category);
+        Log.e("TAG CEK", "onCreateView: " + selectedTypeService.size() );
 
         initView();
         initSetup();
@@ -129,9 +192,14 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
         return rootView;
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        int dm = Resources.getSystem().getDisplayMetrics().heightPixels;
+//        int rect = dm.
+        view.setMinimumHeight(dm);
 
         View bottomSheetView = LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_bottom_sheet_add_service, null);
         dialog.setContentView(bottomSheetView);
@@ -140,9 +208,10 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         bottomSheetBehavior.setDraggable(false);
 
-        CoordinatorLayout layout = dialog.findViewById(R.id.bottom_sheet_add_service);
-        assert layout != null;
-        layout.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
+//        CoordinatorLayout layout = dialog.findViewById(R.id.bottom_sheet_add_service);
+//        assert layout != null;
+//        layout.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
+
     }
 
 //    public void onClickCart(){
@@ -171,6 +240,14 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
         rvTypeService.setAdapter(typeServiceAdapater);
         rvTypeService.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
+        //implement value
+
+
+//        typeServiceChosessAdapter = new TypeServiceChosess(getApplicationContext());
+////        rvTypeService.setAdapter(typeServiceAdapater);
+////        rvTypeService.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+//        typeServiceChosessAdapter.notifyDataSetChanged();
+
 //        bottomSheetBehavior = BottomSheetBehavior.from(bottomsheetAdd);
 //        bottomSheetBehavior.setPeekHeight(900);
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -192,30 +269,107 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                category = DataManager.getInstance().getCartId();
+//                selectedTypeService.clear();
                 dismiss();
 //                dialog.setCancelable(true);
 //                dialog == MotionEvent.ACTION_UP;
             }
         });
-        btnSelect.setOnClickListener(v -> {
-          //  EventBus.getDefault().post(new TypeServiceSelected(nameService, descService, price));
-            dismiss();
+        btnSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                selectedTypeService.clear();
+//                typeServiceChosessAdapter.notifyDataSetChanged();
 
-            for (int i = 0; i < selectedTypeService.size(); i++) {
-                Log.e("TAG", "onClick: "+selectedTypeService.get(i).getMedicalName() );
+                if (selectedTypeService.size() != typeServiceAdapater.typeServiceList.size()){
+                    selectedTypeService.clear();
+                    for (int i = 0; i < typeServiceAdapater.typeServiceList.size(); i++) {
+//                        selectedTypeService.clear();
+                        if (typeServiceAdapater.typeServiceList.get(i).isSelected()) {
+//                            if (selectedTypeService.get(i).getMedicalId() == typeServiceAdapater.typeServiceList.get(i).getMedicalId()){
+//                                selectedTypeService.clear();
+//                            }
+//                            selectedTypeService.clear();
+//                            selectedTypeService.remove(typeServiceAdapater.typeServiceList.get(i));
+                            selectedTypeService.add(typeServiceAdapater.typeServiceList.get(i));
+//                            selectedTypeService.add(selectedTypeService.get(i));
+//                            selectedTypeService.clear();
+                        }
+                        else {
+//                            selectedTypeService.clear();
+                            selectedTypeService.remove(typeServiceAdapater.typeServiceList.get(i));
+//                            selectedTypeService.add(typeServiceAdapater.typeServiceList.get(i));
+                        }
+                    }
+
+//                    selectedTypeService.clear();
+                }
+
+//                for (int i = 0; i < typeServiceAdapater.typeServiceList.size(); i++) {
+//                    if (typeServiceAdapater.typeServiceList.get(i).isSelected()) {
+//                        selectedTypeService.add(typeServiceAdapater.typeServiceList.get(i));
+////                        typeServiceAdapater.typeServiceList.get(i).setSelected(true);
+//                    }
+//                }
+//                selectedTypeService.clear();
+                Log.e("22 nov 1", String.valueOf(selectedTypeService.size()));
+                onListSelected.onListSelected(selectedTypeService);
+                category = DataManager.getInstance().getCartId();
+//                selectedTypeService.clear();
+                Log.e("22 nov 2", String.valueOf(selectedTypeService.size()));
+                dismiss();
+//                selectedTypeService.clear();
+
             }
-
         });
+
         typeServiceAdapater.OnClickSelectedItem(new TypeServiceAdapater.OnItemCLickTypeService() {
             @Override
             public void onItemClick(TypeService.ItemsEntity item) {
-                if (item.isSelected()){
-                    selectedTypeService.add(item);
-                }else {
-                    selectedTypeService.remove(item);
+
+                //buat kondisi disini biar ngga double
+
+                if (item.isSelected()) {
+//                    if (selectedTypeService.size() != 0){
+//                        selectedTypeService.clear();
+//                    }
+                    for (int i = 0; i < typeServiceAdapater.typeServiceList.size(); i++) {
+                        if (typeServiceAdapater.typeServiceList.get(i).isSelected()) {
+                    selectedTypeService.remove(typeServiceAdapater.typeServiceList.get(i));
+                    selectedTypeService.add(typeServiceAdapater.typeServiceList.get(i));
+//                    onListSelected.onListSelected(selectedTypeService);
+                    Log.e("cek isi after add", String.valueOf(selectedTypeService.size()));
+                        }
+
+//                    if (!typeServiceAdapater.typeServiceList.get(i).isSelected())  {
+//                        selectedTypeService.remove(typeServiceAdapater.typeServiceList.get(i));
+//                        Log.e("cek isi after remove", String.valueOf(selectedTypeService.size()));
+//                    }
+
+                    }
+                } else {
+                    for (int i = 0; i < typeServiceAdapater.typeServiceList.size(); i++) {
+                        if (!typeServiceAdapater.typeServiceList.get(i).isSelected()) {
+                    selectedTypeService.remove(typeServiceAdapater.typeServiceList.get(i));
+//                    selectedTypeService.clear();
+//                    selectedTypeService.add(item);
+//                    onListSelected.onListSelected(selectedTypeService);
+                    Log.e("cek isi after remove", String.valueOf(selectedTypeService.size()));
+                        }
+                    }
+////                    selectedTypeService.clear();
                 }
             }
         });
+
+        categoryServiceAdapter.onCart = new CategoryServiceAdapter.OnCart() {
+            @Override
+            public void onCart(String cart) {
+                category = cart;
+                loadTypeService();
+            }
+        };
 
 //        rvTypeService.setOnTouchListener(new View.OnTouchListener() {
 //            @SuppressLint("ClickableViewAccessibility")
@@ -246,7 +400,7 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
                     if (response.code() == 200) {
 //                        categoryServiceAdapter.variant = 0;
                         categoryServiceAdapter.setData(data.getData().getItems());
-//                        DataManager.getInstance().setCustomerId(data.getData().getItems().get(0).getProductId());
+//                        DataManager.getInstance().setCartId(String.valueOf(data.getData().getItems().get(0).getCategoryId()));
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(response);
@@ -265,6 +419,8 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
     }
 
     public void loadTypeService() {
+//        category = DataManager.getInstance().getCartId();
+        Log.e("TAG", "loadTypeService: " + category);
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
         Call<TypeService> call = apiService.getTypeService(auth, limit, category);
@@ -274,21 +430,31 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
                 if (response.isSuccessful()) {
                     TypeService data = response.body();
                     if (response.code() == 200) {
-                        typeServiceAdapater.typeService = -1;
-                        try {
-                            typeServiceAdapater.categoryService = Integer.parseInt(category);
-                        } catch (NumberFormatException e) {
 
+                        typeServiceAdapater.setData(data.getData().getItems());
+
+                        Log.e("cek size select", String.valueOf(selectedTypeService.size()));
+                        for (int i = 0; i < selectedTypeService.size(); i++) {
+                            for (int i1 = 0; i1 < data.getData().getItems().size(); i1++) {
+                                if (selectedTypeService.get(i).getMedicalId() == typeServiceAdapater.typeServiceList.get(i1).getMedicalId()) {
+                                    typeServiceAdapater.typeServiceList.get(i1).setSelected(true);
+                                    Log.e("TAG", "onResponse: " + String.valueOf(selectedTypeService.get(i).getMedicalId()));
+//                                    selectedTypeService.clear();
+//                                    typeServiceChosessAdapter.notifyDataSetChanged();
+                                }
+                            }
+
+//                            Log.e("22 november", "onResponse: select " + typeServiceAdapater.typeServiceList.get(i).isSelected() );
+//                            if (typeServiceAdapater.typeServiceList.get(i).isSelected()){
+//                                typeServiceAdapater.typeServiceList.get(i).setSelected(true);
+//                            }
                         }
 
-                        if(category.equals("")){
+//                        typeServiceAdapater.notifyDataSetChanged();
+//                        selectedTypeService.clear();
+//                        category = "";
+//                        DataManager.getInstance().setCartId("");
 
-                        }else{
-                            typeServiceAdapater.setData(data.getData().getItems());
-                        }
-
-
-//                        DataManager.getInstance().setCustomerId(data.getData().getItems().get(0).getProductId());
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(response);
@@ -306,30 +472,30 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
         });
     }
 
-    @Subscribe
-    public void onServiceSelect(ServiceSelected serviceSelected) {
-        category = serviceSelected.categoryId;
-//        onClickCart();
-        loadTypeService();
-    }
+//    @Subscribe
+//    public void onServiceSelect(ServiceSelected serviceSelected) {
+//        category = serviceSelected.categoryId;
+////        onClickCart();
+//        loadTypeService();
+//    }
 
-    @Subscribe
-    public void onBtnSelect(TypeServiceSelected typeServiceSelected) {
-        nameService = typeServiceSelected.serviceName;
-        descService = typeServiceSelected.descService;
-        price = typeServiceSelected.price;
-    }
+//    @Subscribe
+//    public void onBtnSelect(TypeServiceSelected typeServiceSelected) {
+//        nameService = typeServiceSelected.serviceName;
+//        descService = typeServiceSelected.descService;
+//        price = typeServiceSelected.price;
+//    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        EventBus.getDefault().register(this);
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        EventBus.getDefault().unregister(this);
+//    }
 
 }

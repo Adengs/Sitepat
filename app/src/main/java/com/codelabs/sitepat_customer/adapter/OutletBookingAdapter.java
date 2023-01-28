@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 
 public class OutletBookingAdapter extends RecyclerView.Adapter<OutletBookingAdapter.viewHolder> {
     private final Context mContext;
-    private List<Outlet.ItemsOutlet> outletList;
+    private List<Outlet.ItemsEntity> outletList;
     private int click = -1;
     private String close = "";
     private int clickPosition = -1;
@@ -50,10 +50,10 @@ public class OutletBookingAdapter extends RecyclerView.Adapter<OutletBookingAdap
     @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(@NonNull OutletBookingAdapter.viewHolder holder, int position) {
-        String site = String.valueOf(outletList.get(position).getSiteId());
+        String site = String.valueOf(outletList.get(position).getSiteid());
 
         if (DataManager.getInstance().getPositionLocation() == -1){
-            holder.backgroundClick.setBackgroundResource(R.color.white);
+            holder.containerOutlet.setBackgroundResource(R.color.white);
         }else{
             click = DataManager.getInstance().getPositionLocation();
             String siteSph = DataManager.getInstance().getSiteId();
@@ -66,21 +66,21 @@ public class OutletBookingAdapter extends RecyclerView.Adapter<OutletBookingAdap
         if (position == 0) {
             EventBus.getDefault().post(outletList.get(position));
         }
-        if (outletList.get(position).getSiteImage().equals("")) {
+        if (outletList.get(position).getSiteimage().equals("")) {
             holder.ivOutlet.setImageResource(R.drawable.background_outlet_status);
         } else {
             Picasso.get()
-                    .load(outletList.get(position).getSiteImage())
+                    .load(outletList.get(position).getSiteimage())
                     .fit().centerCrop()
                     .placeholder(R.drawable.background_outlet_status)
                     .error(R.drawable.background_outlet_status)
                     .into(holder.ivOutlet);
         }
 
-        holder.tvOutletName.setText(outletList.get(position).getSiteName());
-        holder.tvAddressOutlet.setText(outletList.get(position).getSiteAddress());
+        holder.tvOutletName.setText(outletList.get(position).getSitename());
+        holder.tvAddressOutlet.setText(outletList.get(position).getSiteaddress());
         holder.tvDistanceOutlet.setText(outletList.get(position).getDistance());
-        if (outletList.get(position).getIsOpen() == 1) {
+        if (outletList.get(position).getIsopen() == 1) {
             holder.tvStatusOutlet.setVisibility(View.VISIBLE);
             holder.tvStatusOutletClose.setVisibility(View.GONE);
         } else {
@@ -91,7 +91,7 @@ public class OutletBookingAdapter extends RecyclerView.Adapter<OutletBookingAdap
         holder.containerOutlet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (outletList.get(position).getIsOpen() ==1){
+                if (outletList.get(position).getIsopen() ==1){
                     close = "";
                 }
                 else {
@@ -106,14 +106,15 @@ public class OutletBookingAdapter extends RecyclerView.Adapter<OutletBookingAdap
                 DataManager.getInstance().setSiteId(site);
                 DataManager.getInstance().setPositionLocation(-1);
                 DataManager.getInstance().setClose(close);
+                DataManager.getInstance().setOutlet(outletList.get(position).getSitename());
                 notifyDataSetChanged();
             }
         });
 
         if (click == position){
-            holder.backgroundClick.setBackgroundResource(R.color.orange_background);
-            if (outletList.get(position).getIsOpen() == 0){
-                holder.backgroundClick.setBackgroundResource(R.color.white);
+            holder.containerOutlet.setBackgroundResource(R.color.orange_background);
+            if (outletList.get(position).getIsopen() == 0){
+                holder.containerOutlet.setBackgroundResource(R.color.white);
             }
 
 //            if (outletList.get(position).getIsOpen() ==1){
@@ -127,7 +128,7 @@ public class OutletBookingAdapter extends RecyclerView.Adapter<OutletBookingAdap
 //                close = "";
 //            }
         }else {
-            holder.backgroundClick.setBackgroundResource(R.color.white);
+            holder.containerOutlet.setBackgroundResource(R.color.white);
         }
 
     }
@@ -137,7 +138,7 @@ public class OutletBookingAdapter extends RecyclerView.Adapter<OutletBookingAdap
         return (outletList != null ? outletList.size() : 0);
     }
 
-    public void setData(List<Outlet.ItemsOutlet> data) {
+    public void setData(List<Outlet.ItemsEntity> data) {
         this.outletList = data;
         notifyDataSetChanged();
     }
@@ -164,9 +165,9 @@ public class OutletBookingAdapter extends RecyclerView.Adapter<OutletBookingAdap
         @SuppressLint("NonConstantResourceId")
         @BindView(R.id.tv_status_outlet_close)
         AppCompatTextView tvStatusOutletClose;
-        @SuppressLint("NonConstantResourceId")
-        @BindView(R.id.lay_rv)
-        RelativeLayout backgroundClick;
+//        @SuppressLint("NonConstantResourceId")
+//        @BindView(R.id.lay_rv)
+//        RelativeLayout backgroundClick;
 
 
         public viewHolder(@NonNull View itemView) {

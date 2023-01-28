@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
@@ -181,7 +182,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 hideDialogProgress();
                 if (data.isSuccessful()) {
                     if (data.code() == 200) {
-                        showToast("SUCCESS");
+//                        showToast("SUCCESS");
+                        Toast.makeText(RegisterActivity.this, "SUCCESS", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

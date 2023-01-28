@@ -159,11 +159,20 @@ public class OutletDetailActivity extends BaseActivity implements View.OnClickLi
 
 
     private void dataOutletDetail() {
-        if (responseData.getSiteImage().equals("")) {
+//        if (responseData.getSiteImage().equals("")) {
+//            ivOutlet.setImageResource(R.drawable.background_outlet_status);
+//        } else {
+//            Picasso.get()
+//                    .load(responseData.getSiteImage())
+//                    .fit().centerCrop()
+//                    .into(ivOutlet);
+//        }
+
+        if (DataManager.getInstance().getImageOutlet().equals("")) {
             ivOutlet.setImageResource(R.drawable.background_outlet_status);
         } else {
             Picasso.get()
-                    .load(responseData.getSiteImage())
+                    .load(DataManager.getInstance().getImageOutlet())
                     .fit().centerCrop()
                     .into(ivOutlet);
         }

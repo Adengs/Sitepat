@@ -131,13 +131,15 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
     private BottomSheetBehavior mBottomSheetBehavior;
     OutletAdapter mAdapter;
     private String keyword = "";
-    private List<Outlet.ItemsOutlet> responseOutlet;
+    private List<Outlet.ItemsEntity> responseOutlet;
 
     private String Latitude;
     private String Longitude;
     private double lat;
     private double longitude;
-    private double valueLatitude, valueLongitude;
+    //    private double valueLatitude, valueLongitude;
+    private String valueLatitude = "";
+    private String valueLongitude = "";
 
 
     @Override
@@ -241,13 +243,14 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
                 if (response.isSuccessful()) {
                     Outlet data = response.body();
                     if (response.code() == 200) {
-                        mAdapter.setData(data.getData().getItemsOutlet());
-                        responseOutlet = data.getData().getItemsOutlet();
+                        mAdapter.setData(data.getData().getItems());
+                        responseOutlet = data.getData().getItems();
+//                        DataManager.getInstance().setImageOutlet(data.getData().getItemsOutlet().get(0).getSiteImage());
 
                         for (int i = 0; i < responseOutlet.size(); i++) {
-                            Latitude = responseOutlet.get(i).getSiteLatitude();
-                            Longitude = responseOutlet.get(i).getSiteLongitude();
-                            String name = responseOutlet.get(i).getSiteName();
+                            Latitude = responseOutlet.get(i).getSitelatitude();
+                            Longitude = responseOutlet.get(i).getSitelongitude();
+                            String name = responseOutlet.get(i).getSitename();
                             lat = Double.parseDouble(Latitude.replace(",", "."));
                             longitude = Double.parseDouble(Longitude.replace(",", "."));
                             LatLng cordinate = new LatLng(lat, longitude);
@@ -256,7 +259,7 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
 
                             Marker mk = mMap.addMarker(new MarkerOptions().position(new LatLng(lat, longitude)).title(name));
                             mk.setIcon(icon);
-                            mk.setTag(responseOutlet.get(i).getSiteId());
+                            mk.setTag(responseOutlet.get(i).getSiteid());
 //                            mk.setSnippet(responseOutlet.get(i).getSitePhone());
                             DataManager.getInstance().setLatitudeOutlet(String.valueOf(valueLatitude));
                             DataManager.getInstance().setLongitudeOutlet(String.valueOf(valueLongitude));
@@ -293,7 +296,7 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Subscribe
-    public void onHighlightOutlet(Outlet.ItemsOutlet data) {
+    public void onHighlightOutlet(Outlet.ItemsEntity data) {
         if (getIntent().getBooleanExtra("IS_HIGHLIGHT_OUTLET", false)) {
             bottomSheet.fullScroll(View.FOCUS_UP);
             final Handler handler = new Handler(Looper.getMainLooper());
@@ -318,7 +321,7 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
                                 public void onDismiss() {
                                     Intent intent = new Intent(OutletMapActivity.this, OutletDetailActivity.class);
                                     intent.putExtra("IS_HIGHLIGHT_OUTLET", true);
-                                    intent.putExtra("outlet_id", data.getSiteId());
+                                    intent.putExtra("outlet_id", data.getSiteid());
                                     startActivity(intent);
                                     finish();
                                 }
@@ -517,8 +520,8 @@ public class OutletMapActivity extends BaseActivity implements View.OnClickListe
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
-        valueLatitude = latLng.latitude;
-        valueLongitude = latLng.longitude;
+        valueLatitude = String.valueOf(latLng.latitude);
+        valueLongitude = String.valueOf(latLng.longitude);
         loadOutlet();
     }
 

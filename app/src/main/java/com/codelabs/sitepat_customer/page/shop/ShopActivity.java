@@ -3,21 +3,29 @@ package com.codelabs.sitepat_customer.page.shop;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.akiniyalocts.pagingrecycler.PagingDelegate;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.adapter.NewProductAdapter;
 import com.codelabs.sitepat_customer.adapter.ProductAdapter;
@@ -29,8 +37,10 @@ import com.codelabs.sitepat_customer.connection.DataManager;
 import com.codelabs.sitepat_customer.connection.ErrorUtils;
 import com.codelabs.sitepat_customer.connection.RetrofitInterface;
 import com.codelabs.sitepat_customer.helper.BaseActivity;
+import com.codelabs.sitepat_customer.helper.Utils;
 import com.codelabs.sitepat_customer.utils.RecentUtils;
 import com.codelabs.sitepat_customer.viewmodel.BrandSelected;
+import com.codelabs.sitepat_customer.viewmodel.CartProduct;
 import com.codelabs.sitepat_customer.viewmodel.CartSelected;
 import com.codelabs.sitepat_customer.viewmodel.NewProduct;
 import com.codelabs.sitepat_customer.viewmodel.Product;
@@ -40,9 +50,21 @@ import com.codelabs.sitepat_customer.viewmodel.TypeFilterSelected;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -76,14 +98,35 @@ public class ShopActivity extends BaseActivity {
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.rv_type_product)
     RecyclerView rvTypeProduct;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.card_cart)
+    CardView cardCart;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.text_count_cart)
+    TextView tvCountCart;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.scrol_view)
+    NestedScrollView scrollView;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.progress_view)
+    ProgressBar progressBar;
 
 
+    private static final int MAX_ITEM = 25;
+//    private int page = 1;
+//    private int totalPage = 1;
+//    private int limit = 15;
+    RecyclerView recyclerView;
+    boolean isLoading = false;
+//    Set<Product.ItemsEntity> rowArrayList = new HashSet<>();
+    private ArrayList<Product.ItemsEntity> rowsArrayList = new ArrayList<>();
+    private HashMap<String, RequestBody> list = new HashMap<>();
 
     NewProductAdapter newProductAdapter;
     ProductAdapter productAdapter;
     TypeProductAdapter typeProductAdapter;
     private String search = "";
-    private Integer limit = 1000;
+    private Integer limit = 0;
     private Integer limitNP = 20;
     private String minPrice = "";
     private String maxPrice = "";
@@ -95,6 +138,8 @@ public class ShopActivity extends BaseActivity {
 //    private String sortAZ = "";
 //    private String sortPrice = "";
 
+    private int page = 1, totalPage = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +148,7 @@ public class ShopActivity extends BaseActivity {
         initSetup();
         initView();
         fetchData();
+//        initScrollListener();
     }
 
     @Override
@@ -110,10 +156,12 @@ public class ShopActivity extends BaseActivity {
         super.onResume();
         initView();
         fetchData();
+        getCountCart();
+//        initScrollListener();
     }
 
     private void initView() {
-        newProductAdapter = new NewProductAdapter(getApplicationContext());
+        newProductAdapter = new NewProductAdapter(ShopActivity.this);
         rvNewProduct.setAdapter(newProductAdapter);
         rvNewProduct.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
@@ -121,7 +169,7 @@ public class ShopActivity extends BaseActivity {
             rvNewProduct.addItemDecoration(new RecentUtils.PaddingItemDecoration(40));
         }
 
-        typeProductAdapter = new TypeProductAdapter(getApplicationContext());
+        typeProductAdapter = new TypeProductAdapter(ShopActivity.this);
         rvTypeProduct.setAdapter(typeProductAdapter);
         rvTypeProduct.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
@@ -129,9 +177,50 @@ public class ShopActivity extends BaseActivity {
             rvTypeProduct.addItemDecoration(new RecentUtils.PaddingItemDecoration(30));
         }
 
-        productAdapter = new ProductAdapter(getApplicationContext());
+//        productAdapter = new ProductAdapter(ShopActivity.this, rowsArrayList);
+        productAdapter = new ProductAdapter(ShopActivity.this);
+
+//        PagingDelegate pagingDelegate = new PagingDelegate.Builder(productAdapter)
+//                .attachTo(rvProduct)
+//                .listenWith(this)
+//                .build();
+
         rvProduct.setAdapter(productAdapter);
         rvProduct.setLayoutManager(new GridLayoutManager(this, 2));
+
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) rvProduct.getLayoutManager();
+//                int visibleItemCount = linearLayoutManager.getChildCount();
+//                int pastVisibleItem = linearLayoutManager.findLastCompletelyVisibleItemPosition();
+//                int total = productAdapter.getItemCount();
+//
+//                if (!isLoading && page < totalPage) {
+////                    if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == rowsArrayList.size() - 1) {
+//                    if (visibleItemCount + pastVisibleItem >= total) {
+//                        //bottom of list!
+//                        page++;
+//                        progressBar.setVisibility(View.VISIBLE);
+//                        loadProduct();
+//                        isLoading = true;
+//                    }
+//                }
+
+
+                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()){
+                    page++;
+                    progressBar.setVisibility(View.VISIBLE);
+                    if (page > totalPage){
+                        Toast.makeText(context, "That's all the data..", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                    }else{
+                        loadProduct();
+                        Log.e("TAG", "onScrollChange: " + totalPage );
+                    }
+                }
+            }
+        });
     }
 
     private void fetchData(){
@@ -139,6 +228,8 @@ public class ShopActivity extends BaseActivity {
         loadNewProduct();
         loadType();
         loadProduct();
+        getCountCart();
+//        initScrollListener();
     }
 
     private void initSetup() {
@@ -166,9 +257,9 @@ public class ShopActivity extends BaseActivity {
         ivCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(ShopActivity.this, CartActivity.class);
-//                startActivity(intent);
-                showToast("On Develop :(");
+                Intent intent = new Intent(ShopActivity.this, CartActivity.class);
+                startActivity(intent);
+                getCartProductId();
             }
         });
         tvSeeMore.setOnClickListener(new View.OnClickListener() {
@@ -181,6 +272,7 @@ public class ShopActivity extends BaseActivity {
     }
 
     public void loadNewProduct() {
+//        showDialogProgress("Getting New Product");
         String lat = DataManager.getInstance().getLatitude();
         String lon = DataManager.getInstance().getLongitude();
 
@@ -190,6 +282,7 @@ public class ShopActivity extends BaseActivity {
         call.enqueue(new Callback<NewProduct>() {
             @Override
             public void onResponse(@NonNull Call<NewProduct> call, @NonNull Response<NewProduct> response) {
+//                hideDialogProgress();
                 if (response.isSuccessful()) {
                     NewProduct data = response.body();
                     if (response.code() == 200) {
@@ -205,6 +298,7 @@ public class ShopActivity extends BaseActivity {
             @Override
             public void onFailure(@NonNull Call<NewProduct> call,@NonNull Throwable t) {
                 if (!call.isCanceled()) {
+//                    hideDialogProgress();
                     t.printStackTrace();
                 }
             }
@@ -246,6 +340,8 @@ public class ShopActivity extends BaseActivity {
 //        }else{
 //            type = typee;
 //        }
+
+//        showDialogProgress("Getting Product");
         String min = DataManager.getInstance().getMinPrice();
         String max = DataManager.getInstance().getMaxPrice();
 
@@ -257,15 +353,59 @@ public class ShopActivity extends BaseActivity {
 
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<Product> call = apiService.getProduct(auth, limit, active, search, filterBrand, type, minPrice, maxPrice, sort, lat, lon);
+        Call<Product> call = apiService.getProduct(auth, limit, active, search, filterBrand, type, minPrice, maxPrice, sort, lat, lon, page);
         call.enqueue(new Callback<Product>() {
             @Override
             public void onResponse(@NonNull Call<Product> call, @NonNull Response<Product> response) {
+//                hideDialogProgress();
                 if (response.isSuccessful()) {
                     Product data = response.body();
                     if (response.code() == 200) {
-                        productAdapter.setData(data.getData().getItems());
-//                        DataManager.getInstance().setCustomerId(data.getData().getItems().get(0).getProductId());
+                        if (page == 1){
+                            totalPage = data.getData().getLastPage();
+                            rowsArrayList.clear();
+                            rowsArrayList.addAll(data.getData().getItems());
+                            productAdapter.setData(rowsArrayList);
+                            progressBar.setVisibility(View.GONE);
+                            isLoading = false;
+                        }else {
+                            totalPage = data.getData().getLastPage();
+                            rowsArrayList.addAll(data.getData().getItems());
+//                            ArrayList<Product.ItemsEntity> rowsArrayList = new ArrayList<>(rowArrayList);
+                            productAdapter.setData(rowsArrayList);
+                            progressBar.setVisibility(View.GONE);
+                            isLoading = false;
+
+                            Log.e("TAG", "list size: " + rowsArrayList.size());
+                        }
+
+
+
+
+
+//                        int i = 0;
+//                        while (i < 10){
+//                            rowsArrayList.add(data.getData().getItems().get(i));
+////                            data.getData().getItems().size();
+////                            productAdapter.setData(data.getData().getItems());
+//                            i++;
+//
+//                            productAdapter.setData(rowsArrayList);
+//                            Log.e("TAG", "cek output 1: " + rowsArrayList.size() );
+//                        }
+//                        initScrollListener();
+
+
+
+//                        progressBar.setVisibility(View.GONE);
+//                        try {
+//                            JSONArray jsonArray = new JSONArray(response.body());
+//                            parseResult(jsonArray);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        Log.e("TAG", "25 Januari: " + rowsArrayList.size() );
+//                        productAdapter.setData(rowsArrayList);
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(response);
@@ -276,11 +416,90 @@ public class ShopActivity extends BaseActivity {
             @Override
             public void onFailure(@NonNull Call<Product> call,@NonNull Throwable t) {
                 if (!call.isCanceled()) {
+//                    hideDialogProgress();
                     t.printStackTrace();
                 }
             }
         });
     }
+
+//    private void parseResult(JSONArray jsonArray) {
+//        for (int i = 0; i < jsonArray.length(); i++) {
+//            try {
+//                JSONObject object = jsonArray.getJSONObject(i);
+//                Product data = new Product();
+//                data.getData().getItems().get(i).setProductPrice(Integer.parseInt(object.getString("product_price")));
+//                data.getData().getItems().get(i).setProductImage(object.getString("product_image"));
+//                data.getData().getItems().get(i).setProductName(object.getString("product_name"));
+//                data.getData().getItems().get(i).getCategory().setCategoryName(object.getString("category_name"));
+//
+//                rowsArrayList.add(data.getData().getItems().get(i));
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+////            productAdapter = new ProductAdapter(ShopActivity.this, rowsArrayList);
+////            rvProduct.setAdapter(productAdapter);
+//        }
+//    }
+//
+//    private void initScrollListener() {
+//        rvProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//            }
+//
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//
+//                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//
+//                if (!isLoading) {
+//                    if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == rowsArrayList.size() - 1) {
+//                        //bottom of list!
+//                        loadMore();
+//                        isLoading = true;
+//                    }
+//                }
+//            }
+//        });
+//
+//
+//    }
+//
+//    private void loadMore() {
+//        rowsArrayList.add(null);
+//        productAdapter.notifyItemInserted(rowsArrayList.size() - 1);
+//
+//
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                rowsArrayList.remove(rowsArrayList.size() - 1);
+//                int scrollPosition = rowsArrayList.size();
+//                productAdapter.notifyItemRemoved(scrollPosition);
+//                int currentSize = scrollPosition;
+//                int nextLimit = currentSize + 5;
+//
+//                while (currentSize - 1 < nextLimit) {
+//                    rowsArrayList.add(productAdapter.productList.get(currentSize));
+////                    rowsArrayList.add("Item " + currentSize);
+//                    currentSize++;
+//
+//                    productAdapter.setData(rowsArrayList);
+//                    Log.e("TAG", "cek output 2: " + rowsArrayList.size() );
+//                }
+//
+//                productAdapter.notifyDataSetChanged();
+//                isLoading = false;
+//            }
+//        }, 2000);
+//
+//
+//    }
 
     public void searchData(){
         etSearch.addTextChangedListener(new TextWatcher() {
@@ -311,6 +530,92 @@ public class ShopActivity extends BaseActivity {
                     return true;
                 }
                 return false;
+            }
+        });
+    }
+
+    private void getCartProductId(){
+        String lat = DataManager.getInstance().getLatitude();
+        String lon = DataManager.getInstance().getLongitude();
+        String custId = String.valueOf(DataManager.getInstance().getCustomerId());
+        String custName = DataManager.getInstance().getName();
+        int cleanCart = 0;
+
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+
+        list.put("customer_id", Utils.INSTANCE.createRequestBody(custId));
+        list.put("customer_name", Utils.INSTANCE.createRequestBody(custName));
+        list.put("clean_cart", Utils.INSTANCE.createRequestBody(String.valueOf(cleanCart)));
+
+        Call<CartProduct> call = apiService.createCartProduct(auth, lat, lon, list);
+        call.enqueue(new Callback<CartProduct>() {
+            @Override
+            public void onResponse(@NonNull Call<CartProduct> call, @NonNull Response<CartProduct> response) {
+                hideDialogProgress();
+                if (response.isSuccessful()) {
+                    CartProduct data = response.body();
+                    if (response.code() == 200) {
+                        DataManager.getInstance().setCartProduct(data.getData().getCartProductId());
+//                        responseData = data.getData();
+//                        dataNewProductDetail();
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(response);
+                    showToast(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CartProduct> call, @NonNull Throwable t) {
+                if (!call.isCanceled()) {
+                    hideDialogProgress();
+                }
+            }
+        });
+    }
+
+    private void getCountCart(){
+//        String lat = DataManager.getInstance().getLatitude();
+//        String lon = DataManager.getInstance().getLongitude();
+
+        String lat = "-6.2611493";
+        String lon = "106.8776033";
+        String custId = String.valueOf(DataManager.getInstance().getCustomerId());
+        String custName = DataManager.getInstance().getName();
+        int cleanCart = 0;
+
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+
+        list.put("customer_id", Utils.INSTANCE.createRequestBody(custId));
+        list.put("customer_name", Utils.INSTANCE.createRequestBody(custName));
+        list.put("clean_cart", Utils.INSTANCE.createRequestBody(String.valueOf(cleanCart)));
+
+        Call<CartProduct> call = apiService.createCartProduct(auth, lat, lon, list);
+        call.enqueue(new Callback<CartProduct>() {
+            @Override
+            public void onResponse(@NonNull Call<CartProduct> call, @NonNull Response<CartProduct> response) {
+                if (response.isSuccessful()) {
+                    CartProduct data = response.body();
+                    if (response.code() == 200) {
+                        if (data.getData().getItems().size() == 0){
+                            cardCart.setVisibility(View.GONE);
+                        }else{
+                            cardCart.setVisibility(View.VISIBLE);
+                            tvCountCart.setText(String.valueOf(data.getData().getItems().size()));
+                        }
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(response);
+                    showToast(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CartProduct> call, @NonNull Throwable t) {
+                if (!call.isCanceled()) {
+                }
             }
         });
     }
@@ -350,4 +655,25 @@ public class ShopActivity extends BaseActivity {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+
+//    @Override
+//    public void onPage(int i) {
+//        progressBar.setVisibility(View.VISIBLE);
+//        if (i < MAX_ITEM){
+//            new Handler(Looper.myLooper())
+//                    .postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            int lastSize = productAdapter.getPagingItemCount();
+//                            progressBar.setVisibility(View.GONE);
+//                            productAdapter.addNewItem(5);
+//                        }
+//                    }, 1500);
+//        }
+//    }
+//
+//    @Override
+//    public void onDonePaging() {
+//
+//    }
 }

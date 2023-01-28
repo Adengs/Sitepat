@@ -63,6 +63,13 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.vi
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DetailProduct.class);
                 intent.putExtra("product_id", newProductList.get(position).getProductId());
+                intent.putExtra("product_name", newProductList.get(position).getProductName());
+                intent.putExtra("product_sku", newProductList.get(position).getSku());
+                intent.putExtra("tax_rate", newProductList.get(position).getTaxRate());
+                intent.putExtra("category_id", newProductList.get(position).getCategoryId());
+                intent.putExtra("category_name", newProductList.get(position).getCategory().getCategoryName());
+                intent.putExtra("product_price", newProductList.get(position).getProductPrice());
+                intent.putExtra("product_qty", newProductList.get(position).getProductQty());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }

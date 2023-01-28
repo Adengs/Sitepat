@@ -92,6 +92,7 @@ class AccountChangePasswordActivity : BaseActivity() {
                         DataManager.getInstance().doLogout()
                         val intent = Intent(this@AccountChangePasswordActivity, LoginActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
                         finish()
                     }
                 } else {

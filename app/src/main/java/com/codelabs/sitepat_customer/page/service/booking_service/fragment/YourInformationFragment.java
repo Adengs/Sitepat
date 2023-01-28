@@ -66,6 +66,12 @@ public class YourInformationFragment extends Fragment {
 
     private String keyword = "";
 
+    public BookNow bookNow;
+
+    public interface BookNow{
+        void bookNow();
+    }
+
     public YourInformationFragment() {
         // Required empty public constructor
     }
@@ -97,6 +103,9 @@ public class YourInformationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 hideKeyboard();
+
+                bookNow.bookNow();
+
 //                if (etFullname.getText().toString().isEmpty()){
 //                    etFullname.setError("Column cannot be empty");
 //                    etFullname.requestFocus();
@@ -118,7 +127,7 @@ public class YourInformationFragment extends Fragment {
 //                    return;
 //                }
 //                else{
-                    EventBus.getDefault().post(new BookNow());
+//                    EventBus.getDefault().post(new BookNow());
 
 //                }
             }
@@ -155,6 +164,16 @@ public class YourInformationFragment extends Fragment {
 
             }
         });
+
+//        if (tvOrange.getVisibility() == View.VISIBLE){
+            tvOrange.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(requireContext(), "Promo not available now", Toast.LENGTH_SHORT).show();
+                    hideKeyboard();
+                }
+            });
+//        }
 
     }
 

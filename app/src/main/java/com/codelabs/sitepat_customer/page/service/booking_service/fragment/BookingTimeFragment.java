@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,6 +122,7 @@ public class BookingTimeFragment extends Fragment {
 
     private void showDateDialog(){
         Calendar calendar = Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
 
         DatePickerDialog.OnDateSetListener dataSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -131,15 +133,22 @@ public class BookingTimeFragment extends Fragment {
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 etDate.setText(simpleDateFormat.format(calendar.getTime()));
-                EventBus.getDefault().post(new DateSelected(etDate.getText().toString()));
+                DataManager.getInstance().setChooseDate(simpleDateFormat.format(calendar.getTime()).replace("-",""));
+                DataManager.getInstance().setNowDate(simpleDateFormat.format(c.getTime()).replace("-",""));
+//                EventBus.getDefault().post(new DateSelected(etDate.getText().toString()));
             }
         };
 
-        new DatePickerDialog(requireActivity(), dataSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+        DatePickerDialog dpd = new DatePickerDialog(requireActivity(), dataSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        dpd.getDatePicker().setMinDate(System.currentTimeMillis());
+        dpd.show();
     }
 
     private void showTimeDialog(){
         Calendar calendar = Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
+        Long date = Long.parseLong(DataManager.getInstance().getChooseDate());
+        Long dateNow = Long.parseLong(DataManager.getInstance().getNowDate());
 
         TimePickerDialog.OnTimeSetListener timeSetListener =  new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -148,11 +157,33 @@ public class BookingTimeFragment extends Fragment {
                 calendar.set(Calendar.MINUTE, minute);
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+                Log.e("calendar", "onTimeSet: " + simpleDateFormat.format(calendar.getTime()));
+                Log.e("c", "onTimeSet: " + simpleDateFormat.format(c.getTime()));
+//                if (calendar.getTimeInMillis() >= c.getTimeInMillis() && date >= dateNow) {
+//                    //it's after current
+//                    int hour = hourOfDay % 12;
+////                    etTime.setText(String.format("%02d:%02d %s", hour == 0 ? 12 : hour,
+////                            minute, hourOfDay < 12 ? "am" : "pm"));
+//                    etTime.setText(simpleDateFormat.format(calendar.getTime()));
+////                    EventBus.getDefault().post(new TimeSelected(etTime.getText().toString()));
+//                }
+//                if (date == dateNow){
+//                    Toast.makeText(requireContext(), "Cannot select past time", Toast.LENGTH_LONG).show();
+//                    etTime.setText("");
+//                }
+//                else {
+//                    //it's before current'
+//                    Toast.makeText(requireContext(), "Cannot select past time", Toast.LENGTH_LONG).show();
+//                    etTime.setText("");
+//                }
                 etTime.setText(simpleDateFormat.format(calendar.getTime()));
                 EventBus.getDefault().post(new TimeSelected(etTime.getText().toString()));
             }
         };
 
-        new TimePickerDialog(requireActivity(), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+        TimePickerDialog tmd = new TimePickerDialog(requireActivity(), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+//        tmd.
+        tmd.show();
     }
+
 }

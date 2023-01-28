@@ -14,13 +14,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_GPS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:name=".connection.AppController"
@@ -32,9 +30,15 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".page.shop.PaymentMethodActivity"
+            android:exported="false"
+            android:theme="@style/Tema2NoActionBar">
+
+        </activity>
+        <activity
             android:name=".page.shop.NewProductActivity"
             android:exported="false"
-            android:theme="@style/TemaNoActionBar"/>
+            android:theme="@style/TemaNoActionBar" />
         <activity
             android:name=".page.shop.PaymentActivity"
             android:exported="false"

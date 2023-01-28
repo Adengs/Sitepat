@@ -9,8 +9,11 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.codelabs.sitepat_customer.R;
+import com.codelabs.sitepat_customer.connection.DataManager;
+import com.codelabs.sitepat_customer.viewmodel.Data;
 import com.codelabs.sitepat_customer.viewmodel.TypeComplaint;
 
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ import java.util.List;
 public class TypeComplaintAdapter extends ArrayAdapter<TypeComplaint.ItemsTypeComplaint> {
 
     private Context mContext;
-    private List<TypeComplaint.ItemsTypeComplaint> mItems;
+    public List<TypeComplaint.ItemsTypeComplaint> mItems;
 
     public TypeComplaintAdapter(Context context, List<TypeComplaint.ItemsTypeComplaint> mItems){
         super(context, 0, mItems);
@@ -40,7 +43,12 @@ public class TypeComplaintAdapter extends ArrayAdapter<TypeComplaint.ItemsTypeCo
     }
 
     private View initView(int position, View convertView, ViewGroup parent) {
+//        AppCompatTextView tvTypeComplaint = (AppCompatTextView) convertView.findViewById(R.id.tv_type_complaint);
+//        TypeComplaint.ItemsTypeComplaint currentItem = getItem(position);
+
         if (convertView == null) {
+//            AppCompatTextView tvTypeComplaint = (AppCompatTextView) convertView.findViewById(R.id.tv_type_complaint);
+//            tvTypeComplaint.setText(R.string.choose_type_complaint);
             convertView = LayoutInflater.from(mContext).inflate(
                     R.layout.item_type_complaint, parent, false
             );
@@ -51,6 +59,18 @@ public class TypeComplaintAdapter extends ArrayAdapter<TypeComplaint.ItemsTypeCo
 
         if (currentItem != null) {
             tvTypeComplaint.setText(currentItem.getName());
+//            tvTypeComplaint.setText(getItem(0).getName());
+//            tvTypeComplaint.setText(R.string.choose_type_complaint);
+//            if (DataManager.getInstance().getSelectD().equals("")){
+//                tvTypeComplaint.setText(getItem(-1).getName());
+//                tvTypeComplaint.setText(R.string.choose_type_complaint);
+//                tvTypeComplaint.setTextColor(mContext.getResources().getColor(R.color.grayFont));
+//                tvTypeComplaint.setTypeface(ResourcesCompat.getFont(mContext, R.font.rajdhani_regular));
+//            }else{
+//                tvTypeComplaint.setText(currentItem.getName());
+//                tvTypeComplaint.setTextColor(mContext.getResources().getColor(R.color.black));
+//                tvTypeComplaint.setTypeface(ResourcesCompat.getFont(mContext, R.font.rajdhani_bold));
+//            }
         }
 
         return convertView;

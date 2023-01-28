@@ -1,6 +1,7 @@
 package com.codelabs.sitepat_customer.page.shop;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +26,9 @@ import com.codelabs.sitepat_customer.connection.DataManager;
 import com.codelabs.sitepat_customer.connection.ErrorUtils;
 import com.codelabs.sitepat_customer.connection.RetrofitInterface;
 import com.codelabs.sitepat_customer.helper.BaseActivity;
+import com.codelabs.sitepat_customer.helper.Utils;
 import com.codelabs.sitepat_customer.viewmodel.BrandSelected;
+import com.codelabs.sitepat_customer.viewmodel.CartProduct;
 import com.codelabs.sitepat_customer.viewmodel.NewProduct;
 import com.codelabs.sitepat_customer.viewmodel.SortSelected;
 import com.codelabs.sitepat_customer.viewmodel.TypeFilterSelected;
@@ -32,8 +36,11 @@ import com.codelabs.sitepat_customer.viewmodel.TypeFilterSelected;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,6 +65,14 @@ public class NewProductActivity extends BaseActivity {
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.rv_product)
     RecyclerView rvProduct;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.card_cart)
+    CardView cardCart;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.text_count_cart)
+    TextView tvCountCart;
+
+    private HashMap<String, RequestBody> list = new HashMap<>();
 
     NewProductAdapter newProductAdapter;
     private String keyword = "";
@@ -79,8 +94,16 @@ public class NewProductActivity extends BaseActivity {
         fetchData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadNewProduct();
+        searchData();
+        getCountCart();
+    }
+
     private void initView() {
-        newProductAdapter = new NewProductAdapter(getApplicationContext());
+        newProductAdapter = new NewProductAdapter(NewProductActivity.this);
         rvProduct.setAdapter(newProductAdapter);
         rvProduct.setLayoutManager(new GridLayoutManager(this, 2));
     }
@@ -88,6 +111,7 @@ public class NewProductActivity extends BaseActivity {
     private void fetchData(){
         loadNewProduct();
         searchData();
+        getCountCart();
     }
 
     private void initSetup() {
@@ -115,9 +139,10 @@ public class NewProductActivity extends BaseActivity {
         ivCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("On Develov :(");
-//                Intent intent = new Intent(NewProductActivity.this, CartActivity.class);
-//                startActivity(intent);
+//                showToast("On Develov :(");
+                Intent intent = new Intent(NewProductActivity.this, CartActivity.class);
+                startActivity(intent);
+                getCartProductId();
             }
         });
     }
@@ -200,6 +225,91 @@ public class NewProductActivity extends BaseActivity {
         });
     }
 
+    private void getCartProductId(){
+        String lat = DataManager.getInstance().getLatitude();
+        String lon = DataManager.getInstance().getLongitude();
+        String custId = String.valueOf(DataManager.getInstance().getCustomerId());
+        String custName = DataManager.getInstance().getName();
+        int cleanCart = 0;
+
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+
+        list.put("customer_id", Utils.INSTANCE.createRequestBody(custId));
+        list.put("customer_name", Utils.INSTANCE.createRequestBody(custName));
+        list.put("clean_cart", Utils.INSTANCE.createRequestBody(String.valueOf(cleanCart)));
+
+        Call<CartProduct> call = apiService.createCartProduct(auth, lat, lon, list);
+        call.enqueue(new Callback<CartProduct>() {
+            @Override
+            public void onResponse(@NonNull Call<CartProduct> call, @NonNull Response<CartProduct> response) {
+                hideDialogProgress();
+                if (response.isSuccessful()) {
+                    CartProduct data = response.body();
+                    if (response.code() == 200) {
+                        DataManager.getInstance().setCartProduct(data.getData().getCartProductId());
+//                        responseData = data.getData();
+//                        dataNewProductDetail();
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(response);
+                    showToast(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CartProduct> call, @NonNull Throwable t) {
+                if (!call.isCanceled()) {
+                    hideDialogProgress();
+                }
+            }
+        });
+    }
+
+    private void getCountCart(){
+//        String lat = DataManager.getInstance().getLatitude();
+//        String lon = DataManager.getInstance().getLongitude();
+
+        String lat = "-6.2611493";
+        String lon = "106.8776033";
+        String custId = String.valueOf(DataManager.getInstance().getCustomerId());
+        String custName = DataManager.getInstance().getName();
+        int cleanCart = 0;
+
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+
+        list.put("customer_id", Utils.INSTANCE.createRequestBody(custId));
+        list.put("customer_name", Utils.INSTANCE.createRequestBody(custName));
+        list.put("clean_cart", Utils.INSTANCE.createRequestBody(String.valueOf(cleanCart)));
+
+        Call<CartProduct> call = apiService.createCartProduct(auth, lat, lon, list);
+        call.enqueue(new Callback<CartProduct>() {
+            @Override
+            public void onResponse(@NonNull Call<CartProduct> call, @NonNull Response<CartProduct> response) {
+                if (response.isSuccessful()) {
+                    CartProduct data = response.body();
+                    if (response.code() == 200) {
+                        if (data.getData().getItems().size() == 0){
+                            cardCart.setVisibility(View.GONE);
+                        }else{
+                            cardCart.setVisibility(View.VISIBLE);
+                            tvCountCart.setText(String.valueOf(data.getData().getItems().size()));
+                        }
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(response);
+                    showToast(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CartProduct> call, @NonNull Throwable t) {
+                if (!call.isCanceled()) {
+                }
+            }
+        });
+    }
 
     @Subscribe
     public void onSort(SortSelected sortSelected){

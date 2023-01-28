@@ -2,6 +2,7 @@ package com.codelabs.sitepat_customer.page.service.booking_service.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,6 +31,8 @@ import com.codelabs.sitepat_customer.connection.AppConstant;
 import com.codelabs.sitepat_customer.connection.DataManager;
 import com.codelabs.sitepat_customer.connection.ErrorUtils;
 import com.codelabs.sitepat_customer.connection.RetrofitInterface;
+import com.codelabs.sitepat_customer.dialog.DialogProgress;
+import com.codelabs.sitepat_customer.helper.BaseActivity;
 import com.codelabs.sitepat_customer.viewmodel.CloseOutletSelected;
 import com.codelabs.sitepat_customer.viewmodel.NextBS1;
 import com.codelabs.sitepat_customer.viewmodel.Outlet;
@@ -58,13 +61,20 @@ public class LocationFragment extends Fragment {
     @BindView(R.id.btn_next)
     AppCompatTextView btnNext;
 
+//    protected Context context;
+//
+//    protected DialogProgress dialogProgress;
+//    BaseActivity baseActivity = new BaseActivity();
+
     OutletBookingAdapter outletAdapter;
     private String keyword = "";
     private String siteId = "";
     private String close = "";
     private int position = -1;
     private int next = 0;
-    private double valueLatitude, valueLongitude;
+//    private double valueLatitude, valueLongitude;
+    private String valueLatitude = "";
+    private String valueLongitude = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -143,18 +153,20 @@ public class LocationFragment extends Fragment {
     }
 
     public void loadOutlet() {
+//        baseActivity.showDialogProgress("Getting outlet");
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        valueLatitude = Double.parseDouble(DataManager.getInstance().getLatitude());
-        valueLongitude = Double.parseDouble(DataManager.getInstance().getLongitude());
+        valueLatitude = DataManager.getInstance().getLatitude();
+        valueLongitude = DataManager.getInstance().getLongitude();
         Call<Outlet> call = apiService.getOutlet(auth, keyword, valueLatitude, valueLongitude);
         call.enqueue(new Callback<Outlet>() {
             @Override
             public void onResponse(@NonNull Call<Outlet> call, @NonNull Response<Outlet> response) {
+//                baseActivity.hideDialogProgress();
                 if (response.isSuccessful()) {
                     Outlet data = response.body();
                     if (response.code() == 200) {
-                        outletAdapter.setData(data.getData().getItemsOutlet());
+                        outletAdapter.setData(data.getData().getItems());
                         Log.e("cek lat", String.valueOf(valueLatitude));
                     }
                 } else {
@@ -168,6 +180,7 @@ public class LocationFragment extends Fragment {
             public void onFailure(@NonNull Call<Outlet> call, @NonNull Throwable t) {
                 if (!call.isCanceled()) {
                     Toast.makeText(requireContext(), getString(R.string.toast_onfailure), Toast.LENGTH_LONG).show();
+//                    baseActivity.hideDialogProgress();
 //                    showToast(getString(R.string.toast_onfailure));
                 }
             }
@@ -211,6 +224,26 @@ public class LocationFragment extends Fragment {
             imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
         }
     }
+
+//    public void showDialogProgress(String message) {
+//        if (message != null) {
+//            dialogProgress = new DialogProgress(context, message, true);
+//            dialogProgress.setCancelable(false);
+//            dialogProgress.show();
+//        } else {
+//            dialogProgress = new DialogProgress(context, "Loading ...", false);
+//            dialogProgress.setCancelable(false);
+//            dialogProgress.show();
+//        }
+//    }
+//
+//    public void hideDialogProgress() {
+//        if (dialogProgress != null) {
+//            if (dialogProgress.isShowing()) {
+//                dialogProgress.dismiss();
+//            }
+//        }
+//    }
 
     @Subscribe
     public void onOutletSelect(OutletSelected outletSelected) {

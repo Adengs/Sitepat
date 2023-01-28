@@ -11,12 +11,24 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
+import com.codelabs.sitepat_customer.connection.DataManager;
 import com.codelabs.sitepat_customer.dialog.DialogProgress;
 import com.codelabs.sitepat_customer.page.login.LoginActivity;
 import com.codelabs.sitepat_customer.utils.LogOutTimerUtil;
 
 public class BaseActivity extends AppCompatActivity implements LogOutTimerUtil.LogOutListener {
+
+//    private final static BaseActivity instance;
+//
+//    static {
+//        instance = new BaseActivity();
+//    }
+//
+//    public static BaseActivity getInstance() {
+//        return instance;
+//    }
 
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 9999;
     protected Context context;
@@ -29,6 +41,9 @@ public class BaseActivity extends AppCompatActivity implements LogOutTimerUtil.L
     private String TAG = getClass().getSimpleName();
 
     private AlertDialog dialogLogout;
+
+//    public BaseActivity(Activity activity) {
+//    }
 
 
     @Override

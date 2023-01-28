@@ -2,6 +2,7 @@ package com.codelabs.sitepat_customer.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,37 +72,47 @@ public class TypeServiceAdapater extends RecyclerView.Adapter<TypeServiceAdapate
 //            holder.textType.setVisibility(View.VISIBLE);
 //            holder.textType.setText(type);
 //        }
+
+
         holder.tvServiceName.setText(nameService);
         holder.tvDescService.setText(desc);
         holder.tvPrice.setText(price.replace(",00","").replace("Rp",""));
         int priceNumber = typeServiceList.get(position).getRetailPrice();
-       // holder.cbTypeService.setChecked(typeServiceList.get(position).isSelected());
+
+//        if (typeServiceList.get(position).isSelected()) {
+//            holder.cbTypeService.setChecked(typeServiceList.get(position).isSelected());
+//        }
+//        else{
+//            holder.cbTypeService.setChecked(false);
+//        }
+
         holder.cbTypeService.setChecked(typeServiceList.get(position).isSelected());
+//        Log.e("cek isi" , String.valueOf(typeServiceList.get(position).isSelected()));
 
-   //     holder.containerChooseService.setOnClickListener(new View.OnClickListener() {
+//        holder.containerChooseService.setOnClickListener(new View.OnClickListener() {
 //            @Override
- //           public void onClick(View v) {
-         /*       typeService = position;
-                if (holder.cbTypeService.isChecked()){
-                    holder.cbTypeService.setChecked(false);
-                }else {
-                    holder.cbTypeService.setChecked(true);
-                    EventBus.getDefault().post(new TypeServiceSelected(nameService, desc, priceNumber));
-                }
-                EventBus.getDefault().post(new TypeServiceSelected(nameService, desc, priceNumber));*/
-//                EventBus.getDefault().post(new CartSelected(type));
-
-//                Log.e("cek_adapter", type);
-  //              notifyDataSetChanged();
+//            public void onClick(View v) {
+//                typeService = position;
+//                if (holder.cbTypeService.isChecked()){
+//                    holder.cbTypeService.setChecked(false);
+//                }else {
+//                    holder.cbTypeService.setChecked(true);
+//                    EventBus.getDefault().post(new TypeServiceSelected(nameService, desc, priceNumber));
+//                }
+//                EventBus.getDefault().post(new TypeServiceSelected(nameService, desc, priceNumber));
+////                EventBus.getDefault().post(new CartSelected(type));
+//
+////                Log.e("cek_adapter", type);
+//                notifyDataSetChanged();
 //            }
-  //      });
+//        });
 
         //single check
-     /*   if (typeService == position && typeServiceList.get(position).getMedicalCategoryId() == categoryService){
-            holder.cbTypeService.setChecked(true);
-        }else {
-            holder.cbTypeService.setChecked(false);
-        }*/
+//        if (typeService == position && typeServiceList.get(position).getMedicalCategoryId() == categoryService){
+//            holder.cbTypeService.setChecked(true);
+//        }else {
+//            holder.cbTypeService.setChecked(false);
+//        }
     }
 
     @Override
@@ -138,8 +149,11 @@ public class TypeServiceAdapater extends RecyclerView.Adapter<TypeServiceAdapate
                 typeServiceList.get(getAdapterPosition()).setSelected(!typeServiceList.get(getAdapterPosition()).isSelected());
                 notifyItemChanged(getAdapterPosition());
                 onItemCLickTypeService.onItemClick(typeServiceList.get(getAdapterPosition()));
-
             });
+
+//            if (typeServiceList.get(getAdapterPosition()).isSelected()){
+//
+//            }
         }
     }
 }

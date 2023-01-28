@@ -48,6 +48,7 @@
     <string name="sub_total">Sub Total</string>
     <string name="ppn">PPN 10%</string>
     <string name="total">Total</string>
+    <string name="total_after_tax">Total After Tax</string>
     <string name="or_continue_with">Or continue with</string>
     <string name="dont_have_account">Dont have an account?</string>
 
@@ -78,6 +79,7 @@
     <string name="term_condition">Term &amp; Conditions</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="logout">Logout</string>
+    <string name="delete">Delete</string>
     <string name="notification">Notification</string>
 
 
@@ -91,6 +93,7 @@
     <string name="detail_bike">Detail Motorcycle</string>
     <string name="service_record">Service Record</string>
     <string name="edit">Edit</string>
+    <string name="add_new">Add New</string>
     <string name="open_now">Open Now</string>
     <string name="reedem">Reedem</string>
     <string name="service_records">SERVICE RECORDS</string>
@@ -104,6 +107,7 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="new_car">New Motorcycle</string>
     <string name="edit_car">Edit Motorcycle</string>
+    <string name="save_car">Save Motorcycle</string>
     <string name="photo">Photo</string>
     <string name="car_name_type_model">Motorcycle name, type or model</string>
     <string name="no_plate">No. Plate</string>
@@ -118,6 +122,7 @@
     <string name="amount">Amount</string>
     <string name="service">Service</string>
     <string name="delete_detail">Are you sure? If it delete, data motorcycle will be deleted from this device.</string>
+    <string name="delete_product_detail">Are you sure delete this product?</string>
 
     <!-- Menu -->
     <string name="outlet">Outlet</string>
@@ -220,6 +225,8 @@
     <string name="city">City</string>
     <string name="select_city">Select City</string>
     <string name="select_outlet">Select Outlet</string>
+    <string name="select_type_complaint">Select Type Complaint</string>
+    <string name="select_detail_complaint">Select Detail Complaint</string>
 
     <string name="empty_service">No service added, please add before.</string>
     <string name="add_service">Add Service</string>
@@ -252,6 +259,7 @@
     <string name="order_summary">Order Summary</string>
     <string name="product_price">Product Price</string>
     <string name="payment">Payment</string>
+    <string name="payment_method">Payment Method</string>
     <string name="confirm_payment">Confirm Payment</string>
     <string name="outlet_information">Outlet Information</string>
     <string name="complete_outlet_information">Complete Outlet Information</string>
@@ -260,6 +268,7 @@
     <string name="show_less">Show less</string>
     <string name="ttl_price">Total price</string>
     <string name="virtual_account">Virtual Account</string>
+    <string name="e_wallet">E-Wallet</string>
     <string name="bca">BCA Virtual Account</string>
     <string name="mandiri">Mandiri Virtual Account</string>
     <string name="bni">BNI Virtual Account</string>
@@ -286,5 +295,10 @@
         <item>male</item>
         <item>female</item>
     </string-array>
+
+    <string name="choose_type_complaint">Select Type Complaint</string>
+    <string name="choose_detail_complaint">Select Detail Complaint</string>
+    <string name="detail_order">Detail Order</string>
+    <!--    <string name="select_province">Select Province</string>-->
 
 </resources>

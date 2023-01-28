@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
-    android:layout_marginVertical="@dimen/_5sdp">
+    android:layout_marginVertical="@dimen/_8sdp"
+    android:id="@+id/container_product">
 
     <LinearLayout
         android:id="@+id/lay_rv"
@@ -17,7 +19,7 @@
             android:id="@+id/img_product"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
-            android:src="@drawable/img_dummy"/>
+            android:src="@drawable/img_dummy_myorder"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +30,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/name_product"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/lorem_ipsum"
                 android:maxLines="1"
@@ -38,9 +40,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/unit_product"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/lorem_ipsum"
+                tools:text="@string/lorem_ipsum"
                 android:maxLines="1"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/rajdhani_medium"
@@ -55,50 +57,70 @@
                 android:gravity="bottom">
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_price_product_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red_text"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/rajdhani_bold"
+                    android:textSize="@dimen/_14sdp"
+                    android:text="Rp"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/price"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rajdhani_semi_bold"
+                    android:fontFamily="@font/rajdhani_bold"
                     android:textSize="@dimen/_14sdp"
                     android:textColor="@color/red_text"
-                    android:text="Rp  56.000"/>
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:text="56.000"/>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:background="@drawable/bg_sum_product"
                     android:paddingHorizontal="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/btn_minus"
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
-                        android:src="@drawable/ic_minus" />
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:orientation="horizontal">-->
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/quantity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_6sdp"
-                        android:layout_toEndOf="@+id/btn_minus"
-                        android:fontFamily="@font/rajdhani_semi_bold"
-                        android:text="0"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_16sdp" />
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/btn_minus"
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:src="@drawable/ic_minus" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/btn_plus"
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
-                        android:layout_toEndOf="@+id/quantity"
-                        android:src="@drawable/ic_plus" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/quantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:layout_toEndOf="@+id/btn_minus"
+                            android:fontFamily="@font/rajdhani_semi_bold"
+                            android:text="0"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_16sdp" />
 
-                </RelativeLayout>
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/btn_plus"
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_toEndOf="@+id/quantity"
+                            android:src="@drawable/ic_plus" />
+
+<!--                    </LinearLayout>-->
+
+                </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/trash"
@@ -118,7 +140,7 @@
         android:id="@+id/space"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_16sdp"
         android:background="@color/grey_view"
         app:layout_constraintTop_toBottomOf="@+id/lay_rv"/>
 

@@ -15,6 +15,7 @@ public class AppConstant {
     public static final long TIMER_AUTO_LOGOUT = 900000;
 
     public static final String HostAPI = "http://178.128.62.50/sitepat/sitepat-gateway/";
+    public static final String MapsAPI = "https://nominatim.openstreetmap.org/search";
 
     public static final String Walkthrough = "general/api/v1/walkthrough";
     public static final String Login = "api/v1/authenticate";
@@ -48,6 +49,19 @@ public class AppConstant {
     public static final String BrandTypes = "api/v1/brand_types";
     public static final String CategoryService = "api/v1/medicals-category?page=&limit=10";
     public static final String TypeService = "api/v1/medicals";
+    public static final String CreateCart = "api/v1/cart/service";
+    public static final String CreateCartHome = "api/v1/cart/home-service";
+    public static final String CreateCartProduct = "cart/api/v1/product";
+    public static final String AddCartProduct = "cart/api/v1/product/add";
+    public static final String DeleteCartProduct = "cart/api/v1/product/delete";
+    public static final String ContactInformation = "api/v1/contact-information";
+    public static final String listPayment = "api/v1/payment/list";
+    public static final String listProvince = "api/v1/general/provinces";
+    public static final String listCities = "api/v1/general/cities";
+    public static final String ContactOutlet = "transaction/api/v1/invoice/products";
+    public static final String CreateInvoice = "api/v1/payment/invoice";
+    public static final String MyOrder = "api/v1/my-order";
+    public static final String MyOrderDetail = "api/v1/my-order/{id}";
 
 
 

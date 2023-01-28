@@ -151,7 +151,7 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
             txt_color.setText(data.carColor)
             txt_cc.setText(data.carCc)
 
-            btn_add_car.text = getString(R.string.edit_car)
+            btn_add_car.text = getString(R.string.save_car)
             btn_add_car.setOnClickListener {
                 edit()
             }

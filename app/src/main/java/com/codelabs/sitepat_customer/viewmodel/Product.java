@@ -323,9 +323,29 @@ public class Product {
         public int getProductId() {
             return productId;
         }
+
+        public void setProductImage(String productImage) {
+            this.productImage = productImage;
+        }
+
+        public void setProductName(String productName) {
+            this.productName = productName;
+        }
+
+        public void setProductPrice(int productPrice) {
+            this.productPrice = productPrice;
+        }
+
+        public void setCategory(CategoryEntity category) {
+            this.category = category;
+        }
     }
 
     public static class CategoryEntity {
+        public void setCategoryName(String categoryName) {
+            this.categoryName = categoryName;
+        }
+
         @SerializedName("category_name")
         private String categoryName;
         @SerializedName("category_id")

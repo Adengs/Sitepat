@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -80,6 +81,9 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.lay_timer)
+    LinearLayout layTimer;
 
     /*declare global variable in here*/
 
@@ -97,6 +101,7 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
             highlightForgotPassword();
         }else {
             initSetup();
+//            layTimer.setVisibility(View.GONE);
             startTimer(2);
         }
 
@@ -269,6 +274,9 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
                 if (data.isSuccessful()) {
                     if (data.code() == 200) {
                         showToast("Please check your email to get OTP code");
+                        layTimer.setVisibility(View.VISIBLE);
+                        tvResendCode.setEnabled(false);
+                        startTimer(2);
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(data);
@@ -293,6 +301,7 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
                 long seconds = leftTimeInMilliseconds / 1000;
                 progressBar.setProgress((int)seconds);
                 tvTimer.setText(String.format("%02d", seconds/60) + ":" + String.format("%02d", seconds%60));
+                tvResendCode.setEnabled(false);
                 // format the textview to show the easily readable format
 
             }
@@ -301,6 +310,8 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
                 if(tvTimer.getText().equals("00:00")){
                     tvTimer.setText("OTP expired");
                 }
+//                layTimer.setVisibility(View.GONE);
+                tvResendCode.setEnabled(true);
                /* else{
                     tvTimer.setText("2:00");
                     progressBar.setProgress(60*minute);
@@ -324,6 +335,7 @@ public class ForgotPasswordVerificationActivity extends BaseActivity implements 
 
         if (tvResendCode == view) {
            doResendOtp();
+//           startTimer(2);
         }
     }
 }

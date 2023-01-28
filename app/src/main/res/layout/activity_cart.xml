@@ -94,6 +94,7 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_promo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -104,10 +105,11 @@
                     android:maxLines="1"
                     android:padding="@dimen/_10sdp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="@dimen/_14sdp"
+                    android:hint="@string/promo_code"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/text_apply_grey"
+                    android:id="@+id/apply_promo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/_15sdp"
@@ -180,11 +182,11 @@
                             android:textSize="@dimen/_14sdp" />
 
                         <TextView
-                            android:id="@+id/os_price2"
+                            android:id="@+id/price_total"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/rajdhani_medium"
-                            android:text="180.000"
+                            tools:text="180.000"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_14sdp" />
 
@@ -194,7 +196,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="visible">
 
                         <TextView
                             android:layout_width="0dp"
@@ -210,7 +213,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/rajdhani_medium"
-                            android:text="-10.000"
+                            android:text="0"
                             android:textColor="@color/green_text"
                             android:textSize="@dimen/_14sdp" />
 
@@ -232,11 +235,11 @@
                             android:textSize="@dimen/_14sdp" />
 
                         <TextView
-                            android:id="@+id/total_price"
+                            android:id="@+id/price_after_discount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/rajdhani_medium"
-                            android:text="170.000"
+                            tools:text="170.000"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_14sdp" />
 
@@ -284,15 +287,32 @@
                         android:textColor="@color/grey_title"
                         android:textSize="@dimen/_14sdp" />
 
-                    <TextView
-                        android:id="@+id/price"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:fontFamily="@font/rajdhani_semi_bold"
-                        android:text="Rp 56.000"
-                        android:textColor="@color/red_text"
-                        android:textSize="@dimen/_18sdp" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:fontFamily="@font/rajdhani_semi_bold"
+                            android:text="Rp"
+                            android:textColor="@color/red_text"
+                            android:textSize="@dimen/_18sdp" />
+
+                        <TextView
+                            android:id="@+id/price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_3sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:fontFamily="@font/rajdhani_semi_bold"
+                            android:text="0"
+                            android:textColor="@color/red_text"
+                            android:textSize="@dimen/_18sdp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

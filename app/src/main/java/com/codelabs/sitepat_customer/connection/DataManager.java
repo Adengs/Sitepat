@@ -2,9 +2,15 @@ package com.codelabs.sitepat_customer.connection;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import com.codelabs.sitepat_customer.viewmodel.DataLogin;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class DataManager {
     private final static DataManager instance;
@@ -61,6 +67,23 @@ public class DataManager {
         SharedPreferences.Editor editor = appPreference.edit();
         editor.putBoolean("IS_LOGIN", login);
         editor.apply();
+    }
+
+    public void saveCBList(ArrayList<String> list, String key){
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences.Editor editor = appPreference.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(key, json);
+        editor.apply();
+    }
+
+    public ArrayList<String> getCBList(String key){
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+        Gson gson = new Gson();
+        String json = appPreference.getString(key, null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return gson.fromJson(json, type);
     }
 
     public boolean isLogin() {
@@ -139,12 +162,28 @@ public class DataManager {
         setTempJson("latitude", latitudeOutlet);
     }
 
+    public String getLat() {
+        return getTempJSON("latitude");
+    }
+
+    public void setLat(String latitude) {
+        setTempJson("latitude", latitude);
+    }
+
     public String getLongitude() {
         return getTempJSON("longitude");
     }
 
     public void setLongitudeOutlet(String longitudeOutlet) {
         setTempJson("longitude", longitudeOutlet);
+    }
+
+    public String getLong() {
+        return getTempJSON("longitude");
+    }
+
+    public void setLong(String longitude) {
+        setTempJson("longitude", longitude);
     }
 
     public String getFacebookId() {
@@ -288,6 +327,14 @@ public class DataManager {
         return getTempJSONNumber("location");
     }
 
+    public void setPositionLocation2(int position) {
+        setTempJSONNumber("location2", position);
+    }
+
+    public int getPositionLocation2() {
+        return getTempJSONNumber("location2");
+    }
+
     public String getClose() {
         return getTempJSON("outlet_close");
     }
@@ -320,6 +367,22 @@ public class DataManager {
         setTempJson("date", date);
     }
 
+    public String getNowDate() {
+        return getTempJSON("now_date");
+    }
+
+    public void setNowDate(String date) {
+        setTempJson("now_date", date);
+    }
+
+    public String getChooseDate() {
+        return getTempJSON("choose_date");
+    }
+
+    public void setChooseDate(String date) {
+        setTempJson("choose_date", date);
+    }
+
     public String getTime() {
         return getTempJSON("time");
     }
@@ -327,4 +390,221 @@ public class DataManager {
     public void setTime(String date) {
         setTempJson("time", date);
     }
+
+    public void setMedicalId(int id) {
+        setTempJSONNumber("medical_id", id);
+    }
+
+    public int getMedicalId() {
+        return getTempJSONNumber("medical_id");
+    }
+
+    public void setCartId(String id) {
+        setTempJson("cart_id", id);
+    }
+
+    public String getCartId() {
+        return getTempJSON("cart_id");
+    }
+
+    public void setAddress(String address) {
+        setTempJson("address", address);
+    }
+
+    public String getAddress() {
+        return getTempJSON("address");
+    }
+
+    public void setNote(String note) {
+        setTempJson("note", note);
+    }
+
+    public String getNote() {
+        return getTempJSON("note");
+    }
+
+//    public void setDate(String note) {
+//        setTempJson("note", note);
+//    }
+//
+//    public String getDate() {
+//        return getTempJSON("note");
+//    }
+
+    public void setOutlet(String outlet) {
+        setTempJson("outlet", outlet);
+    }
+
+    public String getOutlet() {
+        return getTempJSON("outlet");
+    }
+
+    public void setCartProduct(int cartProductId) {
+        setTempJSONNumber("cart_product_id", cartProductId);
+    }
+
+    public int getCartProduct() {
+        return getTempJSONNumber("cart_product_id");
+    }
+
+    public void setName(String name) {
+        setTempJson("name", name);
+    }
+
+    public String getName() {
+        return getTempJSON("name");
+    }
+
+    public void setImageOutlet(String imageOutlet) {
+        setTempJson("image_outlet", imageOutlet);
+    }
+
+    public String getImageOutlet() {
+        return getTempJSON("image_outlet");
+    }
+
+    public void setSelect(String select) {
+        setTempJson("select", select);
+    }
+
+    public String getSelect() {
+        return getTempJSON("select");
+    }
+
+    public void setSelectD(String select) {
+        setTempJson("select_detail", select);
+    }
+
+    public String getSelectD() {
+        return getTempJSON("select_detail");
+    }
+
+    public void setProvId(String Id) {
+        setTempJson("province_id", Id);
+    }
+
+    public String getProvId() {
+        return getTempJSON("province_id");
+    }
+
+    public void setCityId(String Id) {
+        setTempJson("city_id", Id);
+    }
+
+    public String getCityId() {
+        return getTempJSON("city_id");
+    }
+
+    public void setNameContact(String nameContact) {
+        setTempJson("name_contact", nameContact);
+    }
+
+    public String getNameContact() {
+        return getTempJSON("name_contact");
+    }
+
+    public void setAddressContact(String address) {
+        setTempJson("address_contact", address);
+    }
+
+    public String getAddressContact() {
+        return getTempJSON("address_contact");
+    }
+
+    public void setContactContact(String contact) {
+        setTempJson("contact_contact", contact);
+    }
+
+    public String getContactContact() {
+        return getTempJSON("contact_contact");
+    }
+
+    public void setemailContact(String email) {
+        setTempJson("email_contact", email);
+    }
+
+    public String getEmailContact() {
+        return getTempJSON("email_contact");
+    }
+
+    public void setProvinceOutlet(String outlet) {
+        setTempJson("province_outlet", outlet);
+    }
+
+    public String getProvinceOutlet() {
+        return getTempJSON("province_outlet");
+    }
+
+    public void setCityOutlet(String outlet) {
+        setTempJson("city_outlet", outlet);
+    }
+
+    public String getCityOutlet() {
+        return getTempJSON("city_outlet");
+    }
+
+    public void setOutletOutlet(String outlet) {
+        setTempJson("outlet_outlet", outlet);
+    }
+
+    public String getOutletOutlet() {
+        return getTempJSON("outlet_outlet");
+    }
+
+    public void setDateOutlet(String date) {
+        setTempJson("date_outlet", date);
+    }
+
+    public String getDateOutlet() {
+        return getTempJSON("date_outlet");
+    }
+
+    public void setTimeOutlet(String time) {
+        setTempJson("time_outlet", time);
+    }
+
+    public String getTimeOutlet() {
+        return getTempJSON("time_outlet");
+    }
+
+    public void setInvoiceUrl(String url) {
+        setTempJson("url", url);
+    }
+
+    public String getInvoiceUrl() {
+        return getTempJSON("url");
+    }
+
+    public void setDateOutletDb(String date) {
+        setTempJson("date_outlet_database", date);
+    }
+
+    public String getDateOutletDb() {
+        return getTempJSON("date_outlet_database");
+    }
+
+    public void setTimeOutletDb(String time) {
+        setTempJson("time_outlet_database", time);
+    }
+
+    public String getTimeOutletDb() {
+        return getTempJSON("time_outlet_database");
+    }
+
+    public void setTypeId(String Id) {
+        setTempJson("type_complaint_id", Id);
+    }
+
+    public String getTypeId() {
+        return getTempJSON("type_complaint_id");
+    }
+
+    public void setTransactionId(String Id) {
+        setTempJson("transaction_id", Id);
+    }
+
+    public String getTransactionId() {
+        return getTempJSON("transaction_id");
+    }
+
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.codelabs.sitepat_customer">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -223,8 +224,7 @@
             android:theme="@style/TemaNoActionBar" />
         <activity
             android:name=".page.splashscreen.SplashScreenActivity"
-            android:theme="@style/Tema2NoActionBar"
-            android:exported="true">
+            android:theme="@style/Tema2NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

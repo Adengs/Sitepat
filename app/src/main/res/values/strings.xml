@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SiTepat</string>
-    <string name="default_web_client_id">502079082161-bq2d119n61h0huuium6ifodk9d16d36g.apps.googleusercontent.com</string>
-    <string name="default_web_client_secret">gNcmjhlIllk622t6pwQ4PLpX</string>
+    <string name="default_web_client_id">1037903149990-uk6k46kj6a0fo7fjbh3go8vklbav757m.apps.googleusercontent.com</string>
+    <string name="default_web_client_secret">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</string>
     <string name="please_wait">Please Wait …</string>
     <string name="skip">Skip</string>
     <string name="next">Next</string>
@@ -187,8 +187,8 @@
 
 
     <!--    Login Pesbuk-->
-    <string name="facebook_app_id">2882561305334771</string>
-    <string name="fb_login_protocol_scheme">fb2882561305334771</string>
+    <string name="facebook_app_id">569377241730391</string>
+    <string name="fb_login_protocol_scheme">fb569377241730391</string>
 
     <!--    Service -->
     <string name="booking_service">Booking Service</string>

@@ -38,7 +38,8 @@
                 android:fontFamily="@font/rajdhani_regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/lorem_ipsum"/>
+                android:text="@string/lorem_ipsum"
+                android:visibility="gone"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"

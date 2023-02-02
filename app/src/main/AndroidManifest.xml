@@ -183,9 +183,15 @@
         <activity
             android:name=".page.about.AboutUsActivity"
             android:theme="@style/TemaNoActionBar" />
-        <activity android:name=".page.setting.PrivacyPolicyActivity" />
-        <activity android:name=".page.setting.TermConditionActivity" />
-        <activity android:name=".page.setting.GettingStartedActivity" />
+        <activity android:name=".page.setting.PrivacyPolicyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Tema2NoActionBar" />
+        <activity android:name=".page.setting.TermConditionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Tema2NoActionBar" />
+        <activity android:name=".page.setting.GettingStartedActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Tema2NoActionBar" />
         <activity
             android:name=".page.setting.SettingActivity"
             android:theme="@style/TemaNoActionBar" />

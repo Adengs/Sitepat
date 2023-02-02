@@ -1,6 +1,8 @@
 package com.codelabs.sitepat_customer.page.setting
 
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codelabs.sitepat_customer.R
 import com.codelabs.sitepat_customer.connection.ApiUtils
@@ -24,6 +26,10 @@ class TermConditionActivity : BaseActivity() {
     }
 
     private fun initview() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+
         getData()
 
 

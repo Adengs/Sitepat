@@ -29,7 +29,8 @@
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/what_do_u_want"/>
+                android:text="@string/what_do_u_want"
+                android:visibility="gone"/>
             <TextView
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"

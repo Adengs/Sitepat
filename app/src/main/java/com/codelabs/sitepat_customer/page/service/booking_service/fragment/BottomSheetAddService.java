@@ -283,7 +283,7 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
 //                typeServiceChosessAdapter.notifyDataSetChanged();
 
                 if (selectedTypeService.size() != typeServiceAdapater.typeServiceList.size()){
-                    selectedTypeService.clear();
+//                    selectedTypeService.clear();
                     for (int i = 0; i < typeServiceAdapater.typeServiceList.size(); i++) {
 //                        selectedTypeService.clear();
                         if (typeServiceAdapater.typeServiceList.get(i).isSelected()) {
@@ -317,9 +317,9 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
                 onListSelected.onListSelected(selectedTypeService);
                 category = DataManager.getInstance().getCartId();
 //                selectedTypeService.clear();
-                Log.e("22 nov 2", String.valueOf(selectedTypeService.size()));
                 dismiss();
 //                selectedTypeService.clear();
+//                Log.e("13 feb 2023", String.valueOf(selectedTypeService.size()));
 
             }
         });

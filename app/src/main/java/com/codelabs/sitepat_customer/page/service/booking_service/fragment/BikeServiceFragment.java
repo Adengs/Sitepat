@@ -249,19 +249,17 @@ public class BikeServiceFragment extends Fragment {
 //        bottomSheetBehavior = BottomSheetBehavior.from(getChildFragmentManager());
 //        bottomSheetBehavior.setPeekHeight(300);
 
-        addService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        addService.setOnClickListener(v -> {
 //                BottomSheetDialog bottomSheet = new BottomSheetDialog(requireActivity());
 
 //                DataManager.getInstance().setMedicalId(0);
-                Log.e("cek size add service" , String.valueOf(typeServiceChosessAdapter.typeServiceSelectedList.size()));
-                bottomSheetAddService.setData(typeServiceChosessAdapter.typeServiceSelectedList);
+            Log.e("cek size add service" , String.valueOf(typeServiceChosessAdapter.typeServiceSelectedList.size()));
+            bottomSheetAddService.setData(typeServiceChosessAdapter.typeServiceSelectedList);
 
 //                View bottomSheetView = LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_bottom_sheet_add_service, null);
 //                bottomSheetBehavior = BottomSheetBehavior.from((View) bottomSheetView.getParent());
 //                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                bottomSheetAddService.show(getChildFragmentManager(), bottomSheetAddService.getTag());
+            bottomSheetAddService.show(getChildFragmentManager(), bottomSheetAddService.getTag());
 
 //                selectedTypeService.clear();
 //                typeServiceChosessAdapter.notifyDataSetChanged();
@@ -278,7 +276,6 @@ public class BikeServiceFragment extends Fragment {
 //
 //                bottomSheet.show();
 
-            }
         });
 
 //        bottomSheetAddService.OnListSelectedItem(new BottomSheetAddService.OnListSelected() {
@@ -305,45 +302,42 @@ public class BikeServiceFragment extends Fragment {
 //            }
 //        });
 
-        bottomSheetAddService.OnListSelectedItem(new BottomSheetAddService.OnListSelected() {
-            @Override
-            public void onListSelected(List<TypeService.ItemsEntity> item) {
+        bottomSheetAddService.OnListSelectedItem(listItem -> {
 //                typeServiceChosessAdapter.setData(item);
-                NumberFormat rupiah = NumberFormat.getCurrencyInstance(new Locale("in", "ID"));
+            NumberFormat rupiah = NumberFormat.getCurrencyInstance(new Locale("in", "ID"));
 //                selectedTypeService = item;
 
-                int price = 0;
-                for (int i = 0; i < item.size(); i++) {
-                    price = price + item.get(i).getRetailPrice();
+            int price = 0;
+            for (int i = 0; i < listItem.size(); i++) {
+                price = price + listItem.get(i).getRetailPrice();
+            }
+            typeServiceChosessAdapter.setData(listItem);
+//                selectedTypeService.clear();
+            Log.e("cek adapter", String.valueOf(typeServiceChosessAdapter.typeServiceSelectedList.size()));
+
+            Log.e("18 november", String.valueOf(selectedTypeService.size()));
+            Log.e("TAG", "onViewCreated: "+listItem.size() );
+           // selectedTypeService = listItem;
+
+                if (selectedTypeService.size() == 0 ){
+                    emptyService.setVisibility(View.VISIBLE);
+                    rvServiceChosess.setVisibility(View.VISIBLE);
+                    addService.setText(R.string.add_service);
+                    layEstimate.setVisibility(View.GONE);
+                }else{
+                    emptyService.setVisibility(View.GONE);
+                    rvServiceChosess.setVisibility(View.VISIBLE);
+                    addService.setText(R.string.edit);
+                    layEstimate.setVisibility(View.VISIBLE);
                 }
 
-                typeServiceChosessAdapter.setData(item);
-//                selectedTypeService.clear();
-                Log.e("cek adapter", String.valueOf(typeServiceChosessAdapter.typeServiceSelectedList.size()));
-
-                Log.e("18 november", String.valueOf(selectedTypeService.size()));
-                Log.e("cek size itm", String.valueOf(item.size()));
-
-                    if (selectedTypeService.size() == 0 ){
-                        emptyService.setVisibility(View.VISIBLE);
-                        rvServiceChosess.setVisibility(View.VISIBLE);
-                        addService.setText(R.string.add_service);
-                        layEstimate.setVisibility(View.GONE);
-                    }else{
-                        emptyService.setVisibility(View.GONE);
-                        rvServiceChosess.setVisibility(View.VISIBLE);
-                        addService.setText(R.string.edit);
-                        layEstimate.setVisibility(View.VISIBLE);
-                    }
-
-                String totalPrice = rupiah.format(new BigDecimal(price));
-                priceEst.setText(totalPrice.replace(",00", "").replace("Rp", ""));
-                Log.e("cek size", String.valueOf(item.size()));
+            String totalPrice = rupiah.format(new BigDecimal(price));
+            priceEst.setText(totalPrice.replace(",00", "").replace("Rp", ""));
+            Log.e("cek size", String.valueOf(listItem.size()));
 //                Log.e("cek select bike", String.valueOf(item.get(0).isSelected()));
 
 //                selectedTypeService = item;
 
-            }
         });
 
 //        edit.setOnClickListener(new View.OnClickListener() {

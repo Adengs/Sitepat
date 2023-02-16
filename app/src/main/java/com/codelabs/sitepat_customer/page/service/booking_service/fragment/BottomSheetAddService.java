@@ -203,9 +203,9 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
         view.setMinimumHeight(dm);
 
         View bottomSheetView = LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_bottom_sheet_add_service, null);
-        dialog.setContentView(bottomSheetView);
+        dialog.setContentView(view);
 
-        bottomSheetBehavior = BottomSheetBehavior.from((View) bottomSheetView.getParent());
+        bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         bottomSheetBehavior.setDraggable(false);
 
@@ -291,11 +291,15 @@ public class BottomSheetAddService extends BottomSheetDialogFragment {
 //                    }
 //                }
 //                selectedTypeService.clear();
-                Toast.makeText(requireContext(), selectedTypeService.size()+"", Toast.LENGTH_SHORT).show();
+
+                //bang baban
+//                Toast.makeText(requireContext(), selectedTypeService.size()+"", Toast.LENGTH_SHORT).show();
                 onListSelected.onListSelected(selectedTypeService);
                 category = DataManager.getInstance().getCartId();
 //                selectedTypeService.clear();
                 dismiss();
+
+
 //                selectedTypeService.clear();
 //                Log.e("13 feb 2023", String.valueOf(selectedTypeService.size()));
 

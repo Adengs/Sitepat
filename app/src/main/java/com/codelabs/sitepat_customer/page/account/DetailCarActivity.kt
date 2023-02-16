@@ -1,11 +1,19 @@
 package com.codelabs.sitepat_customer.page.account
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.*
+import android.util.Log
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
 import android.widget.RelativeLayout
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codelabs.sitepat_customer.R
@@ -14,12 +22,12 @@ import com.codelabs.sitepat_customer.connection.AppConstant
 import com.codelabs.sitepat_customer.connection.DataManager
 import com.codelabs.sitepat_customer.connection.ErrorUtils
 import com.codelabs.sitepat_customer.helper.BaseActivity
-import com.codelabs.sitepat_customer.viewmodel.DoPost
-import com.codelabs.sitepat_customer.viewmodel.ItemMyCar
-import com.codelabs.sitepat_customer.viewmodel.ServiceRecord
+import com.codelabs.sitepat_customer.viewmodel.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail_car.*
 import kotlinx.android.synthetic.main.toolbar_back.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,6 +46,20 @@ class DetailCarActivity : BaseActivity() {
         initView()
     }
 
+//    override fun onResume() {
+//        super.onResume()
+//        getData()
+//    }
+
+    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+//            getData()
+            initView()
+//            intent?.getIntExtra("shot", 0)
+            // Handle the Intent
+        }
+    }
 
     fun showPopup(view: View) {
         val popup = PopupMenu(this, view)
@@ -50,7 +72,8 @@ class DetailCarActivity : BaseActivity() {
                     val intent = Intent(this, AddNewCarActivity::class.java)
                     intent.putExtra("IS_EDIT",true)
                     intent.putExtra("DATA", data)
-                    startActivity(intent)
+//                    startActivity(intent)
+                    startForResult.launch(intent)
                 }
                 R.id.delete_car -> {
                    showDialogDelete()
@@ -94,6 +117,7 @@ class DetailCarActivity : BaseActivity() {
 
         id = intent.getIntExtra("carId", 0)
         data = intent.getSerializableExtra("DATA") as ItemMyCar
+        Log.e("Detail", "initView: " + intent.getSerializableExtra("DATA"))
         getData()
     }
 
@@ -108,6 +132,7 @@ class DetailCarActivity : BaseActivity() {
                     val response = data.body()
                     if (data.code() == 200) {
                         setData(response?.dataServiceRecord)
+                        adapter.notifyDataSetChanged()
                     }
                 } else {
                     val error = ErrorUtils.parseError(data)
@@ -164,6 +189,7 @@ class DetailCarActivity : BaseActivity() {
         DataManager.getInstance().subtotalPayments = data?.payments?.subtotal
         DataManager.getInstance().ppn = data?.payments?.ppn
         DataManager.getInstance().totalPayments = data?.payments?.total
+        Log.e("CekDetail", "setData: " + data?.detail?.carPlateNumber )
 
         if (data?.serviceRecords!!.size > 0) {
             adapter.items = data?.serviceRecords!!
@@ -172,5 +198,25 @@ class DetailCarActivity : BaseActivity() {
             layout_nothing.visibility = View.VISIBLE
     }
 
+//    @Subscribe
+//    fun onEdit(data: Edit) {
+////        getData()
+//        Log.e("CEK CLICK DETAIL", "onEdit: " )
+//        Toast.makeText(this, "CEK CLICK DETAIL", Toast.LENGTH_SHORT).show()
+//
+////        DataManager.getInstance().doLogout()
+////        val intent = Intent(this, LoginActivity::class.java)
+////        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+////        startActivity(intent)
+//    }
 
+//    override fun onStart() {
+//        super.onStart()
+//        EventBus.getDefault().register(this)
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        EventBus.getDefault().unregister(this)
+//    }
 }

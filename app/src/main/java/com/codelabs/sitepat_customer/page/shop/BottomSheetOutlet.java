@@ -122,13 +122,16 @@ public class BottomSheetOutlet extends BottomSheetDialogFragment {
         int dm = Resources.getSystem().getDisplayMetrics().heightPixels;
         view.setMinimumHeight(dm);
 
-        View bottomSheetView = LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_bottom_sheet_add_service, null);
-        dialog.setContentView(bottomSheetView);
+        View bottomSheetView = LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_bottom_sheet_outlet, null);
+        dialog.setContentView(view);
 
-        bottomSheetBehavior = BottomSheetBehavior.from((View) bottomSheetView.getParent());
+        bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         bottomSheetBehavior.setDraggable(false);
 
+    }
+
+    private void initSetup(){
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,9 +140,6 @@ public class BottomSheetOutlet extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
-    }
-
-    private void initSetup(){
         etProvince.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -352,6 +352,7 @@ public class BottomSheetOutlet extends BottomSheetDialogFragment {
                         etCity.setText(data.getData().getItems().get(0).getCityname());
                         etOutlet.setText(data.getData().getItems().get(0).getSitename());
                         Log.e("cek lat", String.valueOf(valueLatitude));
+                        Log.e("cek prov", data.getData().getItems().get(0).getProvincename());
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(response);

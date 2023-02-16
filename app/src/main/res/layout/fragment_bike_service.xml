@@ -244,7 +244,8 @@
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/rajdhani_medium"
                         android:hint="Type here..."
-                        android:textColor="@color/gray_text"
+                        android:textColorHint="@color/gray_text"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp"
                         android:textStyle="bold" />
 

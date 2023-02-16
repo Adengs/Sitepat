@@ -6,7 +6,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.codelabs.sitepat_customer.R
 import com.codelabs.sitepat_customer.adapter.BrandCarAdapter
 import com.codelabs.sitepat_customer.adapter.BrandTypeCarAdapter
@@ -21,10 +23,7 @@ import com.codelabs.sitepat_customer.imagepicker.FilePickUtils
 import com.codelabs.sitepat_customer.imagepicker.LifeCycleCallBackManager
 import com.codelabs.sitepat_customer.page.select.SelectCarBrandActivity
 import com.codelabs.sitepat_customer.page.select.SelectCarTypeActivity
-import com.codelabs.sitepat_customer.viewmodel.BrandCar
-import com.codelabs.sitepat_customer.viewmodel.BrandTypesCar
-import com.codelabs.sitepat_customer.viewmodel.DoPost
-import com.codelabs.sitepat_customer.viewmodel.ItemMyCar
+import com.codelabs.sitepat_customer.viewmodel.*
 import com.codelabs.sitepat_customer.viewmodel.eventbus.PickImage
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_add_new_bike.*
@@ -37,7 +36,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.util.*
 import kotlin.collections.set
 
 class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnClickListener {
@@ -65,12 +63,18 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
     private val GETBRAND = 1
     private val GETTYPE = 2
 
+    lateinit var bookNow: BookNow
+
+    interface BookNow {
+        fun bookNow()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_bike)
+        fetchData()
         initSetup()
         initView()
-        fetchData()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -98,6 +102,69 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
 
     private fun fetchData() {
 //        loadBrandCar()
+        getData()
+
+    }
+
+    private fun getData() {
+        showDialogProgress("Getting My Car")
+        val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
+        val call : Call<MyCar> = ApiUtils.getApiService().getCustomerCar(auth)
+        call.enqueue(object : Callback<MyCar> {
+            override fun onResponse(call: Call<MyCar>, dataA: Response<MyCar>) {
+                hideDialogProgress()
+                if (dataA.isSuccessful) {
+                    val response = dataA.body()
+                    if (dataA.code() == 200) {
+                        val dataa = response?.data?.items?.get(0)!!
+//                        intent.putExtra("DATA", response?.data?.items?.get(0)!!)
+//                        adapter.notifyDataSetChanged()
+
+                        if (intent.getBooleanExtra("IS_EDIT", false)) {
+                            tv_title.text = getString(R.string.edit_car)
+                            data = intent.getSerializableExtra("DATA") as ItemMyCar
+                            Log.e("Edit", "initView: " + dataa.carColor )
+
+                            if (dataa.image.isNotEmpty()) {
+                                btn_add_image.visibility = View.GONE
+                                Picasso.get().load(dataa.image).into(iv_new_car)
+                            }
+//            txt_car_name.setText(data.carName)
+
+
+                            tv_select_brand.setText(dataa.brand.brandName)
+                            tv_select_type.setText(dataa.brandType.typeName)
+                            idBrand = dataa.brand.brandId
+                            idType = dataa.brandType.typeId
+                            txt_no_plate.setText(dataa.carPlateNumber)
+                            txt_year.setText(dataa.carYear)
+                            txt_color.setText(dataa.carColor)
+                            txt_cc.setText(dataa.carCc)
+
+                            btn_add_car.text = getString(R.string.save_car)
+                            btn_add_car.setOnClickListener {
+                                val rr = Intent()
+//                rr.putExtra("shot", 1)
+                                edit()
+//                EventBus.getDefault().post(Edit())
+//                Log.e("CEK CLICK ADD SAVE", "onEdit: " )
+//                Toast.makeText(this, "CEK CLICK ADD SAVE", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                } else {
+                    val error = ErrorUtils.parseError(dataA)
+                    showToast(error.message())
+                }
+            }
+
+            override fun onFailure(call: Call<MyCar>, t: Throwable) {
+                if (!call.isCanceled) {
+                    hideDialogProgress()
+                    showToast(getString(R.string.toast_onfailure))
+                }
+            }
+        })
     }
 
 
@@ -131,31 +198,37 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
         tv_title.text = getString(R.string.new_car)
         iv_back.setOnClickListener { finish() }
 
-        if (intent.getBooleanExtra("IS_EDIT", false)) {
-            tv_title.text = getString(R.string.edit_car)
-            data = intent.getSerializableExtra("DATA") as ItemMyCar
-
-            if (data.image.isNotEmpty()) {
-                btn_add_image.visibility = View.GONE
-                Picasso.get().load(data.image).into(iv_new_car)
-            }
-//            txt_car_name.setText(data.carName)
-
-
-            tv_select_brand.setText(data.brand.brandName)
-            tv_select_type.setText(data.brandType.typeName)
-            idBrand = data.brand.brandId
-            idType = data.brandType.typeId
-            txt_no_plate.setText(data.carPlateNumber)
-            txt_year.setText(data.carYear)
-            txt_color.setText(data.carColor)
-            txt_cc.setText(data.carCc)
-
-            btn_add_car.text = getString(R.string.save_car)
-            btn_add_car.setOnClickListener {
-                edit()
-            }
-        }
+//        if (intent.getBooleanExtra("IS_EDIT", false)) {
+//            tv_title.text = getString(R.string.edit_car)
+////            data = intent.getSerializableExtra("DATA") as ItemMyCar
+//            Log.e("Edit", "initView: " + data.carColor )
+//
+//            if (data.image.isNotEmpty()) {
+//                btn_add_image.visibility = View.GONE
+//                Picasso.get().load(data.image).into(iv_new_car)
+//            }
+////            txt_car_name.setText(data.carName)
+//
+//
+//            tv_select_brand.setText(data.brand.brandName)
+//            tv_select_type.setText(data.brandType.typeName)
+//            idBrand = data.brand.brandId
+//            idType = data.brandType.typeId
+//            txt_no_plate.setText(data.carPlateNumber)
+//            txt_year.setText(data.carYear)
+//            txt_color.setText(data.carColor)
+//            txt_cc.setText(data.carCc)
+//
+//            btn_add_car.text = getString(R.string.save_car)
+//            btn_add_car.setOnClickListener {
+//                val rr = Intent()
+////                rr.putExtra("shot", 1)
+//                edit()
+////                EventBus.getDefault().post(Edit())
+////                Log.e("CEK CLICK ADD SAVE", "onEdit: " )
+////                Toast.makeText(this, "CEK CLICK ADD SAVE", Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
     }
 
@@ -193,6 +266,7 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
                         val response = data.body()
                         if (data.code() == 200) {
                             showToast(response?.message)
+                            setResult(Activity.RESULT_OK)
                             finish()
                         }
                     } else {
@@ -218,6 +292,7 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
                         val response = data.body()
                         if (data.code() == 200) {
                             showToast(response?.message)
+                            setResult(Activity.RESULT_OK)
                             finish()
                         }
                     } else {

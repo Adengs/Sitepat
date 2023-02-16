@@ -2,6 +2,7 @@ package com.codelabs.sitepat_customer.page.account
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +39,7 @@ class MyCarAdapter(val c: Context, var items: List<ItemMyCar>) :
             val intent = Intent(c, DetailCarActivity::class.java)
             intent.putExtra("carId", items[position].carId)
             intent.putExtra("DATA", items[position])
+            Log.e("CEK Adapter", "onBindViewHolder: " + items[position] )
             DataManager.getInstance().customerCarId = items[position].carId
             c.startActivity(intent)
         }

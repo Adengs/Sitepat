@@ -109,10 +109,10 @@ public class BottomSheetContact extends BottomSheetDialogFragment {
         int dm = Resources.getSystem().getDisplayMetrics().heightPixels;
         view.setMinimumHeight(dm);
 
-        View bottomSheetView = LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_bottom_sheet_add_service, null);
-        dialog.setContentView(bottomSheetView);
+        View bottomSheetView = LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_bottom_sheet_contact, null);
+        dialog.setContentView(view);
 
-        bottomSheetBehavior = BottomSheetBehavior.from((View) bottomSheetView.getParent());
+        bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         bottomSheetBehavior.setDraggable(false);
 

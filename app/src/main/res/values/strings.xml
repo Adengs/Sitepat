@@ -189,6 +189,7 @@
     <!--    Login Pesbuk-->
     <string name="facebook_app_id">569377241730391</string>
     <string name="fb_login_protocol_scheme">fb569377241730391</string>
+    <string name="facebook_client_token">9200dd9133caf57670236e668d3f6d59</string>
 
     <!--    Service -->
     <string name="booking_service">Booking Service</string>

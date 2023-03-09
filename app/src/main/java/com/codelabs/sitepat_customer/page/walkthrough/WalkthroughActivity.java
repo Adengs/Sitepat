@@ -83,7 +83,7 @@ public class WalkthroughActivity extends BaseActivity implements View.OnClickLis
     public void loadDataWalkthrough() {
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getTokenAccess();
-        Call<GetWalkThrough> call = apiService.getWalkthrough(auth, "asc");
+        Call<GetWalkThrough> call = apiService.getWalkthrough(auth, "asc", "1");
         call.enqueue(new Callback<GetWalkThrough>() {
             @Override
             public void onResponse(@NonNull Call<GetWalkThrough> call, @NonNull Response<GetWalkThrough> data) {

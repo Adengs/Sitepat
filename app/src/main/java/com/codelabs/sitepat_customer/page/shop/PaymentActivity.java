@@ -156,8 +156,8 @@ public class PaymentActivity extends BaseActivity {
     String siteId = "";
     String customerId = "";
     String customerName = "";
-    String linkSuccess = "http://178.128.62.50/sitepat/sitepat-cart/public/api/v1/payment/redirect-mobile?";
-    String linkFailure = "http://178.128.62.50/sitepat/sitepat-cart/public/api/v1/payment/redirect-mobile?";
+    String linkSuccess = "http://13.230.37.127/cart/public/api/v1/payment/redirect-mobile?";
+    String linkFailure = "http://13.230.37.127/cart/public/api/v1/payment/redirect-mobile?";
     String description = "No Description";
     String platform = "android";
 

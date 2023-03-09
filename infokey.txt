@@ -1,0 +1,3 @@
+sitepat_keystore.jks
+password : s1t3p4t599
+alias : sitepat_keyone

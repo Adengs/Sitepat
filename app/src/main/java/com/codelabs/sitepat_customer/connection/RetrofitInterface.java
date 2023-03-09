@@ -101,7 +101,7 @@ public interface RetrofitInterface {
     Call<DoPost> doResetPassword(@Header(AppConstant.AuthTitle) String auth, @FieldMap Map<String, String> names);
 
     @GET(AppConstant.Walkthrough)
-    Call<GetWalkThrough> getWalkthrough(@Header(AppConstant.AuthTitle) String auth, @Query("sort") String sort);
+    Call<GetWalkThrough> getWalkthrough(@Header(AppConstant.AuthTitle) String auth, @Query("sort") String sort, @Query("status") String status);
 
     @GET(AppConstant.AboutUs)
     Call<AboutUs> getAboutUs(@Header(AppConstant.AuthTitle) String auth);

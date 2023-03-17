@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.connection.DataManager;
+import com.codelabs.sitepat_customer.viewmodel.TypeFilter;
 import com.codelabs.sitepat_customer.viewmodel.TypeFilterSelected;
+import com.codelabs.sitepat_customer.viewmodel.TypeFilterShop;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,7 +29,7 @@ import butterknife.ButterKnife;
 
 public class ItemTypeFilterAdapter  extends RecyclerView.Adapter<ItemTypeFilterAdapter.viewHolder>{
     private Context mContext;
-    private List<String> productList;
+    private List<TypeFilterShop.ItemsEntity> productList;
     private int brandClick = -1;
 
     public ItemTypeFilterAdapter(Context context){
@@ -44,7 +46,7 @@ public class ItemTypeFilterAdapter  extends RecyclerView.Adapter<ItemTypeFilterA
 
     @Override
     public void onBindViewHolder(@NonNull ItemTypeFilterAdapter.viewHolder holder, @SuppressLint("RecyclerView") int position) {
-        String brandName = productList.get(position);
+        String brandName = productList.get(position).getCategoryName();
 
         if (DataManager.getInstance().getPositionType() == -1){
             holder.cbType.setChecked(false);
@@ -90,7 +92,7 @@ public class ItemTypeFilterAdapter  extends RecyclerView.Adapter<ItemTypeFilterA
         return (productList != null ? productList.size() : 0);
     }
 
-    public void setData(List<String> data) {
+    public void setData(List<TypeFilterShop.ItemsEntity> data) {
         this.productList = data;
         notifyDataSetChanged();
     }

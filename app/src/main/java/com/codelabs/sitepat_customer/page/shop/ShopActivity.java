@@ -29,6 +29,7 @@ import com.akiniyalocts.pagingrecycler.PagingDelegate;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.adapter.NewProductAdapter;
 import com.codelabs.sitepat_customer.adapter.ProductAdapter;
+import com.codelabs.sitepat_customer.adapter.TypeFilterShopAdapter;
 import com.codelabs.sitepat_customer.adapter.TypeProductAdapter;
 import com.codelabs.sitepat_customer.connection.ApiError;
 import com.codelabs.sitepat_customer.connection.ApiUtils;
@@ -47,6 +48,7 @@ import com.codelabs.sitepat_customer.viewmodel.Product;
 import com.codelabs.sitepat_customer.viewmodel.SortSelected;
 import com.codelabs.sitepat_customer.viewmodel.TypeFilter;
 import com.codelabs.sitepat_customer.viewmodel.TypeFilterSelected;
+import com.codelabs.sitepat_customer.viewmodel.TypeFilterShop;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -124,7 +126,7 @@ public class ShopActivity extends BaseActivity {
 
     NewProductAdapter newProductAdapter;
     ProductAdapter productAdapter;
-    TypeProductAdapter typeProductAdapter;
+    TypeFilterShopAdapter typeProductAdapter;
     private String search = "";
     private Integer limit = 0;
     private Integer limitNP = 20;
@@ -135,6 +137,7 @@ public class ShopActivity extends BaseActivity {
     private String sort = "";
     private String filterBrand = "";
     private String filterType = "";
+    private int limit2 = 100;
 //    private String sortAZ = "";
 //    private String sortPrice = "";
 
@@ -169,7 +172,7 @@ public class ShopActivity extends BaseActivity {
             rvNewProduct.addItemDecoration(new RecentUtils.PaddingItemDecoration(40));
         }
 
-        typeProductAdapter = new TypeProductAdapter(ShopActivity.this);
+        typeProductAdapter = new TypeFilterShopAdapter(ShopActivity.this);
         rvTypeProduct.setAdapter(typeProductAdapter);
         rvTypeProduct.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
@@ -308,14 +311,14 @@ public class ShopActivity extends BaseActivity {
     public void loadType() {
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<TypeFilter> call = apiService.getType(auth);
-        call.enqueue(new Callback<TypeFilter>() {
+        Call<TypeFilterShop> call = apiService.getTypeShop(auth);
+        call.enqueue(new Callback<TypeFilterShop>() {
             @Override
-            public void onResponse(@NonNull Call<TypeFilter> call, @NonNull Response<TypeFilter> response) {
+            public void onResponse(@NonNull Call<TypeFilterShop> call, @NonNull Response<TypeFilterShop> response) {
                 if (response.isSuccessful()) {
-                    TypeFilter data = response.body();
+                    TypeFilterShop data = response.body();
                     if (response.code() == 200) {
-                        typeProductAdapter.setData(data.getData());
+                        typeProductAdapter.setData(data.getData().getItems());
 //                        DataManager.getInstance().setCustomerId(data.getData().getItems().get(0).getProductId());
                     }
                 } else {
@@ -325,7 +328,7 @@ public class ShopActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(@NonNull Call<TypeFilter> call,@NonNull Throwable t) {
+            public void onFailure(@NonNull Call<TypeFilterShop> call,@NonNull Throwable t) {
                 if (!call.isCanceled()) {
                     t.printStackTrace();
                 }

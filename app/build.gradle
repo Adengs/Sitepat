@@ -90,7 +90,7 @@ dependencies {
 
     //GoogleSignIn
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation 'com.facebook.android:facebook-login:5+'
+    implementation 'com.facebook.android:facebook-login:16.0.0'
 //    implementation 'com.facebook.android:facebook-login:15.0.2'
 
     implementation 'me.samlss:lighter:1.0.3'

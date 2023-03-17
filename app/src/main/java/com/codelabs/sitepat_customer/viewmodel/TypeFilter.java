@@ -5,22 +5,22 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class TypeFilter {
-    @SerializedName("DATA")
-    private List<String> data;
-    @SerializedName("MESSAGE")
-    private String message;
-    @SerializedName("STATUS_CODE")
-    private String statusCode;
+                    @SerializedName("DATA")
+                    private List<String> data;
+                    @SerializedName("MESSAGE")
+                    private String message;
+                    @SerializedName("STATUS_CODE")
+                    private String statusCode;
 
-    public List<String> getData() {
-        return data;
-    }
+                    public List<String> getData() {
+                        return data;
+                    }
 
-    public String getMessage() {
-        return message;
-    }
+                    public String getMessage() {
+                        return message;
+                    }
 
-    public String getStatusCode() {
-        return statusCode;
-    }
+                    public String getStatusCode() {
+                        return statusCode;
+                    }
 }

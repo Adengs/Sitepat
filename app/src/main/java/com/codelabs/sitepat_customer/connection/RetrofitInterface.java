@@ -45,6 +45,7 @@ import com.codelabs.sitepat_customer.viewmodel.TermsCondition;
 import com.codelabs.sitepat_customer.viewmodel.TypeComplaint;
 import com.codelabs.sitepat_customer.viewmodel.TypeComplaintDetail;
 import com.codelabs.sitepat_customer.viewmodel.TypeFilter;
+import com.codelabs.sitepat_customer.viewmodel.TypeFilterShop;
 import com.codelabs.sitepat_customer.viewmodel.TypeService;
 import com.codelabs.sitepat_customer.viewmodel.param.UpdateProfil;
 
@@ -202,6 +203,9 @@ public interface RetrofitInterface {
 
     @GET(AppConstant.Type)
     Call<TypeFilter> getType(@Header(AppConstant.AuthTitle) String auth);
+
+    @GET(AppConstant.TypeShop)
+    Call<TypeFilterShop> getTypeShop(@Header(AppConstant.AuthTitle) String auth);
 
     @GET(AppConstant.Product)
     Call<Product> getProduct(@Header(AppConstant.AuthTitle) String auth, @Query("limit") Integer limit, @Query("active") Integer active, @Query("search") String search, @Query("brand") String brand, @Query("type") String type, @Query("minPrice") String minPrice, @Query("maxPrice") String maxPrice, @Query("sortType") String sortAZ, @Query("latitude") String latitude, @Query("longitude") String longitude, @Query("page") Integer page);

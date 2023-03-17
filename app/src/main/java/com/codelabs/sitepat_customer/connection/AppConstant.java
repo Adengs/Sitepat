@@ -44,6 +44,7 @@ public class AppConstant {
     public static final String Product = "product/api/v1/fetch";
     public static final String Brand = "product/api/v1/get-brand";
     public static final String Type = "product/api/v1/get-type";
+    public static final String TypeShop = "product-category/api/v1/fetch?limit=100";
     public static final String NewsDetail = "general/api/v1/news/detail/id={id}";
     public static final String ArticlesDetail = "api/v1/general/articles/{id}";
     public static final String Brands = "api/v1/brands";

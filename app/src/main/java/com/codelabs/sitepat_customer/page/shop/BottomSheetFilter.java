@@ -30,6 +30,7 @@ import com.codelabs.sitepat_customer.viewmodel.Brand;
 import com.codelabs.sitepat_customer.viewmodel.BrandSelected;
 import com.codelabs.sitepat_customer.viewmodel.TypeFilter;
 import com.codelabs.sitepat_customer.viewmodel.TypeFilterSelected;
+import com.codelabs.sitepat_customer.viewmodel.TypeFilterShop;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -204,14 +205,14 @@ public class BottomSheetFilter extends BottomSheetDialogFragment {
     public void loadType() {
         RetrofitInterface apiService = ApiUtils.getApiService();
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-        Call<TypeFilter> call = apiService.getTypeFilter(auth);
-        call.enqueue(new Callback<TypeFilter>() {
+        Call<TypeFilterShop> call = apiService.getTypeShop(auth);
+        call.enqueue(new Callback<TypeFilterShop>() {
             @Override
-            public void onResponse(@NonNull Call<TypeFilter> call, @NonNull Response<TypeFilter> response) {
+            public void onResponse(@NonNull Call<TypeFilterShop> call, @NonNull Response<TypeFilterShop> response) {
                 if (response.isSuccessful()) {
-                    TypeFilter data = response.body();
+                    TypeFilterShop data = response.body();
                     if (response.code() == 200) {
-                        itemTypeFilterAdapter.setData(data.getData());
+                        itemTypeFilterAdapter.setData(data.getData().getItems());
 //                        DataManager.getInstance().setCustomerId(data.getData().getItems().get(0).getProductId());
                     }
                 } else {
@@ -222,7 +223,7 @@ public class BottomSheetFilter extends BottomSheetDialogFragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<TypeFilter> call,@NonNull Throwable t) {
+            public void onFailure(@NonNull Call<TypeFilterShop> call,@NonNull Throwable t) {
                 if (!call.isCanceled()) {
                     t.printStackTrace();
                 }

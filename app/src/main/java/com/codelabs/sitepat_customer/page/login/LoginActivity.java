@@ -35,6 +35,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
@@ -118,6 +119,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void initFb(){
+        FacebookSdk.sdkInitialize(this);
+        FacebookSdk.fullyInitialize();
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
@@ -132,20 +135,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                     public void onCompleted(JSONObject object, GraphResponse response) {
                                         try {
                                             Map<String, String> params = new HashMap<>();
-                                            if (profile!=null) {
-                                                params.put("fullname",profile.getName());
-                                                params.put("facebook_id",profile.getId());
-                                                DataManager.getInstance().setFacebokId(profile.getId());
+                                         //   if (profile!=null) {
+                                                params.put("fullname",object.getString("name"));
+                                                params.put("facebook_id",object.getString("id"));
+                                                DataManager.getInstance().setFacebokId(object.getString("id"));
                                                 if (object.has("email")){
                                                     params.put("username", object.getString("email"));
                                                 }else{
                                                     params.put("username",object.getString("id"));
                                                 }
                                                 handleLoginFacebook(params);
-                                            } else {
+                                          //  } else {
 //                                                showToast("Cannot show fb");
-                                               showToast("Please check your account" + " " + response.getRawResponse());
-                                            }
+                                       //        showToast("Please check your account" + " " + response.getRawResponse());
+                                         //   }
 
 
 

@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.codelabs.sitepat_customer.R
 import com.codelabs.sitepat_customer.connection.DataManager
 import com.codelabs.sitepat_customer.viewmodel.ItemMyCar
@@ -29,7 +31,12 @@ class MyCarAdapter(val c: Context, var items: List<ItemMyCar>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         if (items[position].image.isNotEmpty())
-            Picasso.get().load(items[position].image).into(holder.itemView.iv_mobil)
+            Glide.with(holder.itemView.context)
+                .load(items[position].image)
+                .thumbnail(0.25f)
+                .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                .dontTransform()
+                .into(holder.itemView.iv_mobil)
         holder.itemView.tv_plat_no.text = items[position].carPlateNumber
         holder.itemView.tv_tipe_mobil.text = items[position].carName
         holder.itemView.tv_tahun_mobil.text = items[position].carYear

@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.connection.ApiError;
 import com.codelabs.sitepat_customer.connection.ApiUtils;
@@ -123,8 +125,11 @@ public class PromoDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void dataPromoDetail() {
-        Picasso.get()
+        Glide.with(this)
                 .load(responseData.getImage())
+                .thumbnail(0.25f)
+                .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                .dontTransform()
                 .into(ivPromo);
 
         tvPeriodePromo.setText(RecentUtils.formatDateToDateDM(responseData.getPeriod_start()) + " - " + RecentUtils.formatDateToDateDMY(responseData.getPeriod_end()));

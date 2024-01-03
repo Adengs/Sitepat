@@ -13,6 +13,8 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.connection.DataManager;
 import com.codelabs.sitepat_customer.page.outlet.OutletDetailActivity;
@@ -53,11 +55,13 @@ public class OutletAdapter extends RecyclerView.Adapter<OutletAdapter.viewHolder
         if (outletList.get(position).getSiteimage().equals("")) {
             holder.ivOutlet.setImageResource(R.drawable.background_outlet_status);
         } else {
-            Picasso.get()
+            Glide.with(mContext)
                     .load(outletList.get(position).getSiteimage())
-                    .fit().centerCrop()
+                    .centerCrop()
                     .placeholder(R.drawable.background_outlet_status)
                     .error(R.drawable.background_outlet_status)
+                    .thumbnail(0.25f)
+                    .diskCacheStrategy( DiskCacheStrategy.ALL )
                     .into(holder.ivOutlet);
         }
 

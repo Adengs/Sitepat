@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.connection.ApiError;
 import com.codelabs.sitepat_customer.connection.ApiUtils;
@@ -171,9 +173,11 @@ public class OutletDetailActivity extends BaseActivity implements View.OnClickLi
         if (DataManager.getInstance().getImageOutlet().equals("")) {
             ivOutlet.setImageResource(R.drawable.background_outlet_status);
         } else {
-            Picasso.get()
+            Glide.with(this)
                     .load(DataManager.getInstance().getImageOutlet())
-                    .fit().centerCrop()
+                    .centerCrop()
+                    .thumbnail(0.25f)
+                    .diskCacheStrategy( DiskCacheStrategy.ALL )
                     .into(ivOutlet);
         }
 

@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.codelabs.sitepat_customer.R
 import com.codelabs.sitepat_customer.adapter.BrandCarAdapter
 import com.codelabs.sitepat_customer.adapter.BrandTypeCarAdapter
@@ -50,12 +52,12 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
     private var responseTypeCar: List<BrandTypesCar.ItemsBrandType> = ArrayList()
 
     var adapterBrandCar: BrandCarAdapter? = null
-    var adapterBrandType : BrandTypeCarAdapter? = null
+    var adapterBrandType: BrandTypeCarAdapter? = null
     var keyword = ""
     var brandName: String? = null
-    var typeName : String? = null
-    var idBrand : Int? = null
-    var idType : Int? = null
+    var typeName: String? = null
+    var idBrand: Int? = null
+    var idType: Int? = null
 
 
     var brandId: Int? = null
@@ -109,46 +111,54 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
     private fun getData() {
         showDialogProgress("Getting My Car")
         val auth = AppConstant.AuthValue + " " + DataManager.getInstance().token
-        val call : Call<MyCar> = ApiUtils.getApiService().getCustomerCar(auth)
+        val call: Call<MyCar> = ApiUtils.getApiService().getCustomerCar(auth)
         call.enqueue(object : Callback<MyCar> {
             override fun onResponse(call: Call<MyCar>, dataA: Response<MyCar>) {
                 hideDialogProgress()
                 if (dataA.isSuccessful) {
                     val response = dataA.body()
                     if (dataA.code() == 200) {
-                        val dataa = response?.data?.items?.get(0)!!
+                        if (response?.data?.items?.isEmpty()!!) {
+
+                        } else {
+                            val dataa = response?.data?.items?.get(0)!!
 //                        intent.putExtra("DATA", response?.data?.items?.get(0)!!)
 //                        adapter.notifyDataSetChanged()
 
-                        if (intent.getBooleanExtra("IS_EDIT", false)) {
-                            tv_title.text = getString(R.string.edit_car)
-                            data = intent.getSerializableExtra("DATA") as ItemMyCar
-                            Log.e("Edit", "initView: " + dataa.carColor )
+                            if (intent.getBooleanExtra("IS_EDIT", false)) {
+                                tv_title.text = getString(R.string.edit_car)
+                                data = intent.getSerializableExtra("DATA") as ItemMyCar
+                                Log.e("Edit", "initView: " + dataa.carColor)
 
-                            if (dataa.image.isNotEmpty()) {
-                                btn_add_image.visibility = View.GONE
-                                Picasso.get().load(dataa.image).into(iv_new_car)
-                            }
+                                if (dataa.image.isNotEmpty()) {
+                                    btn_add_image.visibility = View.GONE
+                                    Glide.with(this@AddNewCarActivity)
+                                        .load(dataa.image).thumbnail(0.25f)
+                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                                    .dontTransform()
+                                        .into(iv_new_car)
+                                }
 //            txt_car_name.setText(data.carName)
 
 
-                            tv_select_brand.setText(dataa.brand.brandName)
-                            tv_select_type.setText(dataa.brandType.typeName)
-                            idBrand = dataa.brand.brandId
-                            idType = dataa.brandType.typeId
-                            txt_no_plate.setText(dataa.carPlateNumber)
-                            txt_year.setText(dataa.carYear)
-                            txt_color.setText(dataa.carColor)
-                            txt_cc.setText(dataa.carCc)
+                                tv_select_brand.setText(dataa.brand.brandName)
+                                tv_select_type.setText(dataa.brandType.typeName)
+                                idBrand = dataa.brand.brandId
+                                idType = dataa.brandType.typeId
+                                txt_no_plate.setText(dataa.carPlateNumber)
+                                txt_year.setText(dataa.carYear)
+                                txt_color.setText(dataa.carColor)
+                                txt_cc.setText(dataa.carCc)
 
-                            btn_add_car.text = getString(R.string.save_car)
-                            btn_add_car.setOnClickListener {
-                                val rr = Intent()
+                                btn_add_car.text = getString(R.string.save_car)
+                                btn_add_car.setOnClickListener {
+                                    val rr = Intent()
 //                rr.putExtra("shot", 1)
-                                edit()
+                                    edit()
 //                EventBus.getDefault().post(Edit())
 //                Log.e("CEK CLICK ADD SAVE", "onEdit: " )
 //                Toast.makeText(this, "CEK CLICK ADD SAVE", Toast.LENGTH_SHORT).show()
+                                }
                             }
                         }
                     }
@@ -236,7 +246,6 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
 //        handleSpinnerBrand()
 //        handleSpinnerType()
     }
-
 
 
     private fun edit() {
@@ -447,7 +456,12 @@ class AddNewCarActivity : BaseActivity(), FilePickUtils.OnFileChoose, View.OnCli
         val byteArrayOutputStream =
             ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 70, byteArrayOutputStream)
-        Picasso.get().load(imageFoto).into(iv_new_car)
+        Glide.with(this)
+            .load(imageFoto)
+            .thumbnail(0.25f)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+//            .dontTransform()
+            .into(iv_new_car)
     }
 
 

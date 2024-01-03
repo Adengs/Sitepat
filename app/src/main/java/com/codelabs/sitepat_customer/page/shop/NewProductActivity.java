@@ -267,11 +267,11 @@ public class NewProductActivity extends BaseActivity {
     }
 
     private void getCountCart(){
-//        String lat = DataManager.getInstance().getLatitude();
-//        String lon = DataManager.getInstance().getLongitude();
+        String lat = DataManager.getInstance().getLatitude();
+        String lon = DataManager.getInstance().getLongitude();
 
-        String lat = "-6.2611493";
-        String lon = "106.8776033";
+//        String lat = "-6.2611493";
+//        String lon = "106.8776033";
         String custId = String.valueOf(DataManager.getInstance().getCustomerId());
         String custName = DataManager.getInstance().getName();
         int cleanCart = 0;

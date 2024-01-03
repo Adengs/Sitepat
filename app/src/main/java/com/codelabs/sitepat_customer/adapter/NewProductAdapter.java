@@ -13,6 +13,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.page.shop.DetailProduct;
 import com.codelabs.sitepat_customer.viewmodel.NewProduct;
@@ -53,8 +55,11 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.vi
         if (image.isEmpty()){
 
         }else {
-            Picasso.get()
+            Glide.with(mContext)
                     .load(image)
+                    .thumbnail(0.25f)
+                    .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                    .dontTransform()
                     .into(holder.ivNewProduct);
         }
 

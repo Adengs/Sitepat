@@ -14,8 +14,8 @@ public class AppConstant {
     public static final String AcceptValue = "application/json";
     public static final long TIMER_AUTO_LOGOUT = 900000;
 
-//    public static final String HostAPI = "http://178.128.62.50/sitepat/sitepat-gateway/";
-    public static final String HostAPI = "http://gateway.sitepatdigitalmotoshop.com/";
+    public static final String HostAPI = "http://178.128.62.50/sitepat/sitepat-gateway/"; // dev
+//    public static final String HostAPI = "http://gateway.sitepatdigitalmotoshop.com/"; //live
     public static final String MapsAPI = "https://nominatim.openstreetmap.org/search";
 
     public static final String Walkthrough = "general/api/v1/walkthrough";

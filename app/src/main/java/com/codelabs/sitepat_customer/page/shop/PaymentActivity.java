@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.adapter.EWalletAdapter;
+import com.codelabs.sitepat_customer.adapter.PaylaterAdapter;
+import com.codelabs.sitepat_customer.adapter.RetailAdapter;
 import com.codelabs.sitepat_customer.adapter.TypeServiceChosessHome;
 import com.codelabs.sitepat_customer.adapter.VirtualAccountAdapter;
 import com.codelabs.sitepat_customer.connection.ApiError;
@@ -109,6 +111,7 @@ public class PaymentActivity extends BaseActivity {
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.rv_VA)
     RecyclerView rvVa;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.e_wallet)
     LinearLayout layEw;
     @SuppressLint("NonConstantResourceId")
@@ -120,6 +123,30 @@ public class PaymentActivity extends BaseActivity {
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.rv_EW)
     RecyclerView rvEw;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.paylater)
+    LinearLayout layPL;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.open_arrow_pl)
+    AppCompatImageView openArrowPl;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.close_arrow_pl)
+    AppCompatImageView closeArrowPl;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.rv_PL)
+    RecyclerView rvPl;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.retail)
+    LinearLayout layRL;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.open_arrow_rl)
+    AppCompatImageView openArrowRl;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.close_arrow_rl)
+    AppCompatImageView closeArrowRl;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.rv_RL)
+    RecyclerView rvRl;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.card_location)
     CardView cardLocation;
@@ -135,6 +162,8 @@ public class PaymentActivity extends BaseActivity {
 
     VirtualAccountAdapter virtualAccountAdapter;
     EWalletAdapter eWalletAdapter;
+    PaylaterAdapter paylaterAdapter;
+    RetailAdapter retailAdapter;
 
     private BottomSheetContact bottomSheetContact = new BottomSheetContact();
     private BottomSheetOutlet bottomSheetOutlet = new BottomSheetOutlet();
@@ -175,6 +204,8 @@ public class PaymentActivity extends BaseActivity {
         showDetail.setVisibility(View.VISIBLE);
         rvVa.setVisibility(View.GONE);
         rvEw.setVisibility(View.GONE);
+        rvPl.setVisibility(View.GONE);
+        rvRl.setVisibility(View.GONE);
 
         if (DataManager.getInstance().getProvinceOutlet().equals("")){
 
@@ -199,6 +230,14 @@ public class PaymentActivity extends BaseActivity {
         rvEw.setLayoutManager(new LinearLayoutManager(this));
         eWalletAdapter = new EWalletAdapter(this);
         rvEw.setAdapter(eWalletAdapter);
+
+        rvPl.setLayoutManager(new LinearLayoutManager(this));
+        paylaterAdapter = new PaylaterAdapter(this);
+        rvPl.setAdapter(paylaterAdapter);
+
+        rvRl.setLayoutManager(new LinearLayoutManager(this));
+        retailAdapter = new RetailAdapter(this);
+        rvRl.setAdapter(retailAdapter);
     }
 
     private void initSetup() {
@@ -238,7 +277,10 @@ public class PaymentActivity extends BaseActivity {
             public void onClick(View v) {
                 if (DataManager.getInstance().getProvinceOutlet().equals("")){
                     Toast.makeText(v.getContext(), "Outlet not selected", Toast.LENGTH_SHORT).show();
-                }else{
+                }else if (DataManager.getInstance().getContactContact().equals("")) {
+                    Toast.makeText(v.getContext(), "Phone number cannot be empty", Toast.LENGTH_SHORT).show();
+                }
+                else{
                     confirmPayment();
                     DataManager.getInstance().setNameContact("");
                     DataManager.getInstance().setAddressContact("");
@@ -310,6 +352,42 @@ public class PaymentActivity extends BaseActivity {
                 closeArrowEw.setVisibility(View.GONE);
             }
         });
+
+        openArrowPl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openArrowPl.setVisibility(View.GONE);
+                rvPl.setVisibility(View.VISIBLE);
+                closeArrowPl.setVisibility(View.VISIBLE);
+            }
+        });
+
+        closeArrowPl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openArrowPl.setVisibility(View.VISIBLE);
+                rvPl.setVisibility(View.GONE);
+                closeArrowPl.setVisibility(View.GONE);
+            }
+        });
+
+        openArrowRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openArrowRl.setVisibility(View.GONE);
+                rvRl.setVisibility(View.VISIBLE);
+                closeArrowRl.setVisibility(View.VISIBLE);
+            }
+        });
+
+        closeArrowRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openArrowRl.setVisibility(View.VISIBLE);
+                rvRl.setVisibility(View.GONE);
+                closeArrowRl.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void fetchData(){
@@ -317,6 +395,8 @@ public class PaymentActivity extends BaseActivity {
         getCartProduct();
         loadVA();
         loadEW();
+        loadPl();
+        loadRl();
     }
 
     public void loadContactInformation(){
@@ -358,8 +438,10 @@ public class PaymentActivity extends BaseActivity {
     }
 
     private void getCartProduct(){
-        String lat = "-6.2611493";
-        String lon = "106.8776033";
+        String lat = DataManager.getInstance().getLatitude();
+        String lon = DataManager.getInstance().getLongitude();
+//        String lat = "-6.2611493";
+//        String lon = "106.8776033";
         String custId = String.valueOf(DataManager.getInstance().getCustomerId());
         String custName = DataManager.getInstance().getName();
         int cleanCart = 0;
@@ -487,6 +569,64 @@ public class PaymentActivity extends BaseActivity {
         });
     }
 
+    public void loadPl(){
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+        String categoryVa = "paylater";
+        Call<PaymentMethod> call = apiService.getListPayment(auth, categoryVa);
+        call.enqueue(new Callback<PaymentMethod>() {
+            @Override
+            public void onResponse(@NonNull Call<PaymentMethod> call, @NonNull Response<PaymentMethod> response) {
+                if (response.isSuccessful()) {
+                    PaymentMethod data = response.body();
+                    if (response.code() == 200) {
+                        paylaterAdapter.setData(data.getData());
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(response);
+                    showToast(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PaymentMethod> call, @NonNull Throwable t) {
+                t.printStackTrace();
+                if (!call.isCanceled()) {
+                    showToast(getString(R.string.toast_onfailure));
+                }
+            }
+        });
+    }
+
+    public void loadRl(){
+        RetrofitInterface apiService = ApiUtils.getApiService();
+        String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
+        String categoryVa = "retail";
+        Call<PaymentMethod> call = apiService.getListPayment(auth, categoryVa);
+        call.enqueue(new Callback<PaymentMethod>() {
+            @Override
+            public void onResponse(@NonNull Call<PaymentMethod> call, @NonNull Response<PaymentMethod> response) {
+                if (response.isSuccessful()) {
+                    PaymentMethod data = response.body();
+                    if (response.code() == 200) {
+                        retailAdapter.setData(data.getData());
+                    }
+                } else {
+                    ApiError error = ErrorUtils.parseError(response);
+                    showToast(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PaymentMethod> call, @NonNull Throwable t) {
+                t.printStackTrace();
+                if (!call.isCanceled()) {
+                    showToast(getString(R.string.toast_onfailure));
+                }
+            }
+        });
+    }
+
     public void confirmPayment(){
         showDialogProgress("Getting Payment Method");
         RetrofitInterface apiService = ApiUtils.getApiService();
@@ -574,6 +714,7 @@ public class PaymentActivity extends BaseActivity {
                     CreateInvoice data = response.body();
                     if (response.code() == 200) {
                         showToast(data.getMessage());
+                        Log.e("URL", "onResponse: " + data.getData().getInvoiceUrl());
                         DataManager.getInstance().setInvoiceUrl(data.getData().getInvoiceUrl());
                         Intent intent = new Intent(PaymentActivity.this, PaymentMethodActivity.class);
                         startActivity(intent);

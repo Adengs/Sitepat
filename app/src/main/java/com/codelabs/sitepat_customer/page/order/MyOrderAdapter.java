@@ -18,6 +18,8 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.adapter.OutletAdapter;
 import com.codelabs.sitepat_customer.connection.DataManager;
@@ -91,11 +93,14 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.viewHold
         if (image.equals("")) {
             holder.imgProduct.setImageResource(R.drawable.img_dummy_myorder);
         } else {
-            Picasso.get()
+            Glide.with(mContext)
                     .load(image)
-                    .fit().centerCrop()
+                    .centerCrop()
                     .placeholder(R.drawable.background_outlet_status)
                     .error(R.drawable.background_outlet_status)
+                    .thumbnail(0.25f)
+                    .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                    .dontTransform()
                     .into(holder.imgProduct);
         }
 

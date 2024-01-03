@@ -60,6 +60,9 @@ public class PaymentMethodActivity extends AppCompatActivity {
         }
 
         wv.getSettings().setJavaScriptEnabled(true);
+        wv.getSettings().setDomStorageEnabled(true);
+        wv.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        wv.getSettings().setUseWideViewPort(true);
         wv.setWebChromeClient(new WebChromeClient());
         wv.setWebViewClient(new WebViewClient() {
 

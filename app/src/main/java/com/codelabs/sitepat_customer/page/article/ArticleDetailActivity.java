@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.connection.ApiError;
 import com.codelabs.sitepat_customer.connection.ApiUtils;
@@ -144,12 +146,18 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     public void dataArticleDetail() {
-        Picasso.get()
+        Glide.with(this)
                 .load(responseData.getImageUrl())
+                .thumbnail(0.25f)
+                .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                .dontTransform()
                 .into(ivPromo);
 
-        Picasso.get()
+        Glide.with(this)
                 .load(responseData.getImageUrl())
+                .thumbnail(0.25f)
+                .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                .dontTransform()
                 .into(ivYoutube);
 
         if (responseData.getIsVideo() == 1) {

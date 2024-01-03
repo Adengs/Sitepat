@@ -15,6 +15,8 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.page.shop.DetailProduct;
 import com.codelabs.sitepat_customer.viewmodel.CartProduct;
@@ -80,8 +82,11 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         if (image.isEmpty()){
 
         }else {
-            Picasso.get()
+            Glide.with(mContext)
                     .load(image)
+                    .thumbnail(0.25f)
+                    .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                    .dontTransform()
                     .into(holder.imgProduct);
         }
 

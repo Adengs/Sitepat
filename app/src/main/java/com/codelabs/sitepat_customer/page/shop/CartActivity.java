@@ -236,12 +236,12 @@ public class CartActivity extends BaseActivity {
     }
 
     private void getCartProduct(){
-//        String lat = DataManager.getInstance().getLatitude();
-//        String lon = DataManager.getInstance().getLongitude();
         showDialogProgress("Getting Cart Product");
+        String lat = DataManager.getInstance().getLatitude();
+        String lon = DataManager.getInstance().getLongitude();
 
-        String lat = "-6.2611493";
-        String lon = "106.8776033";
+//        String lat = "-6.2611493";
+//        String lon = "106.8776033";
         String custId = String.valueOf(DataManager.getInstance().getCustomerId());
         String custName = DataManager.getInstance().getName();
         int cleanCart = 0;
@@ -305,12 +305,12 @@ public class CartActivity extends BaseActivity {
         RetrofitInterface apiService = ApiUtils.getApiService();
         String cartProductId = String.valueOf(DataManager.getInstance().getCartProduct());
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-//        String lat = DataManager.getInstance().getLatitude();
-//        String lon = DataManager.getInstance().getLongitude();
+        String lat = DataManager.getInstance().getLatitude();
+        String lon = DataManager.getInstance().getLongitude();
 //        int productQtyDefault = qtyProduct + 1;
 //        int price = priceProduct * productQtyDefault;
-        String lat = "-6.2611493";
-        String lon = "106.8776033";
+//        String lat = "-6.2611493";
+//        String lon = "106.8776033";
         String productNote = "";
         String discId = "";
         String discName = "";
@@ -365,12 +365,12 @@ public class CartActivity extends BaseActivity {
         RetrofitInterface apiService = ApiUtils.getApiService();
         String cartProductId = String.valueOf(DataManager.getInstance().getCartProduct());
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-//        String lat = DataManager.getInstance().getLatitude();
-//        String lon = DataManager.getInstance().getLongitude();
+        String lat = DataManager.getInstance().getLatitude();
+        String lon = DataManager.getInstance().getLongitude();
 //        int productQtyDefault = qtyProduct - 1;
 //        int price = priceProduct * productQtyDefault;
-        String lat = "-6.2611493";
-        String lon = "106.8776033";
+//        String lat = "-6.2611493";
+//        String lon = "106.8776033";
         String productNote = "";
         String discId = "";
         String discName = "";
@@ -425,12 +425,12 @@ public class CartActivity extends BaseActivity {
         RetrofitInterface apiService = ApiUtils.getApiService();
         String cartProductId = String.valueOf(DataManager.getInstance().getCartProduct());
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-//        String lat = DataManager.getInstance().getLatitude();
-//        String lon = DataManager.getInstance().getLongitude();
+        String lat = DataManager.getInstance().getLatitude();
+        String lon = DataManager.getInstance().getLongitude();
 //        int productQtyDefault = qtyProduct - 1;
 //        int price = priceProduct * productQtyDefault;
-        String lat = "-6.2611493";
-        String lon = "106.8776033";
+//        String lat = "-6.2611493";
+//        String lon = "106.8776033";
         String productNote = "";
         String discId = "";
         String discName = "";
@@ -475,12 +475,12 @@ public class CartActivity extends BaseActivity {
         RetrofitInterface apiService = ApiUtils.getApiService();
         String cartProductId = String.valueOf(DataManager.getInstance().getCartProduct());
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-//        String lat = DataManager.getInstance().getLatitude();
-//        String lon = DataManager.getInstance().getLongitude();
+        String lat = DataManager.getInstance().getLatitude();
+        String lon = DataManager.getInstance().getLongitude();
 //        int productQtyDefault = qtyProduct - 1;
 //        int price = priceProduct * productQtyDefault;
-        String lat = "-6.2611493";
-        String lon = "106.8776033";
+//        String lat = "-6.2611493";
+//        String lon = "106.8776033";
         String productNote = "";
         String discId = "";
         String discName = "";

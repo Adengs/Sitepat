@@ -1,18 +1,20 @@
 {
-  "version": 2,
+  "version": 3,
   "artifactType": {
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.codelabs.dokter_mobil_customer",
-  "variantName": "processReleaseResources",
+  "applicationId": "com.codelabs.sitepat_customer",
+  "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 1,
-      "versionName": "1.0",
+      "attributes": [],
+      "versionCode": 5,
+      "versionName": "4.1",
       "outputFile": "app-release.apk"
     }
-  ]
+  ],
+  "elementType": "File"
 }

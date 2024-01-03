@@ -14,6 +14,8 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.viewmodel.PaymentMethod;
 import com.squareup.picasso.Picasso;
@@ -61,8 +63,11 @@ public class EWalletAdapter extends RecyclerView.Adapter<EWalletAdapter.viewHold
         if (imageBank.isEmpty()){
 
         }else {
-            Picasso.get()
+            Glide.with(mContext)
                     .load(imageBank)
+                    .thumbnail(0.25f)
+                    .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                    .dontTransform()
                     .into(holder.imgBank);
         }
         holder.nameBank.setText(bankName);

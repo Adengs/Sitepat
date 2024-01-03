@@ -15,8 +15,8 @@ android {
         applicationId "com.codelabs.sitepat_customer"
         minSdkVersion 19
         targetSdkVersion 31
-        versionCode 3
-        versionName "3.0"
+        versionCode 5
+        versionName "4.1"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,6 +37,11 @@ android {
     buildFeatures {
         viewBinding true
         dataBinding true
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 
@@ -107,4 +112,6 @@ dependencies {
     implementation 'com.github.arcadefire:nice-spinner:1.4.5'
     implementation 'com.github.Batterii:PagingRecycler:v1.1.1'
 
+//    implementation 'com.facebook.fresco:fresco:3.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
 }

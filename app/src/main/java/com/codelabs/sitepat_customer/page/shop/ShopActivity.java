@@ -579,11 +579,11 @@ public class ShopActivity extends BaseActivity {
     }
 
     private void getCountCart(){
-//        String lat = DataManager.getInstance().getLatitude();
-//        String lon = DataManager.getInstance().getLongitude();
+        String lat = DataManager.getInstance().getLatitude();
+        String lon = DataManager.getInstance().getLongitude();
 
-        String lat = "-6.2611493";
-        String lon = "106.8776033";
+//        String lat = "-6.2611493";
+//        String lon = "106.8776033";
         String custId = String.valueOf(DataManager.getInstance().getCustomerId());
         String custName = DataManager.getInstance().getName();
         int cleanCart = 0;
@@ -602,12 +602,13 @@ public class ShopActivity extends BaseActivity {
                 if (response.isSuccessful()) {
                     CartProduct data = response.body();
                     if (response.code() == 200) {
-                        if (data.getData().getItems().size() == 0){
-                            cardCart.setVisibility(View.GONE);
-                        }else{
-                            cardCart.setVisibility(View.VISIBLE);
-                            tvCountCart.setText(String.valueOf(data.getData().getItems().size()));
-                        }
+                            Log.e("TAG", "Size item cart: " + data.getData().getItems().size());
+                            if (data.getData().getItems().size() == 0) {
+                                cardCart.setVisibility(View.GONE);
+                            } else {
+                                cardCart.setVisibility(View.VISIBLE);
+                                tvCountCart.setText(String.valueOf(data.getData().getItems().size()));
+                            }
                     }
                 } else {
                     ApiError error = ErrorUtils.parseError(response);
@@ -626,6 +627,7 @@ public class ShopActivity extends BaseActivity {
     @Subscribe
     public void onItemSelected(CartSelected cartSelected){
         type = cartSelected.productType;
+        page = 1;
         loadProduct();
     }
 

@@ -16,6 +16,8 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.codelabs.sitepat_customer.R
 import com.codelabs.sitepat_customer.connection.ApiUtils
 import com.codelabs.sitepat_customer.connection.AppConstant
@@ -182,7 +184,12 @@ class DetailCarActivity : BaseActivity() {
             if (data?.detail?.isMaintenance == 1) View.VISIBLE else View.INVISIBLE
 
         if (data?.detail?.image!!.isNotEmpty())
-            Picasso.get().load(data?.detail?.image).into(iv_mobil)
+            Glide.with(this)
+                .load(data?.detail?.image)
+                .thumbnail(0.25f)
+                .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                .dontTransform()
+                .into(iv_mobil)
         tv_plat_no.text = data?.detail?.carPlateNumber
         tv_tipe_mobil.text = data?.detail?.carName
         tv_tahun_mobil.text = data?.detail?.carYear

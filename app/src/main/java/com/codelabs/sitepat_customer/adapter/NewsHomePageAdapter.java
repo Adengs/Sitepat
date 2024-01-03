@@ -13,6 +13,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.page.news.NewsDetailActivity;
 import com.codelabs.sitepat_customer.utils.RecentUtils;
@@ -45,8 +47,11 @@ public class NewsHomePageAdapter extends RecyclerView.Adapter<NewsHomePageAdapte
 
     @Override
     public void onBindViewHolder(@NonNull NewsHomePageAdapter.viewHolder holder, int position) {
-        Picasso.get()
+        Glide.with(mContext)
                 .load(newsList.get(position).getImage())
+                .thumbnail(0.25f)
+                .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                .dontTransform()
                 .into(holder.ivArticle);
 
         holder.containerArticle.setOnClickListener(new View.OnClickListener() {

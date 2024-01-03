@@ -12,6 +12,8 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.connection.DataManager;
 import com.codelabs.sitepat_customer.viewmodel.MyMotocycle;
@@ -61,8 +63,11 @@ public class MyMotocycleAdapter extends RecyclerView.Adapter<MyMotocycleAdapter.
         if (image.isEmpty()){
 
         }else {
-            Picasso.get()
+            Glide.with(mContext)
                     .load(image)
+                    .thumbnail(0.25f)
+                    .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                    .dontTransform()
                     .into(holder.ivMotocycle);
         }
 

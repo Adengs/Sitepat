@@ -155,35 +155,35 @@ public class DataManager {
     }
 
     public String getLatitude() {
-        return getTempJSON("latitude");
+        return getTempJSON("latitude1");
     }
 
     public void setLatitudeOutlet(String latitudeOutlet) {
-        setTempJson("latitude", latitudeOutlet);
+        setTempJson("latitude1", latitudeOutlet);
     }
 
     public String getLat() {
-        return getTempJSON("latitude");
+        return getTempJSON("latitude2");
     }
 
     public void setLat(String latitude) {
-        setTempJson("latitude", latitude);
+        setTempJson("latitude2", latitude);
     }
 
     public String getLongitude() {
-        return getTempJSON("longitude");
+        return getTempJSON("longitude1");
     }
 
     public void setLongitudeOutlet(String longitudeOutlet) {
-        setTempJson("longitude", longitudeOutlet);
+        setTempJson("longitude1", longitudeOutlet);
     }
 
     public String getLong() {
-        return getTempJSON("longitude");
+        return getTempJSON("longitude2");
     }
 
     public void setLong(String longitude) {
-        setTempJson("longitude", longitude);
+        setTempJson("longitude2", longitude);
     }
 
     public String getFacebookId() {

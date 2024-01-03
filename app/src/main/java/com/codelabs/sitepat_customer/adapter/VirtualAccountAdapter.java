@@ -15,6 +15,8 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.viewmodel.Maps;
 import com.codelabs.sitepat_customer.viewmodel.PaymentMethod;
@@ -63,8 +65,11 @@ public class VirtualAccountAdapter extends RecyclerView.Adapter<VirtualAccountAd
         if (imageBank.isEmpty()){
 
         }else {
-            Picasso.get()
+            Glide.with(mContext)
                     .load(imageBank)
+                    .thumbnail(0.25f)
+                    .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                    .dontTransform()
                     .into(holder.imgBank);
         }
         holder.nameBank.setText(bankName);

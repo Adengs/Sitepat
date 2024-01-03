@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.page.promo.PromoDetailActivity;
 import com.codelabs.sitepat_customer.viewmodel.Promo;
@@ -47,8 +49,10 @@ public class PromoBannerAdapter extends RecyclerView.Adapter<PromoBannerAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PromoBannerAdapter.viewHolder holder, int position) {
-        Picasso.get()
+        Glide.with(mContext)
                 .load(promoList.get(position).getImage())
+                .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                .dontTransform()
                 .into(holder.ivPromo);
 
         holder.ivPromo.setOnClickListener(new View.OnClickListener() {

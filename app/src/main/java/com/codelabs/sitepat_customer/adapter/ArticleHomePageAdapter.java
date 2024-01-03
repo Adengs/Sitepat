@@ -13,6 +13,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.page.article.ArticleDetailActivity;
 import com.codelabs.sitepat_customer.viewmodel.Articles;
@@ -53,8 +55,11 @@ public class ArticleHomePageAdapter extends RecyclerView.Adapter<ArticleHomePage
 
     @Override
     public void onBindViewHolder(@NonNull ArticleHomePageAdapter.viewHolder holder, int position) {
-        Picasso.get()
+        Glide.with(mContext)
                 .load(articlesList.get(position).getImageUrl())
+                .thumbnail(0.25f)
+                .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                .dontTransform()
                 .into(holder.ivArticle);
 
         holder.containerArticle.setOnClickListener(new View.OnClickListener() {

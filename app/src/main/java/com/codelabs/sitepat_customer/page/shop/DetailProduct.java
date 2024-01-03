@@ -15,6 +15,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codelabs.sitepat_customer.R;
 import com.codelabs.sitepat_customer.connection.ApiError;
 import com.codelabs.sitepat_customer.connection.ApiUtils;
@@ -255,8 +257,11 @@ public class DetailProduct extends BaseActivity{
         if (image.isEmpty()){
 
         }else {
-            Picasso.get()
+            Glide.with(context)
                     .load(image)
+                    .thumbnail(0.25f)
+                    .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                    .dontTransform()
                     .into(imgProduct);
         }
 
@@ -284,11 +289,11 @@ public class DetailProduct extends BaseActivity{
         RetrofitInterface apiService = ApiUtils.getApiService();
         String cartProductId = String.valueOf(DataManager.getInstance().getCartProduct());
         String auth = AppConstant.AuthValue + " " + DataManager.getInstance().getToken();
-//        String lat = DataManager.getInstance().getLatitude();
-//        String lon = DataManager.getInstance().getLongitude();
+        String lat = DataManager.getInstance().getLatitude();
+        String lon = DataManager.getInstance().getLongitude();
         int productQtyDefault = 1;
-        String lat = "-6.2611493";
-        String lon = "106.8776033";
+//        String lat = "-6.2611493";
+//        String lon = "106.8776033";
         String productNote = "";
         String discId = "";
         String discName = "";
@@ -339,12 +344,12 @@ public class DetailProduct extends BaseActivity{
     }
 
     private void getCountCart(){
-//        String lat = DataManager.getInstance().getLatitude();
-//        String lon = DataManager.getInstance().getLongitude();
+        String lat = DataManager.getInstance().getLatitude();
+        String lon = DataManager.getInstance().getLongitude();
 
 //        showDialogProgress("Add to cart");
-        String lat = "-6.2611493";
-        String lon = "106.8776033";
+//        String lat = "-6.2611493";
+//        String lon = "106.8776033";
         String custId = String.valueOf(DataManager.getInstance().getCustomerId());
         String custName = DataManager.getInstance().getName();
         int cleanCart = 0;

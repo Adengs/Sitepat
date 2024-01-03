@@ -43,6 +43,8 @@ import android.widget.Toast
 
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 
 class EditProfileActivity : BaseActivity(), FilePickUtils.OnFileChoose {
@@ -135,7 +137,12 @@ class EditProfileActivity : BaseActivity(), FilePickUtils.OnFileChoose {
 
     private fun setData() {
         if (dataProfile.image!!.length > 0)
-            Picasso.get().load(dataProfile.image).into(iv_profil)
+            Glide.with(this)
+                .load(dataProfile.image)
+                .thumbnail(0.25f)
+                .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                .dontTransform()
+                .into(iv_profil)
 
         txt_name.setText(dataProfile.customerName)
         txt_email.setText(dataProfile.customerEmail)
@@ -342,7 +349,12 @@ class EditProfileActivity : BaseActivity(), FilePickUtils.OnFileChoose {
         val byteArrayOutputStream =
             ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 70, byteArrayOutputStream)
-        Picasso.get().load(imageFoto).into(iv_profil)
+        Glide.with(this)
+            .load(imageFoto)
+            .thumbnail(0.25f)
+            .diskCacheStrategy( DiskCacheStrategy.ALL )
+//            .dontTransform()
+            .into(iv_profil)
     }
 
 //    private fun showPopupWindow(): View.OnClickListener {

@@ -270,6 +270,8 @@
     <string name="ttl_price">Total price</string>
     <string name="virtual_account">Virtual Account</string>
     <string name="e_wallet">E-Wallet</string>
+    <string name="paylater">Paylater</string>
+    <string name="retail">Retail</string>
     <string name="bca">BCA Virtual Account</string>
     <string name="mandiri">Mandiri Virtual Account</string>
     <string name="bni">BNI Virtual Account</string>

@@ -2,6 +2,8 @@ package com.codelabs.sitepat_customer.page.account
 
 import android.content.Intent
 import android.os.Bundle
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.codelabs.sitepat_customer.R
 import com.codelabs.sitepat_customer.connection.ApiUtils
 import com.codelabs.sitepat_customer.connection.AppConstant
@@ -82,7 +84,12 @@ class MyAccountActivity : BaseActivity() {
                         tv_name.text = response?.dataProfile?.customerName
                         tv_email.text = response?.dataProfile?.customerEmail
                         if (response?.dataProfile?.image!!.length > 0)
-                            Picasso.get().load(response?.dataProfile?.image).into(iv_photo)
+                            Glide.with(this@MyAccountActivity)
+                                .load(response?.dataProfile?.image)
+                                .thumbnail(0.25f)
+                                .diskCacheStrategy( DiskCacheStrategy.ALL )
+//                                .dontTransform()
+                                .into(iv_photo)
                     }
                 } else {
                     val error = ErrorUtils.parseError(data)
